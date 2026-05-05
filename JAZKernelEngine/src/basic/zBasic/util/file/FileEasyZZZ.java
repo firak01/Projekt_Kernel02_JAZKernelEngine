@@ -2136,7 +2136,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				bReturn = !FileEasyZZZ.isDirectory(file2proof);
 			}						
 		}//end main;
-		ObjectZZZ.logLineDate(FileEasyZZZ.class, "isFileExisting=" + bReturn) ;
+		ObjectZZZ.logLineDate(FileEasyZZZ.class, "isFileExisting=" + bReturn + " (File: '" + file2proof.getAbsolutePath() + "')") ;
 		return bReturn;	
 	}
 	
@@ -2156,7 +2156,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			}
 			
 			if(FileEasyZZZ.isDirectory(file2proof)==false) break main;
-			ObjectZZZ.logLineDate(FileEasyZZZ.class, "#Ist Verzeichnis: '" + file2proof.getAbsolutePath() + "'");
+			ObjectZZZ.logLineDate(FileEasyZZZ.class, "#isDirectory=false' (File: '" + file2proof.getAbsolutePath() + "')") ;
 			
 			File fileParent = file2proof.getParentFile();
 			if(fileParent == null) bReturn = true;
