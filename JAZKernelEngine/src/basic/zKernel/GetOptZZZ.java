@@ -16,8 +16,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.start.GetOpt;
 
 /**Ein Wrapper um GetOpt.  
- * TODOGOON20260320: Was noch fehlt ist es optionale Parameter anzugeben.
- *                   Z.B. mit eckigen Klammern also 
+   | bedeutet - Parameter ohne Wert (Wert=Parametername)
+   : bedeutet - Parameter muss einen Wert haben
+   . bedeutet - Paramater kann einen Wert haben. Leer Parameter mit Leerstring definiert ""
  * @author lindhauer
  *
  */
@@ -140,9 +141,10 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	 */
 	public static ArrayList<String> getPatternList4ControlAll(String sPattern) throws ExceptionZZZ{
 		ArrayList<String> listaControlWithValue = getPatternList4ControlWithValue(sPattern);
+		ArrayList<String> listaControlWithOptionalValue = getPatternList4ControlWithOptionalValue(sPattern);
 		ArrayList<String> listaControlSimple = getPatternList4ControlSimple(sPattern);
 		
-		return (ArrayList<String>) ArrayListUtilZZZ.join(listaControlWithValue, listaControlSimple);
+		return (ArrayList<String>) ArrayListUtilZZZ.join(listaControlWithValue, listaControlWithOptionalValue, listaControlSimple);
 	}
 	
 	public static ArrayList<String> getPatternList4ControlWithValue(String sPattern) throws ExceptionZZZ{
@@ -186,8 +188,18 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	            					//diese entfernen aus dem String
 	            					sControl = StringZZZ.right("|" + sControl, "|");
 	            					if(!StringZZZ.isEmpty(sControl)){
-	            						listaReturn.add(sControl);
+	            						
+	            						//so, ggfs. haben sich Steuerungszeichen mit optionalen Argument eingeschlichen.
+		            					//diese entfernen aus dem String
+		            					sControl = StringZZZ.right("." + sControl, ".");
+		            					if(!StringZZZ.isEmpty(sControl)){
+		            						listaReturn.add(sControl);
+		            					}
+	            						
+	            						//listaReturn.add(sControl);
 	            					}
+	            					
+	            					
 	            				//}
 	            			}
 	            		}
@@ -196,6 +208,70 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 		}
 		return listaReturn;
 	}
+	
+	public static ArrayList<String> getPatternList4ControlWithOptionalValue(String sPattern) throws ExceptionZZZ{
+		return getPatternList4ControlWithOptionalValue_(sPattern);
+	}
+	
+	
+	private static ArrayList<String> getPatternList4ControlWithOptionalValue_(String sPattern) throws ExceptionZZZ{
+		ArrayList<String> listaReturn = new ArrayList<String>();
+		main:{
+			if(StringZZZ.isEmpty(sPattern)) break main;
+			
+//			1b Pattern String auf eínfachen Punkt untersuchen. 
+			//Merke: Irgendwelche Indexbetrachtungen koennen nicht funktionieren. Die Reihenfolge der Argumente ist naemlich beliebig. 
+			//Es muss vielmehr das Steuerungszeichen davor ermittelt werden. Damit kann dann das Argumentenarray untersucht werden: Folgt dem Steuerungszeichen immer ein anderer Wert
+			String[] saDelim = {"."};
+			Integer[] intaIndex = StringZZZ.indexOfAll(sPattern, saDelim);
+			
+						
+			  if(intaIndex!=null){            	
+	            	for(int icount=0; icount <= intaIndex.length-1; icount++){            		
+	            		Integer inttemp = intaIndex[icount];
+	            		if(inttemp.intValue()>=0){
+	            			int itemp = inttemp.intValue();   
+	            			
+	            			//die Zeichen vor dem "." ermitteln
+	            			String stemp = null;
+	            			int ilength = 0;
+	            			do {	            				
+	            				stemp = sPattern.substring(itemp-1, itemp); //Position des Zeichens vor dem ":", dann davor, etc.	            					            					            			
+	            				if(!stemp.equals(".") && itemp>0) ilength++;
+	            				itemp = itemp-1; //ein Zeichen weiterschieben nach links
+	            			}while(stemp!=null && !stemp.equals(".") && itemp>0);
+	            			
+	            			if(ilength>=0) {
+	            				itemp = inttemp.intValue();
+	            				String sControl = sPattern.substring(itemp-ilength, itemp);
+	            				//if(!StringZZZ.isEmpty(sControl)){
+	            					
+	            					//so, ggfs. haben sich Steuerungszeichen ohne Argument eingeschlichen.
+	            					//diese entfernen aus dem String
+	            					sControl = StringZZZ.right("|" + sControl, "|");
+	            					if(!StringZZZ.isEmpty(sControl)){
+	            						
+	            						//so, ggfs. haben sich Steuerungszeichen mit zwingendem Argument eingeschlichen.
+		            					//diese entfernen aus dem String
+		            					sControl = StringZZZ.right(":" + sControl, ":");
+		            					if(!StringZZZ.isEmpty(sControl)){
+		            						listaReturn.add(sControl);
+		            					}
+	            						
+	            						//listaReturn.add(sControl);
+	            					}
+	            					
+	            					
+	            				//}
+	            			}
+	            		}
+	            	}
+	           }
+		}
+		return listaReturn;
+	}
+	
+	
 	
 	public static ArrayList<String> getPatternList4ControlSimple(String sPattern) throws ExceptionZZZ{
 		return getPatternList4ControlSimple_(sPattern);
@@ -243,14 +319,22 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	            					//diese entfernen aus dem String
 	            					sControl = StringZZZ.right(":" + sControl, ":");
 	            					if(!StringZZZ.isEmpty(sControl)){
-		            					//es duerfen aber nur Strings ohne Sonderzeichen sein
-		            					boolean bAlphanumeric = StringZZZ.isAlphanumeric(sControl);
-		            					if(bAlphanumeric){
-		            						listaReturn.add(sControl);
+	            						
+		            					//so, ggfs. haben sich Steuerungszeichen mit optionalen Argument eingeschlichen.
+		            					//diese entfernen aus dem String
+		            					sControl = StringZZZ.right("." + sControl, ".");
+		            					if(!StringZZZ.isEmpty(sControl)){
+		            								            						
+		            						//es duerfen aber nur Strings ohne Sonderzeichen sein
+			            					boolean bAlphanumeric = StringZZZ.isAlphanumeric(sControl);
+			            					if(bAlphanumeric){
+			            						listaReturn.add(sControl);
+			            					}
 		            					}
+		            			
 	            					}
 	            				//}
-	            			}
+	            			}	
 	            		}
 	            	}
 	           }
@@ -308,8 +392,11 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 			
 			//Fuer die Analyse, ob die Steuerungszeichen Argumente haben oder nicht			
 			ArrayList<String> listaControlSimple = GetOptZZZ.getPatternList4ControlSimple(sPattern);
-			while(!StringZZZ.isEmpty(sOption)){
+			ArrayList<String> listaControlOptionalValue = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			boolean bGoon = !StringZZZ.isEmpty(sOption);
+			while(bGoon){
 				boolean bIsControlSimple = listaControlSimple.contains(sOption);
+				boolean bIsControlOptional = listaControlOptionalValue.contains(sOption);
 				String sParam = objOption.optarg();
 				
 				//20260317: Für Argumente ohne Optionsparameter gilt: Sie sind gleich dem Argumentwert
@@ -321,6 +408,11 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 				//Zum naechsten Argument
 				a = objOption.getoptString(saArg);
 				sOption = a.trim();
+				if(bIsControlOptional) {
+					bGoon = true; //Dann darf die Option auch null sein.
+				}else {
+					if(StringZZZ.isEmpty(sOption)) bGoon = false;
+				}
 			}
 		    bReturn = true;
 		}//end main
@@ -437,6 +529,7 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 			
 			//Die Liste der Steuerzeichen, gemaess Pattern
 			ArrayList<String> listaControlWithValue = GetOptZZZ.getPatternList4ControlWithValue(sPattern);
+			ArrayList<String> listaControlWithOptionalValue = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
 			ArrayList<String> listaControlWithoutValue = GetOptZZZ.getPatternList4ControlSimple(sPattern);
             ArrayList<String> listaControlAll = GetOptZZZ.getPatternList4ControlAll(sPattern);     
             
@@ -462,11 +555,15 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
             String sControlPrevious = new String("");
             boolean bNeedArgument = false;
 			for(int icount=0; icount <= saParamAll.length-1;icount++){
-				String sParamCurrent = saParamAll[icount]; 
-				//20260403: null sollte wg. Ersetzung durch Umgebungsvariablen auch erlaubt sein (s. EnvironmentPlaceholderZZZ) if(!StringZZZ.isEmpty(sParamCurrent)){
+				String sParamCurrent = saParamAll[icount]; 				
+				
 				if(StringZZZ.isNull(sParamCurrent)){
-				   
+					//20260403: null sollte wg. Ersetzung durch Umgebungsvariablen auch erlaubt sein (s. EnvironmentPlaceholderZZZ) if(!StringZZZ.isEmpty(sParamCurrent)){
+					sControlPrevious="";
 				}else if(StringZZZ.isBlank(sParamCurrent)) {
+					//20260506: Ein Leerstring als Kommentar ist erlaubt.
+					sControlPrevious="";
+				}else if(!StringZZZ.isNull(sParamCurrent) && !StringZZZ.isBlank(sParamCurrent)) {
 					String stemp = sParamCurrent.substring(0, 1);
 					if(stemp.equals(GetOpt.sCOMMAND_PREFIX) & sControlPrevious.equals("")){
 						String sParamTemp = StringZZZ.rightback(sParamCurrent, 1); //Wert ohne den Bindestrich
@@ -502,7 +599,9 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 //							Hier braucht man ggf. das vorherige Steuerzeiche noch
 						}else{
 							bNeedArgument = false; //Das ist Kein Steuerzeichen mit Doppelpunkt
-							sControlPrevious = "";
+							if(!listaControlWithOptionalValue.contains(sControlPrevious)) { //Das ist kein Steuerzeichen mit Punkt
+								sControlPrevious = "";
+							}
 						}
 					}else if(stemp.equals(GetOpt.sCOMMAND_PREFIX) & ! listaControlWithValue.contains(sControlPrevious)){
 						//Der vorherige Eintrag des Pattern endete nicht mit einem Doppelpunkt, dann ist das jetzt ein Steuerzeichen
@@ -513,7 +612,9 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 							//Hier braucht man ggf. das vorherige Steuerzeiche noch
 						}else{
 							bNeedArgument = false; //Das ist Kein Steuerzeichen mit Doppelpunkt
-							sControlPrevious = "";
+							if(!listaControlWithOptionalValue.contains(sControlPrevious)) { //Das ist kein Steuerzeichen mit Punkt
+								sControlPrevious = "";
+							}
 						}
 					}else if(stemp.equals(GetOpt.sCOMMAND_PREFIX) & bNeedArgument){
 						//Der vorherige Eintrag des Pattern endete mit einem Doppelpunkt, aber jetz kommt ein Steuerzeichen. 

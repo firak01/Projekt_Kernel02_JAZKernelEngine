@@ -14,6 +14,11 @@ import basic.zBasic.util.datatype.string.StringZZZ;
  * - Optionsparameter mit mehr als 1 Zeichen sind möglich
  * - Konstante definiert für "-". Damit kann ich nach COMMANDS suchen, die nicht im Pattern sind.
  *   Wird dann in GetOptZZZ benoetigt.
+ *   
+ * - Erweitert um Parametertypen
+   | bedeutet - Parameter ohne Wert (Wert=Parametername)
+   : bedeutet - Parameter muss einen Wert haben
+   . bedeutet - Paramater kann einen Wert haben. Leer Parameter mit Leerstring definiert ""
  * 
  */
 public class GetOpt {
@@ -126,13 +131,15 @@ public class GetOpt {
 				String sThisArgWithoutMinus = thisArg.substring(1,thisArg.length());
 				int iPositionBehind = StringZZZ.indexOfFirstBehind(pattern, sThisArgWithoutMinus);
 				char cBehind = pattern.charAt(iPositionBehind); 
-				boolean bIsColon = cBehind==':'; 
+				boolean bIsColon = cBehind==':'; boolean bIsPoint = cBehind=='.';
 				//if (iPositionBehind+1 < pattern.length() && bIsColon && optind < argv.length) {
 				//also die Abfrage der Pattern Länge ist Blödsinn
 				if (bIsColon && optind < argv.length) {
-						optarg = argv[optind++]; //das ist also der errechnete Wert für eine -Kommandoanweisung 
+					optarg = argv[optind++]; //das ist also der errechnete Wert für eine -Kommandoanweisung 
 				}
-				
+				if (bIsPoint && optind < argv.length) {
+					optarg = argv[optind++]; //das ist also der errechnete Wert für eine -Kommandoanweisung (leerer Parameter erlaubt) "" bei Übergabe.
+				}
 				//return new String(thisArg);
 				return thisArg.substring(1,thisArg.length()); //Rueckgabewerte wie bei dem 1 Zeichen Argument ohne sCOMMAND_PREFIX
 			} else {
