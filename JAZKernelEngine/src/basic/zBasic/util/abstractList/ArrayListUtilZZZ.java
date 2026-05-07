@@ -467,6 +467,29 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		return listaReturn;
 	}
 	
+	public static <T> ArrayList<T> joinKeepLast(ArrayList<T> lista1, ArrayList<T> lista2) throws ExceptionZZZ {
+		ArrayList<T> listaReturn = null;
+		main:{
+			if(lista1==null && lista2 ==null) break main;
+					
+			//Wenn 'uniqued' werden soll, dann erst in eine temporaere Liste joinen
+			ArrayList<T> listaTemp = new ArrayList<T>();
+			if(lista1!=null){
+				for(int icount=0; icount < lista1.size(); icount++){
+					listaTemp.add(lista1.get(icount));
+				}
+			}//lista1!=null
+			if(lista2!=null){
+				for(int icount=0; icount < lista2.size(); icount ++){
+					listaTemp.add(lista2.get(icount));
+				}
+			}//lista2!=null
+			
+			listaReturn = ArrayListUtilZZZ.uniqueKeepLast(listaTemp);			
+		}//END main:
+		return listaReturn;
+	}
+	
 	public static <T> ArrayList<T> joinKeepLast(ArrayList<T> lista1, ArrayList<T> lista2, ArrayList<T> lista3) throws ExceptionZZZ {
 		ArrayList<T> listaReturn = null;
 		main:{
