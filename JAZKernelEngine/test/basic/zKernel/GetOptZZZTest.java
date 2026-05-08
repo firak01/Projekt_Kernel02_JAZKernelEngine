@@ -70,6 +70,61 @@ public class GetOptZZZTest extends TestCase{
 		}	
 	}
 	
+	public void testGetPatternList4ControlWithOptionalValue() {
+		try {
+			String sPattern=null;
+			ArrayList<String>listaPattern=null;
+			
+			//Liste Argumente mit (optional) Wert
+			sPattern = "a.b.c.;";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(3,listaPattern.size());
+			
+			//mal ein Argument "ohne Wert" einbauen, das wird jetzt für diese Liste ignoriert
+			sPattern = "a.d|b,c.";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(2,listaPattern.size());
+			
+			//pattern nur mit Argumenten "ohne Wert"
+			//a) Fall nur 1x
+			sPattern = "e";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(0,listaPattern.size());
+			
+			//b) Fall Nix
+			sPattern = "e|d|f|";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(0,listaPattern.size());
+			
+			//Pattern mit "einfachem Argument" am Schluss, wird komplett ignoriert
+			sPattern = "e|d|f|x";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(0,listaPattern.size());
+			
+			//c) Fall Nix
+			sPattern = "e:d:f:";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(0,listaPattern.size());
+			
+			//Pattern mit "einfachem Argument" am Schluss, wird komplett ignoriert
+			sPattern = "e:d:f:x";
+			listaPattern = GetOptZZZ.getPatternList4ControlWithOptionalValue(sPattern);
+			assertNotNull(listaPattern);
+			assertEquals(0,listaPattern.size());
+			
+					
+		} catch (ExceptionZZZ ez) {
+			ez.printStackTrace();
+			fail("Method throws an exception." + ez.getMessageLast());
+		}	
+	}
+	
 	public void testGetPatternList4ControlSimple() {
 		try {
 			String sPattern=null;
@@ -170,57 +225,246 @@ public class GetOptZZZTest extends TestCase{
 			String sResult=null;
 			int itemp= 0;
 			
-			
-			//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//##################################
+			//#### DOPPELPUNKT
+			//##################################
+	
 			stemp = ":a:bc:;";//Mit einem Doppelpunkt startend
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(3, itemp);
+			assertEquals(sResult,3, itemp);
 			
 			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			//Argumente mit doppelten Buchstaben sind erlaubt im Pattern
 			stemp = "aa:bc:";  //doppelte Buchstaben sind erlaubt, auch am Anfang
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			
 									
 			stemp = "a:bc:dd"; //doppelte Buchsteben sind erlaubt, auch am Ende
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			
 			stemp = "a:bbc:d"; //doppelt in der Mitte
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			
 			//++++++++++++++++++++++++++++++++++++++++++++++++++++
 			//doppelte Argumente im Pattern String sind nicht erlaubt
 			stemp = "a:a:bc:";  
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(1, itemp);
+			assertEquals(sResult,1, itemp);
 			
 			//++++++++++++++++++++++++++++++++++++++++++++++++++++
 			//doppelte Separatoren im Pattern String sind nicht erlaubt
 			stemp = "a::bc:";  //doppelter Doppelpunkt in der Mitte
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(2, itemp);
+			assertEquals(sResult,2, itemp);
 			
 			stemp = "a:bc::";  //doppelter Doppelpunkt am Ende
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(2, itemp);
+			assertEquals(sResult,2, itemp);
 			
 			
 			//+++++++++++++++++++++++++++++++++++++++++++++++++++++
 			stemp = "a:bc:d"; //o.k.
 			sResult = objOptTest.proofPatternString(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			
+			//##################################
+			//#### PIPE
+			//##################################
+			stemp = "|a|bc|;";//Mit einem Doppelpunkt startend
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,3, itemp);
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//Argumente mit doppelten Buchstaben sind erlaubt im Pattern
+			stemp = "aa|bc|";  //doppelte Buchstaben sind erlaubt, auch am Anfang
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+									
+			stemp = "a|bc|dd"; //doppelte Buchsteben sind erlaubt, auch am Ende
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			stemp = "a|bbc|d"; //doppelt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//doppelte Argumente im Pattern String sind nicht erlaubt
+			stemp = "a|a|bc|";  
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,1, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//doppelte Separatoren im Pattern String sind nicht erlaubt
+			stemp = "a||bc|";  //doppelter Doppelpunkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			stemp = "a|bc||";  //doppelter Doppelpunkt am Ende
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++
+			stemp = "a|bc|d"; //o.k.
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			
+			
+			//#################################
+			//#### PUNKT
+			//#################################
+			stemp = ".a.bc.;";//Mit einem Doppelpunkt startend
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,3, itemp);
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//Argumente mit doppelten Buchstaben sind erlaubt im Pattern
+			stemp = "aa.bc.";  //doppelte Buchstaben sind erlaubt, auch am Anfang
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+									
+			stemp = "a.bc.dd"; //doppelte Buchsteben sind erlaubt, auch am Ende
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			stemp = "a.bbc.d"; //doppelt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//doppelte Argumente im Pattern String sind nicht erlaubt
+			stemp = "a.a.bc.";  
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,1, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//doppelte Separatoren im Pattern String sind nicht erlaubt
+			stemp = "a..bc.";  //doppelter Doppelpunkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			stemp = "a.bc..";  //doppelter Doppelpunkt am Ende
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++
+			stemp = "a.bc.d"; //o.k.
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			
+			//#################################
+			//#### GEMISCHT: DOPPELPUNKT, PIPE, PUNKT
+			//#################################
+			
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//Argumente mit doppelten Buchstaben sind erlaubt im Pattern
+			stemp = "aa:bc.";  //doppelte Buchstaben sind erlaubt, auch am Anfang
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+									
+			stemp = "a.bc:dd"; //doppelte Buchsteben sind erlaubt, auch am Ende
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			stemp = "a|bbc:d"; //doppelt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//doppelte Argumente im Pattern String sind nicht erlaubt
+			stemp = "a:a.bc.";  
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,1, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//doppelte Platzhalter im Pattern String sind nicht erlaubt
+			stemp = "a.||bc:";  //doppelter Pipe in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			stemp = "a.::bc|";  //doppelter Doppepunkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			stemp = "a:..bc|";  //doppelter Punkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,2, itemp);
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//Platzhalter auf Platzhalter im Pattern String ist nicht erlaubt
+			stemp = "a.|bc:";  //doppelter Pipe in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,4, itemp);
+			
+			stemp = "a.:bc|";  //doppelter Doppepunkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,4, itemp);
+			
+			stemp = "a:.bc|";  //doppelter Punkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,4, itemp);
+			
+			stemp = "a:|bc|";  //doppelter Punkt in der Mitte
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,4, itemp);
+			
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//++++ Positivtest
+			stemp = "a:bc.d"; //o.k.
+			sResult = objOptTest.proofPatternString(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			
+			
 			
 			
 			
@@ -240,52 +484,71 @@ public class GetOptZZZTest extends TestCase{
 			stemp = "-ssh";
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			
 			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			objOptTest.setPattern("a:c:b");//Im Pattern, ohne Argumente nach hinten.
 			stemp = "-a hallo -c Welt -b";
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			
 			stemp="-a hallo -b -c"; 
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(60, itemp);//'c' als Steuerungszeichen erkannt, aber nix folgt.
+			assertEquals(sResult,60, itemp);//'c' als Steuerungszeichen erkannt, aber nix folgt.
 			
 			
 			stemp="-a hallo -b -c welt zwei"; //ist NICHT valid. 'zwei' wird als Argumentwert erkannt, der "�berfl�ssig" ist.
 			sResult= objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(40, itemp); //Fehler: 'Der vorherige Eintrag ist kein Steuerzeichen'
+			assertEquals(sResult,10, itemp); //Fehler: 'Der vorherige Eintrag ist kein Steuerzeichen'
 			
 			
 			
 			//++++++++++++++++++++++++++++++++++++++++++++++++++++
 			objOptTest.setPattern("a:b:c:");
-			stemp="-a hallo -b -c"; //ist auch valid 'c' wird in diesem Fall als Wert und nicht als Steuerungszeichen erkannt.
+			stemp="-a hallo -b -c"; 
 			sResult= objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(29, itemp);
+			assertEquals(sResult,29, itemp);//Fehler: Error 29: Previous control character needs an argument, but this is: '-c'. Ergo: Missing argument for controlcharacter 'b'.
 			
+			stemp="-a hallo -b welt -c"; 
+			sResult= objOptTest.proofArgument(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,60, itemp);//Fehler: Error 60: Last control character has no argument: '-c'
+			
+			stemp="-a hallo -b welt -c test"; //DAS IST DANN GUT
+			sResult= objOptTest.proofArgument(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
+			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			stemp="-a hallo -b -cc";
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(29, itemp);//Kein Fehler, weil -cc als Wert und nicht als Steuerzeichen erkannt wird, darum kein Fehler
+			assertEquals(sResult,9, itemp);//Error 09: Control characters found ('cc'), which are not in Pattern ('a:b:c:')
 			
-			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			objOptTest.setPattern("a:b:c:");
-			stemp="-a hallo -b welt -c zwei"; //ist auch valid, Normalfall
+			stemp="-a hallo -b welt"; //ist auch valid, Normalfall
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1, itemp);
+			assertEquals(sResult,-1, itemp);
 			
-			
+			//+++++++++++++++++++++++++++++++++++++++++++++++++++++++			
 			stemp="-a hallo -b welt -c zwei drei"; 
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(40, itemp); //Fehler: 'Der vorherige Eintrag ist kein Steuerzeichen'
+			assertEquals(sResult,10, itemp); //Fehler: Error 10: Previous entry is no control character expecting an argument. Argument string: 'drei'
+			
+			//Aber in Hochkomma wäre das in Ordnung
+			stemp="-a hallo -b welt -c 'zwei drei'"; 
+			sResult = objOptTest.proofArgument(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1, itemp);
+			
 			
 			//+++++++++++++++++++++++++++++++++++++++++
 			objOptTest.setPattern("a:b|c:"); //Nun soll -cc falsch sein
@@ -293,18 +556,18 @@ public class GetOptZZZTest extends TestCase{
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
 			//nun sind Steuerzeichen mit mehr als 1 Zeichen Laenge erlaubt assertEquals(20,itemp); //Fehler "Falsche L�nge des Steuerzeichens
-			assertEquals(25,itemp); //Fehler "cc" ist nicht im Patter der Steuerzeichen vorhanden
+			assertEquals(sResult,9,itemp); //Fehler "cc" ist nicht im Patter der Steuerzeichen vorhanden
 			
 			stemp="-a hallo -b -cc blabla";  
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
 			//nun sind Steuerzeichen mit mehr als 1 Zeichen Laenge erlaubt assertEquals(20, itemp);//Fehler: 'Falsche Laenge eines Steuerzeichens'
-			assertEquals(25,itemp); //Fehler "cc" ist nicht im Patter der Steuerzeichen vorhanden
+			assertEquals(sResult,9,itemp); //Fehler "cc" ist nicht im Patter der Steuerzeichen vorhanden
 			
 			stemp="-a hallo -b -d blabla";  
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(25, itemp);//Fehler: 'Steuerzeichen d nicht im pattern string'
+			assertEquals(sResult,9, itemp);//Fehler: 'Steuerzeichen d nicht im pattern string'
 			
 			//###################
 			//Test mit nur einem Steuerzeichen
@@ -312,62 +575,152 @@ public class GetOptZZZTest extends TestCase{
 			stemp="-a";  
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1,itemp); 
+			assertEquals(sResult,-1,itemp); 
 			
 			stemp="-b";  
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(25,itemp); //Steuerzeichen nicht im pattern string
+			assertEquals(sResult,9,itemp); //Steuerzeichen nicht im pattern string
 			
 			stemp = "-a welt";
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(40,itemp); //der vorherige Eintrag -a ist kein Steuerzeichen mit Argument
+			assertEquals(sResult,12,itemp); //der vorherige Eintrag -a ist kein Steuerzeichen mit Argument
 			
-			
+			//Nun hinter a ein Argument benoetigen
 			objOptTest.setPattern("a:");
 			stemp="-a";  
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(60,itemp); //Steuerzeichen verlang Argument, aber nix folgt
+			assertEquals(sResult,60,itemp); //Steuerzeichen verlang Argument, aber nix folgt
 			
 			stemp="-a welt";  
 			sResult = objOptTest.proofArgument(stemp);
 			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1,itemp); //o.k.
+			assertEquals(sResult,-1,itemp); //o.k.
 			
+			//Nun hinter a ein optionales Argument
+			objOptTest.setPattern("a.");
+			stemp="-a";  
+			sResult = objOptTest.proofArgument(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); //Steuerzeichen verlang nur optionales Argument
 			
+			stemp="-a welt";  
+			sResult = objOptTest.proofArgument(stemp);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); //o.k.
+		
+		    //##########################################
 			//Test ohne ein  Steuerzeichen
 			try{
 				objOptTest.setPattern("");
 				stemp="-a";  
 				sResult = objOptTest.proofArgument(stemp);
-				fail("Method should throw an exception: No pattern string");
+				fail("Method should throw an exception: No pattern string but is '" + sResult + "'");
 				
 			}catch(ExceptionZZZ ez){
 			}
 			
-			//Test ohne ein en wert
+			//Test ohne einen wert
     		stemp="";  
 	    	sResult = objOptTest.proofArgument(stemp);
 	    	itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
-			assertEquals(-1,itemp); //o.k.	
+			assertEquals(sResult,-1,itemp); //o.k.	
 			
 			
-			//### Test mit leerem Argument f�r ein Steuerzeichen (das geht nur als Array)
+			//### Test mit leerem Argument fuer ein Steuerzeichen
 			objOptTest.setPattern("a:");
 			String[] saArg={"-a",""};
 			sResult = objOptTest.proofArgument(saArg);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,60,itemp); //ein Argument fehlt	
 			
+			//###################################################################
 			//Test mit mehreren hintereinanderfolgenden Werten
 			objOptTest.setPattern("a:b:");
 			String[] saArg2={"-a","", "-b", ""};
 			sResult = objOptTest.proofArgument(saArg2);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,29,itemp); //ein Argument fehlt
+			
 			
 			//Test mit gemischten Werten
 			objOptTest.setPattern("a:b:c:");
 			String[] saArg3={"-a","", "-b", "xyz", "-c", ""};
 			sResult = objOptTest.proofArgument(saArg3);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,29,itemp); //ein Argument fehlt	
+			
+			//################################################
+			//################
+			//B) Nun mal die Argumentenliste auffüllen
+			objOptTest.setPattern("a:");
+			String[] saArgB={"-a","hallo"};
+			sResult = objOptTest.proofArgument(saArgB);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); //	
+			
+			//###################################################################
+			//Test mit mehreren hintereinanderfolgenden Werten
+			objOptTest.setPattern("a:b:");
+			String[] saArg2B={"-a","hallo", "-b", ""};
+			sResult = objOptTest.proofArgument(saArg2B);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,60,itemp); //ein Argument fehlt abschliessend
+			
+			
+			//Test mit gemischten Werten
+			objOptTest.setPattern("a:b:c:");
+			String[] saArg3B={"-a","", "-b", "xyz", "-c", ""};
+			sResult = objOptTest.proofArgument(saArg3B);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,29,itemp); //ein Argument fehlt	
+			
+			//#################################################
+			//### Optionale Parameter
+			//#################################################
+			//C Test mit mehreren hintereinanderfolgenden Werten
+			objOptTest.setPattern("a.b.");
+			String[] saArg2C={"-a","", "-b", ""};
+			sResult = objOptTest.proofArgument(saArg2);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); 
+			
+			
+			//Test mit gemischten Werten
+			objOptTest.setPattern("a.b.c.");
+			String[] saArg3C={"-a","", "-b", "xyz", "-c", ""};
+			sResult = objOptTest.proofArgument(saArg3);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); //	
+			
+			//################################################
+			//################
+			//CB) Nun mal die Argumentenliste auffüllen
+			objOptTest.setPattern("a.");
+			String[] saArgCB={"-a","hallo"};
+			sResult = objOptTest.proofArgument(saArgCB);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); //	
+			
+			//###################################################################
+			//Test mit mehreren hintereinanderfolgenden Werten
+			objOptTest.setPattern("a:b:");
+			String[] saArg2CB={"-a","hallo", "-b", ""};
+			sResult = objOptTest.proofArgument(saArg2CB);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,60,itemp); //Letzer Kontrolparameter ohne argument
+			
+			
+			//Test mit gemischten Werten und letzter Wert optional
+			objOptTest.setPattern("a.b:c.");
+			String[] saArg3CB={"-a","", "-b", "xyz", "-c", ""};
+			sResult = objOptTest.proofArgument(saArg3CB);
+			itemp = GetOptZZZ.computeCodeFromProofResult(sResult);
+			assertEquals(sResult,-1,itemp); //ein Argument fehlt	
+			
+			
 			
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());
@@ -539,12 +892,20 @@ public class GetOptZZZTest extends TestCase{
 			//++++++++++++++++++++++++++++++
 			//+++
 			//++++++++++++++++++++++++++++++
-			//Arbeiten mit einfachem HOCHKOMMATA (TODOGOON20230323)
+			//Arbeiten mit einfachem HOCHKOMMATA
 			objOptTest.setPattern("a:b:c:");//ohne Argumente nach hinten
 			stemp="-a hallo -b welt -c 'zwei drei' "; //nun wird 'zwei drei' als Argument erkannt
 			btemp = objOptTest.isArgumentValid(stemp);
 			assertTrue(btemp);
 			
+			
+			//+++++++++++++++++++++++++++++++
+			//+++
+			//+++++++++++++++++++++++++++++++
+			objOptTest.setPattern("a.b.c.");//ohne Argumente nach hinten
+			stemp="-a hallo -b welt -c 'zwei drei' "; //nun wird 'zwei drei' als Argument erkannt
+			btemp = objOptTest.isArgumentValid(stemp);
+			assertTrue(btemp);
 			
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());

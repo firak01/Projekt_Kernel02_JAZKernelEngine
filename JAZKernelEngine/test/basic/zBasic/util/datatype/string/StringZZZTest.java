@@ -3669,6 +3669,58 @@ public void testVecMidFirst(){
 		}				
 	}
 	
+	public void testIsCharacterDoubled() {
+		try {
+			//angelehnt an eine Validierung von GetOptZZZ
+			boolean bValue=false;			
+			char cDelim; String sPattern;
+			
+			//Positivtest
+			sPattern = "a||b:";
+			cDelim='|';			
+			bValue = StringZZZ.isCharacterDoubled(sPattern,cDelim);
+			assertTrue(bValue);
+			
+			//Negativtest
+			sPattern = "a|b:c.";
+			cDelim='|';			
+			bValue = StringZZZ.isCharacterDoubled(sPattern,cDelim);
+			assertFalse(bValue);
+			
+			
+		}catch(ExceptionZZZ ez){
+			ez.printStackTrace();
+			fail("Method throws an exception." + ez.getMessageLast());
+		}		
+	}
+
+	
+	public void testIsCharacterBehind() {
+		try {
+			//angelehnt an eine Validierung von GetOptZZZ
+			boolean bValue=false;
+			char[]caDelim= {':','.','|'};
+			char cDelim; String sPattern;
+			
+			//Positivtest
+			sPattern = "a|.b:";
+			cDelim='|';			
+			bValue = StringZZZ.isCharacterBehind(sPattern,cDelim,caDelim);
+			assertTrue(bValue);
+			
+			//Negativtest
+			sPattern = "a|b:c.";
+			cDelim='|';			
+			bValue = StringZZZ.isCharacterBehind(sPattern,cDelim,caDelim);
+			assertFalse(bValue);
+			
+			
+		}catch(ExceptionZZZ ez){
+			ez.printStackTrace();
+			fail("Method throws an exception." + ez.getMessageLast());
+		}		
+	}
+	
 	public void testIsJson() {
 		try{
 			boolean bTest;

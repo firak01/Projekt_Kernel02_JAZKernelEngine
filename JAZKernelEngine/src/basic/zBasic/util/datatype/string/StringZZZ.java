@@ -3207,6 +3207,38 @@ StringUtils.splitByWholeSeparator(...) kann das nicht, weil es keine Escape-/Quo
 		}//end main:
 		return bReturn;
 	}
+	
+	/** true, wenn hinter dem uebergebenem Zeichen eines der Zeichen aus dem Array im String vorhanden ist.
+	 * @param sString
+	 * @param sCharacter
+	 * @return
+	 * @throws ExceptionZZZ
+	 * @author Fritz Lindhauer, 23.12.2025, 08:32:02
+	 */
+	public static boolean isCharacterBehind(String sString, char cCharacter, char[]caCharacter) throws ExceptionZZZ{
+		//Merke: Der Algorithums funktioniert nur mit einfachen Zeichen
+		boolean bReturn = false;
+		main:{
+			
+			Integer[] intaIndex1 = StringZZZ.indexOfAll(sString, cCharacter);
+			if(!ArrayUtilZZZ.isNull(intaIndex1)) { //Wenn der ControlCharacter nicht vorkommt, darf es keinen Fehler geben
+				for(Integer intIndex : intaIndex1) {
+					int i = intIndex.intValue();
+					int iNext = i+1;
+					if(sString.length()> iNext) {
+						char cNext = sString.charAt(iNext);
+						bReturn = CharArrayZZZ.contains(caCharacter, cNext);
+						if(bReturn) break main;
+					}		
+				}
+			}
+		
+		}//end main:
+		return bReturn;
+	}
+
+	
+	
 
 	/** Checks if the CharSequence contains only Unicode letters.
 
@@ -4454,6 +4486,22 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 	
 	
 	//#############################################################
+	/** Gibt ein Array aller Index-Startpostionen zurück. Das Array ist NICHT sortiert !!!
+	* @param sSource, der durchsuchte String.
+	* @param saString2Find, die Strings, die gesucht werden. D.h. es können mehrere sein.
+	* @return
+	* 
+	* lindhauer; 30.06.2007 11:43:38
+	 */
+	public static Integer[] indexOfAll(String sSource, char  cCharacter2Find) throws ExceptionZZZ {
+		String[]saString2Find=new String[1];
+		
+		String sString2Find = CharZZZ.toString(cCharacter2Find);
+		saString2Find[0]=sString2Find;
+		return StringZZZ.indexOfAll(sSource, saString2Find, true);		
+	}
+	
+	
 	/** Gibt ein Array aller Index-Startpostionen zurück. Das Array ist NICHT sortiert !!!
 	* @param sSource, der durchsuchte String.
 	* @param saString2Find, die Strings, die gesucht werden. D.h. es können mehrere sein.

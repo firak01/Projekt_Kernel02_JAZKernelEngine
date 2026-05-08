@@ -11,6 +11,7 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
+import basic.zBasic.util.datatype.character.CharArrayZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.start.GetOpt;
@@ -465,12 +466,12 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 		}
 		return sReturn;
 	}
-	public String proofArgument(String sArgument) throws ExceptionZZZ{
+	public String proofArgument(String sArgumentIn) throws ExceptionZZZ{
 		String sReturn = new String("");
 		main:{
 			//#### Parameter fuer die Funktion pruefen
-//			Null oder Leerstring sind valid
-			if(StringZZZ.isEmpty(sArgument)) break main;
+			String sArgument = StringZZZ.trim(sArgumentIn);//wg. des explode nach " " unbedingt Leerzeichen wegtrimmen.
+			if(StringZZZ.isEmpty(sArgument)) break main;//Null oder Leerstring sind valid
 				
 			//Falls das Pattern leer ist, sArgument ist aber gefuellt, dann FEHLER:
 			String sPattern = this.getPattern();
@@ -483,7 +484,7 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 //			1a Alle nach dem Leerzeichen zerlegen. Parameter pruefen.
 //			String[] saParamAll = StringZZZ.explode(sArgument, " ");
 
-			//20260323: Nun soll man aber mit einfachem Hochkomma das Leerzeichen ignorieren können
+			//20260323: Nun soll man aber mit einfachem Hochkomma das Leerzeichen ignorieren können			
 			String[] saParamAll = StringZZZ.explodeRespectingQuotes(sArgument, " ");
 			
 			if(saParamAll==null|saParamAll.length==0) break main;
@@ -552,8 +553,9 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
             //Es muss immer ein Steuerzeichen sein,
             //nur wenn es ein Steuerzeichen mit Parameter ist, dann darf der folgende Wert beliebig sein
             ArrayList<String> listaControlFound = new ArrayList<String>();
-            String sControlPrevious = new String("");
-            boolean bNeedArgument = false;
+            String sControlPrevious = new String(""); String sControlCurrent = new String("");
+            boolean bArgumentNeeded = false; boolean bArgumentAllowed = false;
+            boolean bControlNeeded = true;//es braucht zu beginn immer ein Steuerzeichen
 			for(int icount=0; icount <= saParamAll.length-1;icount++){
 				String sParamCurrent = saParamAll[icount]; 				
 				
@@ -565,93 +567,133 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 					sControlPrevious="";
 				}else if(!StringZZZ.isNull(sParamCurrent) && !StringZZZ.isBlank(sParamCurrent)) {
 					String stemp = sParamCurrent.substring(0, 1);
-					if(stemp.equals(GetOpt.sCOMMAND_PREFIX) & sControlPrevious.equals("")){
-						String sParamTemp = StringZZZ.rightback(sParamCurrent, 1); //Wert ohne den Bindestrich
-						sParamTemp = StringZZZ.leftRespectingQuotes(sParamTemp + "|", "|");                 //Wert ohne einen moeglichen PIPE.
-						listaControlFound.add(sParamTemp);  //Ohne den Bindestrich !!!						
-						sControlPrevious = StringZZZ.rightback(sParamCurrent, 1);	      //Das ist der Wert bis zum naechsten LEERZEICHEN
-						sControlPrevious = StringZZZ.leftRespectingQuotes(sControlPrevious + "|", "|");                 //Wert ohne einen moeglichen PIPE.
-						
-						//Falls dieses gefundene zusaetzliche Steuerzeichen kein Zeichen hat, FEHLER
-						if(StringZZZ.isEmpty(sControlPrevious)){
-							sReturn = "Error 10: Argument string contains empty control parameter. No character after '-'";
-							break main;
-						}
-						
-						//20210331: Jetzt sind aber Optionsparameter mit mehr als 1 Zeichen gewünscht.
-						//          Das ist gescheitert, da zuviel zu ändern ist in GetOpt selbst.
-						//          Sonst müsste folgende überprüfung herausgenommen werden.
-						//20260316: Funktioniert jetzt mit >= 2 Steuerzeichen
-//						if(sControlPrevious.length()>=2){
-//							sReturn = "Error 20: Argument string contains control parameter longer than 1 character: " + sControlPrevious;
-//							break main;
-//						}
-						
-						if(!listaControlAll.contains(sControlPrevious)){						
+					boolean bIsControl = false;
+					if(stemp.equals(GetOpt.sCOMMAND_PREFIX)){
+						bIsControl = true;
+						sControlCurrent = StringZZZ.rightback(sParamCurrent, 1); //Wert ohne den Bindestrich
+						sControlCurrent = StringZZZ.leftRespectingQuotes(sControlCurrent + "|", "|");                 //Wert ohne einen moeglichen PIPE.
+						listaControlFound.add(sControlCurrent);  //Ohne den Bindestrich !!!
+					}
+								
+					if(bIsControl) {
+						//Steuerzeichen prüfen
+						if(!listaControlAll.contains(sControlCurrent)){						
 							//Fehler ein Steuerelement, dass nicht im PatternString definiert ist
-							sReturn = "Error 25: Control character not defined in pattern: '" + sControlPrevious + "'";
+							sReturn = "Error 25: Control character not defined in pattern: '" + sControlCurrent + "'";
 							break main;
 						}
 						
-						
-						if(listaControlWithValue.contains(sControlPrevious)){
-							bNeedArgument = true; //Das ist ein Steuerzeichen mit Doppelpunkt => Argument wird benoetigt
-//							Hier braucht man ggf. das vorherige Steuerzeiche noch
-						}else{
-							bNeedArgument = false; //Das ist Kein Steuerzeichen mit Doppelpunkt
-							if(!listaControlWithOptionalValue.contains(sControlPrevious)) { //Das ist kein Steuerzeichen mit Punkt
-								sControlPrevious = "";
-							}
-						}
-					}else if(stemp.equals(GetOpt.sCOMMAND_PREFIX) & ! listaControlWithValue.contains(sControlPrevious)){
-						//Der vorherige Eintrag des Pattern endete nicht mit einem Doppelpunkt, dann ist das jetzt ein Steuerzeichen
-						sControlPrevious = StringZZZ.rightback(sParamCurrent, 1);	 //saParamAll[icount].substring(1);
-						stemp = StringZZZ.rightback(sParamCurrent, 1);
-						if(listaControlWithValue.contains(stemp)){
-							bNeedArgument = true; //Das ist ein Steuerzeichen mit Doppelpunkt => Argument wird ben�tigt
-							//Hier braucht man ggf. das vorherige Steuerzeiche noch
-						}else{
-							bNeedArgument = false; //Das ist Kein Steuerzeichen mit Doppelpunkt
-							if(!listaControlWithOptionalValue.contains(sControlPrevious)) { //Das ist kein Steuerzeichen mit Punkt
-								sControlPrevious = "";
-							}
-						}
-					}else if(stemp.equals(GetOpt.sCOMMAND_PREFIX) & bNeedArgument){
-						//Der vorherige Eintrag des Pattern endete mit einem Doppelpunkt, aber jetz kommt ein Steuerzeichen. 
-						//D.h. es fehlt etwas
-						sReturn = "Error 29: Previous control character needs an argument, but this is: '" + sParamCurrent + "'. Ergo: Missing argument for controlcharacter '"+sControlPrevious+"'." ;
-						break main;
-					}else{						
-						if(icount==0){
-							//kein vorheriger Eintrag, Fehler !!!
-							sReturn = "Error 30: No previous control character for the string: '" + saParamAll[icount] + "'";
+						//Vorher wurde ein Steuerzeichen gefunden, das ein Argument braucht
+						if(bArgumentNeeded) {
+							//Der vorherige Eintrag des Pattern endete mit einem Doppelpunkt, aber jetzt kommt ein Steuerzeichen. 
+							//D.h. es fehlt etwas
+							sReturn = "Error 29: Previous control character needs an argument, but this is: '" + sParamCurrent + "'. Ergo: Missing argument for controlcharacter '"+sControlPrevious+"'." ;
 							break main;
-						}else if(sControlPrevious.equals("")){
-							//Der vorherige Eintrag ist kein Steuerzeichen, Fehler !!!
-							sReturn = "Error 40: Previous entry is no control character expecting an argument. Argument string: '" + saParamAll[icount] +"'";
-							break main;																			
-						}else if(! listaControlWithValue.contains(sControlPrevious)){
-//							der vorherige Wert muss in der Liste der Steuerzeichen mit Argument sein
-							sReturn = "Error 50: Previous entry is not a valid control character. current string: '" + saParamAll[icount] + "'";
-							break main;													
 						}
-						bNeedArgument = false;
-						sControlPrevious = "";
+						
+						//Man weiss ja nicht, ob 2 Steuerzeichen hintereinander kommen.
+						//Argumente prüfen (Einleiten, basierend auf dem aktuellen Steuerzeichen)
+						if(listaControlWithoutValue.contains(sControlCurrent)) {
+							bArgumentAllowed = false;
+							bArgumentNeeded = false; //Das ist ein Steuerzeichen mit PIPE => KEIN Argument erlaubt
+						}else if(listaControlWithValue.contains(sControlCurrent)){
+							bArgumentAllowed = true;
+							bArgumentNeeded = true; //Das ist ein Steuerzeichen mit Doppelpunkt => Argument wird benoetigt							
+						}else if(listaControlWithOptionalValue.contains(sControlCurrent)){
+							bArgumentAllowed = true;
+							bArgumentNeeded = false; //Das ist ein Steuerzeichen mit Punkt => Argument ist optional							
+						}
+												
+						//Nachdem die Pruefung der Steuerzeichen abgeschlossen ist
+						sControlPrevious = sControlCurrent;	
+						bControlNeeded = false;
+					}else {
+						if(bControlNeeded) {																				
+							sReturn = "Error 10: Argument string ('"+ sParamCurrent+"') has no control parameter.";
+							break main;						
+						}
+						
+						//Mann weiss ja nicht, ob 2 Argumente hintereinander kommen.
+						//Argumente prüfen (
+						if(listaControlWithoutValue.contains(sControlPrevious)) {
+							bArgumentAllowed = false;
+							bArgumentNeeded = false; //Das ist ein Steuerzeichen mit PIPE => KEIN Argument erlaubt
+						}else if(listaControlWithValue.contains(sControlPrevious)){
+							bArgumentAllowed = true;
+							bArgumentNeeded = true; //Das ist ein Steuerzeichen mit Doppelpunkt => Argument wird benoetigt							
+						}else if(listaControlWithOptionalValue.contains(sControlPrevious)){
+							bArgumentAllowed = true;
+							bArgumentNeeded = false; //Das ist ein Steuerzeichen mit Punkt => Argument ist optional							
+						}
+						
+						if(!bArgumentAllowed) {
+							//sParam ist ja nicht leer, obwohl er es sein sollte.
+							sReturn = "Error 12: Argument string exists ('"+sParamCurrent+"', but control character ('" + sControlPrevious + "' doesn´t allow any";
+							break main;
+						}
+					
+						//Nachdem die Pruefung der Argumente abgeschlossen ist
+						bArgumentNeeded=false;
+						bControlNeeded=true;
 					}
-				}else{
-					//Fall sParamCurrent ist leer
-					if(bNeedArgument==true){
-						sReturn = "Error 59: Last control character '" + sControlPrevious + "' has no argument.";
-						break main;						
-					}else{
-						//Leeres Steuerzeichen
-						bNeedArgument = false;
-						sControlPrevious = "";
+					
+					
+//					if( !bIsControl & sControlPrevious.equals("")){						 
+//						//Falls dieses gefundene Argument kein Steuerzeichen hat, FEHLER
+//						sReturn = "Error 10: Argument string ('"+ sParamCurrent+"') has no control parameter.";
+//						break main;
+//					}
+					
+//					}else if(bIsControl & ! listaControlWithValue.contains(sControlPrevious)){
+//						//Der vorherige Eintrag des Pattern endete nicht mit einem Doppelpunkt, dann ist das jetzt ein Steuerzeichen
+//						sControlPrevious = StringZZZ.rightback(sParamCurrent, 1);	 //saParamAll[icount].substring(1);
+//						stemp = StringZZZ.rightback(sParamCurrent, 1);
+//						if(listaControlWithValue.contains(stemp)){
+//							bArgumentNeeded = true; //Das ist ein Steuerzeichen mit Doppelpunkt => Argument wird ben�tigt
+//							//Hier braucht man ggf. das vorherige Steuerzeiche noch
+//						}else{
+//							bArgumentNeeded = false; //Das ist Kein Steuerzeichen mit Punkt
+//							if(!listaControlWithOptionalValue.contains(sControlPrevious)) { //Das ist kein Steuerzeichen mit Punkt
+//								sControlPrevious = "";
+//							}
+//						}
+//					}else if(bIsControl & bArgumentNeeded){
+//					
+//					}else{						
+//						if(icount==0){
+//							//kein vorheriger Eintrag, Fehler !!!
+//							sReturn = "Error 30: No previous control character for the string: '" + saParamAll[icount] + "'";
+//							break main;
+//						}else if(sControlPrevious.equals("")){
+//							//Der vorherige Eintrag ist kein Steuerzeichen, Fehler !!!
+//							sReturn = "Error 40: Previous entry is no control character expecting an argument. Argument string: '" + saParamAll[icount] +"'";
+//							break main;																			
+//						}else if(! listaControlWithValue.contains(sControlPrevious)){
+//							if(! listaControlWithOptionalValue.contains(sControlPrevious)) {
+//								//							der vorherige Wert muss in der Liste der Steuerzeichen mit Argument sein
+//								sReturn = "Error 50: Previous entry is not a valid control character. current string: '" + saParamAll[icount] + "'";
+//								break main;
+//							}
+//						}
+//						bArgumentNeeded = false;						
 					}
-				}
-			}
+//				}else{
+//					//Fall sParamCurrent ist leer
+//					if(bArgumentNeeded==true){
+//						sReturn = "Error 59: Last control character '" + sControlPrevious + "' has no argument.";
+//						break main;						
+//					}else{
+//						//Leeres Steuerzeichen
+//						bArgumentNeeded = false;
+//						sControlPrevious = "";
+//					}
+//				}
+				
+	
+			}//END FOR
+			
 			//Fehler - LETZTES STEUERZEICHEN SOLLTE EINEN WERT HABEN, HAT ES ABER NCIHT
-			if(bNeedArgument == true){
+			if(bArgumentNeeded == true){
 				sReturn = "Error 60: Last control character has no argument: '" + saParamAll[saParamAll.length-1] + "'";
 				break main;
 			}
@@ -659,10 +701,11 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 		return sReturn;
 	}
 	
-	public boolean isArgumentValid(String sArgument) throws ExceptionZZZ{
+	public boolean isArgumentValid(String sArgumentIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			//Null oder Leerstring sind valid
+			String sArgument = StringZZZ.trim(sArgumentIn);
 			if(StringZZZ.isEmpty(sArgument)){
 				bReturn = true;
 				break main;
@@ -789,51 +832,31 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 				//+++ 1a. Der Pattern String darf nicht mit einem Pipe beginnen.
 				sCharacter = sPattern.substring(0,1);
 				if(sCharacter.equals("|")){
-					sReturn = "Error 4: The character '|' is an argument separator. It is not allowed at the beginning. It is allowed only one time after a control character. Pattern '" + sPattern +"'";
-					break main;
-				}
-			
-				//+++ 2a. In dem Pattern String darf kein Wert doppelt vorkommen, mit Ausnahme des Doppelpunkts
-				saPattern = StringZZZ.explode(sPattern, ":");
-				iLength = saPattern.length;
-
-				saPatternUnique = StringArrayZZZ.unique(saPattern);
-				iLengthUnique = saPatternUnique.length;
-			
-				if(iLength!=iLengthUnique) {
-					sReturn = "Error 1: There are duplicate Entries (seperated by ':') in the pattern string . Pattern '" + sPattern +"'";
-					break main;
-				}
-			
-				//+++ 2a. In dem Pattern String darf kein Wert doppelt vorkommen, mit Ausnahme des Doppelpunkts
-				saPattern = StringZZZ.explode(sPattern, "|"); //20260317: Fraglich... | sollte doppelt vorkommen duerfen
-				iLength = saPattern.length;
-
-				saPatternUnique = StringArrayZZZ.unique(saPattern);
-				iLengthUnique = saPatternUnique.length;
-			
-				if(iLength!=iLengthUnique) {
-					sReturn = "Error 1: There are duplicate Entries (seperated by '|') in the pattern string . Pattern '" + sPattern +"'";
+					sReturn = "Error 3: The character '|' is an argument separator. It is not allowed at the beginning. It is allowed only one time after a control character. Pattern '" + sPattern +"'";
 					break main;
 				}
 				
-			//20210331: Jetzt sind aber Optionsparameter mit mehr als 1 Zeichen gewünscht.
-			//          Das ist gescheitert, da zuviel zu ändern ist in GetOpt selbst.
-			//Das stammt aus der Version, in der die Steuereungszeichen nur 1 Zeichen lang sein durften			
-//			String sRest = sPattern;
-//			while(sRest.length()>=1){
-//				sCharacter = sRest.substring(0,1);
-//				sRest = StringZZZ.rightback(sRest, 1);
-//				if(!sCharacter.equals(":")){
-//					int icount = StringZZZ.count(sRest, sCharacter);
-//					if(icount >= 1){   //d.h. wenn das Zeichen noch einmal vorkommt
-//						sReturn = "Error 1: The character '" + sCharacter + "' is " + (icount+1) + " times in the pattern string. Pattern '" + sPattern +"'";
-//						break main;
-//					}
-//				}
-//			}
+				//+++ 1a. Der Pattern String darf nicht mit einem Punkt beginnen.
+				sCharacter = sPattern.substring(0,1);
+				if(sCharacter.equals(".")){
+					sReturn = "Error 3: The character '.' is an argument placeholder. It is not allowed at the beginning. It is allowed only one time after a control character. Pattern '" + sPattern +"'";
+					break main;
+				}
 			
-			//+++ 3a. Nach einem Doppelpunkt darf kein zweiter Doppelpunkt sofort folgen
+				//+++ 2a. In dem Pattern String darf kein Wert doppelt vorkommen, mit Ausnahme des Doppelpunkts, Punkts oder Pipes
+				String[]saArgumentPlaceholder= {":","|","."};
+				saPattern = StringZZZ.explode(sPattern, saArgumentPlaceholder);
+				iLength = saPattern.length;
+
+				saPatternUnique = StringArrayZZZ.unique(saPattern);
+				iLengthUnique = saPatternUnique.length;
+			
+				if(iLength!=iLengthUnique) {
+					sReturn = "Error 1: There are duplicate Entries (seperated by : or | or .) in the pattern string . Pattern '" + sPattern +"'";
+					break main;
+				}
+			
+			//+++ 3a. Nach einem Doppelpunkt darf kein zweiter Doppelpunkt sofort folgen, bzw. Punkt, bzw. Pipe
 			cDelim=':';
 			bCharacterDoubled = StringZZZ.isCharacterDoubled(sPattern, cDelim);
 			if(bCharacterDoubled) {
@@ -848,6 +871,41 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 				break main;
 			}
 		
+			cDelim='.';
+			bCharacterDoubled = StringZZZ.isCharacterDoubled(sPattern, cDelim);
+			if(bCharacterDoubled) {
+				sReturn = "Error 2: The character " + cDelim + " is an argument placeholder or separator. It is allowed only one time after a control character. Pattern '" + sPattern +"'";
+				break main;
+			}
+			
+			//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			//+++ 4a. Nach einem Argumentplaceholder darf kein weiterer Argumentplaceholder folgen
+			boolean bPlaceholderBehind=false;
+			char[]caDelim= {':','.','|'};
+			
+			cDelim=':';			
+			bPlaceholderBehind = StringZZZ.isCharacterBehind(sPattern,cDelim,caDelim);
+			if(bPlaceholderBehind) {
+				sReturn = "Error 4: The character " + cDelim + " is an argument placeholder or separator. No other placeholder is allowed directly behind. Pattern '" + sPattern +"'";
+				break main;
+			}
+						
+			//++++++++++++++++++++++
+			cDelim='.';			
+			bPlaceholderBehind = StringZZZ.isCharacterBehind(sPattern,cDelim,caDelim);
+			if(bPlaceholderBehind) {
+				sReturn = "Error 4: The character " + cDelim + " is an argument placeholder or separator. No other placeholder is allowed directly behind. Pattern '" + sPattern +"'";
+				break main;
+			}
+			
+			//++++++++++++++++++++++
+			cDelim='|';			
+			bPlaceholderBehind = StringZZZ.isCharacterBehind(sPattern,cDelim,caDelim);
+			if(bPlaceholderBehind) {
+				sReturn = "Error 4: The character " + cDelim + " is an argument placeholder or separator. No other placeholder is allowed directly behind. Pattern '" + sPattern +"'";
+				break main;
+			}
+					
 			}catch(ExceptionZZZ ez) {
 				sReturn = "Error ExceptionZZZ: '" + ez.getMessageLast() + "'";
 				break main;
