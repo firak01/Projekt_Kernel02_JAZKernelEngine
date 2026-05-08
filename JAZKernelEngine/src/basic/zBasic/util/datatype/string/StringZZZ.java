@@ -477,6 +477,20 @@ public class StringZZZ implements IConstantZZZ{
 		}
 	return s2c.charAt(iIndex);
 }
+	
+	
+	/** Nimm den Fallback, wenn value nicht gesetzt ist.
+	 * @param value
+	 * @param fallback
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
+	public static String coalesce(String value, String fallback) throws ExceptionZZZ{
+	    if(value == null || value.trim().isEmpty()) {
+	        return fallback;
+	    }
+	    return value;
+	}
 
 	public static boolean contains(String sString, String sMatch) throws ExceptionZZZ {
 		return StringZZZ.contains(sString, sMatch, true);	
