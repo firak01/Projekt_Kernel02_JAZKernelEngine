@@ -339,7 +339,11 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		return bReturn;		
 	}
 	
-	
+	//########################
+	public static <T> ArrayList<T> join(ArrayList<T> lista1, List<T> list2) throws ExceptionZZZ {		
+		ArrayList<T> lista2 = ArrayListUtilZZZ.toArrayList(list2);
+		return ArrayListUtilZZZ.join(lista1, lista2);
+	}
 		
 	public static <T> ArrayList<T> join(ArrayList<T> lista1, ArrayList<T> lista2) throws ExceptionZZZ {
 		return ArrayListUtilZZZ.join(lista1, lista2, false);
@@ -872,7 +876,7 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		return listaReturn;
 	}
 	
-	public static <T> ArrayListZZZ<T> toArrayList(ArrayList<T> listas) throws ExceptionZZZ{
+	public static <T> ArrayListZZZ<T> toArrayList(List<T> listas) throws ExceptionZZZ{
 		ArrayListZZZ<T> listaReturn = new ArrayListZZZ<T>();
 		main:{
 			for(T value : listas) {
@@ -1185,5 +1189,7 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		}//End main:
 		return listaReturn;
 	}
+
+	
 	
 }//END class
