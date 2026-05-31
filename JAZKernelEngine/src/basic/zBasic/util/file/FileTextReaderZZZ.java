@@ -3,6 +3,7 @@ package basic.zBasic.util.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import basic.javagently.Stream;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
@@ -18,8 +19,6 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 public class FileTextReaderZZZ extends  AbstractFileTextZZZ{
 	private static final long serialVersionUID = -9054462955710855745L;
 	
-	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
-		
 	public FileTextReaderZZZ() {		
 	}
 	public FileTextReaderZZZ(String sFileName) throws ExceptionZZZ{
@@ -68,11 +67,22 @@ public class FileTextReaderZZZ extends  AbstractFileTextZZZ{
 	
 	
 	public synchronized String read() throws ExceptionZZZ{			
+		return readAsString();
+	}
+	
+	public synchronized String readAsString() throws ExceptionZZZ{			
 		File objFile = this.getFileObject();		
 		return FileTextUtilZZZ.readFileToString(objFile);
 	}
 	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	public synchronized List<String> readAsList() throws ExceptionZZZ{
+		File objFile = this.getFileObject();
+		return FileTextUtilZZZ.readFileToList(objFile);
+	}
 	
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	@Override
 	public String getFileNameDefault() throws ExceptionZZZ {
 		return FileTextReaderZZZ.sFILE_NAME_DEFAULT;

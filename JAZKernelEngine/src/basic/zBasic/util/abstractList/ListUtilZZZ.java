@@ -18,7 +18,7 @@ public class ListUtilZZZ implements IConstantZZZ{
 	
 	
 	/**
-	 * @param lista
+	 * @param list
 	 * @return
 	 * 
 	 * https://stackoverflow.com/questions/10766492/what-is-the-simplest-way-to-reverse-an-arraylist
@@ -39,26 +39,169 @@ public class ListUtilZZZ implements IConstantZZZ{
 //    // result now holds a reversed copy of the original list
 //    return result;
 //}
-	public static <T> List<T> reverse(List<T> lista) throws ExceptionZZZ {
-	    List<T> listaReturn = null; 
+	public static <T> List<T> reverse(List<T> list) throws ExceptionZZZ {
+	    List<T> listReturn = null; 
 		main:{
-			if(lista==null) break main;
-			if(lista.size()==0) break main;
+			if(list==null) break main;
+			if(list.size()==0) break main;
 			
 			
 			
 			// create a new list, with exactly enough initial capacity to hold the (reversed) list
-			final int size = lista.size();
+			final int size = list.size();
 			final int last = size - 1;
 			
-		    listaReturn = new ArrayList<>(size);
+		    listReturn = new ArrayList<>(size);
 		    
 		    // iterate through the list in reverse order and append to the result
 		    for (int i = last; i >= 0; --i) {
-		        final T element = lista.get(i);
-		        listaReturn.add(element);
+		        final T element = list.get(i);
+		        listReturn.add(element);
 		    }
 		}//end main	
-	    return listaReturn;
+	    return listReturn;
+	}
+	
+	//################################################################
+	public static <T> List<T> join(List<T> lista1, List<T> lista2) throws ExceptionZZZ {
+		return ListUtilZZZ.join(lista1, lista2, false);
+	}
+	
+	public static <T> List<T> join(List<T> lista1, List<T> lista2, boolean bFlagUnique) throws ExceptionZZZ{
+		List<T> listaReturn = null;
+		main:{
+			if(lista1==null && lista2 ==null) break main;
+			
+			
+			if(bFlagUnique==false){
+				//Wenn nicht ''uniqued' werden soll, dann kann man sofort in der Return-liste joinen
+				listaReturn = new ArrayList<T>();
+				if(lista1!=null){
+					for(int icount=0; icount < lista1.size(); icount++){
+						listaReturn.add(lista1.get(icount));
+					}
+				}//lista1!=null
+				if(lista2!=null){
+					for(int icount=0; icount < lista2.size(); icount ++){
+						listaReturn.add(lista2.get(icount));
+					}
+				}		
+				break main;
+				
+			}else{
+				//Wenn 'uniqued' werden soll, dann ist "keepFirst" die default-Strategie
+				listaReturn = ListUtilZZZ.joinKeepFirst(lista1,lista2);		
+				break main;
+			}//End if (bFlagUnique ....
+			
+		}//END main:
+		return listaReturn;
+	}
+	
+	
+	public static <T> List<T> join(List<T> lista1, List<T> lista2, List<T> lista3) throws ExceptionZZZ {
+		return ListUtilZZZ.join(lista1, lista2, lista3, false);
+	}
+	
+	public static <T> List<T> join(List<T> lista1, List<T> lista2, List<T> lista3, boolean bFlagUnique) throws ExceptionZZZ{
+		List<T> listaReturn = null;
+		main:{
+			if(lista1==null && lista2 ==null  && lista3 ==null) break main;
+			
+			
+			if(bFlagUnique==false){
+				//Wenn nicht ''uniqued' werden soll, dann kann man sofort in der Return-liste joinen
+				listaReturn = new ArrayList<T>();
+				if(lista1!=null){
+					for(int icount=0; icount < lista1.size(); icount++){
+						listaReturn.add(lista1.get(icount));
+					}
+				}//lista1!=null
+				if(lista2!=null){
+					for(int icount=0; icount < lista2.size(); icount ++){
+						listaReturn.add(lista2.get(icount));
+					}
+				}//lista2!=null
+				if(lista3!=null){
+					for(int icount=0; icount < lista3.size(); icount ++){
+						listaReturn.add(lista3.get(icount));
+					}
+				}			
+				break main;
+				
+			}else{
+				//Wenn 'uniqued' werden soll, dann ist "keepFirst" die default-Strategie
+				listaReturn = ListUtilZZZ.joinKeepFirst(lista1,lista2,lista3);		
+				break main;
+			}//End if (bFlagUnique ....
+			
+		}//END main:
+		return listaReturn;
+	}
+	
+	//##############################
+	public static <T> List<T> joinKeepFirst(List<T> lista1, List<T> lista2) throws ExceptionZZZ {
+		List<T> listaReturn = null;
+		main:{
+			if(lista1==null && lista2 ==null) break main;
+			
+			//Wenn 'uniqued' werden soll, dann erst in eine temporaere Liste joinen
+			ArrayList<T> listaTemp = new ArrayList<T>();
+			if(lista1!=null){
+				for(int icount=0; icount < lista1.size(); icount++){
+					listaTemp.add(lista1.get(icount));
+				}
+			}//lista1!=null
+			if(lista2!=null){
+				for(int icount=0; icount < lista2.size(); icount ++){
+					listaTemp.add(lista2.get(icount));
+				}
+			}		
+			
+			listaReturn = ArrayListUtilZZZ.uniqueKeepFirst(listaTemp);			
+		}//END main:
+		return listaReturn;
+	}
+	
+	public static <T> List<T> joinKeepFirst(List<T> lista1, List<T> lista2, List<T> lista3) throws ExceptionZZZ {
+		List<T> listaReturn = null;
+		main:{
+			if(lista1==null && lista2 ==null && lista3 ==null) break main;
+			
+			//Wenn 'uniqued' werden soll, dann erst in eine temporaere Liste joinen
+			List<T> listaTemp = new ArrayList<T>();
+			if(lista1!=null){
+				for(int icount=0; icount < lista1.size(); icount++){
+					listaTemp.add(lista1.get(icount));
+				}
+			}//lista1!=null
+			if(lista2!=null){
+				for(int icount=0; icount < lista2.size(); icount ++){
+					listaTemp.add(lista2.get(icount));
+				}
+			}//lista2!=null
+			if(lista3!=null){
+				for(int icount=0; icount < lista3.size(); icount ++){
+					listaTemp.add(lista3.get(icount));
+				}
+			}			
+			
+			listaReturn = ListUtilZZZ.uniqueKeepFirst(listaTemp);			
+		}//END main:
+		return listaReturn;
+	}
+	
+	//#############################################
+	public static <T> List<T> uniqueKeepFirst(List<T> lista) throws ExceptionZZZ {
+		List<T> listReturn = null;
+		main:{
+			if(lista==null)break main;					
+		
+			listReturn=new ArrayListZZZ<T>();
+			for(int icount=0; icount < lista.size(); icount++ ){
+				if(! listReturn.contains(lista.get(icount))) listReturn.add(lista.get(icount));
+			}	
+		}//End main:
+		return listReturn;
 	}
 }

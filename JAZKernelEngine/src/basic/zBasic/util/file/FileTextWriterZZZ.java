@@ -3,6 +3,7 @@ package basic.zBasic.util.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import basic.javagently.Stream;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
@@ -27,6 +28,10 @@ public class FileTextWriterZZZ extends AbstractFileTextZZZ{
 	
 	public FileTextWriterZZZ(File objFile) throws ExceptionZZZ{
 		super(objFile);
+	}
+	
+	public FileTextWriterZZZ(List<String> listaLine) throws ExceptionZZZ {
+		super(listaLine);
 	}
 	
 	@Override
@@ -59,6 +64,25 @@ public class FileTextWriterZZZ extends AbstractFileTextZZZ{
 	}
 	
 	//##############################################################
+	public synchronized boolean writeLines() throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+		List<String> listString = this.getLines();
+		if(listString==null) break main;
+		
+			boolean bHasStream = true;
+			if(this.objStream==null) bHasStream = createStreamInternal_("");
+			if(bHasStream){
+				for(String stemp : listString) {
+					this.objStream.println(stemp);
+				}
+			}
+		
+			bReturn = bHasStream;
+		}//end main;
+		return bReturn;
+	}
+	
 	public synchronized boolean writeLine(String stemp){
 		boolean bHasStream = true;
 		if(this.objStream==null) bHasStream = createStreamInternal_("");

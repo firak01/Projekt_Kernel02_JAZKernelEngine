@@ -1,6 +1,7 @@
 package basic.zBasic.util.file;
 
 import java.io.File;
+import java.util.List;
 
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
@@ -14,6 +15,11 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 	protected String sFileName = null;
 	protected File objFile = null;
 	
+	protected List<String> listaLine = null;
+	
+	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
+	
+	
 	public AbstractFileTextZZZ() {		
 	}
 	public AbstractFileTextZZZ(String sFileName) throws ExceptionZZZ{
@@ -24,8 +30,15 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 		this.setFileObject(objFile);
 	}
 	
+	public AbstractFileTextZZZ(List<String> listaLine) throws ExceptionZZZ{
+		this.setLines(listaLine);
+	}
+	
 	//##### Getter / Setter ###################
-	public abstract String getFileNameDefault() throws ExceptionZZZ;
+	public String getFileNameDefault() throws ExceptionZZZ {
+		return AbstractFileTextZZZ.sFILE_NAME_DEFAULT;
+	}
+	
 	
 	public String getFileName() throws ExceptionZZZ {
 		if(StringZZZ.isEmpty(this.sFileName)) {
@@ -74,5 +87,22 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 		}
 		this.setFileName(null); //egal ob Datei oder NULL, wenn benötigt den Dateinamen also wieder neu aus der Datei holen ODER DEFAULT.
 		this.objFile = objFile;
+	}
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	public List<String> getLines() throws ExceptionZZZ{
+		if(this.listaLine==null) {
+			if(this.getFileObject()==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("Filename or File-Object AND List of Lines", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
+				throw ez;				
+			}else {				
+				List<String> listaLine = FileTextUtilZZZ.readFileToList(this.getFileObject());
+				this.setLines(listaLine);
+			}
+		}
+		return this.listaLine;
+	}
+	public void setLines(List<String>listaLine) {
+		this.listaLine = listaLine;
 	}
 }
