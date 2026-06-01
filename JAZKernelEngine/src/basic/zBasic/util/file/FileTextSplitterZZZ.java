@@ -131,6 +131,7 @@ public class FileTextSplitterZZZ extends  AbstractFileTextCombinedZZZ{
 		main:{
 			List<String>listaLine = this.getLines();
 			if(listaLine==null)break main;
+						
 			
 			//Alles vor der Trennzeile
 			List<String>listaLinePre = new ArrayList<String>();			

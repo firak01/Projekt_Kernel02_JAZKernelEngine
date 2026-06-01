@@ -83,6 +83,25 @@ public class FileTextWriterZZZ extends AbstractFileTextZZZ{
 		return bReturn;
 	}
 	
+	public synchronized boolean writeLines(List<String> listString) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{		
+			if(listString==null) break main;
+			
+			boolean bHasStream = true;
+			if(this.objStream==null) bHasStream = createStreamInternal_("");
+			if(bHasStream){
+				for(String stemp : listString) {
+					this.objStream.println(stemp);
+				}
+			}
+		
+			bReturn = bHasStream;
+		}//end main;
+		return bReturn;
+	}
+	
+	
 	public synchronized boolean writeLine(String stemp){
 		boolean bHasStream = true;
 		if(this.objStream==null) bHasStream = createStreamInternal_("");

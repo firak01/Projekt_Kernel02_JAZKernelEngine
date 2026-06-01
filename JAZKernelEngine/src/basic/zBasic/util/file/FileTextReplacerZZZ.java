@@ -38,7 +38,7 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextZZZ{
 			List<String> listaStringPre = objFileTextSplitter.getLinesPre();
 			List<String> listaStringPost = objFileTextSplitter.getLinesPost();
 			
-			List<String> listReturn = ListUtilZZZ.join(listaStringPre, listaString, listaStringPost);
+			List<String> listReturn = ListUtilZZZ.join(listaStringPre, listaStringReplacement, listaStringPost);
 			this.setLines(listReturn);
 			
 			bReturn = true;
@@ -60,7 +60,7 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextZZZ{
 			List<String> listaStringPre = objFileTextSplitter.getLinesPre();
 			List<String> listaStringPost = objFileTextSplitter.getLinesPost();
 			
-			List<String> listReturn = ListUtilZZZ.join(listaStringPre, listaString, listaStringPost);
+			List<String> listReturn = ListUtilZZZ.join(listaStringPre, listaStringReplacement, listaStringPost);
 			this.setLines(listReturn);
 			
 			bReturn = true;

@@ -9,6 +9,7 @@ import java.util.List;
 
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class FileTextUtilZZZ  extends AbstractObjectWithExceptionZZZ implements IFileEasyConstantsZZZ{
@@ -27,18 +28,21 @@ Für sehr große Dateien wäre ein Streaming-Ansatz besser, aber für normale Te
      * @return
      * @throws Exception
      */
-    public static String readFileToString(File file) throws ExceptionZZZ{
+    public static String readFileToString(File objFile) throws ExceptionZZZ{
     	String sReturn = null;
     	main:{
 	        try {
-	        	if(file==null)break main;
-	    		if(file.exists()) break main;
+	        	if(objFile==null)break main;
+	        	if(!FileEasyZZZ.isFileExisting(objFile)) {
+					ExceptionZZZ ez = new ExceptionZZZ( "File-Object does not exist or is an directory: '"+objFile.getAbsolutePath() + "'", iERROR_PROPERTY_MISSING, FileTextUtilZZZ.class, ReflectCodeZZZ.getMethodCurrentName()); 
+					throw ez;		 
+	    		}
 	    		
 	    		StringBuilder sb = new StringBuilder();
 	
 	            BufferedReader br = null;
 		        try {
-		            br = new BufferedReader(new FileReader(file));
+		            br = new BufferedReader(new FileReader(objFile));
 		
 		            String line;
 		            while ((line = br.readLine()) != null) {
@@ -61,16 +65,19 @@ Für sehr große Dateien wäre ein Streaming-Ansatz besser, aber für normale Te
     	return sReturn;
     }
     
-    public static List<String> readFileToList(File file) throws ExceptionZZZ {
+    public static List<String> readFileToList( File objFile ) throws ExceptionZZZ {
     	List<String> listaReturn = null;
     	main:{
     		try {
-	    		if(file==null)break main;
-	    		if(file.exists()) break main;
-	    		
+	    		if(objFile==null)break main;
+	    		if(!FileEasyZZZ.isFileExisting(objFile)) {
+					ExceptionZZZ ez = new ExceptionZZZ( "File-Object does not exist or is an directory: '"+objFile.getAbsolutePath() + "'", iERROR_PROPERTY_MISSING, FileTextUtilZZZ.class, ReflectCodeZZZ.getMethodCurrentName()); 
+					throw ez;		 
+	    		}
+	    			    		
 	    		 BufferedReader br = null;
 	    		try {
-	    			br = new BufferedReader(new FileReader(file));
+	    			br = new BufferedReader(new FileReader(objFile));
 		
 	    			listaReturn = new ArrayList<String>();
 		
