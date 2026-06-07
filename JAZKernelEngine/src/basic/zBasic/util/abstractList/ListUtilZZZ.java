@@ -204,4 +204,41 @@ public class ListUtilZZZ implements IConstantZZZ{
 		}//End main:
 		return listReturn;
 	}
+	
+	//##############################################
+	public static <T> List<T> replace(List<T> listOriginal, int iStart, int iEnd, List<T> listReplacement) throws ExceptionZZZ{
+		List<T> listasReturn = new ArrayList<T>();
+		main:{
+			try {
+				if (listOriginal == null) {
+				throw new IllegalArgumentException("listOriginal");
+				}
+				
+				if (listReplacement == null) {
+				throw new IllegalArgumentException("listReplacement");
+				}
+				
+				if (iStart < 0 || iEnd < iStart || iEnd >= listOriginal.size()) {
+				throw new IndexOutOfBoundsException(
+				"Invalid range: " + iStart + " - " + iEnd);
+				}
+				
+				// vor dem zu ersetzenden Bereich
+				listasReturn.addAll(listOriginal.subList(0, iStart));
+				
+				// Ersatzinhalt
+				listasReturn.addAll(listReplacement);
+				
+				// nach dem zu ersetzenden Bereich
+				listasReturn.addAll(listOriginal.subList(iEnd + 1, listOriginal.size()));
+			}catch(IllegalArgumentException iae) {
+				ExceptionZZZ ez = new ExceptionZZZ(iae);
+				throw ez;
+			}catch(IndexOutOfBoundsException ioob) {
+				ExceptionZZZ ez = new ExceptionZZZ(ioob);
+				throw ez;
+			}
+		}//end main:
+		return listasReturn;
+	}
 }

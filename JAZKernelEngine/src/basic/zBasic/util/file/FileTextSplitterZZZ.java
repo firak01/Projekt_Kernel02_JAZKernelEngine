@@ -67,7 +67,7 @@ public class FileTextSplitterZZZ extends  AbstractFileTextCombinedZZZ{
 			
 			//Alles vorher und die Trennzeile
 			List<String>listaLinePre = new ArrayList<String>();			
-		    for (int i = 0; i <= iLineNumber; i++) {
+		    for (int i = 0; i < iLineNumber; i++) {
 		    	listaLinePre.add(listaLine.get(i));
 		    }
 		    this.setLinesPre(listaLinePre);
@@ -93,14 +93,14 @@ public class FileTextSplitterZZZ extends  AbstractFileTextCombinedZZZ{
 			
 			//Alles vor der Trennzeile
 			List<String>listaLinePre = new ArrayList<String>();			
-		    for (int i = 0; i < iLineNumber; i++) {
+		    for (int i = 0; i <= iLineNumber; i++) {
 		    	listaLinePre.add(listaLine.get(i));
 		    }
 		    this.setLinesPre(listaLinePre);
 		    
 		    //Die Trennzeile und alles danach
 		    List<String>listaLinePost = new ArrayList<String>();
-		    for (int i = iLineNumber; i < listaLine.size(); i++) {
+		    for (int i = iLineNumber+1; i < listaLine.size(); i++) {
 		    	listaLinePost.add(listaLine.get(i));
 		    }
 		    this.setLinesPost(listaLinePost);
