@@ -36,12 +36,13 @@ Protokoll
  *
  */
 public class UrlLogicZZZ  extends UrlLogicBaseZZZ{	
-	public static final String sURL_SEPARATOR_PATH = "/";
+	public static final String sURL_SEPARATOR_PATH =  "/";
 	public static final String sURL_SEPARATOR_PROTOCOL = ":" + sURL_SEPARATOR_PATH + sURL_SEPARATOR_PATH;
 	public static final String sURL_SEPARATOR_QUERY = "?";
 	public static final String sURL_SEPARATOR_PARAM = "&";
 	public static final String sURL_SEPARATOR_VALUE = "=";
 	public static final String sURL_SEPARATOR_ANKER = "#";
+	public static final String sURL_SEPARATOR_PORT =  ":";
 	
 	public UrlLogicZZZ(){
 		super(); 
@@ -95,6 +96,29 @@ public class UrlLogicZZZ  extends UrlLogicBaseZZZ{
 		return sReturn;
 	}
 	
+	/** Merke: 
+				Normalerweise bedeutet ein Doppelpunkt in der URL einen Port. Aber es gibt Probleme bei spezifischen URLs
+				Z.B. Git-SSH-Shortcut (scp-artige Syntax)
+				
+				Git akzeptiert neben echten URLs:
+				git@github.com:firak01/meinrepo.git
+				Hier bedeutet der Doppelpunkt tatsächlich nicht Port, sondern trennt Host und Pfad.
+				Diese Schreibweise stammt historisch von scp bzw. rsync und ist keine RFC-konforme URL.
+
+				Git erkennt intern:
+				git@github.com:firak01/meinrepo.git
+				als ungefähr:
+				'ssh://git@github.com/firak01/meinrepo.git'
+				
+				Falls GitUrls verarbeitet werden sollen
+				https://github.com/firak01/repo.git        o.k.
+				ssh://git@github.com/firak01/repo.git	   o.k.
+				git@github.com:firak01/repo.git            hier nicht o.k., Verwende statt dessen etwas, das arbeitet mit (s. JGit): URIish uri = new URIish("git@github.com:firak01/repo.git");
+				
+	 * @param sUrl
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
 	public static String getProtocol(String sUrl) throws ExceptionZZZ{
 		String sReturn = "";
 		main:{
@@ -111,12 +135,13 @@ public class UrlLogicZZZ  extends UrlLogicBaseZZZ{
 				//... Falls es ein Protokoll gibt, dann geht das mit der normalen Stadardklasse.
 				//... Voraussetzung: Die URL muss encoded sein.			
 				//String sUrlNormed = UrlLogicZZZ.getUrlWithoutParameter(sUrl);
-				String sUrlNormed = UrlLogicZZZ.getUrlEncoded(sUrl);
-				URL objUrl = new URL(sUrlNormed);				
+				String sUrlEncoded = UrlLogicZZZ.getUrlEncoded(sUrl);
+								
+				URL objUrl = new URL(sUrlEncoded);				
 				sReturn = objUrl.getProtocol();
 					
 			} catch (MalformedURLException urle) {
-				ExceptionZZZ ez = new ExceptionZZZ("Malformed Url Exception: " + urle.getMessage(), iERROR_RUNTIME, UrlLogicZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				ExceptionZZZ ez = new ExceptionZZZ("MalformedUrlException: " + urle.getMessage(), iERROR_RUNTIME, UrlLogicZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}
 		}//end main:
