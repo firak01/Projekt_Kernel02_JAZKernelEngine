@@ -1,9 +1,13 @@
 package basic.zKernel;
 
 import static basic.zKernel.IKernelConfigConstantZZZ.sPATTERN_DEFAULT;
+
+import java.util.List;
+
 import static basic.zKernel.IKernelConfigConstantZZZ.sFLAGZ_DEFAULT;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
 /** Interface, welches von KernelConfigZZZ etc. eingebunden wird, um die Default Werte festzulegen.
@@ -49,9 +53,14 @@ public interface IKernelConfigZZZ extends IFlagZEnabledZZZ,IKernelConfigProjectH
 	 */
 	public String readPatternString() throws ExceptionZZZ;
 	public String getPatternStringDefault() throws ExceptionZZZ;
-	
 	public String[] getArgumentArrayDefault() throws ExceptionZZZ;
 	
+	
+	//Die Dokumentation anzeigen lassen über -? oder -help
+	public String readActionHelp() throws ExceptionZZZ;
+	public String readActionQuestionMark() throws ExceptionZZZ;
+	public String getHelp() throws ExceptionZZZ;
+	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ;
 	
 	public boolean isOnServer() throws ExceptionZZZ;
 	public boolean isInJar() throws ExceptionZZZ;

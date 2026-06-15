@@ -2,7 +2,9 @@ package basic.zKernel;
 
 import static java.lang.System.out;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -22,7 +24,11 @@ import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.JarEasyUtilZZZ;
+import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
+import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zKernel.config.KernelConfigSectionEntryUtilZZZ;
+import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
+import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 import basic.zKernel.file.ini.IKernelCallIniSolverZZZ;
 import basic.zKernel.file.ini.IKernelEncryptionIniSolverZZZ;
 import basic.zKernel.file.ini.IKernelExpressionIniSolverZZZ;
@@ -437,8 +443,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 	}
 	
 
-	//### Interface ###########
-	
+	//### aus IKernelConfigZZZ
 	@Override
 	public String getConfigFlagzJsonDefault() {
 		return IKernelConfigZZZ.sFLAGZ_DEFAULT;
@@ -468,6 +473,45 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 		saArg[13] = this.getConfigFlagzJsonDefault();
 		
 		return saArg;
+	}
+	
+
+	//Gib die Hilfsinfos als String zurück
+	@Override
+	public String getHelp() throws ExceptionZZZ{
+		String sReturn = "";
+		main:{
+			List<IKernelConfigHelpLineZZZ> listaHelpLine = this.getHelpList();
+			for(IKernelConfigHelpLineZZZ objHelpLine : listaHelpLine) {
+				sReturn = sReturn + objHelpLine.getsAbbreviation() + "\t" + objHelpLine.getName() + "\t" + objHelpLine.getDescription() + StringZZZ.crlf();
+			}
+		}//end main
+		return sReturn;
+	}
+	//kein setter
+	
+
+	
+	//Merke 20260615: Besser eine Liste von Hilf-Objekt-Zeilen auch kein Enum, der Ansatz mit der einfachen Liste der Objekte läßt sich einfacher 
+	//                über mehrere Projekte und Vererbungstrukturen umsetzen
+	//Also nicht so etwas nutzen wie:
+	//public enum LOGSTRINGFORMAT implements IEnumSetMappedStringFormatZZZ{		
+	//            und darin:    STRINGTYPE01_STRING_BY_STRING("stringtype01",IStringFormatZZZ.iFACTOR_STRINGTYPE01_STRING_BY_STRING, IStringFormatZZZ.sSEPARATOR_PREFIX_DEFAULT + "[A01]", "%s",IStringFormatZZZ.iARG_STRING,  "[/A01]" + IStringFormatZZZ.sSEPARATOR_POSTFIX_DEFAULT, "Gib den naechsten Log String - sofern vorhanden - in diesem Format aus."),			
+	@Override
+	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ{
+		ArrayList<IKernelConfigHelpLineZZZ>listaReturn=new ArrayList<IKernelConfigHelpLineZZZ>();
+		main:{
+		//Berücksichtige dabei die Paramter aus den "Pattern" Strings
+		//IKernelConfigZZZ.sFLAGZ_DEFAULT;
+		//IKernelConfigZZZ.sPATTERN_DEFAULT;	
+		//k:s:f:d:lf:ld:
+		//z:zcustom:zlocal:
+		
+		IKernelConfigHelpLineZZZ objHelp = new KernelConfigHelpLineZZZ("k","KernelKey","KernelIniFile - ");
+		listaReturn.add(objHelp);	
+		
+		}//end main:
+		return listaReturn;
 	}
 	
 	//### Aus Interface ICryptUserZZZ
@@ -611,6 +655,41 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 		}
 		return bReturn;
 	}
+	
+	//###############################################################
+	//### "fachliche" actions
+	@Override
+	public String readActionHelp() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("help");
+//			if(sReturn==null){
+//				sReturn = this.getPersonalAccessTokenDefault();
+//			}
+		}//end main:		
+		return sReturn;
+	}
+	
+	@Override
+	public String readActionQuestionMark() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("?");
+//			if(sReturn==null){
+//				sReturn = this.getPersonalAccessTokenDefault();
+//			}
+		}//end main:		
+		return sReturn;
+	}
+	
 	
 	
 	//##########
