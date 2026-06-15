@@ -56,7 +56,7 @@ public interface IKernelConfigZZZ extends IFlagZEnabledZZZ,IKernelConfigProjectH
 	public String[] getArgumentArrayDefault() throws ExceptionZZZ;
 	
 	
-	//Die Dokumentation anzeigen lassen über -? oder -help
+	//20260615 Die Dokumentation anzeigen lassen über -? oder -help
 	public String readActionHelp() throws ExceptionZZZ;
 	public String readActionH() throws ExceptionZZZ;
 	public String getHelp() throws ExceptionZZZ;
