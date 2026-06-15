@@ -41,6 +41,8 @@ import basic.zKernel.file.ini.IKernelZFormulaIni_PathZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 /**Klasse wertet Kommandozeilenparamter aus, hinsichtlich der zu verwendenden Kernel-Konfiguration
+ * -h = Hilfe
+ * -help = Hilfe
  * -k = ApplicationKey
  * -s = SystemKey
  * -d = directory
@@ -50,10 +52,9 @@ import custom.zKernel.file.ini.FileIniZZZ;
  * -z = flagz, JSON String mit dem beliebige Flags von aussen gesetzt werden. Sie werden in einer extra HashMap-verwaltet.
  * Mit diesen Informationen kann dann das eigentliche Kernel-Objekt erstellt werden
  * Z.B.:  -z {"DEBUGUI_PANELLABEL_ON":true,"DEBUGUI_PANELLIST_STRATEGIE_ENTRYFIRST":true,"DEBUGUI_PANELLIST_STRATEGIE_ENTRYDUMMY":true,"DEBUGUI_PANELLIST_STRATEGIE_ENTRYLAST":true}
- * 
- * 			//20210331: Jetzt sind aber Optionsparameter mit mehr als 1 Zeichen gewünscht.
-			//          Das ist gescheitert, da zuviel zu ändern ist.
- * 
+
+   ABER: Gescheitert ist als Argument '?' das einzelnstehende Fragezeichen. Keine Ahnung warum, nimm jetzt -h
+   
  * @author lindhauer
  * 
  */
@@ -675,14 +676,14 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 	}
 	
 	@Override
-	public String readActionQuestionMark() throws ExceptionZZZ {
+	public String readActionH() throws ExceptionZZZ {
 		String sReturn = null;
 		main:{
 			GetOptZZZ objOpt = this.getOptObject();
 			if(objOpt==null) break main;
 			if(objOpt.getFlag("isLoaded")==false) break main;
 			
-			sReturn = objOpt.readValue("?");
+			sReturn = objOpt.readValue("h");
 //			if(sReturn==null){
 //				sReturn = this.getPersonalAccessTokenDefault();
 //			}

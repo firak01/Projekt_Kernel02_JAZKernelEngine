@@ -58,7 +58,7 @@ public interface IKernelConfigZZZ extends IFlagZEnabledZZZ,IKernelConfigProjectH
 	
 	//Die Dokumentation anzeigen lassen über -? oder -help
 	public String readActionHelp() throws ExceptionZZZ;
-	public String readActionQuestionMark() throws ExceptionZZZ;
+	public String readActionH() throws ExceptionZZZ;
 	public String getHelp() throws ExceptionZZZ;
 	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ;
 	
