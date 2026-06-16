@@ -2,6 +2,7 @@ package basic.zKernel;
 
 import java.util.EnumSet;
 
+import basic.zBasic.config.IConfigConstantZZZ;
 import basic.zKernel.config.IEnumSetKernelConfigDefaultEntryZZZ;
 import basic.zKernel.config.KernelConfigDefaultEntryZZZ;
 
@@ -26,15 +27,15 @@ public interface IKernelConfigConstantZZZ {
 	//Merke2: Es ist auch moeglich Argumente mit mehr als 2 Zeichen zu definieren.
 	
 	//Merke3: Die Flags sind für alle Objekte, die Flags behandeln gedacht. Hier definiert zur Vereinheitlichung.
-	final static String sPATTERN4FLAG_DEFAULT="z:zcustom:zlocal:"; 
+	//final static String sPATTERN4FLAG_DEFAULT="z:zcustom:zlocal:"; 
 										//z = Flags, die dann JSON aehnlich ueber, die dann JSON aehnlich uebergeben werden, berücksichtigen Vererbungshierarchie.
 	                                    //zcustom == Anwendungsspezifische Flags
 										//zlocal = Lokale Flags, die dann JSON aehnlich uebergeben werden, berücksichtigen KEINE Vererbungshierarchie
 	
 	//Mereke4: Die Angaben zum Kernel sind nur für Kernel Objekte gedacht. Das ist nicht in allen meinen Appliaktionen notwendig. 
-	final static String sPATTERN4KERNEL_DEFAULT="help|h|k:s:f:d:lf:ld:";
-	final static String sPATTERN_DEFAULT= sPATTERN4KERNEL_DEFAULT + sPATTERN4FLAG_DEFAULT;	
-	final static String sFLAGZ_DEFAULT="{}"; //leerer JSON ähnlicher String für zu setztende Flags, z.B. gefüllt {"DEBUGUI_PANELLABEL_ON":true}
+	final static String sPATTERN4KERNEL_DEFAULT = IConfigConstantZZZ.sPATTERN4CONFIG_DEFAULT + "k:s:f:d:lf:ld:";
+	final static String sPATTERN_KERNEL_DEFAULT = sPATTERN4KERNEL_DEFAULT + IConfigConstantZZZ.sPATTERN4FLAG_DEFAULT;	
+	//final static String sFLAGZ_DEFAULT="{}"; //leerer JSON ähnlicher String für zu setztende Flags, z.B. gefüllt {"DEBUGUI_PANELLABEL_ON":true}
 	
 	
 	//######################################################################

@@ -1,12 +1,9 @@
 package basic.zKernel;
 
-import static basic.zKernel.IKernelConfigConstantZZZ.sPATTERN_DEFAULT;
-
 import java.util.List;
 
-import static basic.zKernel.IKernelConfigConstantZZZ.sFLAGZ_DEFAULT;
-
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.config.IConfigZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
@@ -14,7 +11,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
  * @author lindhauer
  *
  */
-public interface IKernelConfigZZZ extends IFlagZEnabledZZZ,IKernelConfigProjectHelperZZZ, IKernelConfigConstantZZZ{
+public interface IKernelConfigZZZ extends IKernelConfigConstantZZZ, IConfigZZZ, IKernelConfigProjectHelperZZZ{
 	
 	/**Falls Kein entsprechender Parameter in der Kommandozeile übergeben worden ist, so wird der hier definierte Wert verwendet für den Initialisierung des Kernels
 	* @return
@@ -42,25 +39,7 @@ public interface IKernelConfigZZZ extends IFlagZEnabledZZZ,IKernelConfigProjectH
 	public boolean isLogDirectoryNameDefault(String sValue) throws ExceptionZZZ;
 	
 	
-	//20210331: Flagz, default String, als leerer JSON-Wert
-	public String getConfigFlagzJsonDefault();
-		
-	/** Die Argumente, die für diese Konfiguration erlaubt sind. Siehe dazu GetOptZZZ()
-	* @return (z.B. "a:b:cde:", mit dem Doppelpunkt als Anzeichen dafür, das ein Parameter diesem Steuerungsargument folgt.)
-	* 
-	* lindhauer; 31.07.2007 06:24:53
-	 * @throws ExceptionZZZ 
-	 */
-	public String readPatternString() throws ExceptionZZZ;
-	public String getPatternStringDefault() throws ExceptionZZZ;
-	public String[] getArgumentArrayDefault() throws ExceptionZZZ;
-	
-	
-	//20260615 Die Dokumentation anzeigen lassen über -? oder -help
-	public String readActionHelp() throws ExceptionZZZ;
-	public String readActionH() throws ExceptionZZZ;
-	public String getHelp() throws ExceptionZZZ;
-	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ;
+
 	
 	public boolean isOnServer() throws ExceptionZZZ;
 	public boolean isInJar() throws ExceptionZZZ;

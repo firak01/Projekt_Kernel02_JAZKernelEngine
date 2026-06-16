@@ -10,7 +10,7 @@ import basic.zKernel.AbstractKernelConfigZZZ;
  * 
  */
 @SuppressWarnings("unchecked")
-public class ConfigZZZ extends AbstractKernelConfigZZZ{
+public class KernelConfigZZZ extends AbstractKernelConfigZZZ{
 	private static String sPROJECT_NAME = "JAZKernel";
 	private static String sPROJECT_PATH = "Project_Kernel02_JAZKernel";
 	
@@ -20,30 +20,30 @@ public class ConfigZZZ extends AbstractKernelConfigZZZ{
 	private static String sKEY_APPLICATION_DEFAULT = "ZZZ";
 	private static String sNUMBER_SYSTEM_DEFAULT= "01";
 	
-	public ConfigZZZ() throws ExceptionZZZ{
+	public KernelConfigZZZ() throws ExceptionZZZ{
 		super();
 	}
-	public ConfigZZZ(String[] saArg) throws ExceptionZZZ{
+	public KernelConfigZZZ(String[] saArg) throws ExceptionZZZ{
 		super(saArg);
 	}
 	
 	@Override
 	public String getApplicationKeyDefault() {
-		return ConfigZZZ.sKEY_APPLICATION_DEFAULT;
+		return KernelConfigZZZ.sKEY_APPLICATION_DEFAULT;
 	}
 	
 	@Override
 	public String getConfigDirectoryNameDefault() {
-		return ConfigZZZ.sDIRECTORY_CONFIG_DEFAULT;	
+		return KernelConfigZZZ.sDIRECTORY_CONFIG_DEFAULT;	
 	}
 	@Override
 	public String getConfigFileNameDefault() {
-		return ConfigZZZ.sFILE_CONFIG_DEFAULT;		
+		return KernelConfigZZZ.sFILE_CONFIG_DEFAULT;		
 	}	
 
 	@Override
 	public String getSystemNumberDefault() {		
-		return ConfigZZZ.sNUMBER_SYSTEM_DEFAULT;
+		return KernelConfigZZZ.sNUMBER_SYSTEM_DEFAULT;
 	}
 	
 	@Override
@@ -52,10 +52,10 @@ public class ConfigZZZ extends AbstractKernelConfigZZZ{
 	}
 	@Override
 	public String getProjectName() {
-		return ConfigZZZ.sPROJECT_NAME;
+		return KernelConfigZZZ.sPROJECT_NAME;
 	}
 	@Override
 	public String getProjectDirectory() {
-		return ConfigZZZ.sPROJECT_PATH;
+		return KernelConfigZZZ.sPROJECT_PATH;
 	}
 }

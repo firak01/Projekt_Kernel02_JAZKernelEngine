@@ -136,7 +136,7 @@ public class KernelSingletonZZZ extends AbstractKernelObjectZZZ{
 		//objKernelSingelton = new KernelSingletonZZZ(saFlagZ);	
 		
 		//Verwende hier Config-Objekt mit dem gleichen Suffix der Klasse, also ZZZ
-		IKernelConfigZZZ objConfig = new ConfigZZZ();
+		IKernelConfigZZZ objConfig = new KernelConfigZZZ();
 		return objKernelSingleton = new KernelSingletonZZZ(objConfig, (String) null);
 	}
 	

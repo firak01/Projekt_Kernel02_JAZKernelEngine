@@ -992,7 +992,7 @@ public class LogZZZTest extends TestCase{
 			saArg[1]="c:\\fglkernel\\kernellog";
 			saArg[2]="-lf";
 			saArg[3]="testLog_Constructor01.txt";
-			IKernelConfigZZZ objConfig = new ConfigZZZ(saArg);
+			IKernelConfigZZZ objConfig = new KernelConfigZZZ(saArg);
 			LogZZZ objLog01 = new LogZZZ(objConfig);
 			bValue=objLog01.writeLineDateWithPosition(this, strTEST_ENTRY01_DEFAULT);
 			assertTrue(bValue);

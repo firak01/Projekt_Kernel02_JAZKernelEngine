@@ -37,7 +37,7 @@ public class ConfigZZZ extends AbstractKernelConfigZZZ implements IConfigZZZ{
 	}
 	@Override
 	public String getPatternStringDefault() {
-		return ConfigZZZ.sPATTERN_DEFAULT;
+		return ConfigZZZ.sPATTERN_KERNEL_DEFAULT;
 	}
 	@Override
 	public String getSystemNumberDefault() {

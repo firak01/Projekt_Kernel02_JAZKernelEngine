@@ -3,8 +3,8 @@ package basic.zKernel;
 import junit.framework.TestCase;
 import basic.zBasic.ExceptionZZZ;
 
-public class ConfigZZZTest  extends TestCase{
-	private ConfigZZZ objConfigTest;
+public class KernelConfigZZZTest  extends TestCase{
+	private KernelConfigZZZ objConfigTest;
 	private final String sApplicationKey = "FGL";
 	private final String sSystemNumber = "01";
 	private final String sFile = "ZKernelConfigKernel_test.ini";
@@ -21,7 +21,7 @@ public class ConfigZZZTest  extends TestCase{
 			objKernelTest = new KernelZZZ("FGL", "01", "", "ZKernelConfigKernel_test.ini",a);		
 			*/
 			String[] saArg ={"-k",sApplicationKey,"-s", sSystemNumber ,"-d",sDirectory, "-f", sFile};
-			objConfigTest = new ConfigZZZ(saArg);
+			objConfigTest = new KernelConfigZZZ(saArg);
 			
 			
 		} catch (ExceptionZZZ e) {
@@ -40,12 +40,12 @@ public class ConfigZZZTest  extends TestCase{
 		try{
 	
 			//Ohne Argumente
-			ConfigZZZ objConfigInit = new ConfigZZZ(null);
+			KernelConfigZZZ objConfigInit = new KernelConfigZZZ(null);
 		    assertNotNull(objConfigInit);
 		
 		    //Mit leerem Argument
 		    String[] saArg ={""};
-		    ConfigZZZ objConfigInit2 = new ConfigZZZ(saArg);
+		    KernelConfigZZZ objConfigInit2 = new KernelConfigZZZ(saArg);
 		    assertNotNull(objConfigInit2);
 
 		} catch (ExceptionZZZ e) {
@@ -58,7 +58,7 @@ public class ConfigZZZTest  extends TestCase{
 		try{
 			//##########################
 			//Objekt Ohne Argumente
-			ConfigZZZ objConfigInit = new ConfigZZZ(null);
+			KernelConfigZZZ objConfigInit = new KernelConfigZZZ(null);
 		    assertNotNull(objConfigInit);
 		    
 		    String stemp = objConfigInit.readApplicationKey();
@@ -70,7 +70,7 @@ public class ConfigZZZTest  extends TestCase{
 		    //#########################
 		    //Objekt Mit leerem Argument
 		    String[] saArg ={""};
-		    ConfigZZZ objConfigInit2 = new ConfigZZZ(saArg);
+		    KernelConfigZZZ objConfigInit2 = new KernelConfigZZZ(saArg);
 		    assertNotNull(objConfigInit2);
 		    
 		    stemp = objConfigInit2.readApplicationKey();

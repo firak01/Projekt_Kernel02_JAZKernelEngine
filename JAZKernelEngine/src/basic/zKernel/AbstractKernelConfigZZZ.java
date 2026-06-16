@@ -8,12 +8,11 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
-import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IObjectWithExpressionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.ReflectLaunchArgumentZZZ;
 import basic.zBasic.ReflectWorkspaceZZZ;
+import basic.zBasic.config.AbstractConfigZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapCaseInsensitiveZZZ;
 import basic.zBasic.util.crypt.code.ICryptUserZZZ;
@@ -24,8 +23,6 @@ import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.JarEasyUtilZZZ;
-import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
-import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zKernel.config.KernelConfigSectionEntryUtilZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
@@ -58,7 +55,7 @@ import custom.zKernel.file.ini.FileIniZZZ;
  * @author lindhauer
  * 
  */
-public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IKernelConfigZZZ,IKernelExpressionIniSolverZZZ, IKernelZFormulaIniZZZ, IKernelZFormulaIni_PathZZZ, IKernelJsonIniSolverZZZ, IKernelJsonArrayIniSolverZZZ,IKernelJsonMapIniSolverZZZ, IKernelCallIniSolverZZZ, IKernelJavaCallIniSolverZZZ, IKernelEncryptionIniSolverZZZ, ICryptUserZZZ{
+public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> implements IKernelConfigZZZ, IKernelConfigConstantZZZ, IKernelExpressionIniSolverZZZ, IKernelZFormulaIniZZZ, IKernelZFormulaIni_PathZZZ, IKernelJsonIniSolverZZZ, IKernelJsonArrayIniSolverZZZ,IKernelJsonMapIniSolverZZZ, IKernelCallIniSolverZZZ, IKernelJavaCallIniSolverZZZ, IKernelEncryptionIniSolverZZZ, ICryptUserZZZ{
 	//FLAGZ, die dann zum "Rechnen in der Konfiguations Ini Datei" gesetzt sein müssen.
 //	public enum FLAGZ{
 //		USEFORMULA, USEFORMULA_MATH;
@@ -66,30 +63,30 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 	
 	private static final long serialVersionUID = -8991085241039836506L;
 	private IKernelConfigSectionEntryZZZ objEntry = null;
-	private GetOptZZZ objOpt = null;
+	
 	private ICryptZZZ objCrypt = null;
 	private String sCallingProjectPathTotal = null;//Zum Ausrechnen des Pfads diese Projekts, wenn es aus einem anderen Projekt aus aufgerufen wird.
 	
 	public AbstractKernelConfigZZZ() throws ExceptionZZZ{
 		super();//20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
-		ConfigNew_(null);
+		AbstractKernelConfigNew_(null);
 	}
 	public AbstractKernelConfigZZZ(String[] saArg) throws ExceptionZZZ{
 		super((String[])null);//20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
-		ConfigNew_(saArg);
+		AbstractKernelConfigNew_(saArg);
 	}	
 	public AbstractKernelConfigZZZ(String[] saArg, String[]saFlagControl) throws ExceptionZZZ{
 		super(saFlagControl); //20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt 	
-		ConfigNew_(saArg);
+		AbstractKernelConfigNew_(saArg);
 	}
 	
 	public AbstractKernelConfigZZZ(String[] saArg, String sFlagControl) throws ExceptionZZZ{
 		super(sFlagControl); //20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
-		ConfigNew_(saArg);
+		AbstractKernelConfigNew_(saArg);
 	}
 	
 	
-	private boolean ConfigNew_(String[] saArgIn) throws ExceptionZZZ{
+	private boolean AbstractKernelConfigNew_(String[] saArgIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing ConfigObject";
@@ -112,29 +109,29 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 			
 			
 			//Wenn in dem Übergabestring Platzhalter für Umgebungsvariablen sind, z.B. $.{sPATZZZ}, diese hiermit in den tatsächlichen Wert umwandeln
-			saArg = ReflectLaunchArgumentZZZ.replaceArgumentsWithEnvironmentValue(saArg);
+//			saArg = ReflectLaunchArgumentZZZ.replaceArgumentsWithEnvironmentValue(saArg);
 			
 			
 			//Nun den konfigurierten String holen
-			String sPattern = this.getPatternStringDefault();
+//			String sPattern = this.getPatternStringDefault();
 			
 			//Das Objekt, das für die Interpretation der Argumente sorgt.Falls Argument werte vorhanden sind "Werden sie automatisch sofort geladen".
-			this.objOpt = new GetOptZZZ(sPattern, saArg);
+//			this.objOpt = new GetOptZZZ(sPattern, saArg);
 			
 			//20210331: Nun die HashMap für die weiterzureichenden FlagZ Werte füllen
-			String sJson = this.objOpt.readValue("z");
-			HashMap<String, Boolean> hmFlagZpassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJson);
-			this.setHashMapFlagPassed(hmFlagZpassed);
+//			String sJson = this.objOpt.readValue("z");
+//			HashMap<String, Boolean> hmFlagZpassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJson);
+//			this.setHashMapFlagPassed(hmFlagZpassed);
 			
 			//20260419: Nun als ergänzende HashMap die custom FlagZ Werte füllen
-			String sJsonCustom = this.objOpt.readValue("zcustom");
-			HashMap<String, Boolean> hmFlagZCustomPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonCustom);
-			this.setHashMapFlagCustom(hmFlagZCustomPassed);
+//			String sJsonCustom = this.objOpt.readValue("zcustom");
+//			HashMap<String, Boolean> hmFlagZCustomPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonCustom);
+//			this.setHashMapFlagCustom(hmFlagZCustomPassed);
 			
 			//20260419: Nun als ergänzende HashMap die lokalen FlagZ Werte füllen
-			String sJsonLocal = this.objOpt.readValue("zlocal");
-			HashMap<String, Boolean> hmFlagZlocalPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonLocal);
-			this.setHashMapFlagLocal(hmFlagZlocalPassed);
+//			String sJsonLocal = this.objOpt.readValue("zlocal");
+//			HashMap<String, Boolean> hmFlagZlocalPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonLocal);
+//			this.setHashMapFlagLocal(hmFlagZlocalPassed);
 			
 			
 			bReturn = true;
@@ -195,21 +192,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 		return hmReturn;
 	}
 	
-	@Override
-	public String readPatternString() throws ExceptionZZZ{
-		String sReturn = null;
-		main:{
-			GetOptZZZ objOpt = this.getOptObject();
-			if(objOpt==null) break main;
-			if(objOpt.getFlag("isLoaded")==false) break main;
-			
-			sReturn = objOpt.getPattern();
-			if(sReturn==null){
-				sReturn = this.getPatternStringDefault();
-			}
-		}		
-		return sReturn;
-	}
+	
 	
 	@Override
 	public String readApplicationKey() throws ExceptionZZZ{
@@ -443,20 +426,18 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 		this.objEntry = objEntry;
 	}
 	
-
-	//### aus IKernelConfigZZZ
-	@Override
-	public String getConfigFlagzJsonDefault() {
-		return IKernelConfigZZZ.sFLAGZ_DEFAULT;
-	}
 	
+	//### aus IConfigZZZ
 	@Override
 	public String getPatternStringDefault() throws ExceptionZZZ {
-		return IKernelConfigZZZ.sPATTERN_DEFAULT;
+		return IKernelConfigZZZ.sPATTERN_KERNEL_DEFAULT;
 	}
-		
+	
+	
 	@Override
 	public String[] getArgumentArrayDefault() throws ExceptionZZZ {
+		//TODO: Array aus super. einlesen und kombinieren
+		
 		String[] saArg = new String[14];
 		saArg[0] = "-k";
 		saArg[1] = this.getApplicationKeyDefault();
@@ -477,22 +458,6 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 	}
 	
 
-	//Gib die Hilfsinfos als String zurück
-	@Override
-	public String getHelp() throws ExceptionZZZ{
-		String sReturn = "";
-		main:{
-			List<IKernelConfigHelpLineZZZ> listaHelpLine = this.getHelpList();
-			for(IKernelConfigHelpLineZZZ objHelpLine : listaHelpLine) {
-				sReturn = sReturn + objHelpLine.getsAbbreviation() + "\t" + objHelpLine.getName() + "\t" + objHelpLine.getDescription() + StringZZZ.crlf();
-			}
-		}//end main
-		return sReturn;
-	}
-	//kein setter
-	
-
-	
 	//Merke 20260615: Besser eine Liste von Hilf-Objekt-Zeilen auch kein Enum, der Ansatz mit der einfachen Liste der Objekte läßt sich einfacher 
 	//                über mehrere Projekte und Vererbungstrukturen umsetzen
 	//Also nicht so etwas nutzen wie:
@@ -514,6 +479,8 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 		}//end main:
 		return listaReturn;
 	}
+	
+	//### aus IKernelConfigZZZ
 	
 	//### Aus Interface ICryptUserZZZ
 	@Override
@@ -659,46 +626,12 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 	
 	//###############################################################
 	//### "fachliche" actions
-	@Override
-	public String readActionHelp() throws ExceptionZZZ {
-		String sReturn = null;
-		main:{
-			GetOptZZZ objOpt = this.getOptObject();
-			if(objOpt==null) break main;
-			if(objOpt.getFlag("isLoaded")==false) break main;
-			
-			sReturn = objOpt.readValue("help");
-//			if(sReturn==null){
-//				sReturn = this.getPersonalAccessTokenDefault();
-//			}
-		}//end main:		
-		return sReturn;
-	}
-	
-	@Override
-	public String readActionH() throws ExceptionZZZ {
-		String sReturn = null;
-		main:{
-			GetOptZZZ objOpt = this.getOptObject();
-			if(objOpt==null) break main;
-			if(objOpt.getFlag("isLoaded")==false) break main;
-			
-			sReturn = objOpt.readValue("h");
-//			if(sReturn==null){
-//				sReturn = this.getPersonalAccessTokenDefault();
-//			}
-		}//end main:		
-		return sReturn;
-	}
-	
 	
 	
 	//##########
 	// Getter / Setter
 	//##########
-	public GetOptZZZ getOptObject(){
-		return this.objOpt;
-	}		
+			
 	
 	
 	//##################################################
@@ -933,70 +866,70 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractObjectWithFlagZ
 	}
 
 	//### aus IKernelJsonArrayIniSolverZZZ
-		@Override
-		public boolean getFlag(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-			return this.getFlag(objEnumFlag.name());
-		}
-		
-		@Override
-		public boolean setFlag(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
-			return this.setFlag(objEnumFlag.name(), bFlagValue);
-		}
+	@Override
+	public boolean getFlag(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.getFlag(objEnumFlag.name());
+	}
+	
+	@Override
+	public boolean setFlag(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlag(objEnumFlag.name(), bFlagValue);
+	}
 
-		@Override
-			public boolean[] setFlag(IKernelJsonArrayIniSolverZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
-				boolean[] baReturn=null;
-				main:{
-					if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
-						baReturn = new boolean[objaEnumFlag.length];
-						int iCounter=-1;
-						for(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
-							iCounter++;
-							boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
-							baReturn[iCounter]=bReturn;
-						}
+	@Override
+		public boolean[] setFlag(IKernelJsonArrayIniSolverZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+			boolean[] baReturn=null;
+			main:{
+				if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+					baReturn = new boolean[objaEnumFlag.length];
+					int iCounter=-1;
+					for(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
+						iCounter++;
+						boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
+						baReturn[iCounter]=bReturn;
 					}
-				}//end main:
-				return baReturn;
-			}
-		
-		@Override
-		public boolean proofFlagExists(IKernelJsonArrayIniSolverZZZ.FLAGZ objaEnumFlag) throws ExceptionZZZ {
-			return this.proofFlagExists(objaEnumFlag.name());
+				}
+			}//end main:
+			return baReturn;
 		}
-		
-		@Override
-		public boolean proofFlagSetBefore(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-				return this.proofFlagSetBefore(objEnumFlag.name());
-		}
-		
-		//### aus IKernelCallIniSolverZZZ
-		@Override
-		public boolean getFlag(IKernelCallIniSolverZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-			return this.getFlag(objEnumFlag.name());
-		}
-		
-		@Override
-		public boolean setFlag(IKernelCallIniSolverZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
-			return this.setFlag(objEnumFlag.name(), bFlagValue);
-		}
+	
+	@Override
+	public boolean proofFlagExists(IKernelJsonArrayIniSolverZZZ.FLAGZ objaEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagExists(objaEnumFlag.name());
+	}
+	
+	@Override
+	public boolean proofFlagSetBefore(IKernelJsonArrayIniSolverZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+			return this.proofFlagSetBefore(objEnumFlag.name());
+	}
+	
+	//### aus IKernelCallIniSolverZZZ
+	@Override
+	public boolean getFlag(IKernelCallIniSolverZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.getFlag(objEnumFlag.name());
+	}
+	
+	@Override
+	public boolean setFlag(IKernelCallIniSolverZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlag(objEnumFlag.name(), bFlagValue);
+	}
 
-		@Override
-			public boolean[] setFlag(IKernelCallIniSolverZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
-				boolean[] baReturn=null;
-				main:{
-					if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
-						baReturn = new boolean[objaEnumFlag.length];
-						int iCounter=-1;
-						for(IKernelCallIniSolverZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
-							iCounter++;
-							boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
-							baReturn[iCounter]=bReturn;
-						}
+	@Override
+		public boolean[] setFlag(IKernelCallIniSolverZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+			boolean[] baReturn=null;
+			main:{
+				if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+					baReturn = new boolean[objaEnumFlag.length];
+					int iCounter=-1;
+					for(IKernelCallIniSolverZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
+						iCounter++;
+						boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
+						baReturn[iCounter]=bReturn;
 					}
-				}//end main:
-				return baReturn;
-			}
+				}
+			}//end main:
+			return baReturn;
+		}
 		
 		@Override
 		public boolean proofFlagExists(IKernelCallIniSolverZZZ.FLAGZ objaEnumFlag) throws ExceptionZZZ {
