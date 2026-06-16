@@ -9,6 +9,13 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 
 public interface IConfigZZZ extends IConfigConstantZZZ, IFlagZEnabledZZZ{
 
+	//Das jeweils eigene Projekt. Merke: normalerweise private Konstante .sPROJECT_NAME
+	public String getProjectName() throws ExceptionZZZ;
+	
+	//Der Pfad zum eigenen Projekt. Merke: normalerweise private Konstante .sPROJECT_DIRECTORY
+	public String getProjectDirectory() throws ExceptionZZZ;
+	
+	//Das Objekt für die Übergabeparameter, per Batch
 	public GetOptZZZ getOptObject();
 	
 	//20210331: Flagz, default String, als leerer JSON-Wert

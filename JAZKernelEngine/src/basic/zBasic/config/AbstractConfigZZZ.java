@@ -15,9 +15,9 @@ import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 
-public class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
+public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
 	private static final long serialVersionUID = 3005226115171469499L;
-
+		
 	protected GetOptZZZ objOpt = null;
 	
 	public AbstractConfigZZZ() throws ExceptionZZZ{
@@ -25,7 +25,7 @@ public class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implement
 		AbstractConfigNew_(null);
 	}
 	public AbstractConfigZZZ(String[] saArg) throws ExceptionZZZ{
-		super((String[])null);//20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
+		super();//!!! Hier wäre die Elternklasse, diejenige, die Flags setzt //20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
 		AbstractConfigNew_(saArg);
 	}	
 	public AbstractConfigZZZ(String[] saArg, String[]saFlagControl) throws ExceptionZZZ{
@@ -79,7 +79,7 @@ public class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implement
 			String sJson = this.objOpt.readValue("z");
 			HashMap<String, Boolean> hmFlagZpassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJson);
 			this.setHashMapFlagPassed(hmFlagZpassed);
-			
+		
 			//20260419: Nun als ergänzende HashMap die custom FlagZ Werte füllen
 			String sJsonCustom = this.objOpt.readValue("zcustom");
 			HashMap<String, Boolean> hmFlagZCustomPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonCustom);
@@ -101,9 +101,17 @@ public class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implement
 	//##########
 	// Getter / Setter
 	//##########
-		
+	
 	
 	//### aus IConfigZZZ
+	
+	@Override
+	public abstract String getProjectName() throws ExceptionZZZ;
+	
+	@Override
+	public abstract String getProjectDirectory() throws ExceptionZZZ;
+	
+	@Override
 	public GetOptZZZ getOptObject(){
 		return this.objOpt;
 	}

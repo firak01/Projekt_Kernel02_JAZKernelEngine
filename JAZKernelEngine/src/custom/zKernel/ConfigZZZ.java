@@ -45,11 +45,11 @@ public class ConfigZZZ extends AbstractKernelConfigZZZ implements IConfigZZZ{
 }
 	@Override
 	public String getProjectName() {
-		return ConfigZZZ.sPROJECT_NAME;
+		return IConfigZZZ.sPROJECT_NAME;
 	}
 	@Override
 	public String getProjectDirectory() {
-		return ConfigZZZ.sPROJECT_PATH;
+		return IConfigZZZ.sPROJECT_DIRECTORY;
 	}
 
 

@@ -72,7 +72,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 		AbstractKernelConfigNew_(null);
 	}
 	public AbstractKernelConfigZZZ(String[] saArg) throws ExceptionZZZ{
-		super((String[])null);//20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
+		super((String[])saArg);//Leite die Argumente an die Elternklasse weiter //20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
 		AbstractKernelConfigNew_(saArg);
 	}	
 	public AbstractKernelConfigZZZ(String[] saArg, String[]saFlagControl) throws ExceptionZZZ{
@@ -89,7 +89,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 	private boolean AbstractKernelConfigNew_(String[] saArgIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{				
-			String sLog = "Initializing ConfigObject";
+			String sLog = "Initializing KernelConfigObject";
 			this.logLineDateWithPosition(sLog);
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
@@ -107,31 +107,8 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 				saArg = saArgIn;
 			}
 			
-			
-			//Wenn in dem Übergabestring Platzhalter für Umgebungsvariablen sind, z.B. $.{sPATZZZ}, diese hiermit in den tatsächlichen Wert umwandeln
-//			saArg = ReflectLaunchArgumentZZZ.replaceArgumentsWithEnvironmentValue(saArg);
-			
-			
-			//Nun den konfigurierten String holen
-//			String sPattern = this.getPatternStringDefault();
-			
-			//Das Objekt, das für die Interpretation der Argumente sorgt.Falls Argument werte vorhanden sind "Werden sie automatisch sofort geladen".
-//			this.objOpt = new GetOptZZZ(sPattern, saArg);
-			
-			//20210331: Nun die HashMap für die weiterzureichenden FlagZ Werte füllen
-//			String sJson = this.objOpt.readValue("z");
-//			HashMap<String, Boolean> hmFlagZpassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJson);
-//			this.setHashMapFlagPassed(hmFlagZpassed);
-			
-			//20260419: Nun als ergänzende HashMap die custom FlagZ Werte füllen
-//			String sJsonCustom = this.objOpt.readValue("zcustom");
-//			HashMap<String, Boolean> hmFlagZCustomPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonCustom);
-//			this.setHashMapFlagCustom(hmFlagZCustomPassed);
-			
-			//20260419: Nun als ergänzende HashMap die lokalen FlagZ Werte füllen
-//			String sJsonLocal = this.objOpt.readValue("zlocal");
-//			HashMap<String, Boolean> hmFlagZlocalPassed = AbstractKernelConfigZZZ.computeHashMapFlagFromJSON(sJsonLocal);
-//			this.setHashMapFlagLocal(hmFlagZlocalPassed);
+			//#################
+			//### Das passiert nun alles in der Elternklassse: AbstractConfigZZZ
 			
 			
 			bReturn = true;

@@ -10,10 +10,7 @@ import basic.zKernel.AbstractKernelConfigZZZ;
  * 
  */
 @SuppressWarnings("unchecked")
-public class KernelConfigZZZ extends AbstractKernelConfigZZZ{
-	private static String sPROJECT_NAME = "JAZKernel";
-	private static String sPROJECT_PATH = "Project_Kernel02_JAZKernel";
-	
+public class KernelConfigZZZ extends AbstractKernelConfigZZZ{	
 	private static final long serialVersionUID = 1L;
 	private static String sDIRECTORY_CONFIG_DEFAULT = "";
 	private static String sFILE_CONFIG_DEFAULT = "ZKernelConfigKernel_default.ini";
@@ -52,10 +49,10 @@ public class KernelConfigZZZ extends AbstractKernelConfigZZZ{
 	}
 	@Override
 	public String getProjectName() {
-		return KernelConfigZZZ.sPROJECT_NAME;
+		return IKernelConfigConstantZZZ.sPROJECT_NAME;
 	}
 	@Override
 	public String getProjectDirectory() {
-		return KernelConfigZZZ.sPROJECT_PATH;
+		return IKernelConfigConstantZZZ.sPROJECT_DIRECTORY;
 	}
 }

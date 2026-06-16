@@ -11,6 +11,12 @@ public interface IConfigConstantZZZ {
 	//       ueberschrieben werden koennen.
 	//       Final sind die fuer den Kernel selbst wichtige Konstanten
 
+  	//####### Reflektion zum Gesamtprojekt
+  	static String sPROJECT_DIRECTORY = "Project_Kernel02_JAZKernelEngine";
+  	static String sPROJECT_NAME = "JAZKernelEngine";
+
+  	
+	
 	
 	//#####################################################################
 	//####### Konfiguration der Argumgentuebergabe von aussen an das Program (s. GetOptZZZ).
