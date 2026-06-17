@@ -157,9 +157,9 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		return saArg;
 	}
 	
-	//Gib die Hilfsinfos als String zurück
+
 	@Override
-	public String getHelp() throws ExceptionZZZ{
+	public String createHelp() throws ExceptionZZZ{
 		String sReturn = "";
 		main:{
 			//Hier gibt es keine Elternklasse mit solch einer Methode... 
@@ -207,8 +207,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		}//end main
 		return sReturn;
 	}
-	//kein setter
-
+	
 	//Merke 20260615: Besser eine Liste von Hilf-Objekt-Zeilen auch kein Enum, der Ansatz mit der einfachen Liste der Objekte läßt sich einfacher 
 	//                über mehrere Projekte und Vererbungstrukturen umsetzen
 	//Also nicht so etwas nutzen wie:
@@ -252,6 +251,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		}//end main:
 		return listaReturn;
 	}
+
 	
 	//###############################################################
 	//### "fachliche" actions
