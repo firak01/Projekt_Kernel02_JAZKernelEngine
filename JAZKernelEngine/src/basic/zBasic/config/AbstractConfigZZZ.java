@@ -7,12 +7,15 @@ import java.util.List;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectLaunchArgumentZZZ;
+import basic.zBasic.util.abstractList.ListUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.AbstractKernelConfigZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.IKernelConfigZZZ;
+import basic.zKernel.config.help.IKernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
+import basic.zKernel.config.help.KernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 
 public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
@@ -159,9 +162,47 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	public String getHelp() throws ExceptionZZZ{
 		String sReturn = "";
 		main:{
-			List<IKernelConfigHelpLineZZZ> listaHelpLine = this.getHelpList();
-			for(IKernelConfigHelpLineZZZ objHelpLine : listaHelpLine) {
-				sReturn = sReturn + objHelpLine.getsAbbreviation() + "\t" + objHelpLine.getName() + "\t" + objHelpLine.getDescription() + StringZZZ.crlf();
+			//Hier gibt es keine Elternklasse mit solch einer Methode... 
+			//List<IKernelConfigHelpLineZZZ> listaHelpLineSuper = super.getHelpList();											
+			List<IKernelConfigHelpLineZZZ> listaHelpLineTotal = this.getHelpList();
+			
+		    //listaHelpLineTotal = ListUtilZZZ.join(listaHelpLineSuper, listaHelpLineTotal);
+			String sHeadLineOld = "";
+			for(IKernelConfigHelpLineZZZ objHelpLineTotal : listaHelpLineTotal) {
+				IKernelConfigHeaderLineZZZ objHeaderLine = objHelpLineTotal.getHeaderLine();
+				String sHeadLine = "";
+				if(objHeaderLine!=null) {
+					sHeadLine = objHeaderLine.getHeaderLine();
+				}				
+				String sAbbr = "";
+				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getAbbreviation())){
+					sAbbr = StringZZZ.left(objHelpLineTotal.getAbbreviation() + StringZZZ.repeat(" ", 10),10);
+				}else {
+					sAbbr = StringZZZ.repeat(" ", 10);
+				}
+				
+				String sName = "";
+				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getName())){
+					sName = StringZZZ.left(objHelpLineTotal.getName() + StringZZZ.repeat(" ", 20),20);
+				}else {
+					sName = StringZZZ.repeat(" ", 20);
+				}
+								
+				String sDescr = "";
+				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getDescription())) {
+					sDescr = objHelpLineTotal.getDescription();
+				}
+				
+				
+				if(!StringZZZ.isEmptyNull(sHeadLine) & !sHeadLine.equals(sHeadLineOld)) {
+					sReturn = sReturn + sHeadLine + StringZZZ.crlf();
+					sHeadLineOld = sHeadLine;
+				}
+				
+				sReturn = sReturn + sAbbr + sName + sDescr;
+				if(!StringZZZ.isEmptyTrimmed(sReturn)){
+					sReturn = sReturn + StringZZZ.crlf();
+				}
 			}
 		}//end main
 		return sReturn;
@@ -178,12 +219,34 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		ArrayList<IKernelConfigHelpLineZZZ>listaReturn=new ArrayList<IKernelConfigHelpLineZZZ>();
 		main:{
 		//Berücksichtige dabei die Paramter aus den "Pattern" Strings
-		//IKernelConfigZZZ.sFLAGZ_DEFAULT;
-		//IKernelConfigZZZ.sPATTERN_DEFAULT;	
-		//k:s:f:d:lf:ld:
-		//z:zcustom:zlocal:
+		//final static String sPATTERN4FLAG_DEFAULT="z:zcustom:zlocal:";
+		//final static String sPATTERN4CONFIG_DEFAULT="help|h|";
+												//z = Flags, die dann JSON aehnlich ueber, die dann JSON aehnlich uebergeben werden, berücksichtigen Vererbungshierarchie.
+			                                    //zcustom == Anwendungsspezifische Flags
+												//zlocal = Lokale Flags, die dann JSON aehnlich uebergeben werden, berücksichtigen KEINE Vererbungshierarchie
+		IKernelConfigHeaderLineZZZ objHeaderLine=null;
+		objHeaderLine= new KernelConfigHeaderLineZZZ("Argumente für: " + this.getProjectName());
 		
-		IKernelConfigHelpLineZZZ objHelp = new KernelConfigHelpLineZZZ("k","KernelKey","KernelIniFile - ");
+		IKernelConfigHelpLineZZZ objHelp=null;
+		objHelp = new KernelConfigHelpLineZZZ();
+		objHelp.setHeaderLine(objHeaderLine);
+		listaReturn.add(objHelp);
+		
+		objHeaderLine= new KernelConfigHeaderLineZZZ("Argumente aus: " + IConfigConstantZZZ.sPROJECT_NAME);				
+		objHelp = new KernelConfigHelpLineZZZ("h","Hilfe","Zeige diese Hilfe der Argumente.");
+		objHelp.setHeaderLine(objHeaderLine);
+		listaReturn.add(objHelp);
+		objHelp = new KernelConfigHelpLineZZZ("help","Hilfe","Zeige diese Hilfe der Argumente.");
+		//objHelp.setHeaderLine(objHeaderLine);
+		listaReturn.add(objHelp);	
+		objHelp = new KernelConfigHelpLineZZZ("z:","Z-Kernel-flag","Flagdefinition, berücksichtigen Vererbungshierarchie.: Es muss ein JSON String folgen, z.B. -z {\"DEBUG\":false,\"INIT\":true}");
+		//objHelp.setHeaderLine(objHeaderLine);
+		listaReturn.add(objHelp);	
+		objHelp = new KernelConfigHelpLineZZZ("zcustom:","Custom Flag","Flagdefinition, berücksichtigen nur direkte Vererbungshierarchie. Es muss ein JSON String folgen, z.B. -zcustom {\"xyz\":false,\"abc\":true}");
+		//objHelp.setHeaderLine(objHeaderLine);
+		listaReturn.add(objHelp);	
+		objHelp = new KernelConfigHelpLineZZZ("zlocal:","Lokaler Flag","Flagdefinition, berücksichtigen KEINE Vererbungshierarchie. Es muss ein JSON String folgen, z.B. -zlocal {\"MERGE_IGNORE_CHECKOUT_CONFLICTS\":false,\"USE_STRATEGY_MERGE_CONFLICT_THEIRS\":false,\"USE_PULL_DIRECT\":true}");
+		//objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);	
 		
 		}//end main:

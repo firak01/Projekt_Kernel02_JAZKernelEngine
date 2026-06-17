@@ -3,6 +3,7 @@ package basic.zKernel.config.help;
 import basic.zBasic.ExceptionZZZ;
 
 public class KernelConfigHelpLineZZZ implements IKernelConfigHelpLineZZZ {
+	private IKernelConfigHeaderLineZZZ objHeadLine=null;
 	private String sAbbreviation=null;
 	private String sName=null;
 	private String sDescription=null;
@@ -31,7 +32,17 @@ public class KernelConfigHelpLineZZZ implements IKernelConfigHelpLineZZZ {
 	
 	//### GETTER / SETTER
 	@Override
-	public String getsAbbreviation() throws ExceptionZZZ{
+	public IKernelConfigHeaderLineZZZ getHeaderLine() throws ExceptionZZZ{
+		return this.objHeadLine;
+	}
+
+	@Override
+	public void setHeaderLine(IKernelConfigHeaderLineZZZ objHeaderLine) throws ExceptionZZZ{
+		this.objHeadLine = objHeaderLine;
+	}
+	
+	@Override
+	public String getAbbreviation() throws ExceptionZZZ{
 		return sAbbreviation;
 	}
 
