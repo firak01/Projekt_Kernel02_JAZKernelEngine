@@ -6,6 +6,8 @@ public interface IKernelConfigHelpLineZZZ {
 	public IKernelConfigHeaderLineZZZ getHeaderLine() throws ExceptionZZZ;
 	public void setHeaderLine(IKernelConfigHeaderLineZZZ objHeaderLine) throws ExceptionZZZ;
 	
+	
+	
 	public String getAbbreviation()  throws ExceptionZZZ;
 	public void setAbbreviation(String sAbbreviation)  throws ExceptionZZZ;
 	

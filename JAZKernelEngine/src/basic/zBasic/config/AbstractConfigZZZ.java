@@ -162,53 +162,18 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	public String createHelp() throws ExceptionZZZ{
 		String sReturn = "";
 		main:{
-			//Hier gibt es keine Elternklasse mit solch einer Methode... 
+			//Hier gibt es keine Elternklasse mit solch einer Methode... In hiervon erbenden Klassen die super-Methode aufrufen. 
 			//List<IKernelConfigHelpLineZZZ> listaHelpLineSuper = super.getHelpList();											
-			List<IKernelConfigHelpLineZZZ> listaHelpLineTotal = this.getHelpList();
-			
+			List<IKernelConfigHelpLineZZZ> listaHelpLineTotal = this.getHelpList();			
 		    //listaHelpLineTotal = ListUtilZZZ.join(listaHelpLineSuper, listaHelpLineTotal);
-			String sHeadLineOld = "";
-			for(IKernelConfigHelpLineZZZ objHelpLineTotal : listaHelpLineTotal) {
-				IKernelConfigHeaderLineZZZ objHeaderLine = objHelpLineTotal.getHeaderLine();
-				String sHeadLine = "";
-				if(objHeaderLine!=null) {
-					sHeadLine = objHeaderLine.getHeaderLine();
-				}				
-				String sAbbr = "";
-				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getAbbreviation())){
-					sAbbr = StringZZZ.left(objHelpLineTotal.getAbbreviation() + StringZZZ.repeat(" ", 10),10);
-				}else {
-					sAbbr = StringZZZ.repeat(" ", 10);
-				}
-				
-				String sName = "";
-				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getName())){
-					sName = StringZZZ.left(objHelpLineTotal.getName() + StringZZZ.repeat(" ", 20),20);
-				}else {
-					sName = StringZZZ.repeat(" ", 20);
-				}
-								
-				String sDescr = "";
-				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getDescription())) {
-					sDescr = objHelpLineTotal.getDescription();
-				}
-				
-				
-				if(!StringZZZ.isEmptyNull(sHeadLine) & !sHeadLine.equals(sHeadLineOld)) {
-					sReturn = sReturn + sHeadLine + StringZZZ.crlf();
-					sHeadLineOld = sHeadLine;
-				}
-				
-				sReturn = sReturn + sAbbr + sName + sDescr;
-				if(!StringZZZ.isEmptyTrimmed(sReturn)){
-					sReturn = sReturn + StringZZZ.crlf();
-				}
-			}
+			
+			sReturn = ConfigUtilZZZ.createHelp(listaHelpLineTotal);
 		}//end main
 		return sReturn;
 	}
 	
-	//Merke 20260615: Besser eine Liste von Hilf-Objekt-Zeilen auch kein Enum, der Ansatz mit der einfachen Liste der Objekte läßt sich einfacher 
+	//Merke 20260615: Besser eine Liste von Hilf-Objekt-Zeilen. Auch kein Enum. 
+	//                Der Ansatz mit der einfachen Liste der Objekte läßt sich einfacher 
 	//                über mehrere Projekte und Vererbungstrukturen umsetzen
 	//Also nicht so etwas nutzen wie:
 	//public enum LOGSTRINGFORMAT implements IEnumSetMappedStringFormatZZZ{		
@@ -236,16 +201,12 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);
 		objHelp = new KernelConfigHelpLineZZZ("help","Hilfe","Zeige diese Hilfe der Argumente.");
-		//objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);	
 		objHelp = new KernelConfigHelpLineZZZ("z:","Z-Kernel-flag","Flagdefinition, berücksichtigen Vererbungshierarchie.: Es muss ein JSON String folgen, z.B. -z {\"DEBUG\":false,\"INIT\":true}");
-		//objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);	
 		objHelp = new KernelConfigHelpLineZZZ("zcustom:","Custom Flag","Flagdefinition, berücksichtigen nur direkte Vererbungshierarchie. Es muss ein JSON String folgen, z.B. -zcustom {\"xyz\":false,\"abc\":true}");
-		//objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);	
 		objHelp = new KernelConfigHelpLineZZZ("zlocal:","Lokaler Flag","Flagdefinition, berücksichtigen KEINE Vererbungshierarchie. Es muss ein JSON String folgen, z.B. -zlocal {\"MERGE_IGNORE_CHECKOUT_CONFLICTS\":false,\"USE_STRATEGY_MERGE_CONFLICT_THEIRS\":false,\"USE_PULL_DIRECT\":true}");
-		//objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);	
 		
 		}//end main:

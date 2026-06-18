@@ -1,6 +1,7 @@
 package basic.zKernel.config.help;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class KernelConfigHelpLineZZZ implements IKernelConfigHelpLineZZZ {
 	private IKernelConfigHeaderLineZZZ objHeadLine=null;
