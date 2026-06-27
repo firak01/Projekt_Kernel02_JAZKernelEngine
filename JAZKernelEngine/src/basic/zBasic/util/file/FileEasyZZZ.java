@@ -2246,6 +2246,66 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		}
 		
 		
+		/** Prüft, ob die Datei eine Textdatei ist oder nicht.
+		 *  Einsatz z.B. bei einem GIT Tool, das sich nur auf Textdateien beziehen kann.
+		 *  Z.B. Konflikte auflösen.
+		 *  
+		 *  s. ChatGPT vom 2026-06-27
+		 * @param file
+		 * @return
+		 * @throws IOException
+		 */
+		public static boolean isFileText(File file) throws ExceptionZZZ{
+			 FileInputStream fis = null;
+			try {
+			    if (file == null || !file.isFile()) {
+			        return false;
+			    }
+			    
+			    try {
+			        fis = new FileInputStream(file);
+			        
+			        
+			        byte[] buffer = new byte[4096];
+			        int len = fis.read(buffer);
+	
+			        if (len == -1) {
+			            // Leere Datei -> als Text betrachten
+			            return true;
+			        }
+	
+			        for (int i = 0; i < len; i++) {
+			            int b = buffer[i] & 0xFF;
+	
+			            // NUL-Byte => sehr wahrscheinlich Binärdatei
+			            if (b == 0) {
+			                return false;
+			            }
+	
+			            // Erlaubte Steuerzeichen
+			            if (b == '\n' || b == '\r' || b == '\t' || b == '\f') {
+			                continue;
+			            }
+	
+			            // Sonstige Steuerzeichen (<32) gelten als binär
+			            if (b < 32) {
+			                return false;
+			            }
+			        }
+	
+			        return true;
+			    } finally {
+			        if (fis != null) {
+			            fis.close();
+			        }
+			    }
+		    }catch(IOException ioe) {
+		        	ExceptionZZZ ez = new ExceptionZZZ(ioe);
+		        	throw ez;
+		    }
+		}
+		
+		
 		 /**
 		   * Determine whether a file is a JAR File.
 		   * Idee aus: http://www.java2s.com/Code/Java/File-Input-Output/DeterminewhetherafileisaJARFile.htm

@@ -19,20 +19,24 @@ public class ConfigUtilZZZ  implements IConstantZZZ{
 			String sHeadLineOld = "";
 			for(IKernelConfigHelpLineZZZ objHelpLineTotal : listaHelpLineTotal) {
 				IKernelConfigHeaderLineZZZ objHeaderLine = objHelpLineTotal.getHeaderLine();
+				int iHeadLineSpacingAbove = 0;
 				String sHeadLine = "";
+				int iHeadLineSpacingBelow = 0;				
 				if(objHeaderLine!=null) {
+					iHeadLineSpacingAbove = objHeaderLine.getHeaderSpacingAbove();
 					sHeadLine = objHeaderLine.getHeaderLine();
+					iHeadLineSpacingBelow = objHeaderLine.getHeaderSpacingBelow();
 				}				
 				String sAbbr = "";
 				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getAbbreviation())){
-					sAbbr = StringZZZ.left(objHelpLineTotal.getAbbreviation() + StringZZZ.repeat(" ", 20),20);
+					sAbbr = StringZZZ.left(objHelpLineTotal.getAbbreviation() + StringZZZ.repeat(" ", 25),25);
 				}else {
 					sAbbr = StringZZZ.repeat(" ", 20);
 				}
 				
 				String sName = "";
 				if(!StringZZZ.isEmptyNull(objHelpLineTotal.getName())){
-					sName = StringZZZ.left(objHelpLineTotal.getName() + StringZZZ.repeat(" ", 30),30);
+					sName = StringZZZ.left(objHelpLineTotal.getName() + StringZZZ.repeat(" ", 35),35);
 				}else {
 					sName = StringZZZ.repeat(" ", 30);
 				}
@@ -43,8 +47,9 @@ public class ConfigUtilZZZ  implements IConstantZZZ{
 				}
 				
 				
+				
 				if(!StringZZZ.isEmptyNull(sHeadLine) & !sHeadLine.equals(sHeadLineOld)) {
-					sReturn = sReturn + StringZZZ.crlf() + StringZZZ.crlf() + sHeadLine ;//also Ende der vorherigen Zeile PLUS eine Zeile Abstand
+					sReturn = sReturn + StringZZZ.crlf() + StringZZZ.repeat(StringZZZ.crlf(), iHeadLineSpacingAbove) + sHeadLine + StringZZZ.repeat(StringZZZ.crlf(), iHeadLineSpacingBelow);//also Ende der vorherigen Zeile PLUS eine Zeile Abstand
 					sHeadLineOld = sHeadLine;
 				}
 				
