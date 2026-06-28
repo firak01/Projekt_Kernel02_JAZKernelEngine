@@ -962,6 +962,32 @@ output:
 	}
 
 	
+	/**Alle Elemente des String Arrays werden um einen weiteren String erweitert.	
+	 * @param saString
+	 * @param sString	 
+	 * @return
+	 * @throws ExceptionZZZ, 
+	 *
+	 * @return String[]
+	 *
+	 * javadoc created by: 0823, 08.12.2006 - 13:13:09
+	 */
+	public static String[] plusString(String[] saString, String sString) throws ExceptionZZZ{
+		return plusStringBehind(saString, sString);
+	}
+	
+	public static String[] plusString(String sString, String[] saString) throws ExceptionZZZ{
+		return plusStringBefore(saString, sString);
+	}
+		
+	public static String[] plusStringBefore(String[] saString, String sString) throws ExceptionZZZ{
+		return plusString(saString, sString, "BEFORE");
+	}
+	
+	public static String[] plusStringBehind(String[] saString, String sString) throws ExceptionZZZ{
+		return plusString(saString, sString, "BEHIND");
+	}
+	
 	/**Alle Elemente des String Arrays werden um einen weiteren String erweitert.
 	 * Merke: Bei "BEFORE" gilt, dass ein String um die Elemente eines Arrays erweitert wird.
 	 *        
@@ -975,14 +1001,6 @@ output:
 	 *
 	 * javadoc created by: 0823, 08.12.2006 - 13:13:09
 	 */
-	public static String[] plusStringBefore(String[] saString, String sString) throws ExceptionZZZ{
-		return plusString(saString, sString, "BEFORE");
-	}
-	
-	public static String[] plusStringBehind(String[] saString, String sString, String sFlagin) throws ExceptionZZZ{
-		return plusString(saString, sString, "BEHIND");
-	}
-	
 	public static String[] plusString(String[] saString, String sString, String sFlagin) throws ExceptionZZZ{
 		String[] objReturn = null;
 		main:{
