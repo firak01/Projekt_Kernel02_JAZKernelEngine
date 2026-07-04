@@ -213,6 +213,37 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 
 	
 	//###############################################################
+	//### "ist Option" angegeben
+	@Override 
+	public boolean hasOption(String sOption) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			HashMap<String,String>hm = objOpt.getOptionMap();
+			bReturn = hm.containsKey(sOption);
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public String readOptionValue(String sOption) throws ExceptionZZZ{
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			if(hasOption(sOption)) {
+				sReturn = objOpt.readValue(sOption);
+			}
+		}//end main:
+		return sReturn;
+	}
+	
+	
 	//### "fachliche" actions
 	@Override
 	public String readActionHelp() throws ExceptionZZZ {
@@ -223,9 +254,6 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			if(objOpt.getFlag("isLoaded")==false) break main;
 			
 			sReturn = objOpt.readValue("help");
-//				if(sReturn==null){
-//					sReturn = this.getPersonalAccessTokenDefault();
-//				}
 		}//end main:		
 		return sReturn;
 	}
@@ -239,9 +267,6 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			if(objOpt.getFlag("isLoaded")==false) break main;
 			
 			sReturn = objOpt.readValue("h");
-//				if(sReturn==null){
-//					sReturn = this.getPersonalAccessTokenDefault();
-//				}
 		}//end main:		
 		return sReturn;
 	}		

@@ -22,10 +22,10 @@ import basic.zBasic.util.start.GetOpt;
  */
 public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	protected volatile String sPattern; 
-	protected HashMap hmOpt = new HashMap();//Die Hashmap der von aussen gesetzten Steuerungsoptionen. Merke: Dann gibt es noch die HashMap der FlagZ in ObjectZZZ
+	protected HashMap<String,String> hmOpt = new HashMap<String,String>();//Die Hashmap der von aussen gesetzten Steuerungsoptionen. Merke: Dann gibt es noch die HashMap der FlagZ in ObjectZZZ
 	protected boolean bFlagIsLoaded = false;
 	
-	private Iterator itOpt = null;
+	private Iterator<String> itOpt = null;
 	
 		
 	public GetOptZZZ(){
@@ -420,8 +420,8 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	public String readOptionFirst(){
 		String sReturn = null;
 		main:{
-			HashMap hm = this.getOptionMap();
-			Iterator it = hm.keySet().iterator();
+			HashMap<String,String> hm = this.getOptionMap();
+			Iterator<String> it = hm.keySet().iterator();
 			this.setOptionIterator_(it);
 			if(it.hasNext()){
 				sReturn =(String) it.next();
@@ -433,9 +433,9 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	public String readOptionNext(){
 		String sReturn = null;
 		main:{
-			Iterator it = null;
+			Iterator<String> it = null;
 			if(this.getOptionIterator_()==null){
-				HashMap hm = this.getOptionMap();
+				HashMap<String,String> hm = this.getOptionMap();
 				it = hm.keySet().iterator();
 				this.setOptionIterator_(it);
 			}else{
@@ -454,7 +454,7 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	public String readValue(String sOption){
 		String sReturn = null;
 		main:{
-			HashMap hm = this.getOptionMap();
+			HashMap<String,String> hm = this.getOptionMap();
 			if(hm==null) break main;
 			if(hm.isEmpty()) break main;
 			if(!hm.containsKey(sOption)) break main;
@@ -945,14 +945,14 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	//############
 	// Getter / Setter
 	//############
-	public HashMap getOptionMap(){
+	public HashMap<String,String> getOptionMap(){
 		return this.hmOpt;
 	}
 		
-	private void setOptionIterator_(Iterator it){
+	private void setOptionIterator_(Iterator<String> it){
 		this.itOpt = it;
 	}
-	private Iterator getOptionIterator_(){
+	private Iterator<String> getOptionIterator_(){
 		return this.itOpt;
 	}
 	
