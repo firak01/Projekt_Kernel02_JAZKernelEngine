@@ -1050,7 +1050,7 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		return iaReturn;	
 	}
 
-	public static String[]toStringArray(ArrayList<?> lista)  throws ExceptionZZZ {
+	public static String[]toStringArray(List<?> lista)  throws ExceptionZZZ {
 		String[] saReturn = null;
 		main:{
 			if(lista==null) break main;
