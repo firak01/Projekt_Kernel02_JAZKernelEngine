@@ -1004,38 +1004,40 @@ output:
 	public static String[] plusString(String[] saString, String sString, String sFlagin) throws ExceptionZZZ{
 		String[] objReturn = null;
 		main:{
-		if(StringZZZ.isEmpty(sString)){
-			objReturn = new String[saString.length];
-			System.arraycopy(saString,0,objReturn, 0, saString.length);
-			break main;
-		}
-		
-		String sFlag = null;
-		if(StringZZZ.isEmpty(sFlagin)){
-			sFlag = "BEHIND";
-		}else{
-			sFlag = sFlagin.toUpperCase();
-			if(!(sFlag.equals("BEHIND")|sFlag.equals("BEFORE"))){
-				ExceptionZZZ ez = new ExceptionZZZ("Flag='"+sFlagin+"', but expected '', 'BEFORE', 'BEHIND'", iERROR_PARAMETER_VALUE, StringArrayZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
-				throw ez;
+			if(ArrayUtilZZZ.isEmpty(saString)) {
+				break main;
 			}
-		}
-		
-		int iSize = saString.length;
-		objReturn = new String[iSize];
-		
-		if(sFlag.equals("BEHIND")){
-			for(int icount = 0; icount<=iSize-1;icount++){
-				objReturn[icount]=saString[icount] + sString;
+			if(StringZZZ.isEmpty(sString)){
+				objReturn = new String[saString.length];
+				System.arraycopy(saString,0,objReturn, 0, saString.length);
+				break main;
 			}
-			break main;
-		}else{
-			for(int icount = 0; icount<=iSize-1;icount++){
-				objReturn[icount]=sString + saString[icount];
+			
+			String sFlag = null;
+			if(StringZZZ.isEmpty(sFlagin)){
+				sFlag = "BEHIND";
+			}else{
+				sFlag = sFlagin.toUpperCase();
+				if(!(sFlag.equals("BEHIND")|sFlag.equals("BEFORE"))){
+					ExceptionZZZ ez = new ExceptionZZZ("Flag='"+sFlagin+"', but expected '', 'BEFORE', 'BEHIND'", iERROR_PARAMETER_VALUE, StringArrayZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+					throw ez;
+				}
 			}
-			break main;
-		}
-		
+			
+			int iSize = saString.length;
+			objReturn = new String[iSize];
+			
+			if(sFlag.equals("BEHIND")){
+				for(int icount = 0; icount<=iSize-1;icount++){
+					objReturn[icount]=saString[icount] + sString;
+				}
+				break main;
+			}else{
+				for(int icount = 0; icount<=iSize-1;icount++){
+					objReturn[icount]=sString + saString[icount];
+				}
+				break main;
+			}		
 		}//End main:
 		return objReturn;
 	}
