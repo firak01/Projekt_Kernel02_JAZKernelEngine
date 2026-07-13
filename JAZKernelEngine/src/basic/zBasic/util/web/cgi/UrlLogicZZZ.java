@@ -14,8 +14,8 @@ import java.util.StringTokenizer;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.util.UrlLogicBaseZZZ;
 import  basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.url.UrlLogicBaseZZZ;
 
 /** Im wesentlichen ein Wrapper um das J2SE ULR-Objekt.
  *   Was aber auch mit unvollst�ndigen URLs arbeiten soll.

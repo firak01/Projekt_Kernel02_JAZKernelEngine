@@ -2,9 +2,9 @@ package basic.zBasic.util.persistence.jdbc;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.util.UrlLogicBaseZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zBasic.util.url.UrlLogicBaseZZZ;
 
 public class UrlLogicZZZ extends UrlLogicBaseZZZ {
 	public static final String sURL_PROTOCOL_PERSISTENCE_JDBC = "jdbc";

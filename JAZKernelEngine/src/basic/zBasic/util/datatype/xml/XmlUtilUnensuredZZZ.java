@@ -25,6 +25,10 @@ import basic.zKernel.file.ini.ZTagFormulaIni_NullZZZ;
  * 
  */
 public class XmlUtilUnensuredZZZ implements IConstantZZZ{
+	private XmlUtilUnensuredZZZ(){
+		//Zum Verstecken des Konstruktors, sind halt nur static Methoden
+	}
+	
 	public static boolean containsRegEx(String sExpression, String sRegEx){
 		try {
 			return XmlUtilZZZ.containsRegEx(sExpression, sRegEx);

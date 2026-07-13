@@ -11,6 +11,10 @@ import basic.zBasic.ExceptionZZZ;
  * 
  */
 public class StringAnalyseUtilZZZ {
+	private StringAnalyseUtilZZZ(){
+		//Zum Verstecken des Konstruktors, sind halt nur static Methoden
+	}
+	
 	/**
      * Prüft, ob target ausschließlich aus den Bausteinen in parts besteht.
      */

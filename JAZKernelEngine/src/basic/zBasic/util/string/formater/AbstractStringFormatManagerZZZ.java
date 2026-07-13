@@ -749,6 +749,10 @@ public abstract class AbstractStringFormatManagerZZZ extends AbstractObjectWithF
 	//### Merke: COMPUTE JUSTIFIED gibt es nicht bei XML-Format Manager, darum die entsprechenden Methoden direkt in FormatManager-Klasse
 	//###################################################
 
+	//###########################################
+	//### FLAG HANDLING
+	//###########################################
+	
 	//### IListenerObjectFlagZsetZZZ
 	//Der FormatManager soll hinsichtlich der Flags von z.B. LogZZZ gesteuert werden koennen. Also wenn registriert, dann dort gesetzte Flags uebernehmen.
 	@Override

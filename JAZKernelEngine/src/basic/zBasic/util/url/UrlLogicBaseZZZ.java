@@ -1,4 +1,4 @@
-package basic.zBasic.util;
+package basic.zBasic.util.url;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IUrlLogicZZZ;

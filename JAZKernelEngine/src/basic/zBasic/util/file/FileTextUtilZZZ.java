@@ -16,7 +16,7 @@ public class FileTextUtilZZZ  extends AbstractObjectWithExceptionZZZ implements 
 	private static final long serialVersionUID = 6374706096776767564L;
 
 	private FileTextUtilZZZ(){
-		//Zum Verstecken des Konstruktors, sind halt nur static MEthoden
+		//Zum Verstecken des Konstruktors, sind halt nur static Methoden
 	}
 
     /** 
