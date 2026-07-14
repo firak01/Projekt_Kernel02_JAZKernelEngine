@@ -23,11 +23,26 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//Neue Separatoren werden in diese Liste reingemischt (ArrayListUtilZZZ.merge...)
 	//Z.B: protected volatile ArrayListZZZ<IEnumSetMappedStringFormatZZZ> listaSeparator=null;
 	
+	protected volatile int iPrintLevel=3; //Wieviel ausgedruckt werden soll 3=Debug All, 0 = NONE;
+	
 	//als private deklariert, damit man es nicht so instanzieren kann, sondern die Methode .getInstance() verwenden muss		
 	protected AbstractSystemZZZ() throws ExceptionZZZ{
 		super();
 	}
 	
+	
+	//#####################################################
+	//### GETTER / SETTER
+	//#####################################################
+	@Override
+	public int getPrintLevel() throws ExceptionZZZ{
+		return this.iPrintLevel;
+	}
+	
+	@Override
+	public void setPrintLevel(int iPrintLevel) throws ExceptionZZZ{
+		this.iPrintLevel = iPrintLevel;
+	}
 	
 	//#####################################################
 	//### Methoden
@@ -38,6 +53,17 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		main:{
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			if(!bPrintOutput) break main;
+			
+			System.out.println(s);
+		}//end main:
+	}
+	
+	@Override
+	public void println(String s, int iPrintLevel) throws ExceptionZZZ{
+		main:{
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			int iPrintLevelCurrent = this.getPrintLevel();
+			if(iPrintLevel < iPrintLevelCurrent) break main;
 			
 			System.out.println(s);
 		}//end main:

@@ -8,6 +8,7 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectLaunchArgumentZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.AbstractKernelConfigZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.IKernelConfigZZZ;
@@ -115,6 +116,27 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	@Override
 	public GetOptZZZ getOptObject(){
 		return this.objOpt;
+	}
+	
+	@Override
+	public String readPrintLevel() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("printLevel");
+			if(sReturn==null){
+				sReturn = this.getPrintLevelDefault();
+			}
+		}//end main:		
+		return sReturn;
+	}
+	@Override
+	public String getPrintLevelDefault() throws ExceptionZZZ {
+		int i = IConfigZZZ.iPRINT_LEVEL_DEFAULT; 
+		return StringZZZ.toString(i);
 	}
 	
 	@Override

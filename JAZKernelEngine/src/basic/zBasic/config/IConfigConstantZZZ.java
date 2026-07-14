@@ -15,8 +15,9 @@ public interface IConfigConstantZZZ {
   	static String sPROJECT_DIRECTORY = "Project_Kernel02_JAZKernelEngine";
   	static String sPROJECT_NAME = "JAZKernelEngine";
 
-  	
-	
+  	//####### Wieviel per Default auf der Konsole ausgeben werden soll
+  	static int iPRINT_LEVEL_DEFAULT = 3; //Als eine Art Debug Level
+  	static int iPRINT_LEVEL_ALL=3;       //also Debug All
 	
 	//#####################################################################
 	//####### Konfiguration der Argumgentuebergabe von aussen an das Program (s. GetOptZZZ).
@@ -32,7 +33,7 @@ public interface IConfigConstantZZZ {
 										//zlocal = Lokale Flags, die dann JSON aehnlich uebergeben werden, berücksichtigen KEINE Vererbungshierarchie
 	
 	//Mereke4: Die Angaben zum Kernel sind nur für Kernel Objekte gedacht. Das ist nicht in allen meinen Appliaktionen notwendig. 
-	final static String sPATTERN4CONFIG_DEFAULT="help|h|";
+	final static String sPATTERN4CONFIG_DEFAULT="help|h|printLevel:";
 	final static String sPATTERN_CONFIG_DEFAULT= sPATTERN4CONFIG_DEFAULT + sPATTERN4FLAG_DEFAULT;	
 	final static String sFLAGZ_DEFAULT="{}"; //leerer JSON ähnlicher String für zu setztende Flags, z.B. gefüllt {"DEBUGUI_PANELLABEL_ON":true}
 	

@@ -11,9 +11,16 @@ import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
 public interface ISystemZZZ extends IListenerObjectFlagZsetZZZ, ISystemEnabledZZZ{
 		
 	//############################################################
+	// GETTER / SETTER
+	//############################################################
+	public int getPrintLevel() throws ExceptionZZZ;
+	public void setPrintLevel(int iPrintLevel) throws ExceptionZZZ;
+	
+	//############################################################
 	//### Methoden
 	//############################################################
 	public void println(String s, boolean bPrintOutput) throws ExceptionZZZ;
+	public void println(String s, int iPrintLevel) throws ExceptionZZZ;
 	
 	
 	//#############################################################

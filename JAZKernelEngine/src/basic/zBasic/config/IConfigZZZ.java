@@ -18,6 +18,11 @@ public interface IConfigZZZ extends IConfigConstantZZZ, IFlagZEnabledZZZ{
 	//Das Objekt für die Übergabeparameter, per Batch
 	public GetOptZZZ getOptObject();
 	
+	//20260704 Nur die Werte auszulesen reicht nicht. Vorher die Option ermitteln. Merke: Die Option ist der Key in  der HashMap
+	public boolean hasOption(String sOption) throws ExceptionZZZ;
+	public String readOptionValue(String sOption) throws ExceptionZZZ;
+		
+	
 	//20210331: Flagz, default String, als leerer JSON-Wert
 	public String getConfigFlagzJsonDefault();
 		
@@ -31,6 +36,9 @@ public interface IConfigZZZ extends IConfigConstantZZZ, IFlagZEnabledZZZ{
 	public String getPatternStringDefault() throws ExceptionZZZ;
 	public String[] getArgumentArrayDefault() throws ExceptionZZZ;
 	
+	public String readPrintLevel() throws ExceptionZZZ;
+	public String getPrintLevelDefault() throws ExceptionZZZ;
+	
 	//20260615 Die Dokumentation anzeigen lassen über -? oder -help
 	public String readActionHelp() throws ExceptionZZZ;
 	public String readActionH() throws ExceptionZZZ;
@@ -38,8 +46,5 @@ public interface IConfigZZZ extends IConfigConstantZZZ, IFlagZEnabledZZZ{
 	public String createHelp() throws ExceptionZZZ;
 	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ;
 	
-	//20260704 Nur die Werte auszulesen reicht nicht. Vorher die Option ermitteln. Merke: Die Option ist der Key in  der HashMap
-	public boolean hasOption(String sOption) throws ExceptionZZZ;
-	public String readOptionValue(String sOption) throws ExceptionZZZ;
 	
 }
