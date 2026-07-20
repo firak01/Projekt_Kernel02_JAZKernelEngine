@@ -48,11 +48,12 @@ public class KernelConfigZZZ extends AbstractKernelConfigZZZ{
 		return "k:s:f:d:lf:ld:";
 	}
 	@Override
-	public String getProjectName() {
+	public String getProjectNameDefault() {
 		return IKernelConfigConstantZZZ.sPROJECT_NAME;
 	}
+	
 	@Override
-	public String getProjectDirectory() {
+	public String getProjectDirectoryDefault() {
 		return IKernelConfigConstantZZZ.sPROJECT_DIRECTORY;
 	}
 }

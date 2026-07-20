@@ -108,10 +108,20 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//### aus IConfigZZZ
 	
 	@Override
-	public abstract String getProjectName() throws ExceptionZZZ;
+	public abstract String getProjectNameDefault() throws ExceptionZZZ;
+
+	@Override
+	public String getProjectName() throws ExceptionZZZ{
+		return this.getProjectNameDefault();
+	}
 	
 	@Override
-	public abstract String getProjectDirectory() throws ExceptionZZZ;
+	public abstract String getProjectDirectoryDefault() throws ExceptionZZZ;
+	 
+	@Override
+	public String getProjectDirectory() throws ExceptionZZZ{
+		return this.getProjectDirectoryDefault();
+	}
 	
 	@Override
 	public GetOptZZZ getOptObject(){

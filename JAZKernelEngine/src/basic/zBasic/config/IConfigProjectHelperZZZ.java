@@ -1,4 +1,4 @@
-package basic.zKernel;
+package basic.zBasic.config;
 
 import basic.zBasic.ExceptionZZZ;
 
@@ -12,11 +12,7 @@ import basic.zBasic.ExceptionZZZ;
  * @author Fritz Lindhauer, 22.06.2023, 19:58:31
  * 
  */
-public interface IKernelConfigProjectHelperZZZ {
-	public String getProjectName(); //Merke: Da man den Projektnamen nicht programmatisch ermitteln kann, wird hier nur ein statischer Wert zurueckgeliefert. ... 	
-	//... Daher ist eine entsprechende Setter-Funktion nicht notwendig.
-	
-	public String getProjectDirectory(); //der Projektname reicht ggfs. nicht
+public interface IConfigProjectHelperZZZ extends IConfigProjectZZZ{
 	//... dito
 	public String getProjectPath() throws ExceptionZZZ;
 	public String computeProjectPath() throws ExceptionZZZ;

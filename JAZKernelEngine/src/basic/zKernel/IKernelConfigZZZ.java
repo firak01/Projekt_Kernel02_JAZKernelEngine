@@ -3,6 +3,7 @@ package basic.zKernel;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.config.IConfigProjectHelperZZZ;
 import basic.zBasic.config.IConfigZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
@@ -11,7 +12,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
  * @author lindhauer
  *
  */
-public interface IKernelConfigZZZ extends IKernelConfigConstantZZZ, IConfigZZZ, IKernelConfigProjectHelperZZZ{
+public interface IKernelConfigZZZ extends IKernelConfigConstantZZZ, IConfigZZZ, IConfigProjectHelperZZZ{
 	
 	/**Falls Kein entsprechender Parameter in der Kommandozeile übergeben worden ist, so wird der hier definierte Wert verwendet für den Initialisierung des Kernels
 	* @return

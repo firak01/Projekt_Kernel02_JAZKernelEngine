@@ -44,13 +44,15 @@ public class ConfigZZZ extends AbstractKernelConfigZZZ implements IConfigZZZ{
 		return IConfigZZZ.sNUMBER_SYSTEM_DEFAULT;
 }
 	@Override
-	public String getProjectName() {
+	public String getProjectNameDefault() throws ExceptionZZZ{
 		return IConfigZZZ.sPROJECT_NAME;
 	}
+	
 	@Override
-	public String getProjectDirectory() {
+	public String getProjectDirectoryDefault() throws ExceptionZZZ {
 		return IConfigZZZ.sPROJECT_DIRECTORY;
 	}
+	
 
 
 	
