@@ -59,13 +59,14 @@ public class ConfigFGL extends AbstractKernelConfigZZZ{
 	@Override
 	public String getSystemNumberDefault() {
 		return ConfigFGL.sNUMBER_SYSTEM_DEFAULT;
-}
+	}
+
 	@Override
-	public String getProjectName() {
+	public String getProjectNameDefault() throws ExceptionZZZ {
 		return ConfigFGL.sPROJECT_NAME;
 	}
 	@Override
-	public String getProjectDirectory() {
+	public String getProjectDirectoryDefault() throws ExceptionZZZ {
 		return ConfigFGL.sPROJECT_DIRECTORY;
 	}
 }
