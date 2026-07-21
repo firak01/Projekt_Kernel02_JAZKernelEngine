@@ -31,9 +31,6 @@ public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlag
 	public String getPatternStringDefault() throws ExceptionZZZ;
 	public String[] getArgumentArrayDefault() throws ExceptionZZZ;
 	
-	public String readPrintLevel() throws ExceptionZZZ;
-	public String getPrintLevelDefault() throws ExceptionZZZ;
-	
 	//20260615 Die Dokumentation anzeigen lassen über -? oder -help
 	public String readActionHelp() throws ExceptionZZZ;
 	public String readActionH() throws ExceptionZZZ;
@@ -41,5 +38,11 @@ public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlag
 	public String createHelp() throws ExceptionZZZ;
 	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ;
 	
+
+	public String readPrintLevel() throws ExceptionZZZ;
+	public String getPrintLevelDefault() throws ExceptionZZZ;
 	
+	//Ergänzend zu IConfigProjectZZZ
+	public String readProjectName() throws ExceptionZZZ;
+	public String readProjectDirectory() throws ExceptionZZZ;
 }

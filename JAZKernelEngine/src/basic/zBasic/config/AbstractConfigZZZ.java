@@ -106,6 +106,21 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	
 	
 	//### aus IConfigZZZ
+	@Override
+	public String readProjectName() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("p");
+			if(sReturn==null){
+				sReturn = this.getProjectNameDefault();
+			}
+		}//end main:		
+		return sReturn;
+	}	
 	
 	@Override
 	public abstract String getProjectNameDefault() throws ExceptionZZZ;
@@ -114,6 +129,24 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	public String getProjectName() throws ExceptionZZZ{
 		return this.getProjectNameDefault();
 	}
+	
+	
+	//++++++++++++++++++++++++++++++
+	@Override
+	public String readProjectDirectory() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("pd");
+			if(sReturn==null){
+				sReturn = this.getProjectDirectoryDefault();
+			}
+		}//end main:		
+		return sReturn;
+	}	
 	
 	@Override
 	public abstract String getProjectDirectoryDefault() throws ExceptionZZZ;
@@ -128,6 +161,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		return this.objOpt;
 	}
 	
+
 	@Override
 	public String readPrintLevel() throws ExceptionZZZ {
 		String sReturn = null;
@@ -231,7 +265,12 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		objHelp.setHeaderLine(objHeaderLine);
 		listaReturn.add(objHelp);
 		objHelp = new KernelConfigHelpLineZZZ("help","Hilfe","Zeige diese Hilfe der Argumente.");
-		listaReturn.add(objHelp);	
+		listaReturn.add(objHelp);
+		objHelp = new KernelConfigHelpLineZZZ("p:","Projekname","Projektname, wie unter Eclipse vergeben. Ggfs. als Verzeichnis hinter dem Repository-Namen.");
+		objHelp.setHeaderLine(objHeaderLine);
+		listaReturn.add(objHelp);
+		objHelp = new KernelConfigHelpLineZZZ("pd:","Projektverzeichnis","Projektname, wie unter Eclipse vergeben. Ggfs. als Verzeichnis hinter dem Repository-Namen.");
+		listaReturn.add(objHelp);
 		objHelp = new KernelConfigHelpLineZZZ("z:","Z-Kernel-flag","Flagdefinition, berücksichtigen Vererbungshierarchie.: Es muss ein JSON String folgen, z.B. -z {\"DEBUG\":false,\"INIT\":true}");
 		listaReturn.add(objHelp);	
 		objHelp = new KernelConfigHelpLineZZZ("zcustom:","Custom Flag","Flagdefinition, berücksichtigen nur direkte Vererbungshierarchie. Es muss ein JSON String folgen, z.B. -zcustom {\"xyz\":false,\"abc\":true}");

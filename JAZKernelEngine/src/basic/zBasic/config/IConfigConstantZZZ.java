@@ -33,7 +33,7 @@ public interface IConfigConstantZZZ {
 										//zlocal = Lokale Flags, die dann JSON aehnlich uebergeben werden, berücksichtigen KEINE Vererbungshierarchie
 	
 	//Mereke4: Die Angaben zum Kernel sind nur für Kernel Objekte gedacht. Das ist nicht in allen meinen Appliaktionen notwendig. 
-	final static String sPATTERN4CONFIG_DEFAULT="help|h|printLevel:";
+	final static String sPATTERN4CONFIG_DEFAULT="help|h|printLevel:pd:p:";
 	final static String sPATTERN_CONFIG_DEFAULT= sPATTERN4CONFIG_DEFAULT + sPATTERN4FLAG_DEFAULT;	
 	final static String sFLAGZ_DEFAULT="{}"; //leerer JSON ähnlicher String für zu setztende Flags, z.B. gefüllt {"DEBUGUI_PANELLABEL_ON":true}
 	
