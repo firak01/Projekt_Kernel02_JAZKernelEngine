@@ -2,6 +2,7 @@ package basic.zBasic.util.system;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 
 /** Idee ist, das diese Klasse mit dem kurzen Namen verwendet wird statt System.out ...
  *  Dann hat diese Klasse noch Komfortfunktionen.
@@ -21,5 +22,22 @@ public class Syso implements IConstantZZZ{
 	
 	public static void println(String s, boolean bPrintOutput) throws ExceptionZZZ{
 		SystemZZZ.getInstance().println(s,bPrintOutput);
+	}
+	
+	//### Zur besseren Darstellung, besondere "Layoutelement"
+	public static void printSection(String sTitle) throws ExceptionZZZ {
+	    System.out.println();
+	    printSeparator('=');
+	    System.out.println(" " + sTitle);
+	    printSeparator('=');
+	}
+	
+	public static void printSeparator() throws ExceptionZZZ {
+		printSeparator('#');
+	}
+	
+	public static void printSeparator(char cSeparator) throws ExceptionZZZ {
+		String sLine = StringZZZ.repeatChar(cSeparator, 20);
+		System.out.println(sLine);
 	}
 }
