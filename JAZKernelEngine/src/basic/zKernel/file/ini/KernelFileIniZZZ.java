@@ -179,7 +179,7 @@ public class KernelFileIniZZZ<T> extends AbstractKernelUseObjectZZZ<T> implement
 	 @author 0823 , date: 05.10.2004
 	 @param objKernel
 	 @param objLog
-	 @param sFileName
+	 @param sFilePath
 	 @param saFlagControl
 	 @return
 	 */

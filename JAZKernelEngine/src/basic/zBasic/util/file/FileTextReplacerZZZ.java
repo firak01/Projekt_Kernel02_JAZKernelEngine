@@ -6,7 +6,7 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextReplacerZZZ  extends  AbstractFileTextZZZ{
+public class FileTextReplacerZZZ  extends  AbstractFileTextReaderZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
 	public FileTextReplacerZZZ() {		

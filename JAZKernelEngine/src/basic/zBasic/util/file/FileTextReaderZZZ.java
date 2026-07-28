@@ -16,13 +16,13 @@ import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
-public class FileTextReaderZZZ extends  AbstractFileTextZZZ{
+public class FileTextReaderZZZ extends  AbstractFileTextReaderZZZ{
 	private static final long serialVersionUID = -9054462955710855745L;
 	
 	public FileTextReaderZZZ() {		
 	}
 	public FileTextReaderZZZ(String sFileName) throws ExceptionZZZ{
-		this.setFileName(sFileName);
+		this.setFilePath(sFileName);
 	}
 	public FileTextReaderZZZ(File objFile) throws ExceptionZZZ {
 		this.setFileObject(objFile);
@@ -33,7 +33,7 @@ public class FileTextReaderZZZ extends  AbstractFileTextZZZ{
 		try {
 			String sFileName;
 			if(StringZZZ.isEmpty(sFileNameIn)){
-				sFileName = this.getFileName();
+				sFileName = this.getFilePath();
 			}else{
 				sFileName = sFileNameIn;
 			}

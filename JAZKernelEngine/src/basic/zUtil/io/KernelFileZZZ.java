@@ -771,7 +771,7 @@ public class KernelFileZZZ extends File implements IConstantZZZ, IObjectZZZ, IFi
 
 	/**
 	 @param sDirectoryName
-	 @param sFileName
+	 @param sFilePath
 	 @param iExpansionLength
 	 @return String, Path with filename. The filename does have the next expansion. 
 	 * @throws ExceptionZZZ 

@@ -1,10 +1,12 @@
 package basic.zBasic.util.abstractList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
+import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 
 public class ListUtilZZZ implements IConstantZZZ{
 
@@ -240,5 +242,21 @@ public class ListUtilZZZ implements IConstantZZZ{
 			}
 		}//end main:
 		return listasReturn;
+	}
+	
+	
+	
+	//##############################################################
+	//### Komfortfunktionen, rufe einfach die Funktion von ArrayUtilZZZ auf.
+    public static <T> ArrayList<T> toArrayList(T[] objArray) {
+       return ArrayUtilZZZ.toArrayList(objArray);
+    }
+	
+	public static <T> List<T> toList(T[] objArray) {
+	   return ArrayUtilZZZ.toList(objArray);
+	}
+	
+	public static <T> List<T> toList(T obj) {
+	  return ArrayUtilZZZ.toList(obj); 
 	}
 }

@@ -1713,7 +1713,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 
 	/** Joins any Filepath-String with the Filename. E.g. in the case the filepath has an backslash at the end
 	 * @param sFilePath
-	 * @param sFileName
+	 * @param sFilePath
 	 * @throws ExceptionZZZ 
 	 */
 	public static String joinFilePathName(String sFilePathIn, String sFileNameIn) throws ExceptionZZZ{
@@ -1722,7 +1722,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 	
 	/** Joins any Filepath-String with the Filename. E.g. in the case the filepath has an backslash at the end
 	 * @param sFilePath
-	 * @param sFileName
+	 * @param sFilePath
 	 * @throws ExceptionZZZ 
 	 */
 	public static String joinFilePathName(String sFilePathIn, String sFileNameIn, boolean bReturnAsRelativePath) throws ExceptionZZZ{
@@ -1976,7 +1976,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 	
 
 	/** Changes the ending of a filename. e.g. test.csv --> test.ini 
-	 @param sFileName
+	 @param sFilePath
 	 @param sEndNew
 	 @return the name with the new ending
 	 */

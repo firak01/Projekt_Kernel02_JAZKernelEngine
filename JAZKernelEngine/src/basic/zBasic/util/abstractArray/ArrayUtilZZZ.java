@@ -725,12 +725,6 @@ public class ArrayUtilZZZ<T>{
         return objReturn;
     }
 
-//    private static <T> T[] listToArray(List<T> list, Class<T> clazz) {
-//        @SuppressWarnings("unchecked")
-//        T[] array = (T[]) Array.newInstance(clazz, list.size());
-//        return list.toArray(array);
-//    }
-
     
     //#############################################################
     
@@ -750,8 +744,38 @@ public class ArrayUtilZZZ<T>{
 	 * 
 	 * @author Fritz Lindhauer, 16.03.2024, 14:50:47
 	 */
-	public static <T> ArrayList<? extends T> toArrayList(T[] objArray) {
-		List<? extends T> listReturn = new ArrayList<T>(Arrays.asList(objArray));
-		return (ArrayList<? extends T>) listReturn;
+//	public static <T> ArrayList<? extends T> toArrayList(T[] objArray) {
+//		List<? extends T> listReturn = new ArrayList<T>(Arrays.asList(objArray));
+//		return (ArrayList<? extends T>) listReturn;
+//	}
+    public static <T> ArrayList<T> toArrayList(T[] objArray) {
+        if (objArray == null) {
+            return new ArrayList<T>();
+        }
+        return new ArrayList<T>(Arrays.asList(objArray));
+    }
+	
+	/** s. https://sentry.io/answers/arraylist-from-array/
+	 * 
+	 * 
+	 * @author Fritz Lindhauer, 16.03.2024, 14:50:47
+	 */
+//	public static <T> List<? extends T> toList(T[] objArray) {
+//		List<? extends T> listReturn = new ArrayList<T>(Arrays.asList(objArray));
+//		return (ArrayList<? extends T>) listReturn;
+//	}
+	public static <T> List<T> toList(T[] objArray) {
+	    if (objArray == null) {
+	        return new ArrayList<T>();
+	    }
+	    return new ArrayList<T>(Arrays.asList(objArray));
 	}
+	
+	public static <T> List<T> toList(T obj) {
+	    if (obj == null) {
+	        return new ArrayList<T>();
+	    }
+	    return new ArrayList<T>(Arrays.asList(obj));
+	}
+	
 }

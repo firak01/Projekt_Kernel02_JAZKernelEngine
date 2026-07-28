@@ -9,10 +9,10 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 
-public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ{
+public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExceptionZZZ{
 	private static final long serialVersionUID = -1464375530224033955L;
 	protected IStreamZZZ objStream = null;
-	protected String sFileName = null;
+	protected String sFilePath = null;
 	protected File objFile = null;
 	
 	protected List<String> listaLine = null;
@@ -20,51 +20,51 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
 	
 	
-	public AbstractFileTextZZZ() {		
+	public AbstractFileTextReaderZZZ() {		
 	}
-	public AbstractFileTextZZZ(String sFileName) throws ExceptionZZZ{
-		this.setFileName(sFileName);
+	public AbstractFileTextReaderZZZ(String sFilePath) throws ExceptionZZZ{
+		this.setFilePath(sFilePath);
 	}
 	
-	public AbstractFileTextZZZ(File objFile) throws ExceptionZZZ{
+	public AbstractFileTextReaderZZZ(File objFile) throws ExceptionZZZ{
 		this.setFileObject(objFile);
 	}
 	
-	public AbstractFileTextZZZ(List<String> listaLine) throws ExceptionZZZ{
+	public AbstractFileTextReaderZZZ(List<String> listaLine) throws ExceptionZZZ{
 		this.setLines(listaLine);
 	}
 	
 	//##### Getter / Setter ###################
 	public String getFileNameDefault() throws ExceptionZZZ {
-		return AbstractFileTextZZZ.sFILE_NAME_DEFAULT;
+		return AbstractFileTextReaderZZZ.sFILE_NAME_DEFAULT;
 	}
 	
 	
-	public String getFileName() throws ExceptionZZZ {
-		if(StringZZZ.isEmpty(this.sFileName)) {
+	public String getFilePath() throws ExceptionZZZ {
+		if(StringZZZ.isEmpty(this.sFilePath)) {
 			if(this.objFile!=null) {
-				this.sFileName = objFile.getPath();
+				this.sFilePath = objFile.getPath();
 			}else {
-				this.sFileName = this.getFileNameDefault();
+				this.sFilePath = this.getFileNameDefault();
 			}
 		}		
-		return this.sFileName;
+		return this.sFilePath;
 	}
-	public void setFileName(String sFileName) {
-		this.sFileName = sFileName;
+	public void setFilePath(String sFilePath) {
+		this.sFilePath = sFilePath;
 	}
 	
 	public File getFileObject() throws ExceptionZZZ {
 		if(this.objFile==null) {
-			String sFileName = this.getFileName();
-			if(StringZZZ.isEmpty(sFileName)) {
-				ExceptionZZZ ez = new ExceptionZZZ("Filename or File-Object", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
+			String sFilePath = this.getFilePath();
+			if(StringZZZ.isEmpty(sFilePath)) {
+				ExceptionZZZ ez = new ExceptionZZZ("Filepath or File-Object", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}
 			
-			File objFile = new File(sFileName);
+			File objFile = new File(sFilePath);
 			if(!FileEasyZZZ.exists(objFile)) {
-				ExceptionZZZ ez = new ExceptionZZZ("File does not exist '" + sFileName + "'", iERROR_PROPERTY_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 
+				ExceptionZZZ ez = new ExceptionZZZ("File does not exist '" + sFilePath + "'", iERROR_PROPERTY_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}
 			
@@ -81,11 +81,11 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 	public void setFileObject(File objFile) throws ExceptionZZZ{
 		if(objFile!=null) {
 			if(!FileEasyZZZ.exists(objFile)) {
-				ExceptionZZZ ez = new ExceptionZZZ("File does not exist '" + sFileName + "'", iERROR_PROPERTY_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 
+				ExceptionZZZ ez = new ExceptionZZZ("File does not exist '" + sFilePath + "'", iERROR_PROPERTY_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;
 			}			
 		}
-		this.setFileName(null); //egal ob Datei oder NULL, wenn benötigt den Dateinamen also wieder neu aus der Datei holen ODER DEFAULT.
+		this.setFilePath(null); //egal ob Datei oder NULL, wenn benötigt den Dateinamen also wieder neu aus der Datei holen ODER DEFAULT.
 		this.objFile = objFile;
 	}
 	

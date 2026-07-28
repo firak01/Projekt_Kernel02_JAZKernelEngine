@@ -14,7 +14,7 @@ import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 
-public class FileTextWriterZZZ extends AbstractFileTextZZZ{
+public class FileTextWriterZZZ extends AbstractFileTextReaderZZZ{
 	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
 	
 	
@@ -22,8 +22,8 @@ public class FileTextWriterZZZ extends AbstractFileTextZZZ{
 		super();
 	}
 	
-	public FileTextWriterZZZ(String sFileName) throws ExceptionZZZ{
-		super(sFileName);
+	public FileTextWriterZZZ(String sFilePath) throws ExceptionZZZ{
+		super(sFilePath);
 	}
 	
 	public FileTextWriterZZZ(File objFile) throws ExceptionZZZ{
@@ -44,7 +44,7 @@ public class FileTextWriterZZZ extends AbstractFileTextZZZ{
 		try {
 			String sFileName;
 			if(StringZZZ.isEmpty(sFileNameIn)){
-				sFileName = this.getFileName();
+				sFileName = this.getFilePath();
 			}else{
 				sFileName = sFileNameIn;
 			}
