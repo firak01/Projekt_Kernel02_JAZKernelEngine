@@ -77,5 +77,50 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextSaverZZZ{
 		}//end main:
 		return bReturn;
 	}
-
+	
+	//##########################
+	//### Komfortfunktion 2 in 1
+	public boolean replaceAndSave(int iLineNumber, String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.replace(iLineNumber, sLine);
+			if(!bReturn) break main;
+			
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	public boolean replaceAndSave(int iLineNumber, List<String>listaStringReplacement) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.replace(iLineNumber, listaStringReplacement);
+			if(!bReturn) break main;
+			
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	public boolean replaceAndSave(int iLineNumberPre, int iLineNumberPost, String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.replace(iLineNumberPre, iLineNumberPost, sLine);
+			if(!bReturn) break main;
+			
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	public boolean replaceAndSave(int iLineNumberPre, int iLineNumberPost, List<String>listaStringReplacement) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.replace(iLineNumberPre, iLineNumberPost, listaStringReplacement);
+			if(!bReturn) break main;
+			
+			bReturn = this.save();			
+		}
+		return bReturn;		
+	}
 }
