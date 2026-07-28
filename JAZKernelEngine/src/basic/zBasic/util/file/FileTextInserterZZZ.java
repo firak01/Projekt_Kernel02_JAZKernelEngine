@@ -6,13 +6,13 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextInserterZZZ  extends  AbstractFileTextReaderZZZ{
+public class FileTextInserterZZZ  extends  AbstractFileTextSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
 	public FileTextInserterZZZ() {		
 	}
-	public FileTextInserterZZZ(String sFileName) throws ExceptionZZZ{
-		super(sFileName);
+	public FileTextInserterZZZ(String sFilePath) throws ExceptionZZZ{
+		super(sFilePath);
 	}
 	public FileTextInserterZZZ(File objFile) throws ExceptionZZZ {
 		super(objFile);
@@ -23,11 +23,62 @@ public class FileTextInserterZZZ  extends  AbstractFileTextReaderZZZ{
 	}
 	
 	//###############################	
+	public boolean insert(int iLineNumber, String sLine) throws ExceptionZZZ {
+		return insertBehind(iLineNumber, sLine);
+	}
+	
 	public boolean insert(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
 		return insertBehind(iLineNumber, listaStringInsertment);
 	}
 	
+	//+++++++++++++++++++++++++
+	public boolean insertBehind(int iLineNumber, String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(sLine == null) break main;
+
+			List<String> listaStringInsertment = ListUtilZZZ.toList(sLine);
+			bReturn = this.insertBehind(iLineNumber, listaStringInsertment);			
+		}//end main:
+		return bReturn;
+	}
+	
 	public boolean insertBehind(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(listaStringInsertment==null) break main;
+			
+			List<String> listaString = this.getLines();
+			if(listaString==null) break main;
+			
+			
+			FileTextSplitterZZZ objFileTextSplitter = new FileTextSplitterZZZ(listaString);
+			objFileTextSplitter.splitKeepBefore(iLineNumber);
+			
+			List<String> listaStringPre = objFileTextSplitter.getLinesPre();
+			List<String> listaStringPost = objFileTextSplitter.getLinesPost();
+			
+			List<String> listReturn = ListUtilZZZ.join(listaStringPre, listaStringInsertment, listaStringPost);
+			this.setLines(listReturn);
+			
+			bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++
+	public boolean insertBefore(int iLineNumber, String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(sLine == null) break main;
+
+			List<String> listaStringInsertment = ListUtilZZZ.toList(sLine);
+			bReturn = this.insertBefore(iLineNumber, listaStringInsertment);			
+		}//end main:
+		return bReturn;
+	}
+	
+	public boolean insertBefore(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			if(listaStringInsertment==null) break main;
@@ -50,26 +101,73 @@ public class FileTextInserterZZZ  extends  AbstractFileTextReaderZZZ{
 		return bReturn;
 	}
 	
-	public boolean insertBefore(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
+	//##########################
+	//### Komfortfunktion 2 in 1
+	public boolean insertAndSave(int iLineNumber, String sLine) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			if(listaStringInsertment==null) break main;
+			bReturn = this.insert(iLineNumber, sLine);
+			if(!bReturn) break main;
 			
-			List<String> listaString = this.getLines();
-			if(listaString==null) break main;
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	public boolean insertAndSave(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.insert(iLineNumber, listaStringInsertment);
+			if(!bReturn) break main;
 			
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++
+	public boolean insertBehindAndSave(int iLineNumber, String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.insertBehind(iLineNumber, sLine);
+			if(!bReturn) break main;
 			
-			FileTextSplitterZZZ objFileTextSplitter = new FileTextSplitterZZZ(listaString);
-			objFileTextSplitter.splitKeepBefore(iLineNumber);
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	public boolean insertBehindAndSave(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.insertBehind(iLineNumber, listaStringInsertment);
+			if(!bReturn) break main;
 			
-			List<String> listaStringPre = objFileTextSplitter.getLinesPre();
-			List<String> listaStringPost = objFileTextSplitter.getLinesPost();
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++
+	public boolean insertBeforeAndSave(int iLineNumber, String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.insertBefore(iLineNumber, sLine);
+			if(!bReturn) break main;
 			
-			List<String> listReturn = ListUtilZZZ.join(listaStringPre, listaStringInsertment, listaStringPost);
-			this.setLines(listReturn);
+			bReturn = this.save();			
+		}
+		return bReturn;
+	}
+	
+	public boolean insertBeforeAndSave(int iLineNumber, List<String>listaStringInsertment) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.insertBefore(iLineNumber, listaStringInsertment);
+			if(!bReturn) break main;
 			
-			bReturn = true;
-		}//end main:
+			bReturn = this.save();			
+		}
 		return bReturn;
 	}
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextReplacerZZZ  extends  AbstractFileTextReaderZZZ{
+public class FileTextReplacerZZZ  extends  AbstractFileTextSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
 	public FileTextReplacerZZZ() {		
@@ -23,6 +23,11 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextReaderZZZ{
 	}
 	
 	//###############################	
+	public boolean replace(int iLineNumber, String sLine) throws ExceptionZZZ {		
+		List<String> listaStringReplacement = ListUtilZZZ.toList(sLine);
+		return replace(iLineNumber, listaStringReplacement);
+	}
+			
 	public boolean replace(int iLineNumber, List<String>listaStringReplacement) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
@@ -44,6 +49,11 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextReaderZZZ{
 			bReturn = true;
 		}//end main:
 		return bReturn;
+	}
+	
+	public boolean replace(int iLineNumberPre, int iLineNumberPost, String sLine) throws ExceptionZZZ {
+		List<String> listaStringReplacement = ListUtilZZZ.toList(sLine);
+		return replace(iLineNumberPre, iLineNumberPost, listaStringReplacement);
 	}
 	
 	public boolean replace(int iLineNumberPre, int iLineNumberPost, List<String>listaStringReplacement) throws ExceptionZZZ {

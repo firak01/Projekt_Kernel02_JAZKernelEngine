@@ -18,6 +18,10 @@ public class FileZZZ extends KernelFileZZZ{
 		super();
 	}
 	
+	public FileZZZ(String sFilePathTarget) throws ExceptionZZZ {
+		super(sFilePathTarget);
+	}
+	
 	/**
 	 * Constructor FileZZZ.
 	 * @param sPathTarget

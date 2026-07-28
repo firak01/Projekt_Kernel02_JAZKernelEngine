@@ -19,6 +19,7 @@ import basic.zBasic.util.datatype.calling.ReferenceHashMapZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.math.MathZZZ;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.IKernelZZZ;
@@ -60,8 +61,15 @@ public class KernelFileZZZ extends File implements IConstantZZZ, IObjectZZZ, IFi
 		this("","","init");
 	}
 	
+	public KernelFileZZZ(String sFilePathTotal) throws ExceptionZZZ {
+		super(sFilePathTotal);
+		String sDirectoryPath = FileEasyZZZ.getParent(sFilePathTotal);
+		String sFileName = FileEasyZZZ.getNameFromFilepath(sFilePathTotal);
+		KernelFileNew_(sDirectoryPath, sFileName, null, (String[])null);
+	}
+	
 	public KernelFileZZZ(String sDirectoryPath, String sFileName) throws ExceptionZZZ{
-		super(sDirectoryPath + "\\" + sFileName);
+		super(sDirectoryPath + IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_WINDOWS + sFileName);
 		KernelFileNew_(sDirectoryPath, sFileName, null, (String[])null);
 	}
 	
