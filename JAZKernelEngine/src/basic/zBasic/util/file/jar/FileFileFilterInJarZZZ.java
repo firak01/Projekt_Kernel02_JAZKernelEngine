@@ -95,4 +95,5 @@ public class FileFileFilterInJarZZZ extends AbstractFileFileFilterInJarZZZ{
 			super.setEnding(sEnding);
 		}
 	}
+
 }//END class

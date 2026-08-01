@@ -7,13 +7,13 @@ public class FileExpansionZZZ extends KernelFileExpansionZZZ{
 	public FileExpansionZZZ() throws ExceptionZZZ {
 		super();
 	}
-	public FileExpansionZZZ(char cFilling, int iExpansionLength) {
+	public FileExpansionZZZ(char cFilling, int iExpansionLength) throws ExceptionZZZ {
 		super(cFilling, iExpansionLength);
 	}
-	public FileExpansionZZZ(FileZZZ objFileBase) {
+	public FileExpansionZZZ(FileZZZ objFileBase) throws ExceptionZZZ{
 		super(objFileBase);
 	}
-	public FileExpansionZZZ(FileZZZ objFileBase, int iExpansionLength) {
+	public FileExpansionZZZ(FileZZZ objFileBase, int iExpansionLength)throws ExceptionZZZ {
 		super(objFileBase, iExpansionLength);
 	}
 	

@@ -11,7 +11,7 @@ import basic.zKernel.IKernelConfigUserZZZ;
 import basic.zUtil.io.IFileExpansionEnabledZZZ;
 import custom.zUtil.io.FileZZZ;
 
-public interface ILogZZZ extends IFileExpansionEnabledZZZ, IKernelConfigUserZZZ, IStringFormatManagerUserZZZ, ILogStringComputerZZZ{
+public interface ILogZZZ extends IKernelConfigUserZZZ, IStringFormatManagerUserZZZ, ILogStringComputerZZZ{
 //	public enum FLAGZ{
 //		USE_FILE_EXPANSION; //Merke: DEBUG und INIT aus ObjectZZZ sollen über IObjectZZZ eingebunden werden, weil von ObjectkZZZ kann man ja nicht erben. Es wird schon von File geerbt.
 //	}
