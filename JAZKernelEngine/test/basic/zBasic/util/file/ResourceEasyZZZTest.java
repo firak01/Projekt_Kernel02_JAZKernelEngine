@@ -24,7 +24,10 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.FileTextParserZZZ;
+import basic.zBasic.util.file.jar.JarEasyInCurrentJarZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
+import basic.zBasic.util.file.jar.JarEasyZZZ;
+import basic.zBasic.util.file.txt.parser.FileTextParserZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 
 public class ResourceEasyZZZTest extends TestCase{

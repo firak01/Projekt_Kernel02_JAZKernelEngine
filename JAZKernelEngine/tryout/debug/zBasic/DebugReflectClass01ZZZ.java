@@ -14,7 +14,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectClassZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.data.DataFieldZZZ;
-import basic.zBasic.util.file.txt.TxtReaderZZZ;
+import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 
 public class DebugReflectClass01ZZZ {
 

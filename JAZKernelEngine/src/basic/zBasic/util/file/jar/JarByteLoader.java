@@ -9,7 +9,6 @@ import java.util.zip.ZipInputStream;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.ByteLoader;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.JarEasyZZZ;
 import basic.zBasic.util.file.zip.ZipEntryFilter;
 
 

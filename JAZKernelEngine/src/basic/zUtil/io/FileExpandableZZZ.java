@@ -145,12 +145,16 @@ public class FileExpandableZZZ extends FileZZZ implements IFileExpansionUserZZZ,
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		@Override
-		public IFileExpansionZZZ getFileExpansionObject() {
+		public IFileExpansionZZZ getFileExpansionObject() throws ExceptionZZZ {
+			if(this.objExpansion==null) {
+				IFileExpansionZZZ objExpansion = new FileExpansionZZZ(this);
+				this.objExpansion = objExpansion;
+			}
 			return this.objExpansion;
 		}
 
 		@Override
-		public void setFileExpansionObject(IFileExpansionZZZ objFileExpansion) {
+		public void setFileExpansionObject(IFileExpansionZZZ objFileExpansion) throws ExceptionZZZ {
 			this.objExpansion = objFileExpansion;
 		}
 
@@ -459,7 +463,7 @@ private String PathNameTotalExpandedCurrentCompute_(String sDirectoryIn, String 
 
 
 	
-	public int getExpansionLength(){	
+	public int getExpansionLength() throws ExceptionZZZ{	
 		if(this.getFileExpansionObject()!=null) {
 			return this.getFileExpansionObject().getExpansionLength();
 		}else {
@@ -484,8 +488,9 @@ private String PathNameTotalExpandedCurrentCompute_(String sDirectoryIn, String 
 	 @param iEndingValue
 	 @param iEndingLength
 	 @return String Expansion, e.g. '001'
+	 * @throws ExceptionZZZ 
 	 */
-	public String ExpansionCompute(String sFilling, int iExpansionValue) {
+	public String ExpansionCompute(String sFilling, int iExpansionValue) throws ExceptionZZZ {
 		String sReturn = new String("");		
 		main:{
 			IFileExpansionZZZ objFileExpansion = this.getFileExpansionObject();

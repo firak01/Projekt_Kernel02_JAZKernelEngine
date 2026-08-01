@@ -6,6 +6,7 @@ import java.util.Iterator;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.integer.IntegerZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -13,7 +14,7 @@ import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.math.MathZZZ;
 
-public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IFileExpansionZZZ, Iterable<T> {
+public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IFileExpansionZZZ, IFileExpansionStateEnabledZZZ, Iterable<T> {
 	private static final long serialVersionUID = -8447430196878685947L;
 	
 	private FileZZZ objFileBase=null;
@@ -664,4 +665,131 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		int iExpansionValue = this.getExpansionValueCurrent();
 		return this.computeExpansion(sFilling, iExpansionValue, iExpansionLength);
 	}
+	
+	//###############################################
+	//### FLAG HANDLING
+	//###############################################
+	
+	//### aus IFileExpansionStateEnabledZZZ
+	@Override
+	public boolean getFlag(IFileExpansionStateEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.getFlag(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean setFlag(IFileExpansionStateEnabledZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlag(objEnumFlag.name(), bFlagValue);
+	}
+
+	@Override
+	public boolean[] setFlag(IFileExpansionStateEnabledZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(IFileExpansionStateEnabledZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
+				}
+			}
+		}//end main:
+		return baReturn;
+	}
+
+	@Override
+	public boolean proofFlagExists(IFileExpansionStateEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagExists(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean proofFlagSetBefore(IFileExpansionStateEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagSetBefore(objEnumFlag.name());
+	}
+	
+	//###################################
+	//### FLAGLOCAL Handling
+
+	//### aus JgitEnabledZZZ	
+	@Override
+	public boolean getFlagLocal(IFileExpansionStateEnabledZZZ.FLAGZLOCAL objEnumFlag) throws ExceptionZZZ {
+		return this.getFlagLocal(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean setFlagLocal(IFileExpansionStateEnabledZZZ.FLAGZLOCAL objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlagLocal(objEnumFlag.name(), bFlagValue);
+	}
+
+	@Override
+	public boolean[] setFlagLocal(IFileExpansionStateEnabledZZZ.FLAGZLOCAL[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(IFileExpansionStateEnabledZZZ.FLAGZLOCAL objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlagLocal(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
+				}
+			}
+		}//end main:
+		return baReturn;
+	}
+
+	@Override
+	public boolean proofFlagLocalExists(IFileExpansionStateEnabledZZZ.FLAGZLOCAL objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagLocalExists(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean proofFlagLocalSetBefore(IFileExpansionStateEnabledZZZ.FLAGZLOCAL objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagSetBefore(objEnumFlag.name());
+	}
+
+	
+
+
+	//###################################
+	//### FLAG CUSTOM Handling
+		
+	@Override
+	public boolean getFlagCustom(IFileExpansionStateEnabledZZZ.FLAGZCUSTOM objEnumFlag) throws ExceptionZZZ {
+		return this.getFlagCustom(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean setFlagCustom(IFileExpansionStateEnabledZZZ.FLAGZCUSTOM objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlagCustom(objEnumFlag.name(), bFlagValue);
+	}
+
+	@Override
+	public boolean[] setFlagCustom(IFileExpansionStateEnabledZZZ.FLAGZCUSTOM[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(IFileExpansionStateEnabledZZZ.FLAGZCUSTOM objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlagCustom(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
+				}
+			}
+		}//end main:
+		return baReturn;
+	}
+
+	@Override
+	public boolean proofFlagCustomExists(IFileExpansionStateEnabledZZZ.FLAGZCUSTOM objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagCustomExists(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean proofFlagCustomSetBefore(IFileExpansionStateEnabledZZZ.FLAGZCUSTOM objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagCustomSetBefore(objEnumFlag.name());
+	}
+	
 }

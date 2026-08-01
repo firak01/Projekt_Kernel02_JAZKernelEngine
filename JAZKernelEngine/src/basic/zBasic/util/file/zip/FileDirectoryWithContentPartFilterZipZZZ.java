@@ -6,7 +6,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.JarEasyUtilZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 
 public class FileDirectoryWithContentPartFilterZipZZZ extends AbstractFilenamePartFilterZipZZZ implements IFileDirectoryWithContentPartFilterZipZZZ{
 	

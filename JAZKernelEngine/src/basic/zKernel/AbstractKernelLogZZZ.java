@@ -13,7 +13,7 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.FileTextWriterZZZ;
+import basic.zBasic.util.file.txt.stream.FileTextWriterZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.IStringFormatManagerEnabledZZZ;
 import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;

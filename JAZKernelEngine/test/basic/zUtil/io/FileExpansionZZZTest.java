@@ -13,10 +13,9 @@ import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.IFileEasyConstantsZZZ;
-import basic.zBasic.util.file.txt.TxtReaderZZZ;
+import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
-import basic.zUtil.io.IFileExpansionZZZ.FLAGZ;
 import junit.framework.TestCase;
 import custom.zUtil.io.FileExpansionZZZ;
 import custom.zUtil.io.FileZZZ;
@@ -85,7 +84,7 @@ public class FileExpansionZZZTest extends TestCase {
 			assertTrue(objFileExpansionInit.getFlag("init")==true);
 			
 			//Flags aus der FileZZZ-Klasse
-			assertTrue(objExpansionTest.getFlag(FLAGZ.FILE_CURRENT_FOUND.name())==false);
+			assertTrue(objExpansionTest.getFlag(IFileExpansionStateEnabledZZZ.FLAGZ.FILE_CURRENT_FOUND)==false);
 			
 			
 		} catch (ExceptionZZZ ez) {

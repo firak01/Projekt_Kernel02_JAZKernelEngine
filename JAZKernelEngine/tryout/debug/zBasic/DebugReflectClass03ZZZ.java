@@ -15,7 +15,7 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectClassZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.data.DataFieldZZZ;
-import basic.zBasic.util.file.txt.TxtReaderZZZ;
+import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 import basic.zKernel.flag.FlagZHelperZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 

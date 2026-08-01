@@ -46,15 +46,15 @@ TODO Einige static Methoden an basic.zBasic.Util.file.FileEasyZZZ abgeben
 public class KernelFileZZZ extends FileExpandableZZZ {
 	private static final long serialVersionUID = 2355847392852232484L;
 	
-	private IFileExpansionZZZ objExpansion=null;
-	private ExceptionZZZ objException=null;
+	//private IFileExpansionZZZ objExpansion=null;
+	//private ExceptionZZZ objException=null;
 	
-	private String sDirectoryPath = new String("");
-	private String sFileName = new String(""); // Der ganze Dateiname, also: FileNameOnly + "." + Ending
+	//private String sDirectoryPath = new String("");
+	//private String sFileName = new String(""); // Der ganze Dateiname, also: FileNameOnly + "." + Ending
 	
-	private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>();
-	private HashMap<String, Boolean>hmFlagPassed = new HashMap<String, Boolean>(); 
-	private HashMap<String, Boolean>hmFlagCustom = new HashMap<String, Boolean>();
+	//private HashMap<String, Boolean>hmFlag = new HashMap<String, Boolean>();
+	//private HashMap<String, Boolean>hmFlagPassed = new HashMap<String, Boolean>(); 
+	//private HashMap<String, Boolean>hmFlagCustom = new HashMap<String, Boolean>();
 	
 //	### Constructor ##########################
 	public KernelFileZZZ() throws ExceptionZZZ{
@@ -65,56 +65,25 @@ public class KernelFileZZZ extends FileExpandableZZZ {
 		super(sFilePathTotal);
 		String sDirectoryPath = FileEasyZZZ.getParent(sFilePathTotal);
 		String sFileName = FileEasyZZZ.getNameFromFilepath(sFilePathTotal);
-		KernelFileNew_(sDirectoryPath, sFileName, null, (String[])null);
+		KernelFileNew_((String[])null);
 	}
 	
 	public KernelFileZZZ(String sDirectoryPath, String sFileName) throws ExceptionZZZ{
 		super(sDirectoryPath + IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_WINDOWS + sFileName);
-		KernelFileNew_(sDirectoryPath, sFileName, null, (String[])null);
+		KernelFileNew_((String[])null);
 	}
 	
 	public KernelFileZZZ(String sDirectoryPath, String sFileName, String[] saFlagControlIn) throws ExceptionZZZ{
 		super(sDirectoryPath + "\\" + sFileName);
-		KernelFileNew_(sDirectoryPath, sFileName, null, saFlagControlIn);
-//		String stemp; boolean btemp;
-//		main:{
-//			
-//		//setzen der übergebenen Flags	
-//			if(saFlagControlIn != null){
-//				for(int iCount = 0;iCount<=saFlagControlIn.length-1;iCount++){
-//					stemp = saFlagControlIn[iCount];
-//					btemp = setFlag(stemp, true);
-//					if(btemp==false){ 								   
-//						   ExceptionZZZ ez = new ExceptionZZZ( sERROR_FLAG_UNAVAILABLE + stemp, iERROR_FLAG_UNAVAILABLE, ReflectCodeZZZ.getMethodCurrentName(), ""); 
-//						   //doesn�t work. Only works when > JDK 1.4
-//						   //Exception e = new Exception();
-//						   //ExceptionZZZ ez = new ExceptionZZZ(stemp,iCode,this, e, "");
-//						   throw ez;		 
-//					}
-//				}
-//				}
-//
-//			//+++ Falls das Debug-Flag gesetzt ist, muss nun eine Session �ber das Factory-Objekt erzeugt werden. 
-//			// Damit kann auf andere Datenbanken zugegriffen werden (z.B. im Eclipse Debugger)
-//			// Besser jedoch ist es beim Debuggen mit einem anderen Tool eine Notes-ID zu verwenden, die ein leeres Passwort hat.
-//			btemp = this.getFlag("init");
-//			if(btemp==true) break main;
-//		
-//		this.setPathDirectory(sDirectoryPath);
-//		this.setName(sFileName);
-//		if(this.getFlag(KernelFileZZZ.FLAGZ.USE_FILE_EXPANSION.name())) {
-//			IFileExpansionZZZ objFileExpansion=new FileExpansionZZZ((FileZZZ) this);
-//			this.setFileExpansionObject(objFileExpansion);
-//		}
-//		}//end main		
+		KernelFileNew_(saFlagControlIn);
 	}
 	
 	
 	public KernelFileZZZ(String sDirectoryPath, String sFileName, String sFlagControl) throws ExceptionZZZ{
-		super(sDirectoryPath + "\\" + sFileName);
+		super(sDirectoryPath + IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_WINDOWS + sFileName);
 		String[] saFlagControl = new String[1];
 		saFlagControl[0] = sFlagControl;
-		KernelFileNew_(sDirectoryPath, sFileName, null, saFlagControl);		 
+		KernelFileNew_(saFlagControl);		 
 	}
 
 	
@@ -126,10 +95,10 @@ public class KernelFileZZZ extends FileExpandableZZZ {
 	 * @throws ExceptionZZZ 
 	 */
 	public KernelFileZZZ(String sDirectoryPath, String sFileName, IFileExpansionZZZ objFileExpansion, String[] saFlagControl) throws ExceptionZZZ {		
-		super(sDirectoryPath + "\\" + sFileName);
-		KernelFileNew_(sDirectoryPath, sFileName, objFileExpansion, saFlagControl);
+		super(sDirectoryPath + IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_WINDOWS + sFileName);
+		KernelFileNew_(saFlagControl);
 	}
-	private void KernelFileNew_(String sDirectoryPath, String sFileName, IFileExpansionZZZ objFileExpansionIn, String[] saFlagControl) throws ExceptionZZZ {
+	private void KernelFileNew_(String[] saFlagControl) throws ExceptionZZZ {
 			main:{
 				if(saFlagControl!=null){
 					boolean btemp = false;
@@ -144,22 +113,7 @@ public class KernelFileZZZ extends FileExpandableZZZ {
 					}
 					if(this.getFlag("init")) break main;
 				}
-				
-				this.setPathDirectory(sDirectoryPath);
-				this.setName(sFileName);
-				
-				IFileExpansionZZZ objFileExpansion = null;
-				if(objFileExpansionIn!=null) {
-					objFileExpansion = objFileExpansionIn;
-					this.setFlag(IFileExpansionEnabledZZZ.FLAGZ.USE_FILE_EXPANSION.name(),true);
-				}else{
-					if(this.getFlag(IFileExpansionEnabledZZZ.FLAGZ.USE_FILE_EXPANSION.name())) {
-						objFileExpansion = new FileExpansionZZZ((FileZZZ) this);							
-					}
-				}
-				this.setFileExpansionObject(objFileExpansion);
-		}//End main:
-		
+		}//End main:		
 	}
 
 	
@@ -398,24 +352,24 @@ public class KernelFileZZZ extends FileExpandableZZZ {
 		return bFunction;	
 	}
 		
-	@Override
-	public HashMap<String, Boolean>getHashMapFlag(){
-		return this.hmFlag;
-	}
-	
-	@Override
-	public void setHashMapFlag(HashMap<String, Boolean> hmFlag) {
-		this.hmFlag = hmFlag;
-	}
+//	@Override
+//	public HashMap<String, Boolean>getHashMapFlag(){
+//		return this.hmFlag;
+//	}
+//	
+//	@Override
+//	public void setHashMapFlag(HashMap<String, Boolean> hmFlag) {
+//		this.hmFlag = hmFlag;
+//	}
 		
-	@Override
-	public HashMap<String, Boolean> getHashMapFlagPassed() {
-		return this.hmFlagPassed;
-	}
-	@Override
-	public void setHashMapFlagPassed(HashMap<String, Boolean> hmFlagPassed) {
-		this.hmFlagPassed = hmFlagPassed;
-	}
+//	@Override
+//	public HashMap<String, Boolean> getHashMapFlagPassed() {
+//		return this.hmFlagPassed;
+//	}
+//	@Override
+//	public void setHashMapFlagPassed(HashMap<String, Boolean> hmFlagPassed) {
+//		this.hmFlagPassed = hmFlagPassed;
+//	}
 	
 		/**Gibt alle möglichen FlagZ Werte als Array zurück. 
 		 * @return
@@ -554,15 +508,15 @@ public class KernelFileZZZ extends FileExpandableZZZ {
 					return baReturn;
 				}
 					
-				@Override
-				public HashMap<String, Boolean>getHashMapFlagCustom(){
-					return this.hmFlagCustom;
-				}
-				
-				@Override
-				public void setHashMapFlagCustom(HashMap<String, Boolean> hmFlagCustom) {
-					this.hmFlagCustom = hmFlagCustom;
-				}
+//				@Override
+//				public HashMap<String, Boolean>getHashMapFlagCustom(){
+//					return this.hmFlagCustom;
+//				}
+//				
+//				@Override
+//				public void setHashMapFlagCustom(HashMap<String, Boolean> hmFlagCustom) {
+//					this.hmFlagCustom = hmFlagCustom;
+//				}
 				
 				/**Gibt alle möglichen FlagZ Werte als Array zurück. 
 				 * @return
@@ -1045,7 +999,7 @@ private String PathNameTotalExpandedCurrentCompute_(String sDirectoryIn, String 
 
 
 	
-	public int getExpansionLength(){	
+	public int getExpansionLength() throws ExceptionZZZ{	
 		if(this.getFileExpansionObject()!=null) {
 			return this.getFileExpansionObject().getExpansionLength();
 		}else {
@@ -1073,8 +1027,9 @@ private String PathNameTotalExpandedCurrentCompute_(String sDirectoryIn, String 
 	 @param iEndingValue
 	 @param iEndingLength
 	 @return String Expansion, e.g. '001'
+	 * @throws ExceptionZZZ 
 	 */
-	public String ExpansionCompute(String sFilling, int iExpansionValue) {
+	public String ExpansionCompute(String sFilling, int iExpansionValue) throws ExceptionZZZ {
 		String sReturn = new String("");		
 		main:{
 			IFileExpansionZZZ objFileExpansion = this.getFileExpansionObject();
@@ -1089,30 +1044,30 @@ private String PathNameTotalExpandedCurrentCompute_(String sDirectoryIn, String 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 
-	/* (non-Javadoc)
-	 * @see zzzKernel.basic.KernelAssetObjectZZZ#getExceptionObject()
-	 */
-	public ExceptionZZZ getExceptionObject() {
-		return objException;
-	}
+//	/* (non-Javadoc)
+//	 * @see zzzKernel.basic.KernelAssetObjectZZZ#getExceptionObject()
+//	 */
+//	public ExceptionZZZ getExceptionObject() {
+//		return objException;
+//	}
 
-	//++++++++++++++++++++++++++++++++++++++
-	/* (non-Javadoc)
-	 * @see zzzKernel.basic.KernelAssetObjectZZZ#setExceptionObject(zzzKernel.custom.ExceptionZZZ)
-	 */
-	public void setExceptionObject(ExceptionZZZ objException) {
-		this.objException = objException;
-	}//end function
+//	//++++++++++++++++++++++++++++++++++++++
+//	/* (non-Javadoc)
+//	 * @see zzzKernel.basic.KernelAssetObjectZZZ#setExceptionObject(zzzKernel.custom.ExceptionZZZ)
+//	 */
+//	public void setExceptionObject(ExceptionZZZ objException) {
+//		this.objException = objException;
+//	}//end function
 
-	@Override
-	public IFileExpansionZZZ getFileExpansionObject() {
-		return this.objExpansion;
-	}
-
-	@Override
-	public void setFileExpansionObject(IFileExpansionZZZ objFileExpansion) {
-		this.objExpansion = objFileExpansion;
-	}
+//	@Override
+//	public IFileExpansionZZZ getFileExpansionObject() {
+//		return this.objExpansion;
+//	}
+//
+//	@Override
+//	public void setFileExpansionObject(IFileExpansionZZZ objFileExpansion) {
+//		this.objExpansion = objFileExpansion;
+//	}
 
 	@Override
 	public String searchExpansionFreeNext() throws ExceptionZZZ {

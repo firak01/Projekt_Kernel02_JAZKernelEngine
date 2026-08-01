@@ -14,7 +14,7 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.ReflectEnvironmentZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.FileTextParserZZZ;
+import basic.zBasic.util.file.txt.parser.FileTextParserZZZ;
 
 public class ReflectEnvironmentZZZTest extends TestCase{
 	

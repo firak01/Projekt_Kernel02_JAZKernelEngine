@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.file.txt.stream.FileTextAppenderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;

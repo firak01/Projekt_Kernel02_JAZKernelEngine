@@ -9,10 +9,10 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.IJarEasyConstantsZZZ;
-import basic.zBasic.util.file.JarEasyHelperZZZ;
-import basic.zBasic.util.file.JarEasyUtilZZZ;
-import basic.zBasic.util.file.JarEasyZZZ;
+import basic.zBasic.util.file.jar.IJarEasyConstantsZZZ;
+import basic.zBasic.util.file.jar.JarEasyHelperZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
+import basic.zBasic.util.file.jar.JarEasyZZZ;
 import custom.zUtil.io.FileZZZ;
 
 public class FilenamePartFilterPathTotalZipZZZ extends AbstractFilenamePartFilterZipZZZ {

@@ -6,7 +6,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IObjectWithExpressionZZZ;
 import basic.zBasic.util.abstractList.Vector3ZZZ;
 import basic.zBasic.util.abstractList.VectorDifferenceZZZ;
-import basic.zBasic.util.file.JarEasyUtilZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 import basic.zKernel.file.ini.IIniTagWithExpressionZZZ;
 
 public class KernelSingletonZZZ extends AbstractKernelObjectZZZ{

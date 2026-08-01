@@ -8,7 +8,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.IJarEasyConstantsZZZ;
+import basic.zBasic.util.file.jar.IJarEasyConstantsZZZ;
 import custom.zUtil.io.FileZZZ;
 
 public class FilenamePartFilterNameZipZZZ extends AbstractFilenamePartFilterZipZZZ implements IFilenamePartFilterZipZZZ  {	

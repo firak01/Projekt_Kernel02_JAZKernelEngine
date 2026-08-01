@@ -7,8 +7,8 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IObjectWithExpressionZZZ;
 import basic.zBasic.IObjectZZZ;
 import basic.zBasic.util.abstractList.VectorDifferenceZZZ;
-import basic.zBasic.util.file.JarEasyUtilZZZ;
 import basic.zBasic.util.file.ini.IIniStructurePositionZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 import basic.zKernel.file.ini.IIniTagWithExpressionZZZ;
 import custom.zKernel.ConfigZZZ;
 

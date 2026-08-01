@@ -49,7 +49,9 @@ import basic.zBasic.util.datatype.xml.XmlUtilZZZTest;
 import basic.zBasic.util.file.FileEasyConstantConverterZZZTest;
 import basic.zBasic.util.file.FileEasyCopyZZZTest;
 import basic.zBasic.util.file.FileEasyZZZTest;
+import basic.zBasic.util.file.FileTextAppenderZZZTest;
 import basic.zBasic.util.file.FileTextParserZZZTest;
+import basic.zBasic.util.file.FileTextSplitterZZZTest;
 import basic.zBasic.util.file.JarEasyZZZTest;
 import basic.zBasic.util.file.ini.IniFileTest;
 import basic.zBasic.util.file.jar.JarInfoClassLoaderTest;
@@ -174,9 +176,14 @@ public class KernelAllTestZZZ {
 		objReturn.addTestSuite(FileEasyZZZTest.class);
 		objReturn.addTestSuite(FileEasyCopyZZZTest.class);
 		objReturn.addTestSuite(JarEasyZZZTest.class);
+		
+		//Bytebasiert, RandomAccess
 		objReturn.addTestSuite(TxtReaderZZZTest.class);
 		objReturn.addTestSuite(TxtWriterZZZTest.class);
 		
+		//Streambasiert, Erbend von AbstractFileTextReaderZZZ
+		objReturn.addTestSuite(FileTextAppenderZZZTest.class);
+		objReturn.addTestSuite(FileTextSplitterZZZTest.class);
 		
 		//FileIni - Tests
 		objReturn.addTestSuite(ExpressionIniUtilZZZTest.class);
@@ -210,6 +217,7 @@ public class KernelAllTestZZZ {
 		
 		objReturn.addTestSuite(FlagZHelperZZZTest.class);//Teste die Behandlung der Enumeration
 		objReturn.addTestSuite(StatusLocalAvailableHelperZZZTest.class);//Teste die Behandlung der Enumeration
+		
 		
 		
 		

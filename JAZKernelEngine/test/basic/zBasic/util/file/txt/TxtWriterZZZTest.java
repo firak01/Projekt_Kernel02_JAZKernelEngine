@@ -10,7 +10,7 @@ import basic.javagently.Stream;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.ini.IniFile;
-import basic.zBasic.util.file.txt.TxtWriterZZZ;
+import basic.zBasic.util.file.txt.bytes.TxtWriterZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 

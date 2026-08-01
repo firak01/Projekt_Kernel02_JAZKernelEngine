@@ -4,6 +4,8 @@ import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.file.jar.IJarEasyConstantsZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 import junit.framework.TestCase;
 

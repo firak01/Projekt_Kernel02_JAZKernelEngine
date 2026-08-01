@@ -16,6 +16,9 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.file.jar.JarEasyInCurrentJarZZZ;
+import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
+import basic.zBasic.util.file.jar.JarEasyZZZ;
 
 /**Klasse bietet Zugriff auf Ressource-Dateien.
  * Dabei ist es egal ob die Datei im Filesystem oder in einer JAR-Datei liegt.
