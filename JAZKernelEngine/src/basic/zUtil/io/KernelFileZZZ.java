@@ -43,7 +43,7 @@ This class extends File and not ObjectZZZ !!!
 TODO Einige static Methoden an basic.zBasic.Util.file.FileEasyZZZ abgeben  
  * @author Lindhauer
  */
-public class KernelFileZZZ extends File implements IConstantZZZ, IObjectZZZ, IFileExpansionEnabledZZZ, IFileExpansionProxyZZZ, IFlagZEnabledZZZ, IFlagZCustomEnabledZZZ{
+public class KernelFileZZZ extends FileExpandableZZZ {
 	private static final long serialVersionUID = 2355847392852232484L;
 	
 	private IFileExpansionZZZ objExpansion=null;

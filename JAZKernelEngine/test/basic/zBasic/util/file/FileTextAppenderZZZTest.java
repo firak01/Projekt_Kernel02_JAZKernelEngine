@@ -12,19 +12,17 @@ import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;
 import junit.framework.TestCase;
 
-public class FileTextSplitterZZZTest extends TestCase{
+public class FileTextAppenderZZZTest extends TestCase{
 	private File objFileSource=null;
-	private File objFileTargetPre=null;
-	private File objFileTargetPost=null;
+
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
-	private final static String strFILE_NAME_DEFAULT = new String("JUnitKernelFileSplittTest.txt");
-	private final static String strFILE_NAME_DEFAULT_RESULT_A = new String("JUnitKernelFileSplitResultA.txt");
-	private final static String strFILE_NAME_DEFAULT_RESULT_B = new String("JUnitKernelFileSplitResultB.txt");
+	private final static String strFILE_NAME_DEFAULT = new String("JUnitKernelFileAppendTest.txt");
 
 	
-	private FileTextSplitterZZZ objSplitterTest = null;
+	private FileTextAppenderZZZ objAppender = null;
 	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
-	
+
+	@Override
 	protected void setUp(){
 		try {			
 			
@@ -57,37 +55,13 @@ public class FileTextSplitterZZZTest extends TestCase{
 			
 			this.objFileSource = new File(sFilePathTotal);
 			
-			//+++++++++++++++++++++++++++++++++++
-			if(FileEasyZZZ.exists(strFILE_DIRECTORY_DEFAULT)){
-				sFilePathTotalA = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT_RESULT_A );
-			}else{
-				//Eclipse Workspace
-				File f = new File("");
-			    String sPathEclipse = f.getAbsolutePath();
-			    System.out.println("Path for Kernel Directory Default does not exist. Using workspace absolut path: " + sPathEclipse);
-			    sFilePathTotalA = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_NAME_DEFAULT_RESULT_A );			   
-			}
-						
-			this.objFileTargetPre = new File(sFilePathTotalA);			
-			//++++++++++++++++++++++++++
-			//+++++++++++++++++++++++++++++++++++
-			if(FileEasyZZZ.exists(strFILE_DIRECTORY_DEFAULT)){
-				sFilePathTotalB = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT_RESULT_B );
-			}else{
-				//Eclipse Workspace
-				File f = new File("");
-			    String sPathEclipse = f.getAbsolutePath();
-			    System.out.println("Path for Kernel Directory Default does not exist. Using workspace absolut path: " + sPathEclipse);
-			    sFilePathTotalB = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_NAME_DEFAULT_RESULT_B );			   
-			}						
-			this.objFileTargetPost = new File(sFilePathTotalB);	
 			
 			
 			//The main object used for testing
-			objSplitterTest = new FileTextSplitterZZZ(objFileSource);
+			objAppender = new FileTextAppenderZZZ(objFileSource);
 			
-			//für´s Aufräumen
-			listFilePathUsed = new ArrayList<String>();
+			//Wichtig für das Aufräumen
+			listFilePathUsed = new ArrayList<String>(); 
 			listFilePathUsed.add(objFileSource.getAbsolutePath());
 		
 		} catch (ExceptionZZZ e) {
@@ -103,7 +77,7 @@ public class FileTextSplitterZZZTest extends TestCase{
 			e.printStackTrace();
 		}		
 	}//END setup
-	 
+	
 	@Override
 	protected void tearDown() {
 		try {
@@ -121,34 +95,60 @@ public class FileTextSplitterZZZTest extends TestCase{
 			e.printStackTrace();
 		}
 	}
+	 
 	
 	public void testConstructor(){
 		try{
 			//Init - Object
-			FileTextSplitterZZZ objSplitterInit = new FileTextSplitterZZZ(objFileSource);
+			FileTextAppenderZZZ objAppenderInit = new FileTextAppenderZZZ(objFileSource);
 						
 			//TestKonfiguration pr�fen
-			assertNotNull(objSplitterInit);
+			assertNotNull(objAppenderInit);
 		}catch(ExceptionZZZ ez){
 			fail("An exception happend testing: " + ez.getDetailAllLast());
 		}
 	}
 	
-	public void testSplitByLinenumber(){		
+	public void testAppend_SaveAsExpanded(){		
 		try {
-			FileTextSplitterZZZ objSplitterInit = new FileTextSplitterZZZ(objFileSource);					
-			objSplitterInit.split(3);
-			objSplitterInit.setFilePathPre(objFileTargetPre.getAbsolutePath());
-			objSplitterInit.setFilePathPost(objFileTargetPost.getAbsolutePath());
-			objSplitterInit.save();
-									
-			boolean bExistsPre = FileEasyZZZ.exists(objFileTargetPre);
-			assertTrue(bExistsPre);
-			listFilePathUsed.add(objFileTargetPre.getAbsolutePath());
+			String sLine = null;			
+			boolean bValue = false;
+			String sFilePathUsedLast = null;
 			
-			boolean bExistsPost = FileEasyZZZ.exists(objFileTargetPost);			
-			assertTrue(bExistsPost);
-			listFilePathUsed.add(objFileTargetPost.getAbsolutePath());
+			//Verwende im Setup erzeugtes Object
+		    String sFilePathFirst = objAppender.getFilePath();
+		    String sFilePathPrevious = sFilePathFirst;
+		    listFilePathUsed.add(sFilePathFirst);
+		    
+		    //+++++++++
+		    //Das erste Speichern. Merke: Die Ausgangsdatei gibt es das schon!!!
+		    sLine = "Testzeile01";
+			objAppender.append(sLine);			
+			bValue = objAppender.saveAsExpanded();
+			assertTrue(bValue);
+			
+			//Nach dem ersten Speicher sollte das noch gleich sein
+			sFilePathUsedLast = objAppender.getFilePathSavedLast();
+			bValue = sFilePathPrevious.equals(sFilePathUsedLast);
+			assertFalse("Nach dem ersten Speichern sollte das ein anderern Dateipfad (nämlich mit Expansion) sein.", bValue);
+			sFilePathPrevious = sFilePathUsedLast;
+			listFilePathUsed.add(sFilePathUsedLast);
+			
+			//++++++++
+			//Das zweite Speichern
+			sLine = "Testzeile02";
+			objAppender.append(sLine);			
+			bValue = objAppender.saveAsExpanded();
+			assertTrue(bValue);
+			
+			//Nach dem ersten Speicher sollte das noch gleich sein
+			sFilePathUsedLast = objAppender.getFilePathSavedLast();
+			bValue = sFilePathPrevious.equals(sFilePathUsedLast);
+			assertFalse("Nach dem zweiten Speichern sollte das ein anderern Dateipfad (nämlich mit Expansion) sein.", bValue);
+			sFilePathPrevious = sFilePathUsedLast;
+			listFilePathUsed.add(sFilePathUsedLast);
+			
+			
 			
 			
 		}catch(ExceptionZZZ ez){

@@ -2,6 +2,7 @@ package basic.zBasic.util.stream;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -392,5 +393,7 @@ public class StreamZZZ extends Stream implements IStreamZZZ, Serializable{
 		}while(stemp!=null);		
 		return sReturn;
 	}
+	
+	
 	
 }

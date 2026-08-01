@@ -1,6 +1,8 @@
 package basic.zBasic.util.file;
 
+import java.io.Closeable;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
@@ -9,7 +11,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 
-public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExceptionZZZ{
+public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExceptionZZZ implements Closeable{
 	private static final long serialVersionUID = -1464375530224033955L;
 	protected IStreamZZZ objStream = null;
 	protected String sFilePath = null;
@@ -105,4 +107,13 @@ public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExcept
 	public void setLines(List<String>listaLine) {
 		this.listaLine = listaLine;
 	}
+	
+	
+	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
+	@Override
+    public void close() throws IOException{
+        if(objStream!=null){
+            objStream.close();
+        }
+    }
 }

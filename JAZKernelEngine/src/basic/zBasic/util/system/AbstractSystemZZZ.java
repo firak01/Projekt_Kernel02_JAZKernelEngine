@@ -252,7 +252,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 					int iCounter=-1;
 					for(ISystemEnabledZZZ.FLAGZCUSTOM objEnumFlag:objaEnumFlag) {
 						iCounter++;
-						boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
+						boolean bReturn = this.setFlagCustom(objEnumFlag, bFlagValue);
 						baReturn[iCounter]=bReturn;
 					}
 				}

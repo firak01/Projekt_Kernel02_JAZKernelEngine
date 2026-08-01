@@ -1,6 +1,7 @@
 package basic.zBasic.util.file;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
@@ -16,6 +17,9 @@ import custom.zUtil.io.FileZZZ;
 public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextCombinedZZZ {
 	private static final long serialVersionUID = 1878762695844895640L;
 
+	protected String sFilePathSavedPreLast = null; 	
+	protected String sFilePathSavedPostLast = null; 	
+	
 	public AbstractFileTextCombinedSaverZZZ() {
 		super();
 	}
@@ -31,7 +35,25 @@ public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextC
 	public AbstractFileTextCombinedSaverZZZ(List<String> listaLine) throws ExceptionZZZ {
 		super(listaLine);
 	}
-
+	
+	//##### Getter / Setter ###################
+	public String getFilePathSavedPreLast() throws ExceptionZZZ{
+		return this.sFilePathSavedPreLast;
+	}
+	private void setFilePathSavedPreLast_(String sFilePath) throws ExceptionZZZ{
+		this.sFilePathSavedPreLast = sFilePath;
+	}
+	
+	
+	public String getFilePathSavedPostLast() throws ExceptionZZZ{
+		return this.sFilePathSavedPostLast;
+	}
+	private void setFilePathSavedPostLast_(String sFilePath) throws ExceptionZZZ{
+		this.sFilePathSavedPostLast = sFilePath;
+	}
+		
+		
+	//##### Methoden ############################
 	/** Speichert beide Teile in ihren Standard- bzw. konfigurierten Pfaden. */
 	public boolean save() throws ExceptionZZZ {
 		return this.save(this.getFilePathPre(), this.getFilePathPost());
@@ -43,8 +65,15 @@ public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextC
 		main: {
 			bReturn = this.savePre(sFilePathPre);
 			if (!bReturn) break main;
+			if(bReturn) {
+				this.setFilePathSavedPreLast_(sFilePathPre);
+			}
+			
 
 			bReturn = this.savePost(sFilePathPost);
+			if(bReturn) {
+				this.setFilePathSavedPostLast_(sFilePathPost);
+			}
 		}
 		return bReturn;
 	}
@@ -54,7 +83,7 @@ public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextC
 	}
 
 	public boolean savePre(String sFilePath) throws ExceptionZZZ {
-		return this.saveInternal(sFilePath, this.getLinesPre());
+		return this.saveInternal_(sFilePath, this.getLinesPre());
 	}
 
 	public boolean savePost() throws ExceptionZZZ {
@@ -62,7 +91,7 @@ public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextC
 	}
 
 	public boolean savePost(String sFilePath) throws ExceptionZZZ {
-		return this.saveInternal(sFilePath, this.getLinesPost());
+		return this.saveInternal_(sFilePath, this.getLinesPost());
 	}
 
 	/** Speichert beide Teile mit jeweils naechster freier Dateinamenerweiterung. */
@@ -108,14 +137,25 @@ public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextC
 	}
 
 	/** Der gemeinsame, einzige Schreibzugriff fuer alle Save-Varianten. */
-	private boolean saveInternal(String sFilePath, List<String> listaLine) throws ExceptionZZZ {
-		if (StringZZZ.isEmpty(sFilePath)) {
-			throw new ExceptionZZZ("FilePath zum Speichern.", iERROR_PROPERTY_MISSING, this,
-					ReflectCodeZZZ.getMethodCurrentName());
-		}
+	private boolean saveInternal_(String sFilePath, List<String> listaLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			try {
+			if (StringZZZ.isEmpty(sFilePath)) {
+				throw new ExceptionZZZ("FilePath zum Speichern.", iERROR_PROPERTY_MISSING, this,
+						ReflectCodeZZZ.getMethodCurrentName());
+			}
+	
+				FileTextWriterZZZ objWriter = new FileTextWriterZZZ(sFilePath);
+				bReturn = objWriter.writeLines(listaLine);
 
-		FileTextWriterZZZ objWriter = new FileTextWriterZZZ(sFilePath);
-		return objWriter.writeLines(listaLine);
+				objWriter.close();
+			} catch (IOException ioe) {
+				ExceptionZZZ ez = new ExceptionZZZ(ioe);
+				throw ez;				
+			}			
+		}//end main:
+		return bReturn;		
 	}
 }
 

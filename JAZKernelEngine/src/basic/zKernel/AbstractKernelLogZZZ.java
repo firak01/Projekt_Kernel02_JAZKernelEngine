@@ -1,47 +1,33 @@
 package basic.zKernel;
 
-import static basic.zKernel.IKernelConfigConstantZZZ.sLOG_FILE_NAME_DEFAULT;
 import static basic.zKernel.IKernelConfigConstantZZZ.sLOG_FILE_DIRECTORY_DEFAULT;
+import static basic.zKernel.IKernelConfigConstantZZZ.sLOG_FILE_NAME_DEFAULT;
 
-import basic.javagently.Stream;
-import basic.zBasic.IObjectZZZ;
-import basic.zBasic.ObjectZZZ;
-import basic.zBasic.ExceptionZZZ;
+import java.io.File;
+
 import basic.zBasic.AbstractObjectWithFlagZZZ;
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.ObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
-import basic.zBasic.util.counter.CounterByCharacterAscii_AlphanumericZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.FileTextWriterZZZ;
-import basic.zBasic.util.string.formater.AbstractStringFormaterZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.IStringFormatManagerEnabledZZZ;
 import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerXmlZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
-import basic.zBasic.util.string.formater.StringFormaterUtilZZZ;
-import basic.zBasic.util.string.formater.StringFormaterZZZ;
-import basic.zBasic.util.string.justifier.IStringJustifierZZZ;
-import basic.zBasic.util.string.justifier.SeparatorMessageStringJustifierZZZ;
-import basic.zKernel.file.ini.IKernelCallIniSolverZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
+import basic.zUtil.io.FileExpansionZZZ;
 import basic.zUtil.io.IFileExpansionEnabledZZZ;
 import basic.zUtil.io.IFileExpansionZZZ;
-import basic.zUtil.io.KernelFileExpansionZZZ;
-import basic.zUtil.io.KernelFileZZZ;
-
-import java.io.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import custom.zKernel.ConfigZZZ;
 import custom.zKernel.ILogZZZ;
 import custom.zKernel.LogZZZ;
-import custom.zUtil.io.FileExpansionZZZ;
 import custom.zUtil.io.FileZZZ;
 
 /**
@@ -53,6 +39,8 @@ import custom.zUtil.io.FileZZZ;
  * Window>Preferences>Java>Code Generation.
  */
 public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ implements ILogZZZ{
+	private static final long serialVersionUID = -3655229269566034195L;
+
 	//flags 
 	//private boolean bFlagUse_FILE_Expansion; //Zeigt an, ob eine Dateinamens Expansion angehängt werden muss, oder eine bestehende Expansion ersetzt hat.
 	protected volatile IKernelConfigZZZ objConfig = null;   //die Werte für den Applikationskey, Systemnummer, etc.
@@ -1230,7 +1218,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 				FileZZZ objFileBase;
 //				try {
 					objFileBase = new FileZZZ(sDir,sName);
-					this.objFileExpansion=new KernelFileExpansionZZZ(objFileBase);
+					this.objFileExpansion=new FileExpansionZZZ(objFileBase);
 //				} catch (ExceptionZZZ e) {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();

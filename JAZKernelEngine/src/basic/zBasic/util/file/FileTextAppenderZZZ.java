@@ -77,4 +77,15 @@ public class FileTextAppenderZZZ extends AbstractFileTextSaverZZZ {
 		}
 		return bReturn;
 	}
+	
+	public boolean appendAndSaveAsExpanded(String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = this.append(sLine);
+			if(!bReturn) break main;
+			
+			bReturn = this.saveAsExpanded();			
+		}
+		return bReturn;
+	}
 }
