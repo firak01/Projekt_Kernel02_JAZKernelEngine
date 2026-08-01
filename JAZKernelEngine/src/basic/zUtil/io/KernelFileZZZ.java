@@ -62,25 +62,23 @@ public class KernelFileZZZ extends FileExpandableZZZ {
 	}
 	
 	public KernelFileZZZ(String sFilePathTotal) throws ExceptionZZZ {
-		super(sFilePathTotal);
-		String sDirectoryPath = FileEasyZZZ.getParent(sFilePathTotal);
-		String sFileName = FileEasyZZZ.getNameFromFilepath(sFilePathTotal);
+		super(sFilePathTotal);		
 		KernelFileNew_((String[])null);
 	}
 	
-	public KernelFileZZZ(String sDirectoryPath, String sFileName) throws ExceptionZZZ{
-		super(sDirectoryPath + IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_WINDOWS + sFileName);
+	public KernelFileZZZ(String sDirectoryPath, String sFileName) throws ExceptionZZZ{		
+		super(sDirectoryPath, sFileName);
 		KernelFileNew_((String[])null);
 	}
 	
 	public KernelFileZZZ(String sDirectoryPath, String sFileName, String[] saFlagControlIn) throws ExceptionZZZ{
-		super(sDirectoryPath + "\\" + sFileName);
+		super(sDirectoryPath, sFileName);
 		KernelFileNew_(saFlagControlIn);
 	}
 	
 	
 	public KernelFileZZZ(String sDirectoryPath, String sFileName, String sFlagControl) throws ExceptionZZZ{
-		super(sDirectoryPath + IFileEasyConstantsZZZ.sDIRECTORY_SEPARATOR_WINDOWS + sFileName);
+		super(sDirectoryPath, sFileName);
 		String[] saFlagControl = new String[1];
 		saFlagControl[0] = sFlagControl;
 		KernelFileNew_(saFlagControl);		 
