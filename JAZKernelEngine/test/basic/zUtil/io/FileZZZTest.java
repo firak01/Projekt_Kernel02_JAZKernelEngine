@@ -136,10 +136,18 @@ public class FileZZZTest extends TestCase {
 				assertEquals("", objFileTest.searchExpansionCurrent());
 				
 				// unverändert ?
-				//3stellig
 				assertEquals("", objFileTest.searchExpansionCurrent());
+				
+				//im Konstrukutor des FileExpansion objekts wird das Flag FILE_CURRENT_FOUND gesetzt. Darum...
+				//3stellig
+				assertEquals("001", objFileTest.searchExpansionFreeNext());
+				
+				//Wenn wir so tun, als gäbe es die Ausgangsdatei nicht, gilt aber wieder
+				objFileTest.getFileExpansionObject().setFlag(IFileExpansionStateEnabledZZZ.FLAGZ.FILE_CURRENT_FOUND, false);
 				assertEquals("", objFileTest.searchExpansionFreeNext());
 				
+				
+				//#########################################
 				objFileTest.getFileExpansionObject().setFlag(IFileExpansionStateEnabledZZZ.FLAGZ.FILE_CURRENT_FOUND, true);
 				objFileTest.getFileExpansionObject().setFlag(IFileExpansionStateEnabledZZZ.FLAGZ.FILE_EXPANSION_APPEND, false);
 				assertEquals("", objFileTest.searchExpansionCurrent()); //Da es die Datei nicht gibt, bleibt es beim Wert

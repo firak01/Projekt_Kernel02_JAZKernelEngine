@@ -6,18 +6,18 @@ import basic.zUtil.io.FileZZZ;
 
 public interface IFileExpansionZZZ extends IFileExpansionStateEnabledZZZ, IFileExpansionProxyZZZ {
 	
-	public FileZZZ getFileBase();
-	public void setFileBase(FileZZZ objFile);
+	public FileZZZ getFileBase() throws ExceptionZZZ;
+	public void setFileBase(FileZZZ objFile) throws ExceptionZZZ;
 	
-	public int getExpansionLength();
-	public void setExpansionLength(int iExpansionLength);
+	public int getExpansionLength() throws ExceptionZZZ;
+	public void setExpansionLength(int iExpansionLength) throws ExceptionZZZ;
 	
-	public String getExpansionFilling();
-	public void setExpansionFilling(char cExpansionFilling);
+	public String getExpansionFilling() throws ExceptionZZZ;
+	public void setExpansionFilling(char cExpansionFilling) throws ExceptionZZZ;
 	public void setExpansionFilling(String sExpansionFillingCharacter) throws ExceptionZZZ;
 	
-	public int getExpansionValueCurrent();
-	public void setExpansionValueCurrent(int iExpansionValue);
+	public int getExpansionValueCurrent() throws ExceptionZZZ;
+	public void setExpansionValueCurrent(int iExpansionValue) throws ExceptionZZZ;
 	
 	public String searchExpansionCurrent() throws ExceptionZZZ;
 	public String searchExpansionCurrent(int iExpansionLength) throws ExceptionZZZ;
@@ -28,10 +28,12 @@ public interface IFileExpansionZZZ extends IFileExpansionStateEnabledZZZ, IFileE
 	public String searchExpansionFreeNext() throws ExceptionZZZ;
 	public String searchExpansionFreeNext(int iExpansionLength) throws ExceptionZZZ;
 	
-	public String computeExpansionValueCurrentString();
-	public String computeExpansionValueCurrentString(int iExpansionLength);
+	public String searchExpansionFreeLowest(int iExpansionLength) throws ExceptionZZZ;
 	
-	public String computeExpansion(int iExpansionValue);
-	public String computeExpansion(String sFilling, int iExpansionValue);
-	public String computeExpansion(String sFilling, int iExpansionValue, int iExpansionLength);
+	public String computeExpansionValueCurrentString() throws ExceptionZZZ;
+	public String computeExpansionValueCurrentString(int iExpansionLength) throws ExceptionZZZ;
+	
+	public String computeExpansion(int iExpansionValue) throws ExceptionZZZ;
+	public String computeExpansion(String sFilling, int iExpansionValue) throws ExceptionZZZ;
+	public String computeExpansion(String sFilling, int iExpansionValue, int iExpansionLength) throws ExceptionZZZ;
 }

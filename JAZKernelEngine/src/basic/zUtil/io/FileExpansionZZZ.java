@@ -49,7 +49,8 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	
 	//##################
 	//### Methoden
-	public String computeExpansion(int iExpansionValue) {
+	@Override
+	public String computeExpansion(int iExpansionValue) throws ExceptionZZZ {
 		String sReturn = new String("");		
 		main:{
 			String sFilling = this.getExpansionFilling(); 
@@ -58,7 +59,9 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		}//end main
 		return sReturn;
 	}
-	public String computeExpansion(String sFilling, int iExpansionValue) {
+	
+	@Override
+	public String computeExpansion(String sFilling, int iExpansionValue) throws ExceptionZZZ {
 		String sReturn = new String("");		
 		main:{
 			int iExpansionLength = this.getExpansionLength();
@@ -73,6 +76,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	 @param iEndingLength
 	 @return String Expansion, e.g. '001'
 	 */
+	@Override
 	public String computeExpansion(String sFilling, int iExpansionValue, int iExpansionLength) {
 		String sReturn = new String("");		
 		main:{
@@ -99,8 +103,8 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		}//end main
 		return sReturn;
 	} //end function
-	
-		
+			
+	@Override
 	public String searchExpansionCurrent() throws ExceptionZZZ{
 		int iExpansionLenght = this.getExpansionLength();		
 		return this.searchExpansionCurrent(iExpansionLenght);
@@ -111,6 +115,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	 @return String, last used expansion, e.g. 000 ---> 999
 	 * @throws ExceptionZZZ 
 	 */
+	@Override
 	public String searchExpansionCurrent(int iExpansionLength) throws ExceptionZZZ{
 		String sReturn = new String("");								
 		main:{
@@ -194,6 +199,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		return sReturn;	
 	} // end function
 	
+	@Override
 	public String searchExpansionUsedLowest() throws ExceptionZZZ{
 		int iExpansionLenght = this.getExpansionLength();		
 		return this.searchExpansionUsedLowest(iExpansionLenght);
@@ -204,6 +210,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	 @return String, the first found expansion for the file (e.g. the filename itself when there are no files  or  000 --> 999
 	 * @throws ExceptionZZZ 
 	 */
+	@Override
 	public String searchExpansionUsedLowest(int iExpansionLength) throws ExceptionZZZ{
 		String sReturn = null;;
 		main:{	
@@ -247,6 +254,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		return sReturn;	
 	}
 	
+	@Override
 	public String searchExpansionFreeLowest() throws ExceptionZZZ{
 		int iExpansionLenght = this.getExpansionLength();		
 		return this.searchExpansionFreeLowest(iExpansionLenght);
@@ -257,6 +265,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	 @return String, the Expansion which has not been used by any other file, e.g. 000 --> 999
 	 @throws ExceptionZZZ 
 	 */
+	@Override
 	public String searchExpansionFreeLowest(int iExpansionLength) throws ExceptionZZZ{
 		String sReturn = null;				
 		main:{									
@@ -316,6 +325,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		return sReturn;
 	} // end function
 	
+	@Override
 	public String searchExpansionFreeNext() throws ExceptionZZZ{
 		int iExpansionLenght = this.getExpansionLength();		
 		return this.searchExpansionFreeNext(iExpansionLenght);
@@ -326,6 +336,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	 @return String, the Expansion which has not been used by any other file, e.g. 000 --> 999
 	 * @throws ExceptionZZZ 
 	 */
+	@Override
 	public String searchExpansionFreeNext(int iExpansionLength) throws ExceptionZZZ{
 		String sReturn = null;				
 		main:{									
@@ -366,7 +377,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	* 
 	* lindhaueradmin; 19.10.2006 09:37:46
 	 */
-	public static String getExpansionMax(int iExpansionLength){
+	public static String getExpansionMax(int iExpansionLength) throws ExceptionZZZ{
 		String sFunction = null;
 		function:{
 			int itemp = MathZZZ.pow(10, iExpansionLength);	
@@ -380,22 +391,25 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	
 	//####### GETTER / SETTER
 	@Override
-	public FileZZZ getFileBase() {
+	public FileZZZ getFileBase() throws ExceptionZZZ {
 		return this.objFileBase;
 	}
 	@Override
-	public void setFileBase(FileZZZ objFile) {
+	public void setFileBase(FileZZZ objFile) throws ExceptionZZZ {
 		this.objFileBase = objFile;
+		if(this.objFileBase!=null) {
+				this.setFlag(IFileExpansionStateEnabledZZZ.FLAGZ.FILE_CURRENT_FOUND, this.objFileBase.exists());
+		}
 	}
 	
-	public int getExpansionLength() {
+	public int getExpansionLength() throws ExceptionZZZ {
 		if(this.iExpansionLength<=-1) {
 			return IFileExpansionConstZZZ.iEXPANSION_LENGTH_DEFAULT;
 		}else {
 			return this.iExpansionLength;
 		}
 	}
-	public void setExpansionLength(int iExpansionLength) {
+	public void setExpansionLength(int iExpansionLength) throws ExceptionZZZ {
 		this.iExpansionLength = iExpansionLength;
 	}
 	
@@ -406,7 +420,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	* Lindhauer; 22.04.2006 07:15:07
 	 * @return String
 	 */
-	public String getExpansionFilling() {
+	public String getExpansionFilling() throws ExceptionZZZ {
 		String sReturn = null;
 		main:{
 		if(CharZZZ.isEmpty(cExpansionFilling)) {
@@ -429,7 +443,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	* Lindhauer; 22.04.2006 07:20:14
 	 * @param cExpansionFilling
 	 */
-	public void setExpansionFilling(char cExpansionFilling) {
+	public void setExpansionFilling(char cExpansionFilling) throws ExceptionZZZ  {
 		this.cExpansionFilling = cExpansionFilling;
 	}
 	public void setExpansionFilling(String sExpansionFilling)throws ExceptionZZZ{
@@ -658,14 +672,14 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 		this.iExpansionUsedCurrent = iExpansionValue;
 	}
 	@Override
-	public String computeExpansionValueCurrentString() {
+	public String computeExpansionValueCurrentString() throws ExceptionZZZ {
 		String sFilling = this.getExpansionFilling();
 		int iExpansionValue = this.getExpansionValueCurrent();
 		int iExpansionLEngth = this.getExpansionLength();
 		return this.computeExpansion(sFilling, iExpansionValue, iExpansionLength);
 	}
 	@Override
-	public String computeExpansionValueCurrentString(int iExpansionLength) {
+	public String computeExpansionValueCurrentString(int iExpansionLength) throws ExceptionZZZ {
 		String sFilling = this.getExpansionFilling();
 		int iExpansionValue = this.getExpansionValueCurrent();
 		return this.computeExpansion(sFilling, iExpansionValue, iExpansionLength);

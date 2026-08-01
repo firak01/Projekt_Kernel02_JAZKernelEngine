@@ -1,4 +1,4 @@
-package basic.zBasic.util.file;
+package test.zBasic.util.file;
 
 import basic.zBasic.util.file.jar.IJarEasyConstantsZZZ;
 

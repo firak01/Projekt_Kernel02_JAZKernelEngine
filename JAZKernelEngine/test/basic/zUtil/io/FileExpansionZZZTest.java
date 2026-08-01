@@ -98,43 +98,43 @@ public class FileExpansionZZZTest extends TestCase {
 	* Lindhauer; 21.04.2006 09:51:08
 	 */
 	public void testExpansionLookalike(){
-//		try {
-		//wichtig: Ich will die Gewissheit haben, dass das auch mit anderen Werten als dem Standardfall von 3 Ziffern funktioniert
-		//Zu beachten ist, das die Funktion einen String zur�ckliefert.
-		
-		assertEquals("99",FileExpansionZZZ.getExpansionMax(2));		
-		assertEquals("999",FileExpansionZZZ.getExpansionMax(3));
-		assertEquals("9999",FileExpansionZZZ.getExpansionMax(4));
-		assertEquals("99999",FileExpansionZZZ.getExpansionMax(5));
-		
-		//Hier wird eine F�llvariable zur Berechnung verwendet.
-		//Dies soll auch wieder mit den unterschiedlichsten Werten m�glich sein
-		objExpansionTest.setExpansionLength(0);
-		assertEquals("",objExpansionTest.computeExpansion("0",2));
-		
-		objExpansionTest.setExpansionLength(1);
-		assertEquals("2",objExpansionTest.computeExpansion("0",2));
-		
-		objExpansionTest.setExpansionLength(3);
-		assertEquals("002",objExpansionTest.computeExpansion("0",2));
-		
-		objExpansionTest.setExpansionLength(4);
-		assertEquals("0002",objExpansionTest.computeExpansion("0",2));
-		
-		//Falls ein anderes F�llzeichen �bergeben werden soll
-		// Hier 3 Unterstriche vor der Ziffer
-		assertEquals("___2",objExpansionTest.computeExpansion("_",2));
-		
-		// Hier 2 Unterstriche und die Zahl ist 2 stellig
-		assertEquals("__32",objExpansionTest.computeExpansion("_",32));
-		
-//		 Hier kein Unterstrich und die Zahl ist 4 stellig
-		assertEquals("4321",objExpansionTest.computeExpansion("_",4321));
-		
-		
-//	}catch(ExceptionZZZ ez){
-//		fail("An exception happend testing: " + ez.getDetailAllLast());
-//	}
+		try {
+			//wichtig: Ich will die Gewissheit haben, dass das auch mit anderen Werten als dem Standardfall von 3 Ziffern funktioniert
+			//Zu beachten ist, das die Funktion einen String zur�ckliefert.
+			
+			assertEquals("99",FileExpansionZZZ.getExpansionMax(2));		
+			assertEquals("999",FileExpansionZZZ.getExpansionMax(3));
+			assertEquals("9999",FileExpansionZZZ.getExpansionMax(4));
+			assertEquals("99999",FileExpansionZZZ.getExpansionMax(5));
+			
+			//Hier wird eine F�llvariable zur Berechnung verwendet.
+			//Dies soll auch wieder mit den unterschiedlichsten Werten m�glich sein
+			objExpansionTest.setExpansionLength(0);
+			assertEquals("",objExpansionTest.computeExpansion("0",2));
+			
+			objExpansionTest.setExpansionLength(1);
+			assertEquals("2",objExpansionTest.computeExpansion("0",2));
+			
+			objExpansionTest.setExpansionLength(3);
+			assertEquals("002",objExpansionTest.computeExpansion("0",2));
+			
+			objExpansionTest.setExpansionLength(4);
+			assertEquals("0002",objExpansionTest.computeExpansion("0",2));
+			
+			//Falls ein anderes F�llzeichen �bergeben werden soll
+			// Hier 3 Unterstriche vor der Ziffer
+			assertEquals("___2",objExpansionTest.computeExpansion("_",2));
+			
+			// Hier 2 Unterstriche und die Zahl ist 2 stellig
+			assertEquals("__32",objExpansionTest.computeExpansion("_",32));
+			
+			//Hier kein Unterstrich und die Zahl ist 4 stellig
+			assertEquals("4321",objExpansionTest.computeExpansion("_",4321));
+			
+			
+		}catch(ExceptionZZZ ez){
+			fail("An exception happend testing: " + ez.getDetailAllLast());
+		}
 	}
 	
 	public void testIterateExpansionAll_While_HasNext_Next(){	
