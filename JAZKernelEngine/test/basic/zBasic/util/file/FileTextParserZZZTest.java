@@ -28,6 +28,8 @@ public class FileTextParserZZZTest extends TestCase{
 	
 	private FileTextParserZZZ objParserTest = null;
 	
+	//+++ Test setup
+	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
 	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
 
 	protected void setUp(){
@@ -99,18 +101,20 @@ public class FileTextParserZZZTest extends TestCase{
 	@Override
 	protected void tearDown() {
 		try {
-			if(listFilePathUsed!=null) {
-				for(String sFilePath : listFilePathUsed) {
-					Syso.println("Lösche Datei: '" + sFilePath + "'");
-					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
-					if(!btemp) {
-						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+			if(doCleanup) {
+				if(listFilePathUsed!=null) {
+					for(String sFilePath : listFilePathUsed) {
+						Syso.println("Lösche Datei: '" + sFilePath + "'");
+						boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+						if(!btemp) {
+							Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+						}
 					}
 				}
 			}
-		} catch (ExceptionZZZ e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ExceptionZZZ ez) {
+			ez.printStackTrace();
+			fail("Method throws an exception." + ez.getMessageLast());
 		}
 	}
 	

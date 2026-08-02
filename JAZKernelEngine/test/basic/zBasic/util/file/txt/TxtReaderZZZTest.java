@@ -36,6 +36,8 @@ public class TxtReaderZZZTest  extends TestCase{
 	private TxtReaderZZZ objReaderUnsorted;
 	private TxtReaderZZZ  objReaderEmpty;
 	
+	//	+++ Test setup
+	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
 	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
 	
 	protected void setUp(){
@@ -96,7 +98,7 @@ public class TxtReaderZZZTest  extends TestCase{
 			objFileSorted = new File(sFileSortedPathTotal);
 			objFileUnsorted = new File(sFileUnsortedPathTotal);
 			objFileEmpty = new File(sFileEmptyPathTotal);
-			
+						
 			//Wichtig für das Aufräumen
 			listFilePathUsed = new ArrayList<String>(); 
 			listFilePathUsed.add(objFileSorted.getAbsolutePath());
@@ -140,12 +142,14 @@ public class TxtReaderZZZTest  extends TestCase{
 				throw ez;
 			}
 			
-			if(listFilePathUsed!=null) {
-				for(String sFilePath : listFilePathUsed) {
-					Syso.println("Lösche Datei: '" + sFilePath + "'");
-					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
-					if(!btemp) {
-						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+			if(doCleanup) {
+				if(listFilePathUsed!=null) {
+					for(String sFilePath : listFilePathUsed) {
+						Syso.println("Lösche Datei: '" + sFilePath + "'");
+						boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+						if(!btemp) {
+							Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+						}
 					}
 				}
 			}

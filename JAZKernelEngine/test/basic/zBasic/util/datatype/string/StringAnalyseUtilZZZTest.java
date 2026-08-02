@@ -21,22 +21,30 @@ import basic.zBasic.util.datatype.string.StringArrayZZZ;
  *
  */
 public class StringAnalyseUtilZZZTest extends TestCase implements IConstantZZZ {
-//	+++ Test setup
-	private static boolean doCleanup = true;		//default = true      false -> kein Aufr�umen um tearDown().
+	//	+++ Test setup
+	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
 	
-//	Objekt, das getestet werden soll
+	//	Objekt, das getestet werden soll
 	private StringArrayZZZ objArrayTest;
 	private StringArrayZZZ objArraySorted;
 
+	@Override
 	protected void setUp(){
 //		try{
 //			
 //		}catch(ExceptionZZZ ez){
 //			fail("Method throws an exception." + ez.getMessageLast());
-//		}
-		
-		    			
+//		}	    			
 	}//END setup
+	
+	@Override
+	protected void tearDown() {
+//		try{
+//		
+//		}catch(ExceptionZZZ ez){
+//			fail("Method throws an exception." + ez.getMessageLast());
+//		}
+	}
 	 
 	public void testConsistsOnlyOf(){
 		try{
