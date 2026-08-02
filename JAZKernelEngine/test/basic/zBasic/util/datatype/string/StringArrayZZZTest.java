@@ -28,6 +28,7 @@ public class StringArrayZZZTest extends TestCase implements IConstantZZZ {
 //	Objekt, das getestet werden soll
 	private StringArrayZZZ objArrayTest;
 	private StringArrayZZZ objArraySorted;
+	private StringArrayZZZ objArrayEmpty;
 
 	protected void setUp(){
 		try{
@@ -38,6 +39,7 @@ public class StringArrayZZZTest extends TestCase implements IConstantZZZ {
 			String[] saSorted ={"B wert", "D wert", "F wert"};
 			objArraySorted = new StringArrayZZZ(saSorted);
 
+			objArrayEmpty = new StringArrayZZZ();
 		}catch(ExceptionZZZ ez){
 			fail("Method throws an exception." + ez.getMessageLast());
 		}
@@ -123,14 +125,19 @@ public class StringArrayZZZTest extends TestCase implements IConstantZZZ {
 			assertTrue(saNew1c.length==saSorted.length+1);
 			
 			//2. die normale Methode testen
-			//2a. mittenrein
-			objArraySorted.insertSorted("C wert", "IgnoreCase");
-			String[] saNew2a = objArraySorted.getArray();
+			//2a. leeres objArrayEmpty
+			objArrayEmpty.insertSorted("C wert", "IgnoreCase");
+			String[] saNew2a = objArrayEmpty.getArray();
+			assertTrue(saNew2a.length==1);
 			assertFalse(saNew2a.length==saSorted.length);
-			assertTrue(saNew2a.length==saSorted.length+1);
 			
-				
-			
+			//2b. mittenrein in initialisiertes objArraySorted
+			objArraySorted = new StringArrayZZZ(saSorted);			
+			objArraySorted.insertSorted("C wert", "IgnoreCase");
+			String[] saNew2b = objArraySorted.getArray();
+			assertFalse(saNew2b.length==saSorted.length);
+			assertTrue(saNew2b.length==saSorted.length+1);
+
 			
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();

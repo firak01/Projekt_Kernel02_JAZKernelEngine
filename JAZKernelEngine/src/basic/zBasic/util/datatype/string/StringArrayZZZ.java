@@ -36,11 +36,18 @@ import basic.zBasic.util.math.MathZZZ;
  */
 //Generisch ist nicht sinnvoll, bei den statischen Methoden  public class StringArrayZZZ<T> implements IConstantZZZ{
 public class StringArrayZZZ extends AbstractObjectWithExceptionZZZ{
-	private String[] saIntern;
+	private static final long serialVersionUID = -1110269354813189033L;
+	
+	private String[] saIntern = null;
 	private boolean bIsString = false;
 
 	//Konstruktoren
+	public StringArrayZZZ() throws ExceptionZZZ {
+		super();
+	}
+	
 	public StringArrayZZZ(String args[]) throws ExceptionZZZ{
+		super();
 		if(args==null){
 			ExceptionZZZ ez = new ExceptionZZZ("No array available.", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
@@ -799,7 +806,7 @@ output:
 		main:{
 		if(saSorted==null && StringZZZ.isEmpty(sString)) break main;
 		if(saSorted==null){
-			objReturn = new String[0];
+			objReturn = new String[1];
 			objReturn[0] = sString;
 			break main;
 		}
