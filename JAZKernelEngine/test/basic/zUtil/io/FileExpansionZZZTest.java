@@ -3,7 +3,9 @@ package basic.zUtil.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import basic.javagently.Stream;
 import basic.zBasic.DummyTestObjecWithDefaultValuesZZZ;
@@ -16,6 +18,7 @@ import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
+import basic.zBasic.util.system.Syso;
 import junit.framework.TestCase;
 import custom.zUtil.io.FileExpansionZZZ;
 import custom.zUtil.io.FileZZZ;
@@ -25,7 +28,8 @@ public class FileExpansionZZZTest extends TestCase {
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglkernel\\kerneltest");
 	private final static String strFILE_NAME_DEFAULT = new String("JUnitTestExpansion.txt");
 	
-
+	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
+	
 	protected void setUp(){
 		try {			
 			
@@ -51,6 +55,11 @@ public class FileExpansionZZZTest extends TestCase {
 
 			//The main object used for testing
 			FileZZZ objFileTest = new FileZZZ(sFilePathUsed, strFILE_NAME_DEFAULT);
+			
+			//Wichtig für das Aufräumen
+			listFilePathUsed = new ArrayList<String>(); 
+			listFilePathUsed.add(objFileTest.getAbsolutePath());
+			
 			objExpansionTest = new FileExpansionZZZ(objFileTest);
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());
@@ -62,6 +71,25 @@ public class FileExpansionZZZTest extends TestCase {
 //			e.printStackTrace();
 		}		
 	}//END setup
+	
+
+	@Override
+	protected void tearDown() {
+		try {
+			if(listFilePathUsed!=null) {
+				for(String sFilePath : listFilePathUsed) {
+					Syso.println("Lösche Datei: '" + sFilePath + "'");
+					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+					if(!btemp) {
+						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+					}
+				}
+			}
+		} catch (ExceptionZZZ e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void testFlagZ(){
 		try{

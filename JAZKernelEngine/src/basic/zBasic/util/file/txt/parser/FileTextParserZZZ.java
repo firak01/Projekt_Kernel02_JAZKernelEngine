@@ -2,6 +2,7 @@ package basic.zBasic.util.file.txt.parser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,7 +25,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
  * @author 0823
  *
  */
-public class FileTextParserZZZ extends AbstractObjectWithFlagZZZ{
+public class FileTextParserZZZ extends AbstractObjectWithFlagZZZ implements Closeable {
 	private File objFileSourceOriginal = null;
 	private File objFileSource=null;   //nach jedem Schreiben wird hier das zuvorige Target-File reingesetzt, so dass hier ein erneutes Schreiben von dem zuvor erfolgtem Schreiben ausgehen kann.
 	
@@ -38,29 +39,27 @@ public class FileTextParserZZZ extends AbstractObjectWithFlagZZZ{
 	private void KernelFileTextParserNew_(File objFile, String[] saFlagControl) throws ExceptionZZZ{		
 		main:{
 			check:{
-		String stemp; boolean btemp;
-		if(saFlagControl != null){
-			for(int iCount = 0;iCount<=saFlagControl.length-1;iCount++){
-				stemp = saFlagControl[iCount];
-				btemp = setFlag(stemp, true);
-				if(btemp==false){ 								   
-					   ExceptionZZZ ez = new ExceptionZZZ(stemp, IFlagZEnabledZZZ.iERROR_FLAG_UNAVAILABLE, this, ReflectCodeZZZ.getMethodCurrentName()); 
+				String stemp; boolean btemp;
+				if(saFlagControl != null){
+					for(int iCount = 0;iCount<=saFlagControl.length-1;iCount++){
+						stemp = saFlagControl[iCount];
+						btemp = setFlag(stemp, true);
+						if(btemp==false){ 								   
+							   ExceptionZZZ ez = new ExceptionZZZ(stemp, IFlagZEnabledZZZ.iERROR_FLAG_UNAVAILABLE, this, ReflectCodeZZZ.getMethodCurrentName()); 
+							   throw ez;		 
+						}
+					}
+					if(this.getFlag("init")) break main;
+				}
+				
+				
+				if(objFile==null){
+					   ExceptionZZZ ez = new ExceptionZZZ("Source-File", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
 					   throw ez;		 
 				}
-			}
-			if(this.getFlag("init")) break main;
-		}
-		
-		
-		if(objFile==null){
-			   ExceptionZZZ ez = new ExceptionZZZ("Source-File", iERROR_PARAMETER_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
-			   throw ez;		 
-		}
-		this.setFileSource(objFile);
-		this.setFileSourceOriginal(objFile);
-		
-			}//END check:
-		
+				this.setFileSource(objFile);
+				this.setFileSourceOriginal(objFile);				
+		}//END check:		
 	}//END main:
 }
 	
@@ -139,7 +138,7 @@ public class FileTextParserZZZ extends AbstractObjectWithFlagZZZ{
 				   sLine = bfin.readLine();
 			   }//END while
 					   
-			   //Schliessen der Dateistr�me
+			   //Schliessen der Dateistroeme
 				bfin.close();
 				bfout.close();
 				fin.close();
@@ -499,5 +498,13 @@ public class FileTextParserZZZ extends AbstractObjectWithFlagZZZ{
 		return this.objFileSourceOriginal;
 	}
 	
-	
+	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
+	@Override
+    public void close() throws IOException{
+		//Hier gibt es (noch) keinen Stream auf Property-Ebene.
+		//Die Streams werden (noch) alle in den Methoden schon geschlossen.
+//        if(objStream!=null){
+//            objStream.close();
+//        }
+    }
 }//END class

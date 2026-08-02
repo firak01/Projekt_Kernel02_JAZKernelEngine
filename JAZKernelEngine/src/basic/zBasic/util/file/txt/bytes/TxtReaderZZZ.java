@@ -169,6 +169,7 @@ public long readPositionLineFirst(String sLine2proof, long lStartByteIn) throws 
 				
 			}
 			
+			//raFile.close();
 		}catch(IOException ie){
 			ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
@@ -203,6 +204,7 @@ public String readLineByByte(long lStartByteIn) throws ExceptionZZZ{
 			String UTF8 = new String(sLine.getBytes("ISO-8859-1"), "UTF-8");
 			sReturn = UTF8;
 			
+			//raFile.close();
 	}catch(IOException ie){
 		ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 		throw ez;
@@ -230,7 +232,7 @@ public String readLineNextByByte(long lStartByteIn) throws ExceptionZZZ{
 			//Das ist aber noch nicht die nächste Zeile
 			sReturn = raFile.readLine();
 			
-			
+			//raFile.close();
 	}catch(IOException ie){
 		ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 		throw ez;
@@ -285,6 +287,7 @@ public Vector readVectorStringByByte(long lStartByteIn) throws ExceptionZZZ{
 				sLine = raFile.readLine();
 			}
 			
+			//raFile.close();
 		}catch(IOException ie){
 			ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;

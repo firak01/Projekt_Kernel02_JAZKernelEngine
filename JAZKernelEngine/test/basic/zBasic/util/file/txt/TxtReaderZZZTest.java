@@ -3,6 +3,8 @@ package basic.zBasic.util.file.txt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import junit.framework.TestCase;
@@ -12,6 +14,7 @@ import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
+import basic.zBasic.util.system.Syso;
 
 public class TxtReaderZZZTest  extends TestCase{
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
@@ -33,7 +36,8 @@ public class TxtReaderZZZTest  extends TestCase{
 	private TxtReaderZZZ objReaderUnsorted;
 	private TxtReaderZZZ  objReaderEmpty;
 	
-
+	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
+	
 	protected void setUp(){
 		try {			
 			
@@ -89,12 +93,15 @@ public class TxtReaderZZZTest  extends TestCase{
 			objStreamFile = new StreamZZZ(sFileEmptyPathTotal, 1);
 			objStreamFile.close();
 			
-			
-		
-			
 			objFileSorted = new File(sFileSortedPathTotal);
 			objFileUnsorted = new File(sFileUnsortedPathTotal);
 			objFileEmpty = new File(sFileEmptyPathTotal);
+			
+			//Wichtig für das Aufräumen
+			listFilePathUsed = new ArrayList<String>(); 
+			listFilePathUsed.add(objFileSorted.getAbsolutePath());
+			listFilePathUsed.add(objFileUnsorted.getAbsolutePath());
+			listFilePathUsed.add(objFileEmpty.getAbsolutePath());
 			
 			//### Die TestObjecte
 			
@@ -106,8 +113,7 @@ public class TxtReaderZZZTest  extends TestCase{
 			objReaderSorted = new TxtReaderZZZ(objFileSorted, saFlag);
 			objReaderUnsorted = new TxtReaderZZZ(objFileUnsorted);
 			objReaderEmpty = new TxtReaderZZZ(objFileEmpty, (String) null);
-			
-						
+												
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		} catch (FileNotFoundException e) {
@@ -122,6 +128,32 @@ public class TxtReaderZZZTest  extends TestCase{
 		}		
 	}//END setup
 	
+	@Override
+	protected void tearDown() {
+		try {
+			try {
+				if(this.objReaderSorted!=null)	this.objReaderSorted.close();				
+				if(this.objReaderUnsorted!=null)	this.objReaderUnsorted.close();
+				if(this.objReaderEmpty!=null)	this.objReaderEmpty.close();				
+			} catch (IOException ioe) {
+				ExceptionZZZ ez = new ExceptionZZZ(ioe);
+				throw ez;
+			}
+			
+			if(listFilePathUsed!=null) {
+				for(String sFilePath : listFilePathUsed) {
+					Syso.println("Lösche Datei: '" + sFilePath + "'");
+					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+					if(!btemp) {
+						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+					}
+				}
+			}
+		} catch (ExceptionZZZ ez) {
+			ez.printStackTrace();
+			fail("Method throws an exception." + ez.getMessageLast());
+		}
+	}
 	
 	public void testFlagZ(){
 		try{

@@ -90,6 +90,8 @@ public class FileTextSplitterZZZTest extends TestCase{
 			//für´s Aufräumen
 			listFilePathUsed = new ArrayList<String>();
 			listFilePathUsed.add(objFileSource.getAbsolutePath());
+			listFilePathUsed.add(objFileTargetPre.getAbsolutePath());
+			listFilePathUsed.add(objFileTargetPost.getAbsolutePath());
 		
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());

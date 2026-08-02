@@ -3,11 +3,14 @@ package basic.zUtil.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
+import basic.zBasic.util.system.Syso;
 import custom.zUtil.io.FileExpansionZZZ;
 import custom.zUtil.io.FileZZZ;
 import junit.framework.TestCase;
@@ -17,6 +20,7 @@ public class FileZZZTest extends TestCase {
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
 	private final static String strFILE_NAME_DEFAULT = new String("JUnitTest.txt");
 	
+	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
 
 	protected void setUp(){
 		try {			
@@ -41,6 +45,11 @@ public class FileZZZTest extends TestCase {
 
 			//The main object used for testing
 			objFileTest = new FileZZZ(sFilePathUsed, strFILE_NAME_DEFAULT, "use_file_expansion");
+			
+			//Wichtig für das Aufräumen
+			listFilePathUsed = new ArrayList<String>(); 
+			listFilePathUsed.add(objFileTest.getAbsolutePath());
+			
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());
 		} catch (FileNotFoundException e) {
@@ -54,6 +63,24 @@ public class FileZZZTest extends TestCase {
 			e.printStackTrace();
 		}		
 	}//END setup
+	
+	@Override
+	protected void tearDown() {
+		try {
+			if(listFilePathUsed!=null) {
+				for(String sFilePath : listFilePathUsed) {
+					Syso.println("Lösche Datei: '" + sFilePath + "'");
+					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+					if(!btemp) {
+						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+					}
+				}
+			}
+		} catch (ExceptionZZZ e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void testFlagZ(){
 		try{
@@ -230,41 +257,41 @@ public class FileZZZTest extends TestCase {
 	 */
 	public void testExpansionLookalike(){
 		try {
-		//wichtig: Ich will die Gewissheit haben, dass das auch mit anderen Werten als dem Standardfall von 3 Ziffern funktioniert
-		//Zu beachten ist, das die Funktion einen String zur�ckliefert.
-		
-		assertEquals("99",FileExpansionZZZ.getExpansionMax(2));		
-		assertEquals("999",FileExpansionZZZ.getExpansionMax(3));
-		assertEquals("9999",FileExpansionZZZ.getExpansionMax(4));
-		assertEquals("99999",FileExpansionZZZ.getExpansionMax(5));
-		
-		//Hier wird eine F�llvariable zur Berechnung verwendet.
-		//Dies soll auch wieder mit den unterschiedlichsten Werten m�glich sein
-		objFileTest.setExpansionLength(0);
-		assertEquals("",objFileTest.ExpansionCompute("0",2));
-		
-		objFileTest.setExpansionLength(1);
-		assertEquals("2",objFileTest.ExpansionCompute("0",2));
-		
-		objFileTest.setExpansionLength(3);
-		assertEquals("002",objFileTest.ExpansionCompute("0",2));
-		
-		objFileTest.setExpansionLength(4);
-		assertEquals("0002",objFileTest.ExpansionCompute("0",2));
-		
-		//Falls ein anderes F�llzeichen �bergeben werden soll
-		// Hier 3 Unterstriche vor der Ziffer
-		assertEquals("___2",objFileTest.ExpansionCompute("_",2));
-		
-		// Hier 2 Unterstriche und die Zahl ist 2 stellig
-		assertEquals("__32",objFileTest.ExpansionCompute("_",32));
-		
-//		 Hier kein Unterstrich und die Zahl ist 4 stellig
-		assertEquals("4321",objFileTest.ExpansionCompute("_",4321));
-		
-		
-	}catch(ExceptionZZZ ez){
-		fail("An exception happend testing: " + ez.getDetailAllLast());
-	}
+			//wichtig: Ich will die Gewissheit haben, dass das auch mit anderen Werten als dem Standardfall von 3 Ziffern funktioniert
+			//Zu beachten ist, das die Funktion einen String zur�ckliefert.
+			
+			assertEquals("99",FileExpansionZZZ.getExpansionMax(2));		
+			assertEquals("999",FileExpansionZZZ.getExpansionMax(3));
+			assertEquals("9999",FileExpansionZZZ.getExpansionMax(4));
+			assertEquals("99999",FileExpansionZZZ.getExpansionMax(5));
+			
+			//Hier wird eine F�llvariable zur Berechnung verwendet.
+			//Dies soll auch wieder mit den unterschiedlichsten Werten m�glich sein
+			objFileTest.setExpansionLength(0);
+			assertEquals("",objFileTest.ExpansionCompute("0",2));
+			
+			objFileTest.setExpansionLength(1);
+			assertEquals("2",objFileTest.ExpansionCompute("0",2));
+			
+			objFileTest.setExpansionLength(3);
+			assertEquals("002",objFileTest.ExpansionCompute("0",2));
+			
+			objFileTest.setExpansionLength(4);
+			assertEquals("0002",objFileTest.ExpansionCompute("0",2));
+			
+			//Falls ein anderes F�llzeichen �bergeben werden soll
+			// Hier 3 Unterstriche vor der Ziffer
+			assertEquals("___2",objFileTest.ExpansionCompute("_",2));
+			
+			// Hier 2 Unterstriche und die Zahl ist 2 stellig
+			assertEquals("__32",objFileTest.ExpansionCompute("_",32));
+			
+			//Hier kein Unterstrich und die Zahl ist 4 stellig
+			assertEquals("4321",objFileTest.ExpansionCompute("_",4321));
+			
+			
+		}catch(ExceptionZZZ ez){
+			fail("An exception happend testing: " + ez.getDetailAllLast());
+		}
 	}
 }

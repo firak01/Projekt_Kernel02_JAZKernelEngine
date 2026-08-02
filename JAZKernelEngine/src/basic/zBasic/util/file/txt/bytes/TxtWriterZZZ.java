@@ -200,6 +200,8 @@ public class TxtWriterZZZ  extends TxtCommonZZZ{
 				sToBeInserted = sToBeInserted + "\r\n";
 				rwFile.writeBytes(sToBeInserted);	
 			}
+			
+			//rwFile.close();
 			}catch(IOException ie){
 				ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
@@ -211,123 +213,125 @@ public class TxtWriterZZZ  extends TxtCommonZZZ{
 	public long removeLineFirst(String sToBeRemoved, long lPositionIn) throws ExceptionZZZ{
 		long lReturn = -1;
 		main:{
-		try{
-			if(StringZZZ.isEmpty(sToBeRemoved)==true) break main;
-			long lPosition;
-			if(lPositionIn <= -1){
-				lPosition = 0;
-			}else{
-				lPosition = lPositionIn;
-			}
-			
-			RandomAccessFile rwFile = this.getRandomAccessFileObject();
-			rwFile.seek(lPosition);
-			
-			boolean bFlagSorted = this.getFlag("IsFileSorted");
-			boolean bFlagIgnoreCase = this.getFlag("IgnoreCase");
-			
-			String sLine = rwFile.readLine();	
-			
-			//Falls man davon ausgehen kann, dass die Datei sortiert ist ...
-			if(bFlagSorted==true){												
-				while(sLine!=null){				
-					currentLine:{								
-						int iProof;
-						if(bFlagIgnoreCase==false){
-							iProof = sLine.compareTo(sToBeRemoved);
-						}else{
-							iProof = sLine.compareToIgnoreCase(sToBeRemoved);
-						}
-						
-						
-						if(iProof == 0){
-							//Die alte Stelle merken
-							lReturn = lPosition;
-						
-							
-							//TODO den Rest der Datei irgendwo zwischenspeichern
-							//          Erste Alternative: ArrayList mit den restlichen Zeilen f�llen
-							//          Ggf. mal in eine tempor�re Datei speichern. Das ist aber nur bei SEHR grossen Dateine sinnvoll.
-							TxtReaderZZZ objReader = new TxtReaderZZZ(this, null);		
-							lPosition = rwFile.getFilePointer();
-												
-							//Nun an der alten Stelle einf�gen
-							if(lPosition == rwFile.length()){
-								//a) am Ende der Date nix machen, ausser die Dateil�nge zu verk�rzen
-								rwFile.setLength(lReturn);
-								
-							}else{
-								//b) Mitten in der Datei
-							
-								//Speicher mit den restlichen Zeilen f�llen
-								Vector vec = objReader.readVectorStringByByte(lPosition);
-															
-								//Den Speicher wieder auslesen und alle fehlenden Datens�tze schreiben. 
-								this.appendVectorString(lReturn, vec);								
-								
-	//							Die Dateil�nge entsprechend verl�rzen
-								lPosition = rwFile.getFilePointer();
-								rwFile.setLength(lPosition);
-								
-								break main;							
-							}												
-						}else if(iProof >= 1){
-	//						Bei einer sortierten Datei kann es nun ein Abbruchkriterium geben.
-							//System.out.println(ReflectionZZZ.getMethodCurrentName() + "# Abbruch der Suche, neue Zeile kann in sortierter Datei nicht mehr der gesuchten Zeile entsprechen");
-							break main;
-						}
-					}//end currentLine:
-					lPosition = rwFile.getFilePointer();
-					sLine = rwFile.readLine();	
-				}//end while
+			try{
+				if(StringZZZ.isEmpty(sToBeRemoved)==true) break main;
+				long lPosition;
+				if(lPositionIn <= -1){
+					lPosition = 0;
+				}else{
+					lPosition = lPositionIn;
+				}
 				
-			}else{		
-				while(sLine!=null){				
-					currentLineUnsorted:{								
-						int iProof;
-						if(bFlagIgnoreCase==false){
-							iProof = sLine.compareTo(sToBeRemoved);
-						}else{
-							iProof = sLine.compareToIgnoreCase(sToBeRemoved);
-						}
-	
-						if(iProof == 0){
-							//Die alte Stelle merken
-							lReturn = lPosition;
-					
-													
-							//TODO den Rest der Datei irgendwo zwischenspeichern
-							//          Erste Alternative: ArrayList mit den restlichen Zeilen f�llen
-							//          Ggf. mal in eine tempor�re Datei speichern. Das ist aber nur bei SEHR grossen Dateine sinnvoll.
-							TxtReaderZZZ objReader = new TxtReaderZZZ(this, null);		
-							lPosition = rwFile.getFilePointer();
-													
-							//Nun an der alten Stelle einf�gen
-							if(lPosition == rwFile.length()){
-								//a) am Ende der Date nix machen, auser die Datei zu verk�rzen
-								rwFile.setLength(lReturn);
+				RandomAccessFile rwFile = this.getRandomAccessFileObject();
+				rwFile.seek(lPosition);
+				
+				boolean bFlagSorted = this.getFlag("IsFileSorted");
+				boolean bFlagIgnoreCase = this.getFlag("IgnoreCase");
+				
+				String sLine = rwFile.readLine();	
+				
+				//Falls man davon ausgehen kann, dass die Datei sortiert ist ...
+				if(bFlagSorted==true){												
+					while(sLine!=null){				
+						currentLine:{								
+							int iProof;
+							if(bFlagIgnoreCase==false){
+								iProof = sLine.compareTo(sToBeRemoved);
 							}else{
-								//b) Mitten in der Datei
+								iProof = sLine.compareToIgnoreCase(sToBeRemoved);
+							}
+							
+							
+							if(iProof == 0){
+								//Die alte Stelle merken
+								lReturn = lPosition;
+							
 								
-								//Speicher mit den restlichen Zeilen f�llen
-								Vector vec = objReader.readVectorStringByByte(lPosition);
-								
-								//Den Speicher wieder auslesen und alle fehlenden Datens�tze schreiben. 
-								this.appendVectorString(lReturn, vec);		
-								
-								//Die Dateil�nge entsprechend verl�rzen
+								//TODO den Rest der Datei irgendwo zwischenspeichern
+								//          Erste Alternative: ArrayList mit den restlichen Zeilen f�llen
+								//          Ggf. mal in eine tempor�re Datei speichern. Das ist aber nur bei SEHR grossen Dateine sinnvoll.
+								TxtReaderZZZ objReader = new TxtReaderZZZ(this, null);		
 								lPosition = rwFile.getFilePointer();
-								rwFile.setLength(lPosition);
+													
+								//Nun an der alten Stelle einf�gen
+								if(lPosition == rwFile.length()){
+									//a) am Ende der Date nix machen, ausser die Dateil�nge zu verk�rzen
+									rwFile.setLength(lReturn);
+									
+								}else{
+									//b) Mitten in der Datei
 								
-								break main;							
-							}												
-						}else{
-							lPosition = rwFile.getFilePointer();
-						}
-					}//end currentLineUnsorted:
-					sLine = rwFile.readLine();	
-				}//end while
-			}
+									//Speicher mit den restlichen Zeilen f�llen
+									Vector vec = objReader.readVectorStringByByte(lPosition);
+																
+									//Den Speicher wieder auslesen und alle fehlenden Datens�tze schreiben. 
+									this.appendVectorString(lReturn, vec);								
+									
+		//							Die Dateil�nge entsprechend verl�rzen
+									lPosition = rwFile.getFilePointer();
+									rwFile.setLength(lPosition);
+									
+									break main;							
+								}												
+							}else if(iProof >= 1){
+		//						Bei einer sortierten Datei kann es nun ein Abbruchkriterium geben.
+								//System.out.println(ReflectionZZZ.getMethodCurrentName() + "# Abbruch der Suche, neue Zeile kann in sortierter Datei nicht mehr der gesuchten Zeile entsprechen");
+								break main;
+							}
+						}//end currentLine:
+						lPosition = rwFile.getFilePointer();
+						sLine = rwFile.readLine();	
+					}//end while
+					
+				}else{		
+					while(sLine!=null){				
+						currentLineUnsorted:{								
+							int iProof;
+							if(bFlagIgnoreCase==false){
+								iProof = sLine.compareTo(sToBeRemoved);
+							}else{
+								iProof = sLine.compareToIgnoreCase(sToBeRemoved);
+							}
+		
+							if(iProof == 0){
+								//Die alte Stelle merken
+								lReturn = lPosition;
+						
+														
+								//TODO den Rest der Datei irgendwo zwischenspeichern
+								//          Erste Alternative: ArrayList mit den restlichen Zeilen f�llen
+								//          Ggf. mal in eine tempor�re Datei speichern. Das ist aber nur bei SEHR grossen Dateine sinnvoll.
+								TxtReaderZZZ objReader = new TxtReaderZZZ(this, null);		
+								lPosition = rwFile.getFilePointer();
+														
+								//Nun an der alten Stelle einf�gen
+								if(lPosition == rwFile.length()){
+									//a) am Ende der Date nix machen, auser die Datei zu verk�rzen
+									rwFile.setLength(lReturn);
+								}else{
+									//b) Mitten in der Datei
+									
+									//Speicher mit den restlichen Zeilen f�llen
+									Vector vec = objReader.readVectorStringByByte(lPosition);
+									
+									//Den Speicher wieder auslesen und alle fehlenden Datens�tze schreiben. 
+									this.appendVectorString(lReturn, vec);		
+									
+									//Die Dateil�nge entsprechend verl�rzen
+									lPosition = rwFile.getFilePointer();
+									rwFile.setLength(lPosition);
+									
+									break main;							
+								}												
+							}else{
+								lPosition = rwFile.getFilePointer();
+							}
+						}//end currentLineUnsorted:
+						sLine = rwFile.readLine();	
+					}//end while
+				}
+				
+				//rwFile.close();
 			}catch(IOException ie){
 				ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
@@ -341,6 +345,8 @@ public class TxtWriterZZZ  extends TxtCommonZZZ{
 			RandomAccessFile raFile = this.getRandomAccessFileObject();
 			long lPosition = raFile.length();
 			this.appendVectorString(lPosition, vec);
+			
+			//raFile.close();
 		}catch(IOException ie){
 			ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 			throw ez;
@@ -380,6 +386,8 @@ public class TxtWriterZZZ  extends TxtCommonZZZ{
 					raFile.writeBytes(sLine);
 					lPosition = raFile.getFilePointer();
 				}
+				
+				//raFile.close();
 			}catch(IOException ie){
 				ExceptionZZZ ez = new ExceptionZZZ("IOException happend: " + ie.getMessage(), iERROR_RUNTIME, this, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;

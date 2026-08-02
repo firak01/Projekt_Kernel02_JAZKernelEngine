@@ -3,6 +3,8 @@ package basic.zBasic.util.file.txt;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import junit.framework.TestCase;
@@ -13,6 +15,7 @@ import basic.zBasic.util.file.ini.IniFile;
 import basic.zBasic.util.file.txt.bytes.TxtWriterZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
+import basic.zBasic.util.system.Syso;
 
 public class TxtWriterZZZTest  extends TestCase{
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
@@ -31,6 +34,7 @@ public class TxtWriterZZZTest  extends TestCase{
 	private TxtWriterZZZ objWriterUnsorted;
 	private TxtWriterZZZ  objWriterEmpty;
 	
+	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
 
 	protected void setUp(){
 		try {			
@@ -84,12 +88,15 @@ public class TxtWriterZZZTest  extends TestCase{
 			objStreamFile = new StreamZZZ(sFileEmptyPathTotal, 1);
 			objStreamFile.close();
 			
-			
-		
-			
 			objFileSorted = new File(sFileSortedPathTotal);
 			objFileUnsorted = new File(sFileUnsortedPathTotal);
 			objFileEmpty = new File(sFileEmptyPathTotal);
+			
+			//Wichtig für das Aufräumen
+			listFilePathUsed = new ArrayList<String>(); 
+			listFilePathUsed.add(objFileSorted.getAbsolutePath());
+			listFilePathUsed.add(objFileUnsorted.getAbsolutePath());
+			listFilePathUsed.add(objFileEmpty.getAbsolutePath());
 			
 			//### Die TestObjecte
 			
@@ -121,6 +128,34 @@ public class TxtWriterZZZTest  extends TestCase{
 			e.printStackTrace();
 		}		
 	}//END setup
+	
+
+	@Override
+	protected void tearDown() {
+		try {
+			try {
+				if(this.objWriterSorted!=null)	this.objWriterSorted.close();				
+				if(this.objWriterUnsorted!=null)	this.objWriterUnsorted.close();
+				if(this.objWriterEmpty!=null)	this.objWriterEmpty.close();				
+			} catch (IOException ioe) {
+				ExceptionZZZ ez = new ExceptionZZZ(ioe);
+				throw ez;
+			}
+			
+			if(listFilePathUsed!=null) {
+				for(String sFilePath : listFilePathUsed) {
+					Syso.println("Lösche Datei: '" + sFilePath + "'");
+					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+					if(!btemp) {
+						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+					}
+				}
+			}
+		} catch (ExceptionZZZ e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	//*
 	public void testAppendVectorString(){

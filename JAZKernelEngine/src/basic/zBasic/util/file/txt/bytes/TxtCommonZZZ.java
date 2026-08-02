@@ -1,5 +1,6 @@
 package basic.zBasic.util.file.txt.bytes;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -11,7 +12,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class TxtCommonZZZ extends AbstractObjectWithFlagZZZ{
+public abstract class TxtCommonZZZ extends AbstractObjectWithFlagZZZ implements Closeable{
 	private File file=null;
 	private RandomAccessFile rwFile = null;
 	
@@ -46,7 +47,7 @@ public abstract class TxtCommonZZZ extends AbstractObjectWithFlagZZZ{
 		try{
 			if(this.rwFile==null){		
 				this.rwFile = new RandomAccessFile(this.getFile(), this.getMode());
-			}else if(this.rwFile.getChannel().isOpen() == false){
+			}else if(this.rwFile.getChannel().isOpen() == false){				
 				this.rwFile.getChannel().force(true);
 			}
 		}catch(IOException ie){
@@ -93,4 +94,12 @@ public abstract class TxtCommonZZZ extends AbstractObjectWithFlagZZZ{
 		}
 		return bReturn;
 	}
+	
+	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
+	@Override
+    public void close() throws IOException{
+        if(rwFile!=null){
+        	rwFile.close();
+        }
+    }
 }

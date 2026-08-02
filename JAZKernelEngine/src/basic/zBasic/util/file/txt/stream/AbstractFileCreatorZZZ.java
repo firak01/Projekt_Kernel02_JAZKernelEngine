@@ -1,16 +1,18 @@
 package basic.zBasic.util.file.txt.stream;
 
+import java.io.Closeable;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
-import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
+import basic.zKernel.IKernelZZZ;
 
-public abstract class AbstractFileCreatorZZZ extends AbstractKernelUseObjectZZZ{
+public abstract class AbstractFileCreatorZZZ extends AbstractKernelUseObjectZZZ implements Closeable {
+	private static final long serialVersionUID = -2881829929933440233L;
 	private File fileTemplate = null;
 	private String sTargetPath = null;
 	
@@ -39,23 +41,30 @@ public abstract class AbstractFileCreatorZZZ extends AbstractKernelUseObjectZZZ{
 	
 	public File createFile() throws ExceptionZZZ {
 		File objReturn = null;
-		main:{
-			String sTargetPath = this.getTargetPath();
-			if(StringZZZ.isEmpty(sTargetPath)) {
-				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PROPERTY_MISSING + " TargetFilePath ", iERROR_PROPERTY_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
+		main:{			
+			try {
+				String sTargetPath = this.getTargetPath();
+				if(StringZZZ.isEmpty(sTargetPath)) {
+					ExceptionZZZ ez = new ExceptionZZZ(sERROR_PROPERTY_MISSING + " TargetFilePath ", iERROR_PROPERTY_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
+					throw ez;
+				}			
+				FileTextWriterZZZ objTargetWriter = new FileTextWriterZZZ(sTargetPath);
+				
+				File objFileTemplate = this.getTemplateFile();
+				if(fileTemplate==null) {
+					ExceptionZZZ ez = new ExceptionZZZ(sERROR_PROPERTY_MISSING + " TemplateFile ", iERROR_PROPERTY_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
+					throw ez;
+				}
+				
+				ArrayList<String> listaLineReadme = this.computeLines(objFileTemplate);
+				for(String sLine : listaLineReadme){
+					objTargetWriter.writeLine(sLine);
+				}
+
+				objTargetWriter.close();
+			} catch (IOException ioe) {				
+				ExceptionZZZ ez = new ExceptionZZZ(ioe);
 				throw ez;
-			}			
-			FileTextWriterZZZ objTargetWriter = new FileTextWriterZZZ(sTargetPath);
-			
-			File objFileTemplate = this.getTemplateFile();
-			if(fileTemplate==null) {
-				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PROPERTY_MISSING + " TemplateFile ", iERROR_PROPERTY_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
-				throw ez;
-			}
-			
-			ArrayList<String> listaLineReadme = this.computeLines(objFileTemplate);
-			for(String sLine : listaLineReadme){
-				objTargetWriter.writeLine(sLine);
 			}
 		}// end main:
 		return objReturn;
@@ -84,5 +93,13 @@ public abstract class AbstractFileCreatorZZZ extends AbstractKernelUseObjectZZZ{
 		this.sTargetPath = sTargetPath;
 	}
 	
-	
+	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
+	@Override
+    public void close() throws IOException{
+		//Hier gibt es (noch) keinen Stream auf Property-Ebene.
+		//Die Streams werden (noch) alle in den Methoden schon geschlossen.
+//	        if(objStream!=null){
+//	            objStream.close();
+//	        }
+    }
 }

@@ -3,6 +3,8 @@ package basic.zBasic.util.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.regexp.RE;
 import org.apache.regexp.RESyntaxException;
@@ -14,6 +16,7 @@ import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.txt.parser.FileTextParserZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
+import basic.zBasic.util.system.Syso;
 
 public class FileTextParserZZZTest extends TestCase{
 	private File objFileSource=null;
@@ -24,6 +27,8 @@ public class FileTextParserZZZTest extends TestCase{
 
 	
 	private FileTextParserZZZ objParserTest = null;
+	
+	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
 
 	protected void setUp(){
 		try {			
@@ -53,11 +58,10 @@ public class FileTextParserZZZTest extends TestCase{
 			objStreamFile.println("erste zeile ist doppelt");  
 			objStreamFile.println("doppelte erste zeile");    
 			objStreamFile.println("noch eine doppelte erste zeile");   
-			objStreamFile.close();
-			
+			objStreamFile.close();			
 			this.objFileSource = new File(sFilePathTotal);
 			
-			
+						
 			if(FileEasyZZZ.exists(strFILE_DIRECTORY_DEFAULT)){
 				sFilePathTotal = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT_RESULT );
 			}else{
@@ -66,15 +70,17 @@ public class FileTextParserZZZTest extends TestCase{
 			    String sPathEclipse = f.getAbsolutePath();
 			    System.out.println("Path for Kernel Directory Default does not exist. Using workspace absolut path: " + sPathEclipse);
 			    sFilePathTotal = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_NAME_DEFAULT_RESULT );			   
-			}
+			}						
+			this.objFileTarget = new File(sFilePathTotal);
 			
-			
-			this.objFileTarget = new File(sFilePathTotal);			
+			//Wichtig für das Aufräumen
+			listFilePathUsed = new ArrayList<String>(); 
+			listFilePathUsed.add(objFileSource.getAbsolutePath());
+			listFilePathUsed.add(objFileTarget.getAbsolutePath());
 			
 			//The main object used for testing
 			objParserTest = new FileTextParserZZZ(objFileSource, (String[]) null);
 			
-		
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());
 		} catch (FileNotFoundException e) {
@@ -89,6 +95,24 @@ public class FileTextParserZZZTest extends TestCase{
 		}		
 	}//END setup
 	 
+
+	@Override
+	protected void tearDown() {
+		try {
+			if(listFilePathUsed!=null) {
+				for(String sFilePath : listFilePathUsed) {
+					Syso.println("Lösche Datei: '" + sFilePath + "'");
+					boolean btemp = FileEasyZZZ.removeFile(sFilePath);
+					if(!btemp) {
+						Syso.println("Konnte Datei: '" + sFilePath + "' nicht erfolgreich löschen.");
+					}
+				}
+			}
+		} catch (ExceptionZZZ e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void testConstructor(){
 		try{
