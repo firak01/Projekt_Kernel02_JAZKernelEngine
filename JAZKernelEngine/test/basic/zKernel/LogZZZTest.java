@@ -9,6 +9,7 @@ import basic.zBasic.util.string.formater.IStringFormatManagerUserZZZ;
 import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
+import basic.zBasic.util.string.justifier.StringJustifierManagerZZZ;
 import basic.zKernel.KernelContextZZZ;
 import basic.zKernel.KernelZZZ;
 import custom.zKernel.LogZZZ;
@@ -38,6 +39,10 @@ public class LogZZZTest extends TestCase{
 			assertNotNull("LogObject provided by KernelObject is null.", objLogTest);
 			assertFalse(objLogTest.getFlag("init")==true); //Nun waere init falsch
 			
+			//################################################
+			//Singleton zurücksetzen, damit der Test auch mit mehreren JUnit Tests funktioniert.
+			StringFormatManagerZZZ.getInstance().reset();			
+			StringJustifierManagerZZZ.getInstance().reset(); //sonst werden die Zeilen unübersichtlich lang mit leerzeichen aufgefüllt
 		} catch (ExceptionZZZ ez) {
 			ez.printStackTrace();
 			fail("Method throws an exception." + ez.getMessageLast());
@@ -84,7 +89,7 @@ public class LogZZZTest extends TestCase{
 			//Nur 1x den MessageSeparator
 			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' im Logstring '" + sLog1 + "' erwartet, ist aber " + itemp, bValue);
+			assertTrue("Mindestens/Nur 1x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' erwartet, ist aber " + itemp + " im Logstring '" + sValue + "'", bValue);
 			
 			//Nicht am Ende, sondern vor dem uebergebenen String.
 			bValue = StringZZZ.endsWith(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
@@ -156,26 +161,30 @@ public class LogZZZTest extends TestCase{
 			sValue = objLogTest.computeLine(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
-			//Zweizeilige Ausgabe
+			//Aber, wg. unterschiedlicher Kommentare zweizeilige Ausgabe
 			itemp = StringZZZ.count(sValue, StringZZZ.crlf());
-			bValue = (itemp==1); //!!!!!!!!!!!!!!!!!!!!!!!!!! hier 1x Zeilenumbruch wg. 2 Zeilen
-			assertTrue("Mindestens/Nur 1x ein Zeilenumbruch '" + sLinePosition + "' im Logstring '" + sValue + "' erwartet , ist aber " + itemp, bValue);
+			bValue = (itemp==1);
+			assertTrue("Kein Zeilenumbruch erwartet , ist aber " + itemp + " im Logstring '" + sValue + "'", bValue);
 				
 			//Nun 2x den Messageseparator(wg. 2 Zeilen)
+			int itempCount = 0;
 			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
-			bValue = (itemp==2); //!!!!!!!!!!!!!!!!!!!!!!!!!! hier 2x wg. 2 Zeilen, wg. 2 Kommentaren
-			assertTrue("Mindestens/Nur 2x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' im Logstring '" + sLog1 + "' erwartet, ist aber " + itemp, bValue);
+			itempCount = itempCount + itemp;
+			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_01_DEFAULT);
+			itempCount = itempCount + itemp;
+			bValue = (itempCount==2); //!!!!!!!!!!!!!!!!!!!!!!!!!! hier 2x wg. 2 Zeilen, wg. 2 Kommentaren mit unterschiedlichem Zeichen 
+			assertTrue("Mindestens/Nur 2x einen Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' oder '" + IStringFormatZZZ.sSEPARATOR_01_DEFAULT + "'  erwartet, ist aber " + itempCount + " im Logstring  '" + sValue + "'", bValue);
 			
 			
 			//Nur 1x den LogString1
 			itemp = StringZZZ.count(sValue, sLog1);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den LogString '" + sLog1 + "' erwartet", bValue);
+			assertTrue("Mindestens/Nur 1x den String '" + sLog1 + "' erwartet, ist aber " + itemp + " im LogString '" + sValue + "'", bValue);
 			
 			//Nur 1x den LogString2
 			itemp = StringZZZ.count(sValue, sLog2);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den LogString '" + sLog2 + "' erwartet", bValue);
+			assertTrue("Mindestens/Nur 1x den LogString '" + sLog2 + "' erwartet, ist aber " + itemp + " im LogString '" + sValue + "'", bValue);
 						
 			//Nicht am Ende, sondern vor dem uebergebenen String.
 			bValue = StringZZZ.endsWith(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
@@ -782,12 +791,12 @@ public class LogZZZTest extends TestCase{
 			//0x den LogString
 			itemp = StringZZZ.count(sValue, sLog1);
 			bValue = (itemp==0);
-			assertTrue("Keinen LogString '" + sLog1 + "' erwartet", bValue);
+			assertTrue("Keinen String '" + sLog1 + "' erwartet im Logstring '" + sValue + "'", bValue);
 			
 			//0x den Messageseparator
 			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
 			bValue = (itemp==0);
-			assertTrue("Keinen Kommentarseparator erwartet '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' im Logstring '" + sLog1 + "' erwartet", bValue);
+			assertTrue("Keinen Kommentarseparator erwartet '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "', ist aber " + itemp + " im Logstring '" + sValue + "'", bValue);
 			
 			
 			//################################################
@@ -799,12 +808,12 @@ public class LogZZZTest extends TestCase{
 			//Nur 1x den LogString
 			itemp = StringZZZ.count(sValue, sLog1);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den LogString '" + sLog1 + "' erwartet", bValue);
+			assertTrue("Mindestens/Nur 1x den LogString '" + sLog1 + "' erwartet, ist aber " + itemp + "im Logstring '" + sValue + "'", bValue);
 			
 			//Nur 1x den Messageseparator
 			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' im Logstring '" + sLog1 + "' erwartet", bValue);
+			assertTrue("Mindestens/Nur 1x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' erwartet, ist aber " + itemp + " im Logstring '" + sValue + "'", bValue);
 						
 			//Nicht am Ende, sondern vor dem uebergebenen String.
 			bValue = StringZZZ.endsWith(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
@@ -819,17 +828,21 @@ public class LogZZZTest extends TestCase{
 			//Nur jeweils 1x den LogString
 			itemp = StringZZZ.count(sValue, sLog1);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den LogString1 '" + sLog1 + "' erwartet", bValue);
+			assertTrue("Mindestens/Nur 1x den LogString1 '" + sLog1 + "' erwartet ist aber " + itemp + ", im Logstring '" + sValue + "'", bValue);
 			
-			itemp = StringZZZ.count(sValue, sLog1);
+			itemp = StringZZZ.count(sValue, sLog2);
 			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den LogString2 '" + sLog2 + "' erwartet", bValue);
+			assertTrue("Mindestens/Nur 1x den LogString1 '" + sLog2 + "' erwartet ist aber " + itemp + ", im Logstring '" + sValue + "'", bValue);
 			
 			
-			//Nur 1x den Messageseparator
+			//Aber 2x einen Messageseparator (unterschiedlich) erwartet sind!!
+			int itempCount = 0;
 			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
-			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' im Logstring '" + sLog1 + "' erwartet", bValue);
+			itempCount = itempCount + itemp;
+			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_01_DEFAULT);
+			itempCount = itempCount + itemp;
+			bValue = (itempCount==2);
+			assertTrue("Mindestens/Nur 2x einen Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' oder '" + IStringFormatZZZ.sSEPARATOR_01_DEFAULT + "' erwartet, ist aber " + itempCount + " im Logstring '" + sValue + "'", bValue);
 						
 			//Nicht am Ende, sondern vor dem uebergebenen String.
 			bValue = StringZZZ.endsWith(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
@@ -915,10 +928,15 @@ public class LogZZZTest extends TestCase{
 			bValue = (itemp==1);
 			assertTrue("Mindestens/Nur 1x den LogString2 '" + sLog2 + "' erwartet", bValue);
 						
-			//Nur 1x den Messageseparator
+			//Nur 2x den Messageseparator, da es 2 Zeilen sind
+			int itempCount = 0;
 			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);
-			bValue = (itemp==1);
-			assertTrue("Mindestens/Nur 1x den Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' im Logstring '" + sLog1 + "' erwartet", bValue);
+			itempCount = itempCount + itemp;
+			itemp = StringZZZ.count(sValue, IStringFormatZZZ.sSEPARATOR_01_DEFAULT);
+			itempCount = itempCount + itemp;
+			bValue = (itempCount==2);
+
+			assertTrue("Mindestens/Nur 2x einen Kommentarseparator '" + IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "' oder '" +  IStringFormatZZZ.sSEPARATOR_01_DEFAULT + "'  erwartet, ist aber " + itempCount + " im Logstring '" + sValue + "'" + itemp, bValue);
 						
 			//Nicht am Ende, sondern vor dem uebergebenen String.
 			bValue = StringZZZ.endsWith(sValue, IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT);

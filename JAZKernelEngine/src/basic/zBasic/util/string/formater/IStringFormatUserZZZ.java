@@ -12,4 +12,7 @@ public interface IStringFormatUserZZZ {
 	//+++++++++++++++++++++++++++++++++++++++++++
 	public ArrayListZZZ<IEnumSetMappedStringFormatZZZ> getSeparatorArrayList() throws ExceptionZZZ;
 	public void setSeparatorArrayList(ArrayListZZZ<IEnumSetMappedStringFormatZZZ> listaSeparator) throws ExceptionZZZ;
+	
+	//Zuruecksetzen, z.B. der Trennzeichen, true wenn etwas zurueckzusetzen war.
+	public boolean resetSeparatorArrayList() throws ExceptionZZZ;	
 }

@@ -84,7 +84,19 @@ public class AbstractStringJustifierManagerZZZ extends AbstractObjectWithFlagZZZ
 		this.listaStringJustifier = listaStringJustifier;
 	}
 	
+	@Override
+	public boolean resetStringJustifierList() throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(this.getStringJustifierList().size()>=1) {
+				bReturn = true;
+			}
+			this.getStringJustifierList().clear();	
+		}//end main:
+		return bReturn;
+	}
 	
+	//++++++++++++++++++++
 	@Override
 	public ArrayListUniqueZZZ<IStringJustifierZZZ>getStringJustifierListUsed() throws ExceptionZZZ{
 		if(this.listaStringJustifierUsed==null) {
@@ -96,6 +108,18 @@ public class AbstractStringJustifierManagerZZZ extends AbstractObjectWithFlagZZZ
 	@Override
 	public void setStringJustifierListUsed(ArrayListUniqueZZZ<IStringJustifierZZZ> listaStringJustifier) throws ExceptionZZZ{
 		this.listaStringJustifierUsed = listaStringJustifier;
+	}
+	
+	@Override
+	public boolean resetStringJustifierListUsed() throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(this.getStringJustifierListUsed().size()>=1) {
+				bReturn = true;
+			}
+			this.getStringJustifierListUsed().clear();	
+		}//end main:
+		return bReturn;
 	}
 	
 	//+++++++++++++++++++++++++
@@ -175,14 +199,12 @@ public class AbstractStringJustifierManagerZZZ extends AbstractObjectWithFlagZZZ
 	
 	@Override
 	public boolean reset() throws ExceptionZZZ{
-		boolean bReturn = false;
+		boolean bReturn = false;				
 		main:{
-			if(this.listaStringJustifier==null) {
-				bReturn=false;
-			}else {
-				this.listaStringJustifier.clear();
-				bReturn = true;
-			}
+			boolean bJustiferUsed = this.resetStringJustifierListUsed();
+			boolean bJustifier    = this.resetStringJustifierList();
+			
+			bReturn = bJustiferUsed | bJustifier; 
 		}//end main:
 		return bReturn;
 	}

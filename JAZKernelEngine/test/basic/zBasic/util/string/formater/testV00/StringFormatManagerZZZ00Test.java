@@ -24,13 +24,16 @@ public class StringFormatManagerZZZ00Test extends TestCase {
 	private StringFormatManagerZZZ objLogManagerTest = null;
 	
 	protected void setUp(){
-//		try {			
-//			
-//					
-//			
-//		} catch (ExceptionZZZ ez) {
-//			fail("Method throws an exception." + ez.getMessageLast());
-//		} 	
+		try {			
+			
+			//################################################
+			//Singleton zurücksetzen, damit der Test auch mit mehreren JUnit Tests funktioniert.
+			StringFormatManagerZZZ.getInstance().reset();			
+			StringJustifierManagerZZZ.getInstance().reset(); //sonst werden die Zeilen unübersichtlich lang mit leerzeichen aufgefüllt	
+			
+		} catch (ExceptionZZZ ez) {
+			fail("Method throws an exception." + ez.getMessageLast());
+		} 	
 	}//END setup
 
 	public void testContructor() {

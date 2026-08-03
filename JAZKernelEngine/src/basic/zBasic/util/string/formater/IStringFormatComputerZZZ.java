@@ -70,6 +70,6 @@ public interface IStringFormatComputerZZZ {
 		//Zuruecksetzen, z.B. des Indexwerts, true wenn etwas zurueckzusetzen war.
 		public boolean resetStringIndexRead() throws ExceptionZZZ;	
 											
-		//Zurücksetzen
+		//Zurücksetzen, gibt true zurueck, wenn etwas zurueckzusetzen war.
 		public boolean reset() throws ExceptionZZZ;		
 }

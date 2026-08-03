@@ -12,9 +12,11 @@ import basic.zBasic.util.math.PrimeNumberZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.IStringFormaterZZZ;
+import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.StringFormaterZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ.LOGSTRINGFORMAT;
 import basic.zBasic.util.string.formater.IStringFormaterZZZ.FLAGZ;
+import basic.zBasic.util.string.justifier.StringJustifierManagerZZZ;
 import junit.framework.TestCase;
 
 public class StringFormaterZZZ00Test extends TestCase{
@@ -24,7 +26,11 @@ public class StringFormaterZZZ00Test extends TestCase{
 	protected void setUp(){
 		try {			
 			objLogStringTest = new StringFormaterZZZ();
-								
+			
+			//################################################
+			//Singleton zurücksetzen, damit der Test auch mit mehreren JUnit Tests funktioniert.
+			StringFormatManagerZZZ.getInstance().reset();			
+			StringJustifierManagerZZZ.getInstance().reset(); //sonst werden die Zeilen unübersichtlich lang mit leerzeichen aufgefüllt								
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		} 	

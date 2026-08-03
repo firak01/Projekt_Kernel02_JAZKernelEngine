@@ -14,6 +14,7 @@ import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ.LOGSTRINGFORMAT;
+import basic.zBasic.util.string.justifier.StringJustifierManagerZZZ;
 import junit.framework.TestCase;
 
 
@@ -28,13 +29,16 @@ public class StringFormatManagerZZZ01Test extends TestCase {
 	private StringFormatManagerZZZ objLogManagerTest = null;
 	
 	protected void setUp(){
-//		try {			
-//			
-//					
-//			
-//		} catch (ExceptionZZZ ez) {
-//			fail("Method throws an exception." + ez.getMessageLast());
-//		} 	
+		try {			
+			
+			//################################################
+			//Singleton zurücksetzen, damit der Test auch mit mehreren JUnit Tests funktioniert.
+			StringFormatManagerZZZ.getInstance().reset();			
+			StringJustifierManagerZZZ.getInstance().reset(); //sonst werden die Zeilen unübersichtlich lang mit leerzeichen aufgefüllt	
+			
+		} catch (ExceptionZZZ ez) {
+			fail("Method throws an exception." + ez.getMessageLast());
+		} 	
 	}//END setup
 
 	public void testContructor() {

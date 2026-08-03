@@ -77,6 +77,18 @@ public abstract class AbstractStringFormatManagerZZZ extends AbstractObjectWithF
 	
 	//##########################################################################
 	//### aus IStringFormatUserZZZ
+	@Override 
+	public boolean resetSeparatorArrayList() throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(this.getSeparatorArrayList().size()>=1) {
+				bReturn = true;
+			}
+			this.getSeparatorArrayList().clear();	
+		}//end main:
+		return bReturn;		
+	}
+	
 	@Override
 	public ArrayListZZZ<IEnumSetMappedStringFormatZZZ>getSeparatorArrayList() throws ExceptionZZZ{
 		if(this.listaSeparator==null) {
@@ -144,7 +156,14 @@ public abstract class AbstractStringFormatManagerZZZ extends AbstractObjectWithF
 	
 	@Override
 	public boolean reset() throws ExceptionZZZ {
-		boolean bReturn = this.resetStringIndexRead();
+		boolean bReturn = false;
+		main:{
+			boolean bReturnIndexRead = this.resetStringIndexRead();
+			
+			boolean bReturnSepartorArray = this.resetSeparatorArrayList();
+			
+			bReturn = bReturnIndexRead | bReturnSepartorArray;			
+		}//end main:		
 		return bReturn;
 	}
 	
