@@ -75,7 +75,7 @@ public abstract class AbstractCounterStrategyAlphabetSignificantZZZ extends Abst
 			boolean bReturn = false;		
 			if(this.caCounterFilling.length>=1){
 				char cFilling = this.caCounterFilling[0];
-				if(!CharZZZ.isEmpty(cFilling)){
+				if(!CharZZZ.isEmptyNull(cFilling)){
 					bReturn=true; 
 				}				
 			}
@@ -93,7 +93,7 @@ public abstract class AbstractCounterStrategyAlphabetSignificantZZZ extends Abst
 
 		@Override
 		public void setCounterFilling(char cFilling) {
-			if(CharZZZ.isEmpty(cFilling)){
+			if(CharZZZ.isEmptyNull(cFilling)){
 				this.caCounterFilling[0]=Character.MIN_VALUE;
 			}else{
 				this.caCounterFilling[0]=cFilling;

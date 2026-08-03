@@ -423,7 +423,7 @@ public class FileExpansionZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements
 	public String getExpansionFilling() throws ExceptionZZZ {
 		String sReturn = null;
 		main:{
-		if(CharZZZ.isEmpty(cExpansionFilling)) {
+		if(CharZZZ.isEmptyNull(cExpansionFilling)) {
 			sReturn = String.valueOf(IFileExpansionConstZZZ.cEXPANSION_FILLING_DEFAULT);
 			break main;
 		}

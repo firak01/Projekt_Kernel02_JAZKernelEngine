@@ -72,7 +72,7 @@ public class UnicodeZZZ implements IConstantZZZ{
 	public static String from(char c) {
 		String sReturn = null;
 		main:{			
-			if(CharZZZ.isEmpty(c)) break main;			
+			if(CharZZZ.isEmptyNull(c)) break main;			
 			sReturn = "\\u" + Integer.toHexString('÷' | 0x10000).substring(1);
 		}//end main:
 		return sReturn;

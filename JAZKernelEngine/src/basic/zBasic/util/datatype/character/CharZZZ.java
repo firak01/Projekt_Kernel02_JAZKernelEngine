@@ -20,6 +20,36 @@ public class CharZZZ {
 	 * https://stackoverflow.com/questions/8534178/how-to-represent-empty-char-in-java-character-class
 	 */
 	public static boolean isEmpty(char c){
+		if(c == CharZZZ.getEmpty()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * @param c
+	 * @return
+	 * @author Fritz Lindhauer, 09.06.2019, 09:42:58
+	 * siehe: 
+	 * https://stackoverflow.com/questions/8534178/how-to-represent-empty-char-in-java-character-class
+	 */
+	public static boolean isNull(char c){
+		if(c == CharZZZ.getNull()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * @param c
+	 * @return
+	 * @author Fritz Lindhauer, 09.06.2019, 09:42:58
+	 * siehe: 
+	 * https://stackoverflow.com/questions/8534178/how-to-represent-empty-char-in-java-character-class
+	 */
+	public static boolean isEmptyNull(char c){
 		if(c == CharZZZ.getEmpty() || c == CharZZZ.getNull()){
 			return true;
 		}else{
@@ -33,7 +63,7 @@ public class CharZZZ {
 	 * @author Fritz Lindhauer, 06.11.2022, 10:27:28
 	 */
 	public static boolean isEmptyBlank(char c){
-		if(CharZZZ.isEmpty(c)){
+		if(CharZZZ.isEmptyNull(c)){
 			return true;
 		}else if(c ==' ') {
 			return true;
@@ -64,7 +94,7 @@ public class CharZZZ {
 	public static boolean isNumericPrefix(char c) {
 		boolean bReturn = false;
 		main:{
-			if(CharZZZ.isEmpty(c))break main;
+			if(CharZZZ.isEmptyNull(c))break main;
 			
 			if("-".toCharArray()[0] == c) {
 				bReturn = true;

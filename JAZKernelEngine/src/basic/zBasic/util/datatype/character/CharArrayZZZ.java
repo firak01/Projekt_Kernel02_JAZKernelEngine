@@ -9,9 +9,9 @@ public class CharArrayZZZ {
 		boolean bReturn = false;
 		main:{
 			if(ca==null)break main;
-			if(CharZZZ.isEmpty(cToFind)) {
+			if(CharZZZ.isEmptyNull(cToFind)) {
 				for(char c : ca) {
-					if(CharZZZ.isEmpty(c)) {
+					if(CharZZZ.isEmptyNull(c)) {
 						bReturn = true;
 						break main;
 					}
@@ -80,7 +80,7 @@ public class CharArrayZZZ {
 		main:{
 			if(ca==null)break main;
 			for(char c : ca) {
-				if(!CharZZZ.isEmpty(c)) {
+				if(!CharZZZ.isEmptyNull(c)) {
 					bReturn = false;
 					break main;
 				}

@@ -28,17 +28,22 @@ public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExcept
 	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
 	
 	
-	public AbstractFileTextReaderZZZ() {		
+	public AbstractFileTextReaderZZZ() throws ExceptionZZZ {	
+		super();
 	}
-	public AbstractFileTextReaderZZZ(String sFilePath) throws ExceptionZZZ{
+	
+	public AbstractFileTextReaderZZZ(String sFilePath) throws ExceptionZZZ {
+		super();
 		this.setFilePath(sFilePath);
 	}
 	
-	public AbstractFileTextReaderZZZ(File objFile) throws ExceptionZZZ{
+	public AbstractFileTextReaderZZZ(File objFile) throws ExceptionZZZ {
+		super();
 		this.setFileObject(objFile);
 	}
 	
 	public AbstractFileTextReaderZZZ(List<String> listaLine) throws ExceptionZZZ{
+		super();
 		this.setLines(listaLine);
 	}
 	

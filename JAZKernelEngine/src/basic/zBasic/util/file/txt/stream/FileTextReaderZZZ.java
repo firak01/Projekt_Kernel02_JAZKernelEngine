@@ -20,12 +20,15 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 public class FileTextReaderZZZ extends  AbstractFileTextReaderZZZ{
 	private static final long serialVersionUID = -9054462955710855745L;
 	
-	public FileTextReaderZZZ() {		
+	public FileTextReaderZZZ() throws ExceptionZZZ {	
+		super();
 	}
-	public FileTextReaderZZZ(String sFileName) throws ExceptionZZZ{
+	public FileTextReaderZZZ(String sFileName) throws ExceptionZZZ {
+		super();
 		this.setFilePath(sFileName);
 	}
 	public FileTextReaderZZZ(File objFile) throws ExceptionZZZ {
+		super();
 		this.setFileObject(objFile);
 	}
 	

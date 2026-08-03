@@ -73,7 +73,7 @@ public class BooleanZZZ implements IConstantZZZ, Serializable{
 	public static boolean charToBoolean(char cChar, Map<Boolean,List<? extends Object>> hmConstBoolean, boolean bIgnoreCase) throws ExceptionZZZ, IllegalArgumentException {
 		boolean bReturn = false;
 		main:{
-			if(CharZZZ.isEmpty(cChar)) break main;
+			if(CharZZZ.isEmptyNull(cChar)) break main;
 			if(hmConstBoolean==null) {
 				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING+" HashMap of the Boolean-String Expressions", iERROR_PARAMETER_MISSING,BooleanZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
