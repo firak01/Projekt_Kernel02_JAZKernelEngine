@@ -5069,6 +5069,68 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 		return sReturn;
 	}
 	
+	/** 'Heuristische' Loesung einen 'sprechenden Key' / eine Abkuerzung zu generieren.
+	 * Es wird der String aufgeteilt. 
+	 * Danach werden die Teile gekürzt und wieder zusammengesetzt.
+	 * @author Fritz Lindhauer
+	 *
+	 * @param sString
+	 * @return
+	 */
+	public static String toShorten(String sString, String[] saDelimiterIn, int[] iaPartLengthIn, String sAppenderIn) throws ExceptionZZZ {
+		String sReturn = sString;
+		main:{
+			if(StringZZZ.isEmpty(sString))break main;
+			sReturn = "";
+			
+			boolean isNumeric=false;
+			
+			
+			String[] saDelimiterDefault = {"-","_","."};
+			String[] saDelimiter;
+			if(ArrayUtilZZZ.isNullOrEmpty(saDelimiterIn)) {
+				saDelimiter = saDelimiterDefault;
+			}else {
+				saDelimiter = saDelimiterIn;
+			}
+			
+			int[] iaPartLengthDefault = { 4, 3};
+			int[] iaPartLength;
+			if(ArrayUtilZZZ.isNullOrEmpty(iaPartLengthIn)) {
+				iaPartLength = iaPartLengthDefault;
+			}else {
+				iaPartLength = iaPartLengthIn;
+			}
+			
+			String sAppender;
+			if(StringZZZ.isEmptyNull(sAppenderIn)) {
+				sAppender = "";
+			}else {
+				sAppender = sAppenderIn;
+			}
+			
+			String[] saSplitted = StringZZZ.explode(sString, saDelimiter);
+			int iIndex = -1;
+			int iPartLengthUsed=iaPartLengthDefault[0];
+			for(String sSplitted :saSplitted) {
+				iIndex++;
+				if(iIndex > iaPartLength.length) {
+					//nix, verwende den alten Wert weiter
+				}else {
+					iPartLengthUsed = iaPartLength[iIndex];
+				}
+				String sSplittedTemp = StringZZZ.left(sSplitted, iPartLengthUsed);
+				
+				if(StringZZZ.isEmpty(sReturn)) {					
+					sReturn = sSplittedTemp;
+				}else {
+					sReturn = sReturn + sAppender + sSplittedTemp;
+				}
+			}//end for saSplitted
+		}
+		return sReturn;
+	}
+	
 	
 	/**
 	 * @param sString

@@ -372,6 +372,11 @@ public class ArrayUtilZZZ<T>{
 		return bReturn;
 	}
 	
+	
+	public static boolean isNullOrEmpty(int[] theArray) {
+	    return theArray == null || theArray.length == 0;
+	}
+	
 	public static <T> boolean isNullOrEmpty(T[] theArray) {
 	    return theArray == null || theArray.length == 0;
 	}
