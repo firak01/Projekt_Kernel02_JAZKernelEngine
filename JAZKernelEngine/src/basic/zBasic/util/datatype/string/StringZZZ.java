@@ -4910,7 +4910,7 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 	}
 	
 	/** 'Heuristische' Loesung einen 'sprechenden Key' / eine Abkuerzung zu generieren.
-	 * Es werden Grossbuchstaben und Zahlen im �bergebenenString verwendet.
+	 * Es werden Grossbuchstaben und Zahlen im uebergebenenString verwendet.
 	 * @author Fritz Lindhauer
 	 *
 	 * @param sString
@@ -4920,7 +4920,8 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 		String sReturn = sString;
 		main:{
 			if(StringZZZ.isEmpty(sString))break main;
-
+			sReturn = "";
+			
 			boolean isNumeric=false;
 			for(int iIndex=0; iIndex<=sString.length()-1; iIndex++){
 				String s = sString.substring(iIndex, iIndex+1);
@@ -4939,6 +4940,135 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 		}
 		return sReturn;
 	}
+	
+	/** 'Heuristische' Loesung einen 'sprechenden Key' / eine Abkuerzung zu generieren.
+	 * Es werden Grossbuchstaben und Zahlen im uebergebenenString verwendet.
+	 * @author Fritz Lindhauer
+	 *
+	 * @param sString
+	 * @return
+	 */
+	public static String toUpperCaseNumberAbbreviation(String sString, String[] saDelimiterIn) throws ExceptionZZZ {
+		String sReturn = sString;
+		main:{
+			if(StringZZZ.isEmpty(sString))break main;
+			sReturn = "";
+			
+			boolean isNumeric=false;
+			
+			
+			String[] saDelimiterDefault = {"-","_","."};
+			String[] saDelimiter;
+			if(ArrayUtilZZZ.isNullOrEmpty(saDelimiterIn)) {
+				saDelimiter = saDelimiterDefault;
+			}else {
+				saDelimiter = saDelimiterIn;
+			}
+			
+			String[] saSplitted = StringZZZ.explode(sString, saDelimiter);
+			for(String sSplitted :saSplitted) {			
+				sReturn = sReturn + toUpperCaseNumberAbbreviation(sSplitted);
+			}//end for saSplitted
+		}
+		return sReturn;
+	}
+	
+	/** 'Heuristische' Loesung einen 'sprechenden Key' / eine Abkuerzung zu generieren.
+	 * Es werden Grossbuchstaben und Zahlen im uebergebenenString verwendet.
+	 * @author Fritz Lindhauer
+	 *
+	 * @param sString
+	 * @return
+	 */
+	public static String toUpperCaseNumberAbbreviation(String sString, String[] saDelimiterIn, String sAppenderIn) throws ExceptionZZZ {
+		String sReturn = sString;
+		main:{
+			if(StringZZZ.isEmpty(sString))break main;
+			sReturn = "";
+			
+			boolean isNumeric=false;
+			
+			
+			String[] saDelimiterDefault = {"-","_","."};
+			String[] saDelimiter;
+			if(ArrayUtilZZZ.isNullOrEmpty(saDelimiterIn)) {
+				saDelimiter = saDelimiterDefault;
+			}else {
+				saDelimiter = saDelimiterIn;
+			}
+			
+			String sAppender;
+			if(StringZZZ.isEmptyNull(sAppenderIn)) {
+				sAppender = "";
+			}else {
+				sAppender = sAppenderIn;
+			}
+			
+			String[] saSplitted = StringZZZ.explode(sString, saDelimiter);
+			for(String sSplitted :saSplitted) {
+				if(StringZZZ.isEmpty(sReturn)) {
+					sReturn = toUpperCaseNumberAbbreviation(sSplitted);
+				}else {
+					sReturn = sReturn + sAppender + toUpperCaseNumberAbbreviation(sSplitted);
+				}
+			}//end for saSplitted
+		}
+		return sReturn;
+	}
+	
+	/** 'Heuristische' Loesung einen 'sprechenden Key' / eine Abkuerzung zu generieren.
+	 * Es wird der String aufgeteilt. 
+	 * Danach werden die Teile gekürzt und wieder zusammengesetzt.
+	 * @author Fritz Lindhauer
+	 *
+	 * @param sString
+	 * @return
+	 */
+	public static String toShorten(String sString, String[] saDelimiterIn, int iPartLengthIn, String sAppenderIn) throws ExceptionZZZ {
+		String sReturn = sString;
+		main:{
+			if(StringZZZ.isEmpty(sString))break main;
+			sReturn = "";
+			
+			boolean isNumeric=false;
+			
+			
+			String[] saDelimiterDefault = {"-","_","."};
+			String[] saDelimiter;
+			if(ArrayUtilZZZ.isNullOrEmpty(saDelimiterIn)) {
+				saDelimiter = saDelimiterDefault;
+			}else {
+				saDelimiter = saDelimiterIn;
+			}
+			
+			int iPartLength;
+			if(iPartLengthIn<=0) {
+				iPartLength = 1;
+			}else {
+				iPartLength = iPartLengthIn;
+			}
+			
+			String sAppender;
+			if(StringZZZ.isEmptyNull(sAppenderIn)) {
+				sAppender = "";
+			}else {
+				sAppender = sAppenderIn;
+			}
+			
+			String[] saSplitted = StringZZZ.explode(sString, saDelimiter);
+			for(String sSplitted :saSplitted) {
+				String sSplittedTemp = StringZZZ.left(sSplitted, iPartLengthIn);
+				
+				if(StringZZZ.isEmpty(sReturn)) {					
+					sReturn = sSplittedTemp;
+				}else {
+					sReturn = sReturn + sAppender + sSplittedTemp;
+				}
+			}//end for saSplitted
+		}
+		return sReturn;
+	}
+	
 	
 	/**
 	 * @param sString
