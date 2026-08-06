@@ -1,34 +1,23 @@
-package basic.zBasic.util.file;
+package basic.zBasic.util.file.jar;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
-
-import junit.framework.TestCase;
-import basic.javagently.Stream;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.calling.ReferenceZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
-import basic.zBasic.util.file.jar.JarEasyZZZ;
+import basic.zBasic.util.file.JarKernelZZZ;
 import basic.zBasic.util.file.jar.filter.FileDirectoryFilterInJarZZZ;
 import basic.zBasic.util.file.jar.filter.FileFileFilterInJarZZZ;
-import basic.zBasic.util.file.txt.parser.FileTextParserZZZ;
 import basic.zBasic.util.file.zip.IFileDirectoryPartFilterZipUserZZZ;
 import basic.zBasic.util.file.zip.IFileFilePartFilterZipUserZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
+import junit.framework.TestCase;
 
 public class JarEasyZZZTest extends TestCase{
 	private File objFileJarAsSource=null;

@@ -9,7 +9,7 @@ import basic.zBasic.ExceptionZZZ;
 public class FileTextSplitterZZZ extends AbstractFileTextCombinedSaverZZZ {
 	private static final long serialVersionUID = 489990254115931232L;
 
-	public FileTextSplitterZZZ() {
+	public FileTextSplitterZZZ() throws ExceptionZZZ {
 	}
 
 	public FileTextSplitterZZZ(String sFilePath) throws ExceptionZZZ {

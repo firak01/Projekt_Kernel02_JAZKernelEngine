@@ -17,7 +17,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 /**
  * Eine Klasse, mit der mit einem Trennzeichen separierte Werte eingelesen
- * werden können. Für jede Zeile werden die Werte in einem Hashtable abgelegt.
+ * werden kï¿½nnen. Fï¿½r jede Zeile werden die Werte in einem Hashtable abgelegt.
  * Eine Klasse, die die Daten weiterverarbeiten soll, kann dann unter dem
  * Namen der jeweiligen Spalte die Daten aus dem Hashtable auslesen.
  */
@@ -67,7 +67,7 @@ public class CSVReader {
 		for (int i=dataFields.size()-1; i>=0; i--)
 			hash.put(header.elementAt(i), dataFields.elementAt(i));
 
-		// Löscht die Zeile, damit hasMoreLines auf jeden Fall
+		// Lï¿½scht die Zeile, damit hasMoreLines auf jeden Fall
 		// eine neue Zeile einliest.
 		nextLine = null;
 
@@ -108,22 +108,22 @@ public class CSVReader {
 				//Inhalt einer Spalte extrahieren
 				while (index <= max) {
 					char check = line.charAt(index);
-					//Nun wird der nächste Delimiter gesucht, der NICHT
-					//innerhalb von Anführungszeichen (") steht. Wenn ein
-					//Anführungszeichen gefunden wurde, dann muss der Merker
+					//Nun wird der nï¿½chste Delimiter gesucht, der NICHT
+					//innerhalb von Anfï¿½hrungszeichen (") steht. Wenn ein
+					//Anfï¿½hrungszeichen gefunden wurde, dann muss der Merker
 					//getoggled werden.
 					if (check == '"')
 						quote = !quote;
 					//Es befindet sich auf jeden Fall eine gerade Anzahl von
 					//"-Zeichen zwischen den Quotes, so dass nur die am Anfang
-					//und Ende berücksichtigt werden.
+					//und Ende berï¿½cksichtigt werden.
 					else if (check == delimiter && quote == false)
 						break;
 					index++;
 				}
 				end = index;
 
-				// Anführungszeichen am Anfang und am Ende gehören nicht zum
+				// Anfï¿½hrungszeichen am Anfang und am Ende gehï¿½ren nicht zum
 				// String und werden deshalb auch nicht beachtet.
 				if (line.charAt(start) == '"' && line.charAt(end-1) == '"') {
 					start++;
@@ -131,7 +131,7 @@ public class CSVReader {
 				}
 
 				// Der gefundene Text wird in dem Vector gespeichert, ohne jedoch zu
-				// vergessen, dass zwei auf einander folgende Anführungszeichen ("")
+				// vergessen, dass zwei auf einander folgende Anfï¿½hrungszeichen ("")
 				// durch ein Einzelnes (") zu ersetzen sind.
 				fields.addElement(StringZZZ.replace(line.substring(start, end), "\"\"", "\""));
 				index++;

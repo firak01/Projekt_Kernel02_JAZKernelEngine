@@ -1,4 +1,4 @@
-package basic.zBasic.util.file.txt;
+package basic.zBasic.util.file.txt.bytes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,13 +11,12 @@ import junit.framework.TestCase;
 import basic.javagently.Stream;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.ini.IniFile;
-import basic.zBasic.util.file.txt.bytes.TxtWriterZZZ;
+import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;
 
-public class TxtWriterZZZTest  extends TestCase{
+public class TxtReaderZZZTest  extends TestCase{
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
 	private final static String strFILE_SORTED_NAME_DEFAULT = new String("JUnitTest_sorted.txt");
 	private final static String strFILE_UNSORTED_NAME_DEFAULT = new String("JUnitTest_unsorted.txt");
@@ -28,17 +27,19 @@ public class TxtWriterZZZTest  extends TestCase{
 	private File objFileUnsorted;
 	private File objFileEmpty;
 	
-	/// +++ Die eigentlichen Test-Objekte
-	private TxtWriterZZZ objWriterInit;
-	private TxtWriterZZZ objWriterSorted;
-	private TxtWriterZZZ objWriterUnsorted;
-	private TxtWriterZZZ  objWriterEmpty;
+	private String sLineFirstForTest=null;
+	private String sLineSecondForTest=null;
 	
-	//+++ Test setup
+	/// +++ Die eigentlichen Test-Objekte
+	private TxtReaderZZZ objReaderInit;
+	private TxtReaderZZZ objReaderSorted;
+	private TxtReaderZZZ objReaderUnsorted;
+	private TxtReaderZZZ  objReaderEmpty;
+	
+	//	+++ Test setup
 	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
 	List<String>listFilePathUsed= null; // Wichtig für das Aufräumen
-
-
+	
 	protected void setUp(){
 		try {			
 			
@@ -53,7 +54,7 @@ public class TxtWriterZZZTest  extends TestCase{
 				sFileUnsortedPathTotal = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_UNSORTED_NAME_DEFAULT );
 				sFileEmptyPathTotal = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_EMPTY_NAME_DEFAULT );
 			}else{
-				//Eclipse Workspace
+				//Eclipse Worspace
 				File f = new File("");
 			    String sPathEclipse = f.getAbsolutePath();
 			    System.out.println("Path for Kernel Directory Default does not exist. Using workspace absolut path: " + sPathEclipse);
@@ -63,17 +64,19 @@ public class TxtWriterZZZTest  extends TestCase{
 				sFileEmptyPathTotal = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_EMPTY_NAME_DEFAULT );
 			}
 			
+			sLineFirstForTest = ";This is a temporarily test file for TxtWriterZZZTest.";
+			sLineSecondForTest = "#This text has sorted lines. Comment lines should be ignored.";
+			
 			IStreamZZZ objStreamFile = new StreamZZZ(sFileSortedPathTotal, 1);  //This is not enough, to create the file			
-			objStreamFile.println(";This is a temporarily test file for TxtWriterZZZTest.");      //Now the File is created. This is a comment line
-			objStreamFile.println("#This text has sorted lines. Comment lines should be ignored.");
+			objStreamFile.println(sLineFirstForTest);      //Now the File is created. This is a comment line
+			objStreamFile.println(sLineSecondForTest);
 			objStreamFile.println("A Line");
 			objStreamFile.println("B Line");			
 			objStreamFile.println("C Line");
 			objStreamFile.println(";Comment line to be ignored.");
 			objStreamFile.println("D Line");
-			objStreamFile.println("    ");   //Die Leerzeile soll auch ignoriert werden
+			objStreamFile.println("  ");  //empty line 
 			objStreamFile.println("E Line");			
-			objStreamFile.println("F Line");
 			objStreamFile.close();
 			
 			objStreamFile = new StreamZZZ(sFileUnsortedPathTotal, 1);  //This is not enough, to create the file			
@@ -85,6 +88,7 @@ public class TxtWriterZZZTest  extends TestCase{
 			objStreamFile.println("F Line original unsorted");
 			objStreamFile.println("B Line original unsorted");			
 			objStreamFile.println("D Line original unsorted");
+			objStreamFile.println("  ");  //empty line 
 			objStreamFile.println("E Line original unsorted");		
 			objStreamFile.close();
 			
@@ -94,7 +98,7 @@ public class TxtWriterZZZTest  extends TestCase{
 			objFileSorted = new File(sFileSortedPathTotal);
 			objFileUnsorted = new File(sFileUnsortedPathTotal);
 			objFileEmpty = new File(sFileEmptyPathTotal);
-			
+						
 			//Wichtig für das Aufräumen
 			listFilePathUsed = new ArrayList<String>(); 
 			listFilePathUsed.add(objFileSorted.getAbsolutePath());
@@ -104,20 +108,14 @@ public class TxtWriterZZZTest  extends TestCase{
 			//### Die TestObjecte
 			
 			//An object just initialized, only for writing
-			objWriterInit = new TxtWriterZZZ(); 
+			objReaderInit = new TxtReaderZZZ(); 
 			
 			//The main objects used for testing
-			//String[] saFlag = {"IsFileSorted"};
-			//String[] saFlag = {"IsFileSorted", "TopOfCommentLine"};
-			//String[] saFlag = {"IsFileSorted", "TopOfEmptyLine"};
-			//String[] saFlag = {"IsFileSorted", "IgnoreCase"};
-			String[] saFlag = {"IsFileSorted", "IgnoreCase", "TopOfEmptyLine", "TopOfCommentLine"};
-			objWriterSorted = new TxtWriterZZZ(objFileSorted, saFlag);
-			objWriterUnsorted = new TxtWriterZZZ(objFileUnsorted);
-			objWriterEmpty = new TxtWriterZZZ(objFileEmpty, null);
-			
-			
-			
+			String[] saFlag = {"IsFileSorted", "IgnoreCommentLine", "IgnoreEmptyLine"};
+			objReaderSorted = new TxtReaderZZZ(objFileSorted, saFlag);
+			objReaderUnsorted = new TxtReaderZZZ(objFileUnsorted);
+			objReaderEmpty = new TxtReaderZZZ(objFileEmpty, (String) null);
+												
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		} catch (FileNotFoundException e) {
@@ -132,14 +130,13 @@ public class TxtWriterZZZTest  extends TestCase{
 		}		
 	}//END setup
 	
-
 	@Override
 	protected void tearDown() {
 		try {
 			try {
-				if(this.objWriterSorted!=null)	this.objWriterSorted.close();				
-				if(this.objWriterUnsorted!=null)	this.objWriterUnsorted.close();
-				if(this.objWriterEmpty!=null)	this.objWriterEmpty.close();				
+				if(this.objReaderSorted!=null)	this.objReaderSorted.close();				
+				if(this.objReaderUnsorted!=null)	this.objReaderUnsorted.close();
+				if(this.objReaderEmpty!=null)	this.objReaderEmpty.close();				
 			} catch (IOException ioe) {
 				ExceptionZZZ ez = new ExceptionZZZ(ioe);
 				throw ez;
@@ -162,92 +159,88 @@ public class TxtWriterZZZTest  extends TestCase{
 		}
 	}
 	
-	//*
-	public void testAppendVectorString(){
+	public void testFlagZ(){
 		try{
-			Vector vec = new Vector();
-			vec.add("1 appended");
-			vec.add("2 appended");
-			vec.add("3 appended");
+		boolean bSetted = false;
+			try{
+				bSetted = objReaderEmpty.setFlag("NIXDA", true);
+				assertFalse("Setting an unavailable FLAGZ 'NIXDA' should return false",bSetted);
+			} catch (ExceptionZZZ ez) {
+				fail("Setting an unavailable FLAGZ should NOT throw an error.");		
+			}
+			boolean  bExists = objReaderEmpty.proofFlagExists("NIXDA");
+			assertFalse("Object should NOT have FlagZ 'NIXDA'",bExists);
 			
-			objWriterEmpty.appendVectorString(vec);
-			objWriterSorted.appendVectorString(vec);   //??? es ist nun fraglich, ob hier die Werte einfach so angeh�ngt werden sollen.
-			objWriterUnsorted.appendVectorString(vec);
+			//++++++++++++
+			bExists = objReaderSorted.proofFlagExists("IsFileSorted");
+			assertTrue("Object should have FlagZ '" + TxtReaderZZZ.FLAGZ.IsFileSorted + "'",bExists);
+			
+			bExists = objReaderSorted.proofFlagExists("NIXDA");
+			assertFalse("Object should NOT have FlagZ 'NIXDA'",bExists);
+		
+			boolean btemp = objReaderSorted.getFlag("IsFileSorted");
+			assertTrue("Object should have FlagZ '" + TxtReaderZZZ.FLAGZ.IsFileSorted + "' set to true", btemp);
+			
+			//+++++++++++++++++
+			btemp = objReaderUnsorted.getFlag("IsFileSorted");
+			assertFalse("Object should NOT have FlagZ '" + TxtReaderZZZ.FLAGZ.IsFileSorted + "' set to true", btemp);
+			
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		}
-	} //*/
-	
-	public void testInsertLine(){
-		try{
-			//This will test the insertion of text
-			
-			//++++++++++++++++++++++++++++++++++++++
-			long lByte = objWriterEmpty.insertLine("D text inserted");
-			assertTrue(lByte >= 0);
-			
-			lByte = objWriterEmpty.insertLine("C text inserted");
-			assertTrue(lByte >= 0);
-			
-			//+++++++++++++++++++++++++++++++++++++++
-			lByte = objWriterSorted.insertLine("E a text to be inserted");
-			assertTrue(lByte >= 0);
-			
-			lByte = objWriterSorted.insertLine("D a text to be inserted");
-			assertTrue(lByte >= 0);
-			
-			lByte = objWriterSorted.insertLine("C a text to be inserted");
-			assertTrue(lByte >= 0);
-			
-			
-			//+++++++++++++++++++++++++++++++++++++++
-			lByte = objWriterUnsorted.insertLine("D text inserted");
-			assertTrue(lByte >= 0);
-			lByte = objWriterUnsorted.insertLine("C text inserted");
-			assertTrue(lByte >= 0);
 		
+	}
+	
+	public void testReadPositionLineFirst(){
+		try{
+			long lPosition = objReaderUnsorted.readPositionLineFirst("A Line original unsorted", 0);
+			assertTrue(lPosition >= 1);
 			
+			lPosition = objReaderSorted.readPositionLineFirst("A Line original unsorted", 0);
+			assertFalse(lPosition >= 1);
 			
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		}
 	}
 	
-	public void testRemoveLine(){
+	public void testReadLine(){
 		try{
-			//This will test the remove of text
+			long lStartPosition = this.sLineFirstForTest.length() + 2;  //+2 wg CR + LF
 			
-			//++++++++++++++++++++++++++++++++++++++
-			long lByte = objWriterEmpty.removeLineFirst("D Line", 0);
-			assertTrue(lByte <= -1);
-					
-			 lByte = objWriterEmpty.removeLineFirst("D Line", 10);
-			assertTrue(lByte <= -1);
-				
-			//+++++++++++++++++++++++++++++++++++++++
-			lByte = objWriterSorted.removeLineFirst("D Line", 0);
-			assertTrue(lByte >= 0);
+			String sLine = objReaderSorted.readLineByByte(lStartPosition);
+			assertEquals(sLine, this.sLineSecondForTest);
 			
-			lByte = objWriterSorted.removeLineFirst("D Line", lByte);
-			assertTrue(lByte <= -1);
-			
-			
-			lByte = objWriterSorted.removeLineFirst("F Line", 0);
-			assertTrue(lByte >= 0);
-			
-			
-			//+++++++++++++++++++++++++++++++++++++++
-			lByte = objWriterUnsorted.removeLineFirst("E Line original unsorted",0);
-			assertTrue(lByte >= 0);
-			lByte = objWriterUnsorted.removeLineFirst("C Line original unsorted",0);
-			assertTrue(lByte >= 0);
-		
-					
+			lStartPosition = this.sLineFirstForTest.length();
+			sLine = objReaderSorted.readLineNextByByte(lStartPosition);
+			assertEquals(sLine, this.sLineSecondForTest);
+						
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		}
 	}
 	
-
-	
+	/** void, Test: Receiving the content of an .ini-section
+	* Lindhauer; 23.04.2006 09:13:04
+	 */
+	public void testReadVectorString(){
+		try{
+			long lStartByte = 0;
+			
+			//This will test the reading of text
+			Vector vec = objReaderEmpty.readVectorStringByByte(lStartByte);
+			assertTrue(vec.size()==0);
+			
+			vec.clear();
+			vec = objReaderSorted.readVectorStringByByte(lStartByte);
+			assertTrue(vec.size() == 5);
+			
+			vec.clear();
+			vec = objReaderUnsorted.readVectorStringByByte(lStartByte);
+			assertTrue(vec.size() == 10);
+			
+		} catch (ExceptionZZZ ez) {
+			fail("Method throws an exception." + ez.getMessageLast());
+		}
+	}
 }//end class

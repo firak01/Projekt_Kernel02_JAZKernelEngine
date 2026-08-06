@@ -9,7 +9,7 @@ import basic.zBasic.util.abstractList.ListUtilZZZ;
 public class FileTextInserterZZZ  extends  AbstractFileTextSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
-	public FileTextInserterZZZ() {		
+	public FileTextInserterZZZ() throws ExceptionZZZ {		
 	}
 	public FileTextInserterZZZ(String sFilePath) throws ExceptionZZZ{
 		super(sFilePath);

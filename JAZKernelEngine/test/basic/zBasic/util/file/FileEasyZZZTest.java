@@ -11,6 +11,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.dateTime.DateTimeZZZ;
 import basic.zBasic.util.file.jar.JarEasyZZZ;
+import basic.zBasic.util.file.jar.JarEasyZZZTest;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 
 public class FileEasyZZZTest extends TestCase{

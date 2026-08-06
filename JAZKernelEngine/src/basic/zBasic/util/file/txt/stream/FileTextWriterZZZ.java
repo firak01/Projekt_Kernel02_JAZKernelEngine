@@ -15,10 +15,11 @@ import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 
 public class FileTextWriterZZZ extends AbstractFileTextReaderZZZ{
+	private static final long serialVersionUID = -8791560715152516646L;
 	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
 	
 	
-	public FileTextWriterZZZ() {
+	public FileTextWriterZZZ() throws ExceptionZZZ {
 		super();
 	}
 	
@@ -26,7 +27,7 @@ public class FileTextWriterZZZ extends AbstractFileTextReaderZZZ{
 		super(sFilePath);
 	}
 	
-	public FileTextWriterZZZ(File objFile) throws ExceptionZZZ{
+	public FileTextWriterZZZ(File objFile) throws ExceptionZZZ {
 		super(objFile);
 	}
 	

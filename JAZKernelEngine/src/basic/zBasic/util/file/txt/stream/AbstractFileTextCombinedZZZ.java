@@ -20,7 +20,7 @@ public abstract class AbstractFileTextCombinedZZZ extends AbstractFileTextReader
 	protected List<String> listaLineSplittedPre = null;
 	protected List<String> listaLineSplittedPost = null;
 
-	public AbstractFileTextCombinedZZZ() {
+	public AbstractFileTextCombinedZZZ() throws ExceptionZZZ {
 		super();
 	}
 

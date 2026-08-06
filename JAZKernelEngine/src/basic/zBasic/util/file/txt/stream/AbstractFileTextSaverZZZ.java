@@ -21,7 +21,7 @@ public abstract class AbstractFileTextSaverZZZ extends AbstractFileTextReaderZZZ
 	
 	protected String sFilePathSavedLast = null; 
 	
-	public AbstractFileTextSaverZZZ() {		
+	public AbstractFileTextSaverZZZ() throws ExceptionZZZ{		
 	}
 	public AbstractFileTextSaverZZZ(String sFilePath) throws ExceptionZZZ{
 		super(sFilePath);

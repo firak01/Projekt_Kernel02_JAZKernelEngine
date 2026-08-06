@@ -11,7 +11,7 @@ import basic.zBasic.util.abstractList.ListUtilZZZ;
 public class FileTextAppenderZZZ extends AbstractFileTextSaverZZZ {
 	private static final long serialVersionUID = 7754836813854270845L;
 
-	public FileTextAppenderZZZ() {
+	public FileTextAppenderZZZ() throws ExceptionZZZ {
 	}
 
 	public FileTextAppenderZZZ(String sFileName) throws ExceptionZZZ {

@@ -1,4 +1,4 @@
-package basic.zBasic.util.file;
+package basic.zBasic.util.file.txt.stream;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.txt.stream.FileTextAppenderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;

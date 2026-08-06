@@ -1,11 +1,6 @@
-package basic.zBasic.util.file;
+package basic.zBasic.util.file.jar;
 
-//import org.junit.internal.TextListener;
-//import org.junit.runner.JUnitCore;
-
-import junit.textui.TestRunner;
-
-public class JarEasyInCurrentJarZZZTestMain {
+public class JarEasyUtilZZZTestMain {
 
 	/**
 	 * Hiermit eine Swing-Gui starten.
@@ -35,7 +30,7 @@ public class JarEasyInCurrentJarZZZTestMain {
 		//Lösung Junit 3, Jar Dateien extra importiert als Alternative zu JUnit4, mit GUI
 		//Aber, um die JUnit SwingGui zu nutzen muss man sich extra eine "alte" Jar Datei downloaden
 		//http://junit.10954.n7.nabble.com/Why-should-I-continue-to-use-junit-swingui-TestRunner-with-JUnit-4-1-td4589.html		
-		junit.swingui.TestRunner.run(JarEasyInCurrentJarZZZTest.class);
+		junit.swingui.TestRunner.run(JarEasyUtilZZZTest.class);
 
 		
 	}

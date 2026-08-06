@@ -19,21 +19,21 @@ import basic.zBasic.util.stream.IStreamZZZ;
  */
 public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExceptionZZZ implements Closeable{
 	private static final long serialVersionUID = -1464375530224033955L;
-	protected IStreamZZZ objStream = null;
-	protected String sFilePath = null;
+	public static final String sFILE_NAME_DEFAULT= "Textfile_default.txt";
+	
+	
+	protected IStreamZZZ objStream = null;	
 	protected File objFile = null;
-	
+	protected String sFilePath=null;
+		
 	protected List<String> listaLine = null;
-	
-	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
-	
-	
+		
 	public AbstractFileTextReaderZZZ() throws ExceptionZZZ {	
 		super();
 	}
 	
 	public AbstractFileTextReaderZZZ(String sFilePath) throws ExceptionZZZ {
-		super();
+		super();		
 		this.setFilePath(sFilePath);
 	}
 	
@@ -118,7 +118,6 @@ public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExcept
 	public void setLines(List<String>listaLine) {
 		this.listaLine = listaLine;
 	}
-	
 	
 	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
 	@Override

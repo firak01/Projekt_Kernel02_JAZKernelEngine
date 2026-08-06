@@ -20,7 +20,7 @@ public abstract class AbstractFileTextCombinedSaverZZZ extends AbstractFileTextC
 	protected String sFilePathSavedPreLast = null; 	
 	protected String sFilePathSavedPostLast = null; 	
 	
-	public AbstractFileTextCombinedSaverZZZ() {
+	public AbstractFileTextCombinedSaverZZZ() throws ExceptionZZZ {
 		super();
 	}
 

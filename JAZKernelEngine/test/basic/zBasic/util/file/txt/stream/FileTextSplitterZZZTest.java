@@ -1,4 +1,4 @@
-package basic.zBasic.util.file;
+package basic.zBasic.util.file.txt.stream;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,27 +6,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
-
-import junit.framework.TestCase;
-import basic.javagently.Stream;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.txt.parser.FileTextParserZZZ;
+import basic.zBasic.util.file.txt.stream.FileTextSplitterZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;
+import junit.framework.TestCase;
 
-public class FileTextParserZZZTest extends TestCase{
+public class FileTextSplitterZZZTest extends TestCase{
 	private File objFileSource=null;
-	private File objFileTarget=null;
+	private File objFileTargetPre=null;
+	private File objFileTargetPost=null;
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
-	private final static String strFILE_NAME_DEFAULT = new String("JUnitKernelFileParseTest.txt");
-	private final static String strFILE_NAME_DEFAULT_RESULT = new String("JUnitKernelFileParseResult.txt");
+	private final static String strFILE_NAME_DEFAULT = new String("JUnitKernelFileSplittTest.txt");
+	private final static String strFILE_NAME_DEFAULT_RESULT_A = new String("JUnitKernelFileSplitResultA.txt");
+	private final static String strFILE_NAME_DEFAULT_RESULT_B = new String("JUnitKernelFileSplitResultB.txt");
 
 	
-	private FileTextParserZZZ objParserTest = null;
+	private FileTextSplitterZZZ objSplitterTest = null;
 	
 	//+++ Test setup
 	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
@@ -37,7 +35,7 @@ public class FileTextParserZZZTest extends TestCase{
 			
 			//Eine Beispieldatei. Durch deren Existenz kann man den Namen einer Folgedatei bestimmen, welche eine 'Expansion' erhält.
 			//Merke: Dadurch, dass man die Datei per stream - aufbaut, werden keine Einträge an eine vorherige Datei angehängt, sondern die Datei wird für jeden Test neu geschrieben.			
-			String sFilePathTotal = null;
+			String sFilePathTotal = null;            String sFilePathTotalA = null; 			String sFilePathTotalB = null;
 			if(FileEasyZZZ.exists(strFILE_DIRECTORY_DEFAULT)){
 				sFilePathTotal = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT );
 			}else{
@@ -60,29 +58,45 @@ public class FileTextParserZZZTest extends TestCase{
 			objStreamFile.println("erste zeile ist doppelt");  
 			objStreamFile.println("doppelte erste zeile");    
 			objStreamFile.println("noch eine doppelte erste zeile");   
-			objStreamFile.close();			
+			objStreamFile.close();
+			
 			this.objFileSource = new File(sFilePathTotal);
 			
-						
+			//+++++++++++++++++++++++++++++++++++
 			if(FileEasyZZZ.exists(strFILE_DIRECTORY_DEFAULT)){
-				sFilePathTotal = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT_RESULT );
+				sFilePathTotalA = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT_RESULT_A );
 			}else{
 				//Eclipse Workspace
 				File f = new File("");
 			    String sPathEclipse = f.getAbsolutePath();
 			    System.out.println("Path for Kernel Directory Default does not exist. Using workspace absolut path: " + sPathEclipse);
-			    sFilePathTotal = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_NAME_DEFAULT_RESULT );			   
+			    sFilePathTotalA = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_NAME_DEFAULT_RESULT_A );			   
+			}
+						
+			this.objFileTargetPre = new File(sFilePathTotalA);			
+			//++++++++++++++++++++++++++
+			//+++++++++++++++++++++++++++++++++++
+			if(FileEasyZZZ.exists(strFILE_DIRECTORY_DEFAULT)){
+				sFilePathTotalB = FileEasyZZZ.joinFilePathName(strFILE_DIRECTORY_DEFAULT, strFILE_NAME_DEFAULT_RESULT_B );
+			}else{
+				//Eclipse Workspace
+				File f = new File("");
+			    String sPathEclipse = f.getAbsolutePath();
+			    System.out.println("Path for Kernel Directory Default does not exist. Using workspace absolut path: " + sPathEclipse);
+			    sFilePathTotalB = FileEasyZZZ.joinFilePathName(sPathEclipse + File.separator + "test", strFILE_NAME_DEFAULT_RESULT_B );			   
 			}						
-			this.objFileTarget = new File(sFilePathTotal);
+			this.objFileTargetPost = new File(sFilePathTotalB);	
 			
-			//Wichtig für das Aufräumen
-			listFilePathUsed = new ArrayList<String>(); 
-			listFilePathUsed.add(objFileSource.getAbsolutePath());
-			listFilePathUsed.add(objFileTarget.getAbsolutePath());
 			
 			//The main object used for testing
-			objParserTest = new FileTextParserZZZ(objFileSource, (String[]) null);
+			objSplitterTest = new FileTextSplitterZZZ(objFileSource);
 			
+			//für´s Aufräumen
+			listFilePathUsed = new ArrayList<String>();
+			listFilePathUsed.add(objFileSource.getAbsolutePath());
+			listFilePathUsed.add(objFileTargetPre.getAbsolutePath());
+			listFilePathUsed.add(objFileTargetPost.getAbsolutePath());
+		
 		} catch (ExceptionZZZ e) {
 			fail("Method throws an exception." + e.getMessageLast());
 		} catch (FileNotFoundException e) {
@@ -97,7 +111,6 @@ public class FileTextParserZZZTest extends TestCase{
 		}		
 	}//END setup
 	 
-
 	@Override
 	protected void tearDown() {
 		try {
@@ -121,35 +134,32 @@ public class FileTextParserZZZTest extends TestCase{
 	public void testConstructor(){
 		try{
 			//Init - Object
-			String[] saFlag = {"init"};
-			FileTextParserZZZ objParserInit = new FileTextParserZZZ(null, saFlag);
-			assertTrue(objParserInit.getFlag("init")==true); 
-			
-			
+			FileTextSplitterZZZ objSplitterInit = new FileTextSplitterZZZ(objFileSource);
+						
 			//TestKonfiguration pr�fen
-			assertFalse(objParserTest.getFlag("init")==true); //Nun w�re init falsch
+			assertNotNull(objSplitterInit);
 		}catch(ExceptionZZZ ez){
 			fail("An exception happend testing: " + ez.getDetailAllLast());
 		}
 	}
 	
-	public void testLineNumberAll(){
-		String s2Search="erste";		
+	public void testSplitByLinenumber(){		
 		try {
-			RE objRe = new RE("^" + s2Search);
-			Integer[] intaLine = objParserTest.readLineNumberAll(objRe);
-			assertNotNull(intaLine);
-			assertEquals(intaLine.length, 2);
+			FileTextSplitterZZZ objSplitterInit = new FileTextSplitterZZZ(objFileSource);					
+			objSplitterInit.split(3);
+			objSplitterInit.setFilePathPre(objFileTargetPre.getAbsolutePath());
+			objSplitterInit.setFilePathPost(objFileTargetPost.getAbsolutePath());
+			objSplitterInit.save();
+									
+			boolean bExistsPre = FileEasyZZZ.exists(objFileTargetPre);
+			assertTrue(bExistsPre);
+			listFilePathUsed.add(objFileTargetPre.getAbsolutePath());
+			
+			boolean bExistsPost = FileEasyZZZ.exists(objFileTargetPost);			
+			assertTrue(bExistsPost);
+			listFilePathUsed.add(objFileTargetPost.getAbsolutePath());
 			
 			
-			RE objRe2 = new RE(s2Search);
-			Integer[] intaLine2 = objParserTest.readLineNumberAll(objRe2);
-			assertNotNull(intaLine2);
-			assertEquals(intaLine2.length, 4);
-			
-			
-		} catch (RESyntaxException e) {
-			fail("An 'regular expression syntax' exception happend: " + e.getMessage());
 		}catch(ExceptionZZZ ez){
 			fail("An exception happend testing: " + ez.getDetailAllLast());
 		}
@@ -157,62 +167,5 @@ public class FileTextParserZZZTest extends TestCase{
 	}
 	
 	
-	public void testReplaceLine(){
-		String s2Search="erste";		
-		try {
-			RE objRe = new RE("^" + s2Search);
-			int iLineReplaced = objParserTest.replaceLine(this.objFileTarget, objRe, "das war ein Test");
-			assertEquals(2,iLineReplaced);
-			
-			RE objRe2 = new RE("^das war ein Test");
-			iLineReplaced = objParserTest.replaceLine(this.objFileTarget, objRe2, "das war ein weiterer Test");
-			assertEquals(2, iLineReplaced);
-			
-		} catch (RESyntaxException e) {
-			fail("An 'regular expression syntax' exception happend: " + e.getMessage());
-		}catch(ExceptionZZZ ez){
-			fail("An exception happend testing: " + ez.getDetailAllLast());
-		}
-		
-	}
-	
-	
-	public void testHasLine(){
-		String s2Search="erste";		
-		try {
-			RE objRe = new RE("^" + s2Search);
-			boolean btemp = objParserTest.hasLine(objRe);
-			assertTrue(btemp);
-			
-			objRe = new RE("^DAS GIBT ES NICHT");
-			btemp = objParserTest.hasLine(objRe);
-			assertFalse(btemp);
-			
-			//###################################
-			btemp = objParserTest.hasLine("erste zeile", false);
-			assertTrue(btemp);
-			
-			btemp = objParserTest.hasLine("das gibt es nicht", false);
-			assertFalse(btemp);
-			
-		} catch (RESyntaxException e) {
-			fail("An 'regular expression syntax' exception happend: " + e.getMessage());
-		}catch(ExceptionZZZ ez){
-			fail("An exception happend testing: " + ez.getDetailAllLast());
-		}
-	}
-	
-	public void testAppendLine(){
-		String s2Append = "Das soll die letzte Zeile werden";
-		try{
-			long ltemp = objParserTest.appendLine(objFileTarget, s2Append);
-			assertTrue(ltemp >= 2); //Weil eine Zeil ja schon vorher drin stehen soll
-			
-			long ltemp2 = objParserTest.appendLine(objFileTarget, "Nein, das hier ist jetzt das allerletzte");
-			assertTrue(ltemp2 > ltemp); //Weil eine Zeil ja schon vorher drin stehen soll
-			
-		}catch(ExceptionZZZ ez){
-			fail("An exception happend testing: " + ez.getDetailAllLast());
-		}
-	}
+
 }//END Class

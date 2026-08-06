@@ -1,4 +1,4 @@
-import basic.zBasic.util.file.JarEasyZZZTest;
+import basic.zBasic.util.file.jar.JarEasyZZZTest;
 
 public class KernelAllTestZZZMain {
 

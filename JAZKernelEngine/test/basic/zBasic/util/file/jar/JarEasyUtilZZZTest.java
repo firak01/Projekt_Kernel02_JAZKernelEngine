@@ -1,4 +1,4 @@
-package basic.zBasic.util.file;
+package basic.zBasic.util.file.jar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +24,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
+import basic.zBasic.util.file.JarKernelZZZ;
 import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 import basic.zBasic.util.file.jar.JarEasyZZZ;
 import basic.zBasic.util.file.jar.filter.FileDirectoryFilterInJarZZZ;

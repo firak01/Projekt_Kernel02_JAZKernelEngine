@@ -9,7 +9,7 @@ import basic.zBasic.util.abstractList.ListUtilZZZ;
 public class FileTextReplacerZZZ  extends  AbstractFileTextSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
-	public FileTextReplacerZZZ() {		
+	public FileTextReplacerZZZ() throws ExceptionZZZ {		
 	}
 	public FileTextReplacerZZZ(String sFileName) throws ExceptionZZZ{
 		super(sFileName);

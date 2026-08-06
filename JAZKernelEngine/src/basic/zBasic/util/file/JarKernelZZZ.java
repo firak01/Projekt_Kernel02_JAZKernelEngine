@@ -8,6 +8,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.jar.IJarEasyConstantsZZZ;
+import basic.zBasic.util.file.jar.JarEasyTestCommonsZZZ;
 import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 
 public class JarKernelZZZ extends AbstractObjectWithExceptionZZZ implements IJarEasyConstantsZZZ{

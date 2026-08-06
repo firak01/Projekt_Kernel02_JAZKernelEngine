@@ -5,7 +5,6 @@ import java.io.File;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.txt.stream.AbstractFileTextReaderZZZ;
 
 /** Vorbild ist CSVReader.java, was aber ohne Wiederverwendbare Kernel-Komponenten gebaut ist.
  *  FileCsvReaderZZZ setzt auf Kernel-Komponenten auf, die dadurch wiederverwendet werden und "immer robuster" werden.
@@ -16,44 +15,44 @@ import basic.zBasic.util.file.txt.stream.AbstractFileTextReaderZZZ;
  * @param <T>
  *
  */
-public class FileCsvReaderZZZ<T> extends AbstractFileCsvReaderLoaderZZZ<T> {
+public class FileCsvReaderIteratorZZZ<T> extends AbstractFileCsvReaderIteratorZZZ<T> {
 	private static final long serialVersionUID = -7107764826935730960L;
 
 
-	public FileCsvReaderZZZ() throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ() throws ExceptionZZZ {
 		super();
 		FileCsvReaderNew_();
 	}
 	
 
-	public FileCsvReaderZZZ(char cDelimiter) throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ(char cDelimiter) throws ExceptionZZZ {
 		super(cDelimiter);
 		FileCsvReaderNew_();
 	}
 	
 
-	public FileCsvReaderZZZ(String sFilePathTotal) throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ(String sFilePathTotal) throws ExceptionZZZ {
 		super(sFilePathTotal);		
 		FileCsvReaderNew_();
 	}
 		
-	public FileCsvReaderZZZ(String sFilePathTotal, char cDelimiter) throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ(String sFilePathTotal, char cDelimiter) throws ExceptionZZZ {
 		super(sFilePathTotal, cDelimiter);		
 		FileCsvReaderNew_();
 	}
 	
-	public FileCsvReaderZZZ(String sDirectoryIn, String sFileNameIn) throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ(String sDirectoryIn, String sFileNameIn) throws ExceptionZZZ {
 		super(sDirectoryIn, sFileNameIn);		
 		FileCsvReaderNew_();
 	}
 	
-	public FileCsvReaderZZZ(String sDirectoryIn, String sFileNameIn, char cDelimiter) throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ(String sDirectoryIn, String sFileNameIn, char cDelimiter) throws ExceptionZZZ {
 		super(sDirectoryIn, sFileNameIn, cDelimiter);
 		FileCsvReaderNew_();
 	}
 	
 	//++++++
-	public FileCsvReaderZZZ(File objFile, String[] saFlag) throws ExceptionZZZ {
+	public FileCsvReaderIteratorZZZ(File objFile, String[] saFlag) throws ExceptionZZZ {
 		super(objFile, saFlag);
 		FileCsvReaderNew_();
 	}
@@ -67,4 +66,5 @@ public class FileCsvReaderZZZ<T> extends AbstractFileCsvReaderLoaderZZZ<T> {
 		}//end main:
 		return bReturn;
 	}
+
 }
