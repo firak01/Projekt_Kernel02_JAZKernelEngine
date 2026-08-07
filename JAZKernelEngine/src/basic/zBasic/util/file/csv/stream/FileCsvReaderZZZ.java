@@ -54,6 +54,17 @@ public class FileCsvReaderZZZ<T> extends AbstractFileCsvReaderLoaderZZZ<T> {
 	}
 	
 	//++++++
+	public FileCsvReaderZZZ(File objFile) throws ExceptionZZZ {
+		super(objFile, (String[])null);
+		FileCsvReaderNew_();
+	}
+	
+	public FileCsvReaderZZZ(File objFile, char cDelimiter) throws ExceptionZZZ {
+		super(objFile, cDelimiter, (String[])null);
+		FileCsvReaderNew_();
+	}
+	
+	
 	public FileCsvReaderZZZ(File objFile, String[] saFlag) throws ExceptionZZZ {
 		super(objFile, saFlag);
 		FileCsvReaderNew_();

@@ -48,6 +48,27 @@ public class FileEasyZZZ extends AbstractObjectWithExceptionZZZ implements IFile
 		//Zum Verstecken des Konstruktors, sind halt nur static MEthoden
 	}
 
+	
+	/** Überprüft, ob unter dem angegebenen pfadnamen "fileName" eine Datei existiert.
+	 *  Merke: Das hat einen anderen Algorithums, als die gleiche Methode mit File-Objekt als Parameter
+	 * @param fileName
+	 * @return
+	 * @throws ExceptionZZZ 
+	 */
+	public static boolean exists (String sFilePath, String sFileName) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(StringZZZ.isEmpty(sFilePath) && StringZZZ.isEmpty(sFileName)){
+				ExceptionZZZ ez  = new ExceptionZZZ("FilePath and FileName", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+			
+			String sFilePathTotal = FileEasyZZZ.joinFilePathName(sFilePath, sFileName);
+			bReturn = FileEasyZZZ.exists(sFilePathTotal);
+		}//end main:
+		return bReturn;
+	} 
+	
 /** Überprüft, ob unter dem angegebenen pfadnamen "fileName" eine Datei existiert.
  *  Merke: Das hat einen anderen Algorithums, als die gleiche Methode mit File-Objekt als Parameter
  * @param fileName

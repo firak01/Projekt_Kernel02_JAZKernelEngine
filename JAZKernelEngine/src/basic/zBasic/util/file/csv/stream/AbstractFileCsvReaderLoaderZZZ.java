@@ -41,6 +41,8 @@ public abstract class AbstractFileCsvReaderLoaderZZZ<T>  extends AbstractFileCsv
 		
 	protected FileTextReaderZZZ objFileTextReader = null;
 	
+	protected List<String> listaLineCsv = null; //Das sind aber nur gültige csv-Zeilen.
+		
 	public AbstractFileCsvReaderLoaderZZZ() throws ExceptionZZZ {
 		super();
 		AbstractFileCsvReaderNew_();
@@ -77,6 +79,11 @@ public abstract class AbstractFileCsvReaderLoaderZZZ<T>  extends AbstractFileCsv
 		AbstractFileCsvReaderNew_();
 	}
 	
+	public AbstractFileCsvReaderLoaderZZZ(File objFile, char cDelimiter, String[] saFlag) throws ExceptionZZZ {
+		super(objFile, cDelimiter, saFlag);		
+		AbstractFileCsvReaderNew_();
+	}
+	
 	
 	private boolean AbstractFileCsvReaderNew_() throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -90,6 +97,14 @@ public abstract class AbstractFileCsvReaderLoaderZZZ<T>  extends AbstractFileCsv
 	
 	//############################################
 	//### GETTER / SETTER
+	public List<String>getLines() throws ExceptionZZZ{
+		if(this.listaLineCsv==null) {
+			this.listaLineCsv = new ArrayList<String>();
+			this.load();
+		}
+		return this.listaLineCsv;
+	}
+	
 	
 	//### aus IFileTextReaderUserZZZ
 	@Override
@@ -167,14 +182,28 @@ public abstract class AbstractFileCsvReaderLoaderZZZ<T>  extends AbstractFileCsv
 				   throw ez;						
 				}
 				
-				//###############################################
-				//### 1. Lies alle Zeilen ein, als Liste
-				List<String> listasLine = objFileTextReader.getLines();
 				
-				//Die erste Zeile ist der Header
-				String sHeaderLine = listasLine.get(0);
-				this.readHeader(sHeaderLine);
-
+//				//###############################################
+//				//### 1. Lies alle Zeilen ein, als Liste
+				//Das ist falsch
+				
+//				List<String> listasLine = objFileTextReader.getLines();
+//				
+//				//Die erste Zeile ist der Header
+//				String sHeaderLine = listasLine.get(0);
+//				this.readHeader(sHeaderLine);
+				
+				//Das sollte richtig sein
+				//Einlesen der Zeilen in den Vector über
+				//1. Header
+				this.readHeader();
+				
+				//2. weitere CSV Zeilen über nehmen, ungeparsed
+				while(hasMoreLines()) {
+					this.getLines().add(this.sNextLine); //füge die Zeile hinzu, die kein Kommentar oder Leerzeile ist.
+				}
+				
+				bReturn = true;
 		}//end main:
 		return bReturn;
 	}

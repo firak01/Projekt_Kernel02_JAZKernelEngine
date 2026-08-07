@@ -31,7 +31,7 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 	protected int iLineStartCsv=-1;
 	protected Vector<String> vecHeader = null;
 	
-	protected String sNextLine = null; //Die Zeile, die als nächstes geparsed werden kann.
+	protected String sNextLine = null; //Die Zeile, (Kein Kommentar, keine Leerzeile) die als nächstes geparsed werden kann.
 	protected int iCurrentLine = -1;  //Die Zeilennummer (Index), der als nächstes geparsed werden kann.
 	protected String sCurrentLineCsv = null; //Die aktuelle/letzte Zeile geparste Zeile (vermutlich mit Csv - Daten).
 	
@@ -79,6 +79,11 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 	
 	//++++++++++++++++++
 	public AbstractFileCsvReaderZZZ(File objFile, String[] saFlag) throws ExceptionZZZ {
+		super(saFlag);		
+		AbstractFileCsvReaderNew_(objFile, cDelimiter);//Der NULL Wert für char  
+	}
+	
+	public AbstractFileCsvReaderZZZ(File objFile, char cDelimiter, String[] saFlag) throws ExceptionZZZ {
 		super(saFlag);		
 		AbstractFileCsvReaderNew_(objFile, cDelimiter);
 	}
