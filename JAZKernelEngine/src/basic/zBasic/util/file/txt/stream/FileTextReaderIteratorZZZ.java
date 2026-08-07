@@ -17,19 +17,17 @@ import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
-public class FileTextReaderIteratorZZZ extends  AbstractFileTextReaderIteratorZZZ{
+public class FileTextReaderIteratorZZZ<T> extends  AbstractFileTextReaderIteratorZZZ<T>{
 	private static final long serialVersionUID = -9054462955710855745L;
 	
 	public FileTextReaderIteratorZZZ() throws ExceptionZZZ {	
 		super();
 	}
 	public FileTextReaderIteratorZZZ(String sFilePathTotal) throws ExceptionZZZ {
-		super();
-		this.setFilePath(sFilePathTotal);
+		super(sFilePathTotal);		
 	}
 	public FileTextReaderIteratorZZZ(File objFile) throws ExceptionZZZ {
-		super();
-		this.setFileObject(objFile);
+		super(objFile);		
 	}
 	
 	

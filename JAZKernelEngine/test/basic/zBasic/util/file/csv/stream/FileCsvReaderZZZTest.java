@@ -301,7 +301,7 @@ public class FileCsvReaderZZZTest  extends TestCase{
 		try{
 			
 			//boolean bSuccess  = objReaderSorted.load();
-			LinkedHashMap<String,String> hsCsv = null;
+			LinkedHashMap<String,String> hmCsv = null;
 			Set<String> setHeader = null;
 			int iLine=-1;
 			int iColumn=-1;
@@ -309,39 +309,39 @@ public class FileCsvReaderZZZTest  extends TestCase{
 			//1. Zeile
 			iLine++;
 			iColumn=-1;
-			hsCsv = objReaderSorted.parseNextLineAsMap(false);
-			assertNotNull(hsCsv);			
-			setHeader = hsCsv.keySet();			
+			hmCsv = objReaderSorted.parseNextLineAsMap(false);
+			assertNotNull(hmCsv);			
+			setHeader = hmCsv.keySet();			
 			for(String sHeader : setHeader) {
 				
-				Syso.println(iLine + ": " + sHeader + "\t= " + hsCsv.get(sHeader));
+				Syso.println(iLine + ": " + sHeader + "\t= " + hmCsv.get(sHeader));
 			}
 			
 			//2. Zeile
 			iLine++;
 			iColumn=-1;
-			hsCsv = objReaderSorted.parseNextLineAsMap(false);
-			assertNotNull(hsCsv);			
-			setHeader = hsCsv.keySet();
+			hmCsv = objReaderSorted.parseNextLineAsMap(false);
+			assertNotNull(hmCsv);			
+			setHeader = hmCsv.keySet();
 			for(String sHeader : setHeader) {
 				iColumn++;
-				Syso.println(iLine + ": " + sHeader + "\t= " + hsCsv.get(sHeader));
+				Syso.println(iLine + ": " + sHeader + "\t= " + hmCsv.get(sHeader));
 			}
 			
 			//Weitere Zeilen 3te bis Schluss.
 			do {
 				iLine++;
-				hsCsv = objReaderSorted.parseNextLineAsMap(false);
+				hmCsv = objReaderSorted.parseNextLineAsMap(false);
 				//assertNotNull(hsCsv); //irgendwann soll es ja null werden, wenn nix mehr da ist
-				if(hsCsv!=null) {
-					setHeader = hsCsv.keySet();
+				if(hmCsv!=null) {
+					setHeader = hmCsv.keySet();
 					iColumn=-1;
 					for(String sHeader : setHeader) {
 						iColumn++;
-						Syso.println(iLine + ": " + sHeader + "\t= " + hsCsv.get(sHeader));
+						Syso.println(iLine + ": " + sHeader + "\t= " + hmCsv.get(sHeader));
 					}
 				}//end if hsCsv!=null
-			} while(hsCsv!=null);
+			} while(hmCsv!=null);
 			
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());

@@ -1,6 +1,9 @@
 package basic.zBasic.util.file.csv.stream;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Vector;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
@@ -52,6 +55,11 @@ public class FileCsvReaderIteratorZZZ<T> extends AbstractFileCsvReaderIteratorZZ
 	}
 	
 	//++++++
+	public FileCsvReaderIteratorZZZ(File objFile) throws ExceptionZZZ {
+		super(objFile, (String[])null);
+		FileCsvReaderNew_();
+	}
+	
 	public FileCsvReaderIteratorZZZ(File objFile, String[] saFlag) throws ExceptionZZZ {
 		super(objFile, saFlag);
 		FileCsvReaderNew_();
@@ -66,5 +74,17 @@ public class FileCsvReaderIteratorZZZ<T> extends AbstractFileCsvReaderIteratorZZ
 		}//end main:
 		return bReturn;
 	}
+
+
+	@Override
+	public Iterator<LinkedHashMap<String, String>> iterator() {
+		return this;
+	}
+
+
+	
+
+
+	
 
 }

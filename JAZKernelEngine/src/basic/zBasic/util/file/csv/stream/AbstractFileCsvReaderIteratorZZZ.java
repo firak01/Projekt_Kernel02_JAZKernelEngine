@@ -22,7 +22,8 @@ import basic.zBasic.util.file.txt.stream.FileTextReaderZZZ;
 import basic.zBasic.util.file.txt.stream.IFileTextReaderIteratorUserZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
-public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileCsvReaderZZZ<T> implements IFileCsvReaderEnabledZZZ, IFileTextReaderIteratorUserZZZ, Iterator<String>, Closeable{
+//public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileCsvReaderZZZ<T> implements IFileCsvReaderEnabledZZZ, IFileTextReaderIteratorUserZZZ, Iterator<String>, Closeable{
+public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileCsvReaderZZZ<T> implements IFileCsvReaderEnabledZZZ, IFileTextReaderIteratorUserZZZ, Iterator<LinkedHashMap<String,String>>, Iterable<LinkedHashMap<String,String>>, Closeable{
 	private static final long serialVersionUID = 8453120372088993124L;
 	
 	protected FileTextReaderIteratorZZZ objFileTextReader = null;
@@ -73,32 +74,6 @@ public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileC
 		return bReturn;
 	}
 	
-	
-	
-	
-	//####################################################
-	
-	@Override
-	public boolean hasMoreLines() throws ExceptionZZZ {
-		boolean bReturn=false;
-		main:{
-			int iNextLine = iCurrentLine+1;
-			
-			TODOGOON20260809; Hier nur CSV Zeilen betrachten
-						
-			FileTextReaderIteratorZZZ objFileTextReader = this.getFileTextReaderObject();
-			String sNextLine = objFileTextReader.next(); //Weil der ganze Inhalt der Textdatei gelesen wird, kann das lange dauern.				
-			if (sNextLine == null) {
-				bReturn = false;
-			} else {
-				this.sNextLine = sNextLine;
-				iCurrentLine = iNextLine;
-				bReturn = true;
-			}		
-		}//end main:		
-		return bReturn;
-	}
-
 	//############################################
 	//### GETTER / SETTER
 	
@@ -124,10 +99,97 @@ public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileC
 			throw ez;
 		}
 	}
-	
-	
+		
+		
 	//###############################################
 	//### Methoden
+
+	@Override
+	public Vector<String> readHeader() throws ExceptionZZZ {
+		Vector<String> header = null;
+		main:{
+			try {				
+				//Die Kopfzeile ist die erste Zeile, die kein Kommentar ist
+				int iLineStart=-1;
+				boolean bCsvLine=false;
+				String sLine=null;
+				
+				
+				FileTextReaderIteratorZZZ objReader = this.getFileTextReaderObject();
+				if(objReader==null) {
+					ExceptionZZZ ez = new ExceptionZZZ("FileTextReaderIteratorZZZ", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getPositionCurrent());
+					throw ez;
+				}
+				
+				//A) In den schon eingelesenen Zeilen suchen
+				ArrayList<String> listasLine = objReader.getLines();
+				do {
+					iLineStart++;
+					if(listasLine.size()-1>=iLineStart) {
+						sLine = listasLine.get(iLineStart);
+						bCsvLine = this.isCsvLine(sLine);
+					}else {
+						iLineStart--; //nix gefunden, also wieder zurück.
+						bCsvLine = false;
+						sLine=null;
+					}
+					//sLine = this.getFileTextReaderObject().getLines().get(iLineStart);
+					//sLine = this.getFileTextReaderObject().next();					
+					//bCsvLine = this.isCsvLine(sLine);					
+				}while(!bCsvLine && sLine!=null);
+				
+				//B) In neuen Zeilen suchen
+				if(!bCsvLine) {
+					do {
+						iLineStart++;
+						sLine = objReader.next();
+						bCsvLine = this.isCsvLine(sLine);
+					}while(!bCsvLine && sLine!=null);
+				}
+				
+				if(!bCsvLine) break main;//dann gibt es überhaupt keine CSV-Zeile und damit auch keinen Header.
+				
+				this.iLineStartCsv=iLineStart;
+				this.iCurrentLine=iLineStart;
+				header = parseLine(sLine);			
+			}catch(Exception e) {
+				ExceptionZZZ ez = new ExceptionZZZ(e);
+				throw ez;
+			}
+		}//end main:
+		return header;
+	}
+	
+	@Override
+	public boolean hasMoreLines() throws ExceptionZZZ {
+		boolean bReturn=false;
+		main:{
+			int iNextLine = iCurrentLine;
+			boolean bCsv=false;
+			
+			FileTextReaderIteratorZZZ objFileTextReader = this.getFileTextReaderObject();
+			do{
+				iNextLine = iNextLine+1;
+			
+				String sNextLine = objFileTextReader.next(); //Weil der Reader nicht sofort den ganzen Inhalt der Textdatei gelesen hat, was dann nicht so lange dauern soll.				
+				if (sNextLine == null) {
+					bReturn = false;
+				} else {
+					bCsv = this.isCsvLine(sNextLine);
+					if(bCsv) {
+						this.sNextLine = sNextLine;
+						iCurrentLine = iNextLine;
+						bReturn = true;
+					}else {
+						bReturn = false;
+					}
+				}		
+			}while(!bCsv && sNextLine!=null);
+		}//end main:		
+		return bReturn;
+	}
+	
+	
 	
 	//### aus Iterator	
 	@Override
@@ -141,24 +203,34 @@ public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileC
 	}
 
 	@Override
-	public String next() {
-		try {
-			return this.getFileTextReaderObject().next();
-		} catch (ExceptionZZZ e) {			
-			e.printStackTrace();
-			return null;
-		}
+	//public String next() {
+	public LinkedHashMap<String,String> next() {
+		LinkedHashMap<String,String> hmReturn = null;
+		main:{
+			try {
+				//String sReturn = this.getFileTextReaderObject().next();
+				hmReturn = this.parseNextLineAsMap();
+			} catch (ExceptionZZZ e) {			
+				e.printStackTrace();
+				return null;
+			}
+		}//end main:
+		return hmReturn;		
 	}
 
-	@Override
+//	@Override
+//	IST DOCH EIGENTLICH NICHT IMPLEMENTIERT
 	public void remove() {
-		try {
-			this.getFileTextReaderObject().remove();
-		} catch (ExceptionZZZ ez) {			
-			ez.printStackTrace();
-		}
+//		try {
+//			//this.getFileTextReaderObject().remove();
+//		} catch (ExceptionZZZ ez) {			
+//			ez.printStackTrace();
+//		}
 	}
 	
+	
+	
+	//### aus Closeable
 	@Override
 	public void close() throws IOException {		
 		if(this.objFileTextReader!=null) {

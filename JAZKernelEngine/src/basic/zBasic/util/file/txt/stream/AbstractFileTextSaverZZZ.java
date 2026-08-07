@@ -40,7 +40,7 @@ public abstract class AbstractFileTextSaverZZZ extends AbstractFileTextReaderLoa
 	@Override
 	public IFileExpansionZZZ getFileExpansionObject() throws ExceptionZZZ{
 		if(this.objFileExpansion==null) {
-			File objFile = this.getFileObject();
+			File objFile = this.getFile();
 			this.objFileExpansion = new FileExpansionZZZ(objFile);
 		}
 		return this.objFileExpansion;

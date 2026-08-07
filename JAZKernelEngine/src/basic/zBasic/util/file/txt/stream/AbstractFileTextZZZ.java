@@ -18,7 +18,7 @@ import basic.zBasic.util.stream.IStreamZZZ;
  * @author Fritz Lindhauer
  *
  */
-public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ implements Closeable{
+public abstract class AbstractFileTextZZZ<T> extends AbstractObjectWithExceptionZZZ<T> implements Closeable{
 	private static final long serialVersionUID = -1464375530224033955L;
 	public static final String sFILE_NAME_DEFAULT= "Textfile_default.txt";
 	
@@ -36,7 +36,7 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 	
 	public AbstractFileTextZZZ(File objFile) throws ExceptionZZZ {
 		super();
-		this.setFileObject(objFile);
+		this.setFile(objFile);
 	}
 	
 	//##### Getter / Setter ###################
@@ -59,7 +59,7 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 		this.sFilePath = sFilePath;
 	}
 	
-	public File getFileObject() throws ExceptionZZZ {
+	public File getFile() throws ExceptionZZZ {
 		if(this.objFile==null) {
 			String sFilePath = this.getFilePath();
 			if(StringZZZ.isEmpty(sFilePath)) {
@@ -83,7 +83,7 @@ public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ
 	 * @param objFile
 	 * @throws ExceptionZZZ
 	 */
-	public void setFileObject(File objFile) throws ExceptionZZZ{
+	public void setFile(File objFile) throws ExceptionZZZ{
 		if(objFile!=null) {
 			if(!FileEasyZZZ.exists(objFile)) {
 				ExceptionZZZ ez = new ExceptionZZZ("File does not exist '" + sFilePath + "'", iERROR_PROPERTY_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 

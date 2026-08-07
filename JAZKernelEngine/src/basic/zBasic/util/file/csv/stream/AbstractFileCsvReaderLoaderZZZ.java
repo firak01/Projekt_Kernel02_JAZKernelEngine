@@ -156,7 +156,7 @@ public abstract class AbstractFileCsvReaderLoaderZZZ<T>  extends AbstractFileCsv
 		main:{
 //			try{
 				FileTextReaderZZZ objFileTextReader = this.getFileTextReaderObject();
-				File objFile = objFileTextReader.getFileObject();
+				File objFile = objFileTextReader.getFile();
 				if(objFile==null) {
 					ExceptionZZZ ez = new ExceptionZZZ("Filepath or File-Object", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;

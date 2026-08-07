@@ -50,24 +50,24 @@ public abstract class AbstractFileTextReaderLoaderZZZ extends AbstractFileTextZZ
 	}
 	
 	public synchronized String readAsString() throws ExceptionZZZ{			
-		File objFile = this.getFileObject();		
+		File objFile = this.getFile();		
 		return FileTextUtilZZZ.readFileToString(objFile);
 	}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public synchronized List<String> readAsList() throws ExceptionZZZ{
-		File objFile = this.getFileObject();
+		File objFile = this.getFile();
 		return FileTextUtilZZZ.readFileToList(objFile);
 	}
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public List<String> getLines() throws ExceptionZZZ{
 		if(this.listaLine==null) {
-			if(this.getFileObject()==null) {
+			if(this.getFile()==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("Filename or File-Object AND List of Lines", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
 				throw ez;				
 			}else {				
-				List<String> listaLine = FileTextUtilZZZ.readFileToList(this.getFileObject());
+				List<String> listaLine = FileTextUtilZZZ.readFileToList(this.getFile());
 				this.setLines(listaLine);
 			}
 		}
@@ -91,6 +91,7 @@ public abstract class AbstractFileTextReaderLoaderZZZ extends AbstractFileTextZZ
 	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
 	@Override
     public void close() throws IOException{
-		//in FileTextUtilZZZ.readFileToList(this.getFileObject()); wird der verwendete BufferedReader sofort geschlossen.
+ 		//Merke: Der verwendete BufferedReader wird sofort geschlossen.
+		//In: FileTextUtilZZZ.readFileToList(this.getFileObject()); 		
     }
 }

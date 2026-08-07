@@ -1,9 +1,10 @@
-package basic.zBasic.util.file.csv.stream;
+package basic.zBasic.util.file.txt.stream;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;
 
-public class FileCsvReaderIteratorZZZTest  extends TestCase{
+public class FileTextReaderIterableZZZTest  extends TestCase{
 	private final static String strFILE_DIRECTORY_DEFAULT = new String("c:\\fglKernel\\KernelTest");
 	private final static String strFILE_SORTED_NAME_DEFAULT = new String("JUnitTest_sorted.csv");
 	private final static String strFILE_UNSORTED_NAME_DEFAULT = new String("JUnitTest_unsorted.csv");
@@ -33,9 +34,9 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 	
 	/// +++ Die eigentlichen Test-Objekte
 	@SuppressWarnings("rawtypes")
-	private FileCsvReaderIteratorZZZ objReaderInit;
+	private FileTextReaderIterableZZZ objReaderInit;
 	@SuppressWarnings("rawtypes")
-	private FileCsvReaderIteratorZZZ objReaderSorted;
+	private FileTextReaderIterableZZZ objReaderSorted;
 		
 	//	+++ Test setup
 	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
@@ -95,11 +96,10 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 			//### Die TestObjecte
 			
 			//An object just initialized, only for writing
-			objReaderInit = new FileCsvReaderIteratorZZZ(); 
+			objReaderInit = new FileTextReaderIterableZZZ(); 
 			
-			//The main objects used for testing
-			String[] saFlag = {"IsFileSorted", "IgnoreCommentLine", "IgnoreEmptyLine"};
-			objReaderSorted = new FileCsvReaderIteratorZZZ(objFileSorted, saFlag);
+			//The main objects used for testing			
+			objReaderSorted = new FileTextReaderIterableZZZ(objFileSorted);
 															
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
@@ -143,81 +143,27 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 		}
 	}
 	
-	public void testFlagZ(){
-		try{
-		boolean bSetted = false;
-			try{
-				bSetted = objReaderInit.setFlag("NIXDA", true);
-				assertFalse("Setting an unavailable FLAGZ 'NIXDA' should return false",bSetted);
-			} catch (ExceptionZZZ ez) {
-				fail("Setting an unavailable FLAGZ should NOT throw an error.");		
-			}
-			boolean  bExists = objReaderInit.proofFlagExists("NIXDA");
-			assertFalse("Object should NOT have FlagZ 'NIXDA'",bExists);
-			
-			//++++++++++++
-			bExists = objReaderSorted.proofFlagExists("IsFileSorted");
-			assertTrue("Object should have FlagZ '" + TxtReaderZZZ.FLAGZ.IsFileSorted + "'",bExists);
-			
-			bExists = objReaderSorted.proofFlagExists("NIXDA");
-			assertFalse("Object should NOT have FlagZ 'NIXDA'",bExists);
-		
-			boolean btemp = objReaderSorted.getFlag("IsFileSorted");
-			assertTrue("Object should have FlagZ '" + TxtReaderZZZ.FLAGZ.IsFileSorted + "' set to true", btemp);
-			
-		} catch (ExceptionZZZ ez) {
-			fail("Method throws an exception." + ez.getMessageLast());
-		}
-		
-	}
 	
-	public void testParseLine(){
-		try{
-			String sLine;
-			
-			sLine="'a';'b'";
-			Vector<String> vecValue = FileCsvReaderIteratorZZZ.parseLine(sLine,';');
-			assertNotNull(vecValue);
-			
-			//wohl mit komma
-			sLine="'a','b'";
-			String[]saValue = FileCsvReaderIteratorZZZ.parseCsvLine(sLine);
-			assertNotNull(saValue);
-			
-			sLine="'a','b'";
-			List<String>listaValue = FileCsvReaderIteratorZZZ.parseCsvLineAsList(sLine);
-			assertNotNull(listaValue);
-			
-			
-		} catch (ExceptionZZZ ez) {
-			fail("Method throws an exception." + ez.getMessageLast());
-		}
-	}
 	
+
 	public void testNext(){
 		try{
-			String sValue;
-			String sExpected = "'a';'b'";
 			
-			//sValue  = objReaderSorted.next();
-			//assertNotNull(sValue);
-			
-			Set<String>setHeader = null;
 			int iLine=-1;
 			
-			LinkedHashMap<String,String>hmCsv = objReaderSorted.next();
-			assertNotNull(hmCsv);
-			iLine++;
-			setHeader = hmCsv.keySet();			
-			for(String sHeader : setHeader) {					
-				Syso.println(iLine + ": " + sHeader + "\t= " + hmCsv.get(sHeader));
-			}
-			
+						
 			//Muss iterable dazu implementieren, nicht iterator
-			//for(LinkedHashMap<String,String> hmValueTemp : objReaderSorted.next()) {
+			//Der Iterator ist intern vorhanden und wird dazu genutzt
+			for(Iterator<String> it = objReaderSorted.iterator(); it.hasNext();) {
+				iLine++;
+				String sTemp = it.next();				
+				assertNotNull(sTemp);											
+				Syso.println(iLine + ": " + sTemp);
+				
+			}
 						
 			//Muss iterator implementieren
-			while(objReaderSorted.hasNext()) {
+			/*while(objReaderSorted.hasNext()) {
 				iLine++;
 				LinkedHashMap<String,String> hmCsvTemp = objReaderSorted.next();				
 				assertNotNull(hmCsvTemp);			
@@ -226,49 +172,13 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 					Syso.println(iLine + ": " + sHeader + "\t= " + hmCsvTemp.get(sHeader));
 				}
 				
-			}
+			}*/
 		} catch (ExceptionZZZ ez) {
 			fail("Method throws an exception." + ez.getMessageLast());
 		}
 	}
 	
-	public void testNext2(){
-		try{
-			String sValue;
-			String sExpected = "'a';'b'";
-			
-			//sValue  = objReaderSorted.next();
-			//assertNotNull(sValue);
-			
-			Set<String>setHeader = null;
-			int iLine=-1;
-			
-			LinkedHashMap<String,String>hmCsv = objReaderSorted.next();
-			assertNotNull(hmCsv);
-			iLine++;
-			setHeader = hmCsv.keySet();			
-			for(String sHeader : setHeader) {					
-				Syso.println(iLine + ": " + sHeader + "\t= " + hmCsv.get(sHeader));
-			}
-			
-			//Muss iterable dazu implementieren, nicht iterator
-			//for(LinkedHashMap<String,String> hmValueTemp : objReaderSorted.next()) {
-						
-			//Muss iterator implementieren
-			while(objReaderSorted.hasNext()) {
-				iLine++;
-				LinkedHashMap<String,String> hmCsvTemp = objReaderSorted.next();				
-				assertNotNull(hmCsvTemp);			
-				setHeader = hmCsvTemp.keySet();			
-				for(String sHeader : setHeader) {					
-					Syso.println(iLine + ": " + sHeader + "\t= " + hmCsvTemp.get(sHeader));
-				}
-				
-			}
-		} catch (ExceptionZZZ ez) {
-			fail("Method throws an exception." + ez.getMessageLast());
-		}
-	}
+	
 	
 	
 }//end class

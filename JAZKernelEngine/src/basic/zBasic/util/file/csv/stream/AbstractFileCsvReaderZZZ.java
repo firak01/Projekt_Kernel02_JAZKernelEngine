@@ -33,7 +33,7 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 	
 	protected String sNextLine = null; //Die Zeile, die als nächstes geparsed werden kann.
 	protected int iCurrentLine = -1;  //Die Zeilennummer (Index), der als nächstes geparsed werden kann.
-	protected String sCurrentLineCsv = null; //Die aktuelle/letzte Zeile mit Csv - Daten.
+	protected String sCurrentLineCsv = null; //Die aktuelle/letzte Zeile geparste Zeile (vermutlich mit Csv - Daten).
 	
 	
 	protected final static char cDELIMITER_DEFAULT = ';';
@@ -307,16 +307,16 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 		main:{
 			Vector<String> vecHeader = this.getHeader();
 			
-			// Liest auf jeden Fall die neue Zeile, wenn es eine gibt.
+			
 			Vector<String> vecDataFields = null;
 			do {				
-				if (!hasMoreLines()) break main;
+				if (!hasMoreLines()) break main; // Liest auf jeden Fall auch die neue Zeile, wenn es eine gibt.
 				
-				// Aus der gueltigen CSV-Zeile wird die Hashtable erzeugt.
+				// Aus der gueltigen - in hasMoreLines() eingelesenen - CSV-Zeile wird ein Vector erzeugt.
 				vecDataFields = parseLine(this.sNextLine.trim());
 			}while (vecDataFields==null); //solange bis eine richtige Zeile mit CSV gefunden wurde
 			
-						
+			//Die Werte des Vectors werden nun in eine Map zu ihren "Headerzeilen" gepackt.			
 			hashReturn= new LinkedHashMap<String,String>();			
 			if(bSortedForward) {
 				//Vorwärts sortiert
