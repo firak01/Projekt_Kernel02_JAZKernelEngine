@@ -48,13 +48,15 @@ public abstract class AbstractFileCreatorZZZ extends AbstractKernelUseObjectZZZ 
 					ExceptionZZZ ez = new ExceptionZZZ(sERROR_PROPERTY_MISSING + " TargetFilePath ", iERROR_PROPERTY_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
 					throw ez;
 				}			
-				FileTextWriterZZZ objTargetWriter = new FileTextWriterZZZ(sTargetPath);
 				
 				File objFileTemplate = this.getTemplateFile();
 				if(fileTemplate==null) {
 					ExceptionZZZ ez = new ExceptionZZZ(sERROR_PROPERTY_MISSING + " TemplateFile ", iERROR_PROPERTY_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
 					throw ez;
 				}
+				
+				//++++++++++++++++++++
+				FileTextWriterZZZ objTargetWriter = new FileTextWriterZZZ(sTargetPath);
 				
 				ArrayList<String> listaLineReadme = this.computeLines(objFileTemplate);
 				for(String sLine : listaLineReadme){

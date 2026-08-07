@@ -1,11 +1,12 @@
 package basic.zBasic.util.file.csv.stream;
 
 import java.io.File;
+import java.io.IOException;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.txt.stream.AbstractFileTextReaderZZZ;
+import basic.zBasic.util.file.txt.stream.AbstractFileTextZZZ;
 
 /** Vorbild ist CSVReader.java, was aber ohne Wiederverwendbare Kernel-Komponenten gebaut ist.
  *  FileCsvReaderZZZ setzt auf Kernel-Komponenten auf, die dadurch wiederverwendet werden und "immer robuster" werden.

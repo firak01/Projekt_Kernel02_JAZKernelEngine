@@ -9,12 +9,11 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zUtil.io.FileExpandableZZZ;
 import basic.zUtil.io.FileExpansionZZZ;
-import basic.zUtil.io.FileZZZ;
 import basic.zUtil.io.IFileExpansionEnabledZZZ;
 import basic.zUtil.io.IFileExpansionUserZZZ;
 import basic.zUtil.io.IFileExpansionZZZ;
 
-public abstract class AbstractFileTextSaverZZZ extends AbstractFileTextReaderZZZ implements IFileExpansionUserZZZ {
+public abstract class AbstractFileTextSaverZZZ extends AbstractFileTextReaderLoaderZZZ implements IFileExpansionUserZZZ {
 	private static final long serialVersionUID = -6026050043450090577L;
 
 	IFileExpansionZZZ objFileExpansion = null;

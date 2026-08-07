@@ -24,7 +24,6 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 	
 	
 	private File objFileSorted;
-	private File objFileUnsorted;
 	private File objFileEmpty;
 	
 	private String sLineFirstForTest=null;
@@ -71,7 +70,7 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 			IStreamZZZ objStreamFile = new StreamZZZ(sFileSortedPathTotal, 1);  //This is not enough, to create the file			
 			objStreamFile.println(sLineFirstForTest);      //Now the File is created. This is a comment line
 			objStreamFile.println(sLineSecondForTest);
-			objStreamFile.println("'A Header';'B Header';'C IntegerHeader'");
+			objStreamFile.println("'A Header';'B Header';'C IntHeader'");
 			objStreamFile.println("'1A Line';'1B Line';1");
 			objStreamFile.println("'2A Line';'2B Line';2");			
 			objStreamFile.println("'3A Line';'3B Line';3");
@@ -175,16 +174,16 @@ public class FileCsvReaderIteratorZZZTest  extends TestCase{
 			String sLine;
 			
 			sLine="'a';'b'";
-			Vector<String> vecValue = FileCsvReaderZZZ.parseLine(sLine,';');
+			Vector<String> vecValue = FileCsvReaderIteratorZZZ.parseLine(sLine,';');
 			assertNotNull(vecValue);
 			
 			//wohl mit komma
 			sLine="'a','b'";
-			String[]saValue = FileCsvReaderZZZ.parseCsvLine(sLine);
+			String[]saValue = FileCsvReaderIteratorZZZ.parseCsvLine(sLine);
 			assertNotNull(saValue);
 			
 			sLine="'a','b'";
-			List<String>listaValue = FileCsvReaderZZZ.parseCsvLineAsList(sLine);
+			List<String>listaValue = FileCsvReaderIteratorZZZ.parseCsvLineAsList(sLine);
 			assertNotNull(listaValue);
 			
 			

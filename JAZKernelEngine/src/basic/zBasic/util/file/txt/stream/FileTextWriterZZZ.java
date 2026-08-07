@@ -14,9 +14,8 @@ import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 
-public class FileTextWriterZZZ extends AbstractFileTextReaderZZZ{
+public class FileTextWriterZZZ extends AbstractFileTextWriterLoaderZZZ{
 	private static final long serialVersionUID = -8791560715152516646L;
-	public static final String sFILE_NAME_DEFAULT= "NewTextfile_default.txt";
 	
 	
 	public FileTextWriterZZZ() throws ExceptionZZZ {
@@ -32,95 +31,7 @@ public class FileTextWriterZZZ extends AbstractFileTextReaderZZZ{
 	}
 	
 	public FileTextWriterZZZ(List<String> listaLine) throws ExceptionZZZ {
-		super(listaLine);
-	}
-	
-	@Override
-	public String getFileNameDefault() throws ExceptionZZZ {
-		return FileTextWriterZZZ.sFILE_NAME_DEFAULT;
-	}
-	
-	private boolean createStreamInternal_(String sFileNameIn){
-		boolean bReturn = false;
-		try {
-			String sFileName;
-			if(StringZZZ.isEmpty(sFileNameIn)){
-				sFileName = this.getFilePath();
-			}else{
-				sFileName = sFileNameIn;
-			}
-			this.objStream = new StreamZZZ(sFileName,1); //0 = Read, 1 = Write //ggfs. noch das Encoding übergeben in dieser ZZZ-Klasse
-			bReturn = true;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		return bReturn;
-	}
-	
-	//##############################################################
-	public synchronized boolean writeLines() throws ExceptionZZZ {
-		boolean bReturn = false;
-		main:{
-		List<String> listString = this.getLines();
-		if(listString==null) break main;
-		
-			boolean bHasStream = true;
-			if(this.objStream==null) bHasStream = createStreamInternal_("");
-			if(bHasStream){
-				for(String stemp : listString) {
-					this.objStream.println(stemp);
-				}
-			}
-		
-			bReturn = bHasStream;
-		}//end main;
-		return bReturn;
-	}
-	
-	public synchronized boolean writeLines(List<String> listString) throws ExceptionZZZ {
-		boolean bReturn = false;
-		main:{		
-			if(listString==null) break main;
-			
-			boolean bHasStream = true;
-			if(this.objStream==null) bHasStream = createStreamInternal_("");
-			if(bHasStream){
-				for(String stemp : listString) {
-					this.objStream.println(stemp);
-				}
-			}
-		
-			bReturn = bHasStream;
-		}//end main;
-		return bReturn;
-	}
-	
-	
-	public synchronized boolean writeLine(String stemp){
-		boolean bHasStream = true;
-		if(this.objStream==null) bHasStream = createStreamInternal_("");
-		if(bHasStream){
-			this.objStream.println(stemp);
-		}
-		return bHasStream;
+		super(listaLine);		
 	}
 
-
-	public synchronized boolean write(String stemp){
-		boolean bHasStream = true;
-		if(this.objStream==null) bHasStream = createStreamInternal_("");
-		if(bHasStream){
-			this.objStream.print(stemp);
-		}
-		return bHasStream;
-	}
-	
-	
 }

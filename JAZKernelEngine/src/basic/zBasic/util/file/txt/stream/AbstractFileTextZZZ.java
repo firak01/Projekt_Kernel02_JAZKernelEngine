@@ -3,6 +3,7 @@ package basic.zBasic.util.file.txt.stream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
@@ -17,39 +18,30 @@ import basic.zBasic.util.stream.IStreamZZZ;
  * @author Fritz Lindhauer
  *
  */
-public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExceptionZZZ implements Closeable{
+public abstract class AbstractFileTextZZZ extends AbstractObjectWithExceptionZZZ implements Closeable{
 	private static final long serialVersionUID = -1464375530224033955L;
 	public static final String sFILE_NAME_DEFAULT= "Textfile_default.txt";
 	
-	
-	protected IStreamZZZ objStream = null;	
 	protected File objFile = null;
 	protected String sFilePath=null;
 		
-	protected List<String> listaLine = null;
-		
-	public AbstractFileTextReaderZZZ() throws ExceptionZZZ {	
+	public AbstractFileTextZZZ() throws ExceptionZZZ {	
 		super();
 	}
 	
-	public AbstractFileTextReaderZZZ(String sFilePath) throws ExceptionZZZ {
+	public AbstractFileTextZZZ(String sFilePath) throws ExceptionZZZ {
 		super();		
 		this.setFilePath(sFilePath);
 	}
 	
-	public AbstractFileTextReaderZZZ(File objFile) throws ExceptionZZZ {
+	public AbstractFileTextZZZ(File objFile) throws ExceptionZZZ {
 		super();
 		this.setFileObject(objFile);
 	}
 	
-	public AbstractFileTextReaderZZZ(List<String> listaLine) throws ExceptionZZZ{
-		super();
-		this.setLines(listaLine);
-	}
-	
 	//##### Getter / Setter ###################
 	public String getFileNameDefault() throws ExceptionZZZ {
-		return AbstractFileTextReaderZZZ.sFILE_NAME_DEFAULT;
+		return AbstractFileTextZZZ.sFILE_NAME_DEFAULT;
 	}
 	
 	
@@ -102,28 +94,11 @@ public abstract class AbstractFileTextReaderZZZ extends AbstractObjectWithExcept
 		this.objFile = objFile;
 	}
 	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	public List<String> getLines() throws ExceptionZZZ{
-		if(this.listaLine==null) {
-			if(this.getFileObject()==null) {
-				ExceptionZZZ ez = new ExceptionZZZ("Filename or File-Object AND List of Lines", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName()); 
-				throw ez;				
-			}else {				
-				List<String> listaLine = FileTextUtilZZZ.readFileToList(this.getFileObject());
-				this.setLines(listaLine);
-			}
-		}
-		return this.listaLine;
-	}
-	public void setLines(List<String>listaLine) {
-		this.listaLine = listaLine;
-	}
+	
 	
 	//### aus Closable, das soll besser sein als einen Destruktor zu verwenden.
+	//Aber da hier die genaue Methode/das Konkret verwendete Objekt noch nicht bekannt ist, nur abstract
 	@Override
-    public void close() throws IOException{
-        if(objStream!=null){
-            objStream.close();
-        }
-    }
+    public abstract void close() throws IOException;
+        
 }

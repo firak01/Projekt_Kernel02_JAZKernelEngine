@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,7 +17,8 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.txt.stream.AbstractFileTextReaderZZZ;
+import basic.zBasic.util.file.txt.stream.AbstractFileTextReaderLoaderZZZ;
+import basic.zBasic.util.file.txt.stream.AbstractFileTextZZZ;
 import basic.zBasic.util.file.txt.stream.FileTextReaderIteratorZZZ;
 import basic.zBasic.util.file.txt.stream.IFileTextReaderIteratorUserZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
@@ -24,13 +26,20 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFlagZZZ<T> implements IFileCsvReaderEnabledZZZ, Closeable{
 	private static final long serialVersionUID = 8453120372088993124L;
 		
-	private AbstractFileTextReaderZZZ objFileTextReader = null;
 	protected File objFile = null;
 	
-	private Vector<String> header = null;
+	protected int iLineStartCsv=-1;
+	protected Vector<String> vecHeader = null;
 	
-	protected char cDELIMITER_DEFAULT = ';';
+	protected String sNextLine = null; //Die Zeile, die als nächstes geparsed werden kann.
+	protected int iCurrentLine = -1;  //Die Zeilennummer (Index), der als nächstes geparsed werden kann.
+	protected String sCurrentLineCsv = null; //Die aktuelle/letzte Zeile mit Csv - Daten.
+	
+	
+	protected final static char cDELIMITER_DEFAULT = ';';
 	protected char cDelimiter = CharZZZ.getNull();
+	
+	protected final static String[] saCOMMENT_DEFAULT = {";","#"};
 	
 	public AbstractFileCsvReaderZZZ() throws ExceptionZZZ {
 		super();
@@ -86,51 +95,70 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 		return bReturn;
 	}
 	
-	
-	
-	
+
 	//#########################################
-	public Vector getHeader() {
-		return header;
+	public Vector<String> getHeader() throws ExceptionZZZ {
+		if(this.vecHeader==null) {
+			this.vecHeader = this.readHeader();
+		}
+		return this.vecHeader;
 	}
 	
-	private Vector readHeader() {
-		Vector header = null;
-		try {
-			
-			//Die Kopfzeile ist die erte Zeile
-			String sLine = this.getFileTextReaderObject().getLines().get(0);
-			header = parseLine(sLine);
-		}
-		catch(Exception e) {
-			e.printStackTrace(System.out);
-		}
-		return header;
-	}
+	//weil wir noch nicht die konkrete Implementierung kennen hier nur abstrakte Methode
+	public abstract Vector<String> readHeader() throws ExceptionZZZ ;
 	
-	public Vector<String> readHeader(String sHeaderLine) {
+	public Vector<String> readHeader(String sHeaderLine) throws ExceptionZZZ {
 		Vector<String> header = null;
 		try {			
 			header = parseLine(sHeaderLine);
 		}
 		catch(Exception e) {
-			e.printStackTrace(System.out);
+			ExceptionZZZ ez = new ExceptionZZZ(e);
+			throw ez;
 		}
 		return header;
 	}
 	
+	//weil wir noch nicht die konkrete Implementierung kennen hier nur abstrakte Methode
+	//!!! hier wird dann schon immer die nächste Zeile gelesen. Darum kann dann egal wie der Reader ist, diese Zeile per CSV geparst werden.
+	public abstract boolean hasMoreLines() throws ExceptionZZZ;
+	
 	
 	
 	//#####################################################
+	public boolean isCommentLine(String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(StringZZZ.isEmpty(sLine)) break main;
+
+			if(StringZZZ.startsWith(sLine, saCOMMENT_DEFAULT)) bReturn = true;
+		}//end main:
+		return bReturn;
+	}
 	
-	
-	
+	public boolean isCsvLine(String sLine) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(StringZZZ.isEmpty(sLine)) break main;
+			if(isCommentLine(sLine)) break main;
+			
+			bReturn=true;
+		}//end main:
+		return bReturn;
+	}
 	
 	//#####################################################
 	
 	public Vector<String> parseLine(String sLine) throws ExceptionZZZ {
-		char cDelimiter = this.getDelimiter();
-		return AbstractFileCsvReaderZZZ.parseLine(sLine, cDelimiter);
+		Vector<String>vecReturn=null;
+		main:{
+			if(this.isCsvLine(sLine)) {
+				this.sCurrentLineCsv = sLine;
+				char cDelimiter = this.getDelimiter();
+				vecReturn = AbstractFileCsvReaderZZZ.parseLine(sLine, cDelimiter);
+			}		
+		}//end main:
+		return vecReturn;
 	}
 	
 	public static Vector<String> parseLine(String line, char cDelimiter) throws ExceptionZZZ {
@@ -216,6 +244,106 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
         // Rückgabe als Array
         return result.toArray(new String[result.size()]);
     } 
+    
+    //##################################
+	/**Auch ohne den Iterator, trotzdem von Zeile zu Zeile weitergehen
+	 * Das liegt daran, dass die nächste Zeiel in .hasMoreLines() schon gelesen wird...
+	 * 
+	 * ACHTUNG: Eine HashTable ist nicht sortiert
+	 * 
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
+	public Hashtable<String,String> parseNextLineAsHashTable() throws ExceptionZZZ {
+		Hashtable<String,String> hashReturn = null;
+		main:{
+			Vector<String> vecHeader = this.getHeader();
+			
+			// Liest auf jeden Fall die neue Zeile, wenn es eine gibt.
+			Vector<String> vecDataFields = null;
+			do {				
+				if (!hasMoreLines()) break main;
+				
+				// Aus der gueltigen CSV-Zeile wird die Hashtable erzeugt.
+				vecDataFields = parseLine(this.sNextLine.trim());
+			}while (vecDataFields==null); //solange bis eine richtige Zeile mit CSV gefunden wurde
+			
+						
+			hashReturn= new Hashtable<String,String>();
+			if(vecHeader==null) { //ohne Header Zeile mit Dummy-Header als CSV erzeugbar
+				for (int i=vecDataFields.size()-1; i>=0; i--)
+					hashReturn.put(Integer.toString(i), vecDataFields.elementAt(i));
+			
+			}else {
+				for (int i=vecDataFields.size()-1; i>=0; i--)
+					hashReturn.put(vecHeader.elementAt(i), vecDataFields.elementAt(i));
+			}
+			
+		}//end main:
+		return hashReturn;
+	}
+	
+	/**
+	 * Verwende einen LinkedHashMap für die Sortierung. 
+	 * Normale Sortierung der Spalten ist "vorwärts".
+	 * 
+	 * @return
+	 * @throws ExceptionZZZ
+	 */	
+	public LinkedHashMap<String,String> parseNextLineAsMap() throws ExceptionZZZ {
+		return this.parseNextLineAsMap(true);
+	}
+	
+	/**
+	 * Verwende einen LinkedHashMap für die Sortierung der Spalten.
+	 * Die Reihenfolge der Spalten kann auch umgekehrt werden ("rückwärts")
+	 * bSortedForward = false;
+	 * 
+	 * @return
+	 * @throws ExceptionZZZ
+	 */	
+	public LinkedHashMap<String,String> parseNextLineAsMap(boolean bSortedForward) throws ExceptionZZZ {
+		LinkedHashMap<String,String> hashReturn = null;
+		main:{
+			Vector<String> vecHeader = this.getHeader();
+			
+			// Liest auf jeden Fall die neue Zeile, wenn es eine gibt.
+			Vector<String> vecDataFields = null;
+			do {				
+				if (!hasMoreLines()) break main;
+				
+				// Aus der gueltigen CSV-Zeile wird die Hashtable erzeugt.
+				vecDataFields = parseLine(this.sNextLine.trim());
+			}while (vecDataFields==null); //solange bis eine richtige Zeile mit CSV gefunden wurde
+			
+						
+			hashReturn= new LinkedHashMap<String,String>();			
+			if(bSortedForward) {
+				//Vorwärts sortiert
+				if(vecHeader==null) { //ohne Header Zeile mit Dummy-Header als CSV erzeugbar
+					for (int i=0; i<=vecDataFields.size()-1; i++)
+						hashReturn.put(Integer.toString(i), vecDataFields.elementAt(i));
+				
+				}else {
+					for (int i=0; i<=vecDataFields.size()-1; i++)
+						hashReturn.put(vecHeader.elementAt(i), vecDataFields.elementAt(i));
+				}
+								
+			}else {
+				//Rückwärts sortiert
+				if(vecHeader==null) { //ohne Header Zeile mit Dummy-Header als CSV erzeugbar
+					for (int i=vecDataFields.size()-1; i>=0; i--)
+						hashReturn.put(Integer.toString(i), vecDataFields.elementAt(i));
+				
+				}else {
+					for (int i=vecDataFields.size()-1; i>=0; i--)
+						hashReturn.put(vecHeader.elementAt(i), vecDataFields.elementAt(i));
+				}
+			}
+			
+		}//end main:
+		return hashReturn;
+	}
 	
 	
 	
@@ -246,20 +374,10 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 	
 	//###############################################
 	//### Methoden
-	public void setFileTextReaderObject(AbstractFileTextReaderZZZ obj) throws ExceptionZZZ {
-		this.objFileTextReader = obj;
-	}
-	
-	public AbstractFileTextReaderZZZ getFileTextReaderObject() throws ExceptionZZZ {
-		return this.objFileTextReader;
-	}
-
 	
 	public boolean reset() throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			this.setFileTextReaderObject(null);
-			
 			
 			bReturn = true;			
 		}//end main:
@@ -268,13 +386,9 @@ public abstract class AbstractFileCsvReaderZZZ<T>  extends AbstractObjectWithFla
 	
 	
 	//### aus Closeable
+	//Weil wir noch nicht die konkrete implementierung kennen hier, nur abstrakte Methode
 	@Override
-	public void close() throws IOException {		
-		if(this.objFileTextReader!=null) {
-			this.objFileTextReader.close();
-		}
-		
-	}
+	public abstract void close() throws IOException; 
 	
 	//###################################################
 	//### FLAG HANDLING

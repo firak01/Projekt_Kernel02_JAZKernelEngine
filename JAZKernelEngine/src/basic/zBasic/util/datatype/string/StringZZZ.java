@@ -1166,8 +1166,48 @@ StringUtils.splitByWholeSeparator(...) kann das nicht, weil es keine Escape-/Quo
     }
 	
 	//###################################################
+	//+++++++++++++++++++++++++++++++++++++++++	
+	/* Unter Java String gibt es nur startsWith. Der Vollstaendigkeit halber hier quasi uebernommen. */	
+	public static boolean startsWith(String sString, String[] saMatch, boolean bExactMatch) throws ExceptionZZZ {		
+		if(bExactMatch) {
+			return StringZZZ.startsWith(sString, saMatch);
+		}else {				
+			return StringZZZ.startsWithIgnoreCase(sString, saMatch);
+		}			
+	}
 	
+	/* Unter Java String gibt es nur startsWith. Der Vollstaendigkeit halber hier quasi uebernommen. */
+	public static boolean startsWith(String sString, String[] saMatch) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(StringZZZ.isEmpty(sString)) break main;
+			if(ArrayUtilZZZ.isEmpty(saMatch)) break main;
+									
+			for(String sMatch : saMatch) {
+				bReturn = StringZZZ.startsWith(sString, sMatch);
+				if(bReturn) break main;
+			}			
+			
+		} //end main:		
+		return bReturn;
+	}
+		
+	public static boolean startsWithIgnoreCase(String sString, String[] saMatch) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(StringZZZ.isEmpty(sString)) break main;
+			if(ArrayUtilZZZ.isEmpty(saMatch)) break main;
+									
+			for(String sMatch : saMatch) {
+				bReturn = StringZZZ.startsWithIgnoreCase(sString, sMatch);
+				if(bReturn) break main;
+			}			
+			
+		} //end main:		
+		return bReturn;
+	}
 	
+	//+++++++++++++++++++++++++++++++++++++++++	
 	/* Unter Java String gibt es nur startsWith. Der Vollstaendigkeit halber hier quasi uebernommen. */
 	public static boolean startsWith(String sString, String sMatch) throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -1194,6 +1234,7 @@ StringUtils.splitByWholeSeparator(...) kann das nicht, weil es keine Escape-/Quo
 		}			
 	}
 	
+
 	/* Unter Java String gibt es nur startsWith. Hier wird zusätzlich noch geleistet, dass Groß-/Kleinschreibung egal ist */
 	public static boolean startsWithIgnoreCase(String sString, String sMatch) throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -1215,6 +1256,8 @@ StringUtils.splitByWholeSeparator(...) kann das nicht, weil es keine Escape-/Quo
 		} //end main:		
 		return bReturn;
 	}
+	
+	//############################################################
 	
 	/** String, analog to LotusScript, return the iLength number of strings from the left
 	* Lindhauer; 15.05.2006 10:53:48

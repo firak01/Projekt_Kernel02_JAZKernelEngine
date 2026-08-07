@@ -32,27 +32,7 @@ public class FileTextReaderIteratorZZZ extends  AbstractFileTextReaderIteratorZZ
 		this.setFileObject(objFile);
 	}
 	
+	
 	//##############################################################
 
-	public synchronized String read() throws ExceptionZZZ{			
-		return readAsString();
-	}
-	
-	public synchronized String readAsString() throws ExceptionZZZ{			
-		File objFile = this.getFileObject();		
-		return FileTextUtilZZZ.readFileToString(objFile);
-	}
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	public synchronized List<String> readAsList() throws ExceptionZZZ{
-		File objFile = this.getFileObject();
-		return FileTextUtilZZZ.readFileToList(objFile);
-	}
-	
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@Override
-	public String getFileNameDefault() throws ExceptionZZZ {
-		return FileTextReaderIteratorZZZ.sFILE_NAME_DEFAULT;
-	}
 }

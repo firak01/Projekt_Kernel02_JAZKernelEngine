@@ -17,7 +17,7 @@ import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
-public class FileTextReaderZZZ extends  AbstractFileTextReaderZZZ{
+public class FileTextReaderZZZ extends  AbstractFileTextReaderLoaderZZZ{
 	private static final long serialVersionUID = -9054462955710855745L;
 	
 	public FileTextReaderZZZ() throws ExceptionZZZ {	
@@ -33,26 +33,4 @@ public class FileTextReaderZZZ extends  AbstractFileTextReaderZZZ{
 	}
 	
 	//##############################################################
-
-	public synchronized String read() throws ExceptionZZZ{			
-		return readAsString();
-	}
-	
-	public synchronized String readAsString() throws ExceptionZZZ{			
-		File objFile = this.getFileObject();		
-		return FileTextUtilZZZ.readFileToString(objFile);
-	}
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	public synchronized List<String> readAsList() throws ExceptionZZZ{
-		File objFile = this.getFileObject();
-		return FileTextUtilZZZ.readFileToList(objFile);
-	}
-	
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	@Override
-	public String getFileNameDefault() throws ExceptionZZZ {
-		return FileTextReaderZZZ.sFILE_NAME_DEFAULT;
-	}
 }

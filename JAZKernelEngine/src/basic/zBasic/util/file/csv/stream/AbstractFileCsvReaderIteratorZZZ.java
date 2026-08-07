@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,6 +18,7 @@ import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.txt.stream.FileTextReaderIteratorZZZ;
+import basic.zBasic.util.file.txt.stream.FileTextReaderZZZ;
 import basic.zBasic.util.file.txt.stream.IFileTextReaderIteratorUserZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 
@@ -72,95 +74,31 @@ public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileC
 	}
 	
 	
-	/** Verwende den FileTextReaderZZZ und lies alle Zeilen ein. 
-	 * @return
-	 * @throws ExceptionZZZ
-	 */
-	public boolean load() throws ExceptionZZZ{
-		boolean bReturn = false;
+	
+	
+	//####################################################
+	
+	@Override
+	public boolean hasMoreLines() throws ExceptionZZZ {
+		boolean bReturn=false;
 		main:{
-//			try{
-				FileTextReaderIteratorZZZ objFileTextReader = this.getFileTextReaderObject();
-				File objFile = objFileTextReader.getFileObject();
-				if(objFile==null) {
-					ExceptionZZZ ez = new ExceptionZZZ("Filepath or File-Object", iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
-					throw ez;
-				}
-				
-				if(objFile.isDirectory()){
-				   ExceptionZZZ ez = new ExceptionZZZ( "file is a directory '" + objFile.getPath() + "'", iERROR_PARAMETER_VALUE, this, ReflectCodeZZZ.getMethodCurrentName()); 
-				   throw ez;						
-				}
-				
-				//###############################################
-				//### 1. Lies alle Zeilen ein, als Liste
-				List<String> listasLine = objFileTextReader.getLines();
-				
-				//Die erste Zeile ist der Header
-				String sHeaderLine = listasLine.get(0);
-				this.readHeader(sHeaderLine);
-				
-//				TODOGOON: Mache das fertig und realisiere danach die Idee...			
-//				//Idee: Mache einen FileTextLineReaderZZZ
-//				///     Iterator implementierend wie
-//				//      als Beispiel TreeNodeIteratorZZZ
-//		        //      Der soll ebenfalls auf protected IStreamZZZ objStream = null; basieren
-//				//      Aber dann Neu: AbstractFileTextZZZ
-//				//                     AbstractFileTextLineReaderZZZ
-//				
-//			//create streams
-//			FileReader objFRead = new FileReader(this.objFile);
-//			CSVReader objCSV = new CSVReader(objFRead, ';');
-//			this.objCSV = objCSV;
-
-//			}catch(FileNotFoundException e){
-//				System.out.println(e.getMessage());
-//			}
-
-		}//end main:
+			int iNextLine = iCurrentLine+1;
+			
+			TODOGOON20260809; Hier nur CSV Zeilen betrachten
+						
+			FileTextReaderIteratorZZZ objFileTextReader = this.getFileTextReaderObject();
+			String sNextLine = objFileTextReader.next(); //Weil der ganze Inhalt der Textdatei gelesen wird, kann das lange dauern.				
+			if (sNextLine == null) {
+				bReturn = false;
+			} else {
+				this.sNextLine = sNextLine;
+				iCurrentLine = iNextLine;
+				bReturn = true;
+			}		
+		}//end main:		
 		return bReturn;
 	}
-	
-	
-	//#####################################################
-	
-	
 
-	public boolean hasMoreLines() {
-		try {
-			if (nextLine == null || nextLine.trim().equals(""))
-				nextLine = reader.readLine();
-		}
-		catch (Exception ignore)
-		{}
-
-		if (nextLine == null || nextLine.trim().equals("")) {
-			close();
-			return false;
-		}
-		else
-			return true;
-	}
-
-	public Hashtable getNextLine() {
-		// Liest auf jeden Fall die neue Zeile, wenn es eine gibt.
-		if (!hasMoreLines())
-			return null;
-
-		Hashtable hash = new Hashtable();
-
-		// Aus der Zeile wird die Hashtable erzeugt.
-		Vector dataFields = parseLine(nextLine.trim());
-		for (int i=dataFields.size()-1; i>=0; i--)
-			hash.put(header.elementAt(i), dataFields.elementAt(i));
-
-		// L�scht die Zeile, damit hasMoreLines auf jeden Fall
-		// eine neue Zeile einliest.
-		nextLine = null;
-
-		return hash;
-	}
-	
 	//############################################
 	//### GETTER / SETTER
 	
@@ -216,8 +154,15 @@ public abstract class AbstractFileCsvReaderIteratorZZZ<T>  extends AbstractFileC
 	public void remove() {
 		try {
 			this.getFileTextReaderObject().remove();
-		} catch (ExceptionZZZ e) {			
-			e.printStackTrace();
+		} catch (ExceptionZZZ ez) {			
+			ez.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void close() throws IOException {		
+		if(this.objFileTextReader!=null) {
+			this.objFileTextReader.close();
 		}
 	}
 

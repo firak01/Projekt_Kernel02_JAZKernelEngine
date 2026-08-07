@@ -6,7 +6,7 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractFileTextCombinedZZZ extends AbstractFileTextReaderZZZ {
+public abstract class AbstractFileTextCombinedZZZ extends AbstractFileTextReaderLoaderZZZ {
 	private static final long serialVersionUID = -1464375530224033955L;
 
 	public static final String sFILE_NAME_PRE_DEFAULT = "NewTextfileSplittedPre_default.txt";
