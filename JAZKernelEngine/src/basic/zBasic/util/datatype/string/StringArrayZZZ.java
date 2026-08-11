@@ -658,6 +658,53 @@ public class StringArrayZZZ extends AbstractObjectWithExceptionZZZ{
 	 * @return long
 	 */
 	public long getIndexFirst(String sToFind) throws ExceptionZZZ {
+		int iFunction = -1;
+		
+		if(this.bIsString == true){
+			 for(int iCounter = 0; iCounter <= this.saIntern.length -1; iCounter++){
+		 	String sTemp = saIntern[iCounter];
+		 	// Erst ab Java 1.2   if (sTemp.compareToIgnoreCase(sToFind)== 0){
+		 	if (sTemp.compareTo(sToFind)== 0){
+		 		iFunction = iCounter;
+		 		break;
+		 	}
+		 } // end for				
+		} //end if
+output:
+		return iFunction;
+	}//end IndexFirstGet
+	
+	
+
+	/** long, returns the index of the first sToFind in the string Array
+	* Lindhauer; 16.05.2006 07:42:37
+	 * @param sToFind
+	 * @return long
+	 */
+	public static int getIndexFirst(String[] saSource, String sToFind) throws ExceptionZZZ {
+		int iFunction = -1;
+		main:{
+			if(saSource==null) break main;
+			
+			for(int iCounter = 0; iCounter <= saSource.length -1; iCounter++){
+			 	String sTemp = saSource[iCounter];
+			 	// Erst ab Java 1.2   if (sTemp.compareToIgnoreCase(sToFind)== 0){
+			 	if (sTemp.compareTo(sToFind)== 0){
+			 		iFunction = iCounter;
+			 		break;
+			 	}
+			 } // end for
+		}//end main:
+		return iFunction;
+	}//end IndexFirstGet
+	
+	//++++++++++++++++++++++++++++++++++++++++++
+	/** long, returns the index of the first sToFind in the string Array
+	* Lindhauer; 16.05.2006 07:42:37
+	 * @param sToFind
+	 * @return long
+	 */
+	public long getIndexFirstLong(String sToFind) throws ExceptionZZZ {
 		long lFunction = -1;
 		
 		if(this.bIsString == true){
@@ -681,7 +728,7 @@ output:
 	 * @param sToFind
 	 * @return long
 	 */
-	public static long getIndexFirst(String[] saSource, String sToFind) throws ExceptionZZZ {
+	public static long getIndexFirstLong(String[] saSource, String sToFind) throws ExceptionZZZ {
 		long lFunction = -1;
 		main:{
 			if(saSource==null) break main;
@@ -697,6 +744,8 @@ output:
 		}//end main:
 		return lFunction;
 	}//end IndexFirstGet
+	//+++++++++++++++++++++++++++++++++++++++++++
+	
 	
 	public static int[] getIndexContains(String[] saSource, String sToFind) throws ExceptionZZZ {
 		int[] iaReturn=null;
@@ -791,6 +840,10 @@ output:
 	public static String implode(String[] saString) throws ExceptionZZZ {
 		return StringUtils.join(saString);   //
 	}
+	
+	public static String implode(String[] saString, char cDelimiter) throws ExceptionZZZ {
+		return StringUtils.join(saString, cDelimiter);   //
+	}	
 	
 	public static String implode(String[] saString, String sDelimiter) throws ExceptionZZZ {
 		return StringUtils.join(saString, sDelimiter);   //
@@ -1166,8 +1219,12 @@ output:
 		return objReturn;
 	}
 	
-	public static long searchIndexFirst(String[] saSource, String sToFind) throws ExceptionZZZ {
+	public static int searchIndexFirst(String[] saSource, String sToFind) throws ExceptionZZZ {
 		return StringArrayZZZ.getIndexFirst(saSource, sToFind);
+	}
+	
+	public static long searchIndexFirstLong(String[] saSource, String sToFind) throws ExceptionZZZ {
+		return StringArrayZZZ.getIndexFirstLong(saSource, sToFind);
 	}
 	
 	public String[] sort() throws ExceptionZZZ{

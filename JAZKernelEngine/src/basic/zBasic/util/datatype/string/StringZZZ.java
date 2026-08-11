@@ -1062,6 +1062,19 @@ public class StringZZZ implements IConstantZZZ{
 	}
 	
 	//######################################################################
+	public static String[] explode(String sString, char cDelimiter) throws ExceptionZZZ {
+		String[] saReturn=null;
+		main:{
+			if(StringZZZ.isEmpty(sString)) break main;
+			if(CharZZZ.isEmptyNull(cDelimiter)) break main;
+			
+			String sDelimiter = CharZZZ.toString(cDelimiter);
+			saReturn = StringZZZ.explode(sString, sDelimiter);
+		}//end main
+		return saReturn;
+	}
+	
+	
 	
 	public static String[] explode(String sString, String sDelimiter) throws ExceptionZZZ {
 		String[] saReturn=null;

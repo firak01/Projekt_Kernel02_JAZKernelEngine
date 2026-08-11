@@ -112,11 +112,11 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 			boolean bReturn = false;
 			main:{
 				if(objAL1== null){
-					ExceptionZZZ ez = new ExceptionZZZ("ArrayList1 to compare'", iERROR_PARAMETER_MISSING,  HashMapZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());								  
+					ExceptionZZZ ez = new ExceptionZZZ("ArrayList1 to compare'", iERROR_PARAMETER_MISSING,  ArrayListUtilZZZ.class, ReflectCodeZZZ.getMethodCurrentName());								  
 					throw ez;	
 				  }
 				if(objAL2== null){
-					ExceptionZZZ ez = new ExceptionZZZ("ArrayList2 to compare'", iERROR_PARAMETER_MISSING,   HashMapZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());								  
+					ExceptionZZZ ez = new ExceptionZZZ("ArrayList2 to compare'", iERROR_PARAMETER_MISSING,   ArrayListUtilZZZ.class, ReflectCodeZZZ.getMethodCurrentName());								  
 					throw ez;	
 				  }
 				//###################
@@ -778,8 +778,7 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		}//end main	
 	}
 	
-	
-	
+
 	public static Object[]toArray(ArrayList<?> lista) throws ExceptionZZZ {
 		Object[] aReturn = null;
 		main:{
@@ -796,6 +795,12 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		return aReturn;	
 	}
 	
+	/** Merke: Cast funktioniert nicht (String[])
+	 * So kann man das intern aber hinbekommen.
+	 * @param lista
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T[] toArray(ArrayList<T> lista, Object obj) throws ExceptionZZZ {
 		T[]aReturn = null;
@@ -813,20 +818,36 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 		return aReturn;
 	}
 	
+	/** Merke: Cast funktioniert nicht (String[])
+	 *  So kann man das intern aber hinbekommen.
+	 * @param lista
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T[] toArray(ArrayList<T> lista, Class<T> classObjIn) throws ExceptionZZZ {
+	public static <T> T[] toArray(ArrayList<T> lista, Class<T> classObj) throws ExceptionZZZ {
 		T[]aReturn = null;
 		main:{
 			if(lista==null) break main;
 			
-			Class<T> classObj = null; 
-			if(classObjIn == null) {
-				classObj = (Class<T>) Object.class;
-			}else {
-				classObj = classObjIn;				
+
+			if(classObj == null) {
+				//classObj = (Class<T>) Object.class;
+				//Das ist aber keine echte Lösung, auch weil T nicht bekannt ist.
+				//Also: Fehler werfen.
+				ExceptionZZZ ez = new ExceptionZZZ("classObj'", iERROR_PARAMETER_MISSING,  ArrayListUtilZZZ.class, ReflectCodeZZZ.getMethodCurrentName());								  
+				throw ez;	
 			}
-			
-			aReturn = lista.toArray((T[]) java.lang.reflect.Array.newInstance(classObj, lista.size()));
+						
+			//also Lösung:
+			@SuppressWarnings("unchecked")
+		    T[] aReturnTemp = (T[]) java.lang.reflect.Array.newInstance(
+		        classObj,
+		        lista.size()
+		    );
+
+		    //return lista.toArray(aReturn);
+			aReturn =  lista.toArray(aReturnTemp);
 		}
 		return aReturn;
 	}
@@ -838,6 +859,12 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 //      return list.toArray(array);
 //  }
 		
+	/** Merke: Cast funktioniert nicht (String[])
+	 *  So kann man das intern aber hinbekommen.
+	 * @param lista
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T[] toArray(List<T> lista, Class<T> classObjIn) throws ExceptionZZZ {
 		T[]aReturn = null;
@@ -846,7 +873,11 @@ public class ArrayListUtilZZZ<T>  extends ListUtilZZZ {
 			
 			Class<T> classObj = null; 
 			if(classObjIn == null) {
-				classObj = (Class<T>) Object.class;
+				//classObj = (Class<T>) Object.class;
+				//Das ist aber keine echte Lösung, auch weil T nicht bekannt ist.
+				//Also: Fehler werfen.
+				ExceptionZZZ ez = new ExceptionZZZ("classObj'", iERROR_PARAMETER_MISSING,  ArrayListUtilZZZ.class, ReflectCodeZZZ.getMethodCurrentName());								  
+				throw ez;	
 			}else {
 				classObj = classObjIn;				
 			}

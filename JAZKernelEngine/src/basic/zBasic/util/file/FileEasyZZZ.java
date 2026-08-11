@@ -1764,6 +1764,35 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		return sReturn;	
 	}
 	
+	/** Verwende Slash statt Backslash, bzw. umgekehrt.
+	 *  Das ist nicht so pauschal wie die Methode ohne Angabe des Ziel "Verzeichnistrenners".
+	 *  z.B. Git verwendet grundsätzlich '/'. Wenn ich unter Windows arbeite, will ich aber vielleicht immer den Windows-Verzeichnistrenner haben.
+	 * @param sFilePath
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
+	public static String normlizeFilePath(String sFilePath, char cDirectorySeparator) throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			if(StringZZZ.isEmptyNull(sFilePath)) {
+				String stemp = " 'FilePathString'";
+				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING,FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+			
+			if(cDirectorySeparator == '\\'){
+				sReturn = sFilePath.replace('/', cDirectorySeparator); //z.B. 	 // Git verwendet grundsätzlich '/'
+			}else if(cDirectorySeparator == '/'){
+				sReturn = sFilePath.replace('\\', cDirectorySeparator); //z.B. 	 // Git verwendet grundsätzlich '/'	
+			}else {
+				String stemp = "Directory Separator not supported: '" + cDirectorySeparator + "'";
+				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_VALUE,FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}			
+		}
+		return sReturn;	
+	}
+	
 	public static String joinFilePathName(File objFileForDirectory, String sFileNameIn) throws ExceptionZZZ{
 		String sReturn= "";//Merke: Es ist wichtig ob null oder Leerstring. Je nachdem würde eine andere Stelle des Classpath als Root verwendet.
 		main:{
