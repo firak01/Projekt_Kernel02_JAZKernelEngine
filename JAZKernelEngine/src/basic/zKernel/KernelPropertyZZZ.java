@@ -20,6 +20,14 @@ import basic.zBasic.ReflectCodeZZZ;
  *  The .property-file(s) will contain parameters, which were used by a "Program" of a "Module".
  *  Remember: The KernelObject is used for acessing module configuration files, etc.
  *  
+ * MERKE:
+ * Java ignoriert Kommentarzeilen in .properties-Dateien automatisch beim Aufruf der load()-Methode. 
+ * Sie müssen diese nicht manuell herausfiltern.
+ * Kommentarzeichen in Properties:
+ * # (Raute) am Zeilenanfang markiert einen Kommentar.
+ * ! (Ausrufezeichen) am Zeilenanfang wird ebenfalls als Kommentar gewertet.
+ * Leere Zeilen werden ebenfalls automatisch übersprungen.
+ *  
  * @author 0823
  *
  */
