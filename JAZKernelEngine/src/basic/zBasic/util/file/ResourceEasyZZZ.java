@@ -401,11 +401,13 @@ public class ResourceEasyZZZ extends AbstractObjectWithExceptionZZZ implements I
 	 * @throws ExceptionZZZ
 	 * @author Fritz Lindhauer, 29.10.2020, 13:01:39
 	 */
-	public static File searchFile(String sFileToSearch)throws ExceptionZZZ {
+	public static File searchFile(String sFileToSearchIn)throws ExceptionZZZ {
 		File objReturn = null;
 		main:{
-			String sLog = "(1) File to search for: '" + sFileToSearch + "'";
+			String sLog = "(1) File to search for: '" + sFileToSearchIn + "'";
 			System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+			
+			String sFileToSearch = FileEasyZZZ.normlizeFilePath(sFileToSearchIn);
 			objReturn = FileEasyZZZ.searchFile(sFileToSearch,false);//Merke: Dieses False soll bewirken NICHT in einer Jar-DAtei zu suchen
 			if(objReturn!=null) {
 				if(FileEasyZZZ.isFileExisting(objReturn)) break main;

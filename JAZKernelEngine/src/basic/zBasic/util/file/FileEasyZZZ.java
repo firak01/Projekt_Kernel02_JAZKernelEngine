@@ -583,7 +583,7 @@ public static File searchMakeDirectory(String sDirectoryPath) throws ExceptionZZ
 public static File splitFilePathName(String sFilePath, ReferenceZZZ<String> strDirectory, ReferenceZZZ<String> strFileName) throws ExceptionZZZ{
 	File objReturn = null;
 	main:{
-		objReturn = splitFilePathName_(sFilePath, strDirectory, strFileName, '\\');
+		objReturn = splitFilePathName_(sFilePath, strDirectory, strFileName);
 	}//END main:
 	return objReturn;	
 }
@@ -596,17 +596,55 @@ public static File splitFilePathName(String sFilePath, ReferenceZZZ<String> strD
 	return objReturn;	
 }
 
+
 /*Rückgabewert ist das 'File-Objekt' vom Eingabe FilePath.
  * Darüber hinaus wird der Pfad aufgeteilt und zurückgegeben.
  * Da Java nur ein CALL_BY_VALUE machen kann, weden hier für die eingefüllten Werte Referenz-Objekte verwendet.
  */
-private static File splitFilePathName_(String sFilePath, ReferenceZZZ<String> strDirectory, ReferenceZZZ<String> strFileName, char cDirectorySeparator) throws ExceptionZZZ{
+private static File splitFilePathName_(String sFilePathIn, ReferenceZZZ<String> strDirectory, ReferenceZZZ<String> strFileName) throws ExceptionZZZ{
 	File objReturn = null;
 	main:{
-	if(StringZZZ.isEmpty(sFilePath)){
+	if(StringZZZ.isEmpty(sFilePathIn)){
 		ExceptionZZZ ez  = new ExceptionZZZ("sFilePath", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 		throw ez;
 	}
+	//String sSeparator = CharZZZ.toString(cDirectorySeparator);
+	//Nein, die Idee ist es den Dateipfad erst zu normieren
+	String sFilePath = FileEasyZZZ.normlizeFilePath(sFilePathIn);
+	
+	objReturn = new File(sFilePath);
+	String sDirectory = "";	
+	//Aufteilen auf Datei und Verzeichnis, nur wenn es einen Seperator im Pfad gibt, sonst ist es lediglich der Dateiname.
+	sDirectory = objReturn.getParent();
+	if(sDirectory==null){ //ROOT		
+		break main;
+	}	
+
+	String sFileName = objReturn.getName();
+	
+	//#### Die Rückgabewerte
+	strDirectory.set(sDirectory);
+	strFileName.set(sFileName);
+	
+	}//END main:
+	return objReturn;	
+}
+
+/*Rückgabewert ist das 'File-Objekt' vom Eingabe FilePath.
+ * Darüber hinaus wird der Pfad aufgeteilt und zurückgegeben.
+ * Da Java nur ein CALL_BY_VALUE machen kann, weden hier für die eingefüllten Werte Referenz-Objekte verwendet.
+ */
+private static File splitFilePathName_(String sFilePathIn, ReferenceZZZ<String> strDirectory, ReferenceZZZ<String> strFileName, char cDirectorySeparator) throws ExceptionZZZ{
+	File objReturn = null;
+	main:{
+	if(StringZZZ.isEmpty(sFilePathIn)){
+		ExceptionZZZ ez  = new ExceptionZZZ("sFilePath", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+		throw ez;
+	}
+	
+	//Normalerweise ist die Idee ist es den Dateipfad erst zu normieren, hier habe wir aber den Separator übergeben bekommen
+	//String sFilePath = FileEasyZZZ.normlizeFilePath(sFilePathIn);
+	String sFilePath  = sFilePathIn;
 	String sSeparator = CharZZZ.toString(cDirectorySeparator);
 	
 	objReturn = new File(sFilePath);
@@ -1706,6 +1744,26 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		return sReturn;
 	}
 	
+	/** Verwend Slash statt Backslash, z.B. Git verwendet grundsätzlich '/'
+	 * @param sFilePath
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
+	public static String normlizeFilePath(String sFilePath) throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			if(StringZZZ.isEmptyNull(sFilePath)) {
+				String stemp = " 'FilePathString'";
+				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING,FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+			
+			
+			sReturn = sFilePath.replace('\\', '/'); //z.B. 	 // Git verwendet grundsätzlich '/'
+		}
+		return sReturn;	
+	}
+	
 	public static String joinFilePathName(File objFileForDirectory, String sFileNameIn) throws ExceptionZZZ{
 		String sReturn= "";//Merke: Es ist wichtig ob null oder Leerstring. Je nachdem würde eine andere Stelle des Classpath als Root verwendet.
 		main:{
@@ -1713,7 +1771,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			if(objFileForDirectory==null){
 				//here is the code throwing an ExceptionZZZ
 				String stemp = " 'FileObject for directory'";
-				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING,  ReflectCodeZZZ.getMethodCurrentName(), "");
+				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING,  FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				   //doesn�t work. Only works when > JDK 1.4
 				   //Exception e = new Exception();
 				   //ExceptionZZZ ez = new ExceptionZZZ(stemp,iCode,this, e, "");			  
@@ -2011,7 +2069,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			if(sFileNameIn==null){
 				//here is the code throwing an ExceptionZZZ
 				stemp = "''FileName'";			   
-				  ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING, ReflectCodeZZZ.getMethodCurrentName(), "");
+				  ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				   //doesn't work. Only works when > JDK 1.4
 				   //Exception e = new Exception();
 				   //ExceptionZZZ ez = new ExceptionZZZ(stemp,iCode,this, e, "");			  
@@ -2019,7 +2077,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			}else if (sFileNameIn.equals("")){
 					//	here is the code throwing an ExceptionZZZ
 					stemp = "'FileName'";
-					ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_EMPTY + stemp, iERROR_PARAMETER_EMPTY,  ReflectCodeZZZ.getMethodCurrentName(), "");
+					ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_EMPTY + stemp, iERROR_PARAMETER_EMPTY, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 					//doesn't work. Only works when > JDK 1.4
 					//Exception e = new Exception();
 					//ExceptionZZZ ez = new ExceptionZZZ(stemp,iCode,this, e, "");			  
@@ -2121,7 +2179,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			String stemp;
 			if(sDirectorySubInTemp==null){				
 				stemp = " 'FilePathInTemp' ";
-				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING, ReflectCodeZZZ.getMethodCurrentName(), "");				   		 
+				ExceptionZZZ ez = new ExceptionZZZ(sERROR_PARAMETER_MISSING + stemp, iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());				   		 
 				throw ez;	
 			}
 						
@@ -2222,7 +2280,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			boolean bReturn = false;
 			main:{
 				if(classObject==null){
-					ExceptionZZZ ez = new ExceptionZZZ("No class object provided.", iERROR_PARAMETER_MISSING, JarEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+					ExceptionZZZ ez = new ExceptionZZZ("No class object provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
 				
@@ -2338,7 +2396,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			boolean bReturn = false;
 			main:{
 				if(objFile==null){
-					ExceptionZZZ ez = new ExceptionZZZ("No fileobject provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+					ExceptionZZZ ez = new ExceptionZZZ("No fileobject provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
 				if(!objFile.exists()) {
@@ -2371,10 +2429,10 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					bReturn = zip.getEntry("META-INF/MANIFEST.MF") != null;
 					zip.close();
 				} catch (ZipException e) {
-					ExceptionZZZ ez = new ExceptionZZZ("ZIPExpeption for '" + objFile.getAbsolutePath() + "' : " + e.getMessage(), iERROR_RUNTIME, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName(),e);
+					ExceptionZZZ ez = new ExceptionZZZ("ZIPExpeption for '" + objFile.getAbsolutePath() + "' : " + e.getMessage(), iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName(),e);
 					throw ez;
 				} catch (IOException e) {
-					ExceptionZZZ ez = new ExceptionZZZ("IOExpeption for '" + objFile.getAbsolutePath() + "' : "  + e.getMessage(), iERROR_RUNTIME, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName(),e);
+					ExceptionZZZ ez = new ExceptionZZZ("IOExpeption for '" + objFile.getAbsolutePath() + "' : "  + e.getMessage(), iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName(),e);
 					throw ez;
 				}				 								
 			}//end main
@@ -2394,16 +2452,16 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 						throw ez;
 					}
 					if(!objFile.exists()){
-						ExceptionZZZ ez = new ExceptionZZZ("Fileobject not exists: '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+						ExceptionZZZ ez = new ExceptionZZZ("Fileobject not exists: '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}
 					if(!objFile.isFile()) {
-						ExceptionZZZ ez = new ExceptionZZZ("Fileobject is no file: '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+						ExceptionZZZ ez = new ExceptionZZZ("Fileobject is no file: '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}
 		      
 		      if(!objFile.canRead()) {
-		    		ExceptionZZZ ez = new ExceptionZZZ("Cannot read file '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+		    		ExceptionZZZ ez = new ExceptionZZZ("Cannot read file '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 		      }
 
@@ -2415,7 +2473,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			      in.close();
 			      bReturn = (test == 0x504b0304);
 		      } catch (IOException e) {
-					ExceptionZZZ ez = new ExceptionZZZ("IOExpeption for '" + objFile.getAbsolutePath() + "' : "  + e.getMessage(), iERROR_RUNTIME, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName(),e);
+					ExceptionZZZ ez = new ExceptionZZZ("IOExpeption for '" + objFile.getAbsolutePath() + "' : "  + e.getMessage(), iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName(),e);
 					throw ez;
 				}
 			  }//end main;
@@ -2486,7 +2544,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		File objReturn = null;
 		main:{			
 			if(sFile==null){
-				ExceptionZZZ ez = new ExceptionZZZ("No filepath provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				ExceptionZZZ ez = new ExceptionZZZ("No filepath provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}
 					
@@ -2503,7 +2561,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		File objReturn = null;
 		main:{			
 			if(sFile==null){
-				ExceptionZZZ ez = new ExceptionZZZ("No filepath provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				ExceptionZZZ ez = new ExceptionZZZ("No filepath provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}
 					
@@ -2526,7 +2584,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			ObjectZZZ.logLineDate(FileEasyZZZ.class, "Suche auf Projektebene im Workspace.");
 		    		    
 		    if(objConfig==null) {
-		    	ExceptionZZZ ez = new ExceptionZZZ("IKernelConfig - Object", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+		    	ExceptionZZZ ez = new ExceptionZZZ("IKernelConfig - Object", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 		    }
 			//Das ist ein Z-Kernel Konzept. Vorraussetzung: Nicht in .Jar oder auf einem Server, also in Eclipse Entwicklungs Umgebung
@@ -2618,7 +2676,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			URL workspaceURL = null; String sLog=null;
 			
 			if(sPathIn==null){							
-			  	ExceptionZZZ ez = new ExceptionZZZ("Path", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+			  	ExceptionZZZ ez = new ExceptionZZZ("Path", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;								
 			}
 			
@@ -2747,7 +2805,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			URL workspaceURL = null; String sLog=null;
 			
 			if(sPathIn==null){							
-			  	ExceptionZZZ ez = new ExceptionZZZ("Path", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+			  	ExceptionZZZ ez = new ExceptionZZZ("Path", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;								
 			}
 			
@@ -2973,7 +3031,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		String sReturn = null;
 		main:{
 			if(file2read==null){
-				ExceptionZZZ ez = new ExceptionZZZ("No file object provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				ExceptionZZZ ez = new ExceptionZZZ("No file object provided.", iERROR_PARAMETER_MISSING, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}
 			
@@ -3007,7 +3065,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			if(url==null) {
 				String sLog = "unable to receive url object";
 				ObjectZZZ.logLineDate(FileEasyZZZ.class, sLog);
-				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}else {
 				ObjectZZZ.logLineDate(FileEasyZZZ.class, "URL = '"+url.toExternalForm() + "'");				
@@ -3024,7 +3082,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			if(url==null) {
 				String sLog = "unable to receive url object";
 				ObjectZZZ.logLineDate(FileEasyZZZ.class, sLog);
-				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}else {
 				ObjectZZZ.logLineDate(FileEasyZZZ.class, "URL = '"+url.toString() + "'");				
