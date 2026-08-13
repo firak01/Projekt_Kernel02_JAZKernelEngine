@@ -1771,7 +1771,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 	 * @return
 	 * @throws ExceptionZZZ
 	 */
-	public static String normlizeFilePath(String sFilePath, char cDirectorySeparator) throws ExceptionZZZ {
+	public static String normalizeFilePath(String sFilePath, char cDirectorySeparator) throws ExceptionZZZ {
 		String sReturn = null;
 		main:{
 			if(StringZZZ.isEmptyNull(sFilePath)) {

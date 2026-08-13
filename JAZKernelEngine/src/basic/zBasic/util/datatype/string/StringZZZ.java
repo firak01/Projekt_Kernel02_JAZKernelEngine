@@ -44,6 +44,7 @@ import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.json.JsonArrayZZZ;
 import basic.zBasic.util.datatype.json.JsonUtilZZZ;
 import basic.zBasic.util.datatype.xml.XmlUtilZZZ;
+import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.IFileEasyConstantsZZZ;
 import basic.zBasic.util.math.MathZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
@@ -3663,6 +3664,17 @@ null will return false. An empty CharSequence (length()=0) will return false.
 			}//end main
 			return sReturn;
 		}
+		
+		public static String escapeFileSeparators(String sString) throws ExceptionZZZ {
+			String sReturn = null;
+			main:{
+				if(StringZZZ.isEmptyNull(sString)) break main;
+				
+				sReturn = StringZZZ.replace(sString, FileEasyZZZ.sDIRECTORY_SEPARATOR_WINDOWS, FileEasyZZZ.sDIRECTORY_SEPARATOR_WINDOWS + FileEasyZZZ.sDIRECTORY_SEPARATOR_WINDOWS);		
+			}//end main
+			return sReturn;
+		}
+		
 		
 		public static String toShorten(String sString, int iShortenMethodType, int iOffset) throws ExceptionZZZ {
 			String sReturn = sString;

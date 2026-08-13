@@ -20,6 +20,10 @@ import basic.zBasic.ReflectCodeZZZ;
  *  The .property-file(s) will contain parameters, which were used by a "Program" of a "Module".
  *  Remember: The KernelObject is used for acessing module configuration files, etc.
  *  
+ * MERKE: 
+ * Hier geht es darum mehrere Property-Dateien zu verwalten.
+ * Eine Utility Klasse für die Arbeit mit einer Property-Datei ist PropertiesUtilZZZ
+ * 
  * MERKE:
  * Java ignoriert Kommentarzeilen in .properties-Dateien automatisch beim Aufruf der load()-Methode. 
  * Sie müssen diese nicht manuell herausfiltern.
@@ -169,7 +173,7 @@ public class KernelPropertyZZZ extends AbstractObjectWithFlagZZZ implements java
 			DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(fileConfigFile)));			
 			objReturn.load(in);		
 			
-			//Falls das "neue" File nicht vorhanden ist, dann wird eine Exception ausgel�st. Darum kann man nun schreiben... 
+			//Falls das "neue" File nicht vorhanden ist, dann wird eine Exception ausgeloest. Darum kann man nun schreiben... 
 			hmProperty.put(fileConfigFile, objReturn);  //.... ohne das p == null ist.
 			
 		}//END main:
