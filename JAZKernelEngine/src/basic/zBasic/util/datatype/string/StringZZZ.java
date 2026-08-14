@@ -2920,10 +2920,26 @@ StringUtils.splitByWholeSeparator(...) kann das nicht, weil es keine Escape-/Quo
 	}
 	//######################################################################
 	
+	/**Rückgabewert ist ein Vektor aus 3 Teilen: Anfang, Mitte, Ende
+	 *                                           Ggfs. ist Mitte immer leer.
+	 * @param sStringToParse
+	 * @param sSeparator
+	 * @param bReturnSeparators
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
 	public static Vector3ZZZ<String>vecSplitFirst(String sStringToParse, String sSeparator, boolean bReturnSeparators) throws ExceptionZZZ {		
 		return StringZZZ.vecSplitFirst(sStringToParse, sSeparator, bReturnSeparators, true);
 	}
 	
+	/**Rückgabewert ist ein Vektor aus 3 Teilen: Anfang, Mitte, Ende
+	 *                                           Ggfs. ist Mitte immer leer.
+	 * @param sStringToParse
+	 * @param sSeparator
+	 * @param bReturnSeparators
+	 * @return
+	 * @throws ExceptionZZZ
+	 */
 	public static Vector3ZZZ<String>vecSplitFirst(String sStringToParse, String sSeparator, boolean bReturnSeparators, boolean bExactMatch) throws ExceptionZZZ {
 		
 		Vector3ZZZ<String> vecReturn = new Vector3ZZZ<String>();

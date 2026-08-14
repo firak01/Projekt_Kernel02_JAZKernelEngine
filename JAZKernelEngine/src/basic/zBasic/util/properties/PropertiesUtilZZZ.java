@@ -6,9 +6,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Vector;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
+import basic.zBasic.util.abstractList.Vector3ZZZ;
+import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 /** Utility Klasse zum Arbeiten mit Properties.
@@ -162,5 +165,23 @@ public class PropertiesUtilZZZ implements IConstantZZZ, IPropertiesConstantZZZ{
 			}								
 		}//END main:
 		return objReturn;
+	}
+	
+	
+	//#####################################
+	public static Vector<String> splittLine(String sLine) throws ExceptionZZZ {
+		Vector<String>vecReturn=null;
+		main:{
+			if(StringZZZ.isEmptyNull(sLine)) break main;
+			
+			String sSeparator = CharZZZ.toString(cKEY_VALUE_SEPARATOR);
+			Vector3ZZZ<String>vecTripel = StringZZZ.vecSplitFirst(sLine, sSeparator, false);
+			if(vecTripel==null) break main;
+			
+			vecReturn = new Vector<String>();
+			vecReturn.add((String) vecTripel.get(0));
+			vecReturn.add((String) vecTripel.get(2));
+		}//end main:
+		return vecReturn;		
 	}
 }
