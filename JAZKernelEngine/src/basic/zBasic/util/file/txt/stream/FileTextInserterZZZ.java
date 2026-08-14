@@ -6,7 +6,7 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextInserterZZZ  extends  AbstractFileTextSaverZZZ{
+public class FileTextInserterZZZ  extends  AbstractFileTextReaderSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
 	public FileTextInserterZZZ() throws ExceptionZZZ {		

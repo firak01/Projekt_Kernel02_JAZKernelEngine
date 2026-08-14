@@ -13,24 +13,29 @@ import basic.zUtil.io.IFileExpansionEnabledZZZ;
 import basic.zUtil.io.IFileExpansionUserZZZ;
 import basic.zUtil.io.IFileExpansionZZZ;
 
-public abstract class AbstractFileTextSaverZZZ extends AbstractFileTextReaderLoaderZZZ implements IFileExpansionUserZZZ {
+/**Eigentlich nur eine Kopie von AbstractFileTextReaderSaverZZZ
+ * Aber diese ist im Reader Ast
+ * @author Fritz Lindhauer
+ *
+ */
+public abstract class AbstractFileTextReaderSaverZZZ extends AbstractFileTextReaderLoaderZZZ implements IFileExpansionUserZZZ {
 	private static final long serialVersionUID = -6026050043450090577L;
 
 	IFileExpansionZZZ objFileExpansion = null;
 	
 	protected String sFilePathSavedLast = null; 
 	
-	public AbstractFileTextSaverZZZ() throws ExceptionZZZ{		
+	public AbstractFileTextReaderSaverZZZ() throws ExceptionZZZ{		
 	}
-	public AbstractFileTextSaverZZZ(String sFilePath) throws ExceptionZZZ{
+	public AbstractFileTextReaderSaverZZZ(String sFilePath) throws ExceptionZZZ{
 		super(sFilePath);
 	}
 	
-	public AbstractFileTextSaverZZZ(File objFile) throws ExceptionZZZ{
+	public AbstractFileTextReaderSaverZZZ(File objFile) throws ExceptionZZZ{
 		super(objFile);
 	}
 	
-	public AbstractFileTextSaverZZZ(List<String> listaLine) throws ExceptionZZZ{
+	public AbstractFileTextReaderSaverZZZ(List<String> listaLine) throws ExceptionZZZ{
 		super(listaLine);
 	}
 	

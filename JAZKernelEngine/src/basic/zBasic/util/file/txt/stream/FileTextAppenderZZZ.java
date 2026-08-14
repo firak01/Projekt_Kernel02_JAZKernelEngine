@@ -8,7 +8,7 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextAppenderZZZ extends AbstractFileTextSaverZZZ {
+public class FileTextAppenderZZZ extends AbstractFileTextReaderSaverZZZ {
 	private static final long serialVersionUID = 7754836813854270845L;
 
 	public FileTextAppenderZZZ() throws ExceptionZZZ {
