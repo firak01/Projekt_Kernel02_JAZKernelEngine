@@ -9,7 +9,7 @@ import basic.zBasic.util.crypt.code.IROTUserZZZ;
  * @author Fritz Lindhauer, 22.01.2023, 09:21:59
  * 
  */
-public interface IKeyPressThreadCryptConstantsZZZ extends IKeyPressThreadConstantZZZ{
+public interface IKeyPressThreadCryptConstantZZZ extends IKeyPressThreadConstantZZZ{
 	public static String sINPUT_CIPHER = "INPUT_CIPHER";            //Der Verschluesselungsalgorithmus wird mit diesem Schluessel in der HashMap gespeichert
 	public static String sINPUT_KEY_NUMERIC = "INPUT_KEY_NUMERIC";  //Schluesselwert, z.B. fuer ROT Verschluesselung
 	public static String sINPUT_KEY_STRING = "INPUT_KEY_STRING";    //Schluesselwort, z.B. fuer Vigenere Verschlüsselung
@@ -17,8 +17,6 @@ public interface IKeyPressThreadCryptConstantsZZZ extends IKeyPressThreadConstan
 	public static String sINPUT_TEXT_ENCRYPTED = "INPUT_TEXT_ENCRYPTED";
 	public static String sINPUT_CHARACTERPOOL = "INPUT_CHARACTERPOOL";
 	public static String sINPUT_CHARACTERPOOL_ADDITIONAL = "INPUT_CHARACTERPOOL_ADDITIONAL";
-	public static String sINPUT_BOOLEAN_SKIP_ARGUMENTS = "INPUT_BOOLEAN_SKIP_ARGUMENTS";
-	
 	//Merke: Mit "INPUT_FLAG" werden Eingabewerte gekennzeichnet, die später dann als Flag den Objekten übergeben werden können.	
 	public static String sINPUT_FLAG_USE_STRATEGY_CASECHANGE = IKeyPressThreadConstantZZZ.sINPUT_FLAG + IROTUserZZZ.FLAGZ.USESTRATEGY_CASECHANGE.name();
 	public static String sINPUT_FLAG_USE_STRATEGY_CHARACTERPOOL = IKeyPressThreadConstantZZZ.sINPUT_FLAG + ICharacterPoolEnabledZZZ.FLAGZ.USESTRATEGY_CHARACTERPOOL.name();

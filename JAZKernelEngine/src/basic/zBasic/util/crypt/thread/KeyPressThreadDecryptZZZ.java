@@ -20,7 +20,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
-	public class KeyPressThreadDecryptZZZ extends AbstractKeyPressThreadCryptZZZ implements IKeyPressThreadCryptConstantsZZZ{	
+	public class KeyPressThreadDecryptZZZ extends AbstractKeyPressThreadCryptZZZ implements IKeyPressThreadCryptConstantZZZ{	
         //Method that gets called when the object is instantiated
 		public KeyPressThreadDecryptZZZ(IConsoleZZZ objConsole) {
         	super(objConsole);

@@ -21,7 +21,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public abstract class AbstractConsoleZZZ extends AbstractObjectWithFlagZZZ implements IConsoleZZZ {
+public abstract class AbstractConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleZZZ {
+	private static final long serialVersionUID = 303154337707751073L;
+
 	protected volatile static IConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
 	private IKeyPressThreadZZZ objThreadKeyPress=null;

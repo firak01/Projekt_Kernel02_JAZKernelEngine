@@ -11,7 +11,7 @@ import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.character.ICharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadZZZ implements IKeyPressThreadCryptConstantsZZZ{
+public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadZZZ implements IKeyPressThreadCryptConstantZZZ{
 	public AbstractKeyPressThreadCryptZZZ(IConsoleZZZ objConsole) {
     	super(objConsole);
     }
