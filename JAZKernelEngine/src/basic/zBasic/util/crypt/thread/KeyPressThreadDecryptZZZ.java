@@ -127,6 +127,17 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			return bReturn;
 		}
 		
+		
+		/** Damit wird Thread Menüpunkt auch von anderen Threads mit Menü nutzbar.
+		 * @param hmVariable
+		 * @throws ExceptionZZZ
+		 */
+		public static void processROT13(HashMapZZZ hmVariable) throws ExceptionZZZ{
+			if(hmVariable!=null) {
+        		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
+        		hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
+        	}
+		}
 		private void processROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();

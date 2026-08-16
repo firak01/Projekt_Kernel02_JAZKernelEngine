@@ -1,5 +1,6 @@
 package basic.zBasic.util.crypt.thread;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
@@ -8,6 +9,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.multithread.AbstractKeyPressThreadZZZ;
 import basic.zBasic.util.console.multithread.IConsoleZZZ;
 import basic.zBasic.util.console.multithread.IKeyPressConstantZZZ;
+import basic.zBasic.util.console.multithread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.multithread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -104,7 +106,25 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}//end main:
 		return bReturn;
 	}
-				
+			
+	public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		boolean bReturn = true;
+		main:{
+			
+			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			switch(sCallingMethod){
+				case "processROT13":
+					processROT13_(hmVariable);
+					break;
+				default:
+					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+					throw ez;
+			}
+			
+		}//end main:
+		return bReturn;
+	}
+		
 		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
@@ -129,6 +149,17 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			return bReturn;
 		}
 		
+		
+		/** Damit wird dieser Thread-Menüpunkt auch von anderen Threads mit Menü nutzbar.
+		 * @param hmVariable
+		 * @throws ExceptionZZZ
+		 */
+		public void processROT13(HashMapZZZ hmVariable) throws ExceptionZZZ{
+			if(hmVariable!=null) {
+        		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
+        		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
+        	}
+		}
 		private void processROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
@@ -345,11 +376,16 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         		}
         	}	
 		}
-		
-		
-		
-		
-		
+		@Override
+		public String setMethodForThreadUsed() throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public void setMethodForThreadUsed(String sMethodName) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			
+		}
 		
 		
 }

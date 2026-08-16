@@ -2,6 +2,7 @@ package basic.zBasic.util.crypt.thread;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.console.multithread.AbstractKeyPressThreadCommonZZZ;
 import basic.zBasic.util.console.multithread.AbstractKeyPressThreadZZZ;
 import basic.zBasic.util.console.multithread.IConsoleZZZ;
 import basic.zBasic.util.console.multithread.IKeyPressConstantZZZ;
@@ -11,7 +12,7 @@ import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.character.ICharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadZZZ implements IKeyPressThreadCryptConstantZZZ{
+public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadCommonZZZ implements IKeyPressThreadCryptConstantZZZ{
 	public AbstractKeyPressThreadCryptZZZ(IConsoleZZZ objConsole) {
     	super(objConsole);
     }
@@ -19,20 +20,6 @@ public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThr
     	super(objConsole, lSleepTime);
     }
     
-	protected boolean printTableASCII(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		//Ausgabe der ASCII-Zeichen auf dem aktuellen System
-		boolean bReturn = true;
-		main:{
-			KeyPressCryptUtilZZZ.printTableAscii();
-			this.isCurrentMenue(true);//das Menue erneut aufbauen
-    		this.isCurrentInputFinished(true);
-    		this.isInputAllFinished(true);//das beendet diesen Menuelauf
-    		this.isOutputAllFinished(true);//das bewirkt, das kein anderer Thread eine Ausgabe macht.
-    		
-			System.out.println("Weiter mit der Menueeingabe....");
-		}//end main:
-		return bReturn;						
-	}
 	
 	protected void questionNumericKey(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		//######################################################################

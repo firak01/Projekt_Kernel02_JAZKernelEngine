@@ -7,7 +7,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 
 
 	 
-	public class KeyPressThreadDefaultZZZ extends AbstractKeyPressThreadZZZ {
+	public class KeyPressThreadDefaultZZZ extends AbstractKeyPressThreadCommonZZZ {
 
 
         //Method that gets called when the object is instantiated

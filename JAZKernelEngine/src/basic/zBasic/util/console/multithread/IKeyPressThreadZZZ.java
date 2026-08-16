@@ -1,11 +1,23 @@
 package basic.zBasic.util.console.multithread;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
 public interface IKeyPressThreadZZZ extends IThreadEnabledZZZ{
+	
+	//### Damit wird der konkrete KeyPressThread von anderen KeyPressThreads aus nutzbar, ohne den Code zu verdoppeln
+	public IKeyPressThreadZZZ getKeyPressThreadUsed() throws ExceptionZZZ;
+	public void setKeyPressThreadUsed(IKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ;
+	
+	public String getMethodForThreadUsed() throws ExceptionZZZ;
+	public void setMethodForThreadUsed(String sMethodName) throws ExceptionZZZ;
+	
+	public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ; //Die Methode des Threads aufrufen. Hier wird die 
+	
+	//###########################################################
 	public long getSleepTime();
 	public void setSleepTime(long lSleepTime);
 

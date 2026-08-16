@@ -1,5 +1,6 @@
 package basic.zBasic.util.console.multithread;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
@@ -28,6 +29,36 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		//protected boolean bCurrentOutputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
 		
+		private IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
+		
+		//### GETTER / SETTER
+		@Override
+		public IKeyPressThreadZZZ getKeyPressThreadUsed() throws ExceptionZZZ {
+			if(this.objKeyPressThreadUsed==null) {
+				return this;
+			}else {
+				return this.objKeyPressThreadUsed;
+			}				
+		}
+
+		@Override
+		public void setKeyPressThreadUsed(IKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
+			this.objKeyPressThreadUsed = objKeyPressThread;					
+		}
+		
+		@Override 
+		public String getMethodForThreadUsed() throws ExceptionZZZ{
+			HashMapZZZ hm = this.getConsole().getVariableHashMap();
+			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+		}
+		
+		@Override 
+		public void setMethodForThreadUsed(String sMethod) throws ExceptionZZZ{
+			HashMapZZZ hm = this.getConsole().getVariableHashMap();
+			hm.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
+		}
+		
+		//### Methoden
 		@Override
 		public boolean isCurrentInputFinished() {
         	return this.bCurrentInputFinished;
@@ -247,11 +278,16 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 					                if(!bGoon) break main;//Quit
 					                
 				        		}while(!this.isCurrentInputValid());	                
-				        	}//end if bSkipArguments				        	
-		        			this.isInputAllFinished(false);
-				        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+				        	}//end if bSkipArguments	
 				        	
+				        	//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist
+		        			//this.isInputAllFinished(false);
+				        	//this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 				        	
+				        	IKeyPressThreadZZZ objKeyPressThreadUsed = this.getKeyPressThreadUsed();
+				        	objKeyPressThreadUsed.isInputAllFinished(false);
+				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+				        					        	
 				        	 if(!this.isCurrentInputFinished() && !this.isInputAllFinished()) {
 				        		boolean bGoon = this.processMenuePostArgumentInput(hmVariable);
 				        		if(!bGoon) break main; //Quit
@@ -307,6 +343,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
     	    	
     	@Override
 		public abstract void makeMenueMain() throws InterruptedException,ExceptionZZZ;
+    	
+    	@Override
+    	public abstract boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ;
     	
     	@Override
 		public abstract boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
