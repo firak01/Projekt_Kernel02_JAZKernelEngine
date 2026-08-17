@@ -58,7 +58,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 
 		@Override
 		public void makeMenueMain() throws InterruptedException, ExceptionZZZ {
-			// TODO Auto-generated method stub
+			TODOGOON20260817://Erzeuge irgendwelche Dummy Einträge 
 			
 		}
 
@@ -70,6 +70,12 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 
 		@Override
 		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
 			// TODO Auto-generated method stub
 			return false;
 		}

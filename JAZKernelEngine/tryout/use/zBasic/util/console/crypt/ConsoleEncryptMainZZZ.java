@@ -8,7 +8,7 @@ import basic.zBasic.util.console.multithread.IKeyPressThreadZZZ;
 import basic.zBasic.util.crypt.thread.ConsoleUserEncryptZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadEncryptZZZ;
 
-public class EncryptConsoleMainZZZ {
+public class ConsoleEncryptMainZZZ {
 
 	public static void main(String[] args) {
 		try {

@@ -8,6 +8,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.multithread.AbstractKeyPressThreadZZZ;
 import basic.zBasic.util.console.multithread.IConsoleZZZ;
 import basic.zBasic.util.console.multithread.IKeyPressConstantZZZ;
+import basic.zBasic.util.console.multithread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.multithread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -353,6 +354,24 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            	}
         		}
         	}	
+		}
+		@Override
+		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+			boolean bReturn = true;
+			main:{
+				
+				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+				switch(sCallingMethod){
+					case "processROT13":
+						processROT13_(hmVariable);
+						break;
+					default:
+						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+						throw ez;
+				}
+				
+			}//end main:
+			return bReturn;
 		}
 }
 

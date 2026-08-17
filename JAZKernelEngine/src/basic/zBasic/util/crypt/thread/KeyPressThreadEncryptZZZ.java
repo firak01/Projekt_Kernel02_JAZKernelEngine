@@ -375,19 +375,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            	}
         		}
         	}	
-		}
-		@Override
-		public String setMethodForThreadUsed() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		@Override
-		public void setMethodForThreadUsed(String sMethodName) throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		
+		}		
 }
 
 

@@ -72,18 +72,20 @@ public class ConsoleUserEncryptZZZ extends AbstractConsoleUserCryptZZZ {
 			this.iCounter++;
 			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Zähler crypt: " + iCounter);
 
-			HashMapZZZ<String,Object>hmVariable=this.getConsole().getVariableHashMap();
-			if(hmVariable!=null) {
-				String sDebug = hmVariable.computeDebugString("<BR>","|");
-				System.out.println(sDebug);
-			}
-			
+			HashMapZZZ<String,Object>hmVariable=this.getConsole().getVariableHashMap();			
 			if(hmVariable!=null) {
 				//Ausgabewerte zurücksetzen
 				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_ENCRYPTED);
 				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_UNCRYPTED);
 				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_DECRYPTED);
 			}
+			
+			//Debugausgabe, ob auch alles leer ist
+			if(hmVariable!=null) {
+				String sDebug = hmVariable.computeDebugString("<BR>","|");
+				System.out.println(sDebug);
+			}
+			
 					
 			//Die eingegebenen Variablen über eine HashMap aus der Console für die Steuereung der Verschlüsselung nutzen. 			
 			//String sCipher = (String) hmVariable.get(CryptCipherAlgorithmMappedValueZZZ.CryptCipherTypeZZZ.ROT13.getAbbreviation());

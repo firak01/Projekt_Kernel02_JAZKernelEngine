@@ -10,7 +10,7 @@ import basic.zBasic.util.crypt.thread.ConsoleUserEncryptZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadDecryptZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadEncryptZZZ;
 
-public class DecryptConsoleMainZZZ {
+public class ConsoleDecryptMainZZZ {
 
 	public static void main(String[] args) {
 		try {

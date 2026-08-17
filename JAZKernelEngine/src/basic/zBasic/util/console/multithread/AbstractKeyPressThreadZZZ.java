@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.Syso;
+import basic.zKernel.flag.IFlagZEnabledZZZ;
 
 
 	 
@@ -18,7 +21,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	 * @author Fritz Lindhauer, 18.10.2022, 09:15:40
 	 * 
 	 */
-	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConsoleUserZZZ,IKeyPressThreadZZZ {
+	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ,IConsoleUserZZZ,IKeyPressThreadZZZ {
 		private static Scanner inputReader = new Scanner(System.in);
 		protected volatile static IConsoleZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 		
@@ -29,7 +32,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		//protected boolean bCurrentOutputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
 		
-		private IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
+		protected IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
 		
 		//### GETTER / SETTER
 		@Override
@@ -279,23 +282,13 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 					                
 				        		}while(!this.isCurrentInputValid());	                
 				        	}//end if bSkipArguments	
-				        	
-				        	//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist
-		        			//this.isInputAllFinished(false);
-				        	//this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
-				        	
-				        	IKeyPressThreadZZZ objKeyPressThreadUsed = this.getKeyPressThreadUsed();
-				        	objKeyPressThreadUsed.isInputAllFinished(false);
-				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 				        					        	
-				        	 if(!this.isCurrentInputFinished() && !this.isInputAllFinished()) {
-				        		boolean bGoon = this.processMenuePostArgumentInput(hmVariable);
-				        		if(!bGoon) break main; //Quit
-				        	}
+		        			this.isInputAllFinished(false);
+				        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 				        	
-		                	//######################################################################
+				        	//######################################################################
 		                	//### Frage nach Mehrfacheingabe
-				        	 if(!this.isCurrentInputFinished() && !this.isInputAllFinished()) {
+				        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
 		                		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben weiteren Text verschluesseln?");		                		                			                			    	                			                				               
 		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 		                			this.quit();
@@ -308,17 +301,37 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			                		}		                		
 			                	}
 				        	}
+				        	
+				        	
+				        	//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
+				        	IKeyPressThreadZZZ objKeyPressThreadUsed = this.getKeyPressThreadUsed();
+				        	objKeyPressThreadUsed.isInputAllFinished(false);
+				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+				        					        	
+//				        	 if(!this.isCurrentInputFinished() && !this.isInputAllFinished()) {
+//				        		boolean bGoon = this.processMenuePostArgumentInput(hmVariable);
+//				        		if(!bGoon) break main; //Quit
+//				        	}
+				        	
+				        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+					        		boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+					        		if(!bGoon) break main; //Quit
+					        	}
+				        	
+		                	
 	                		
 	                		
 				        	//#########################################################################
 			                try {
-			                	System.out.println("Warte auf neue Eingabe.");
+			                	//Aber hier keine Flags vorhanden if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Warte auf neue Eingabe.");
+			                	Syso.println("Warte auf neue Eingabe.");
 			                	Thread.sleep(lSleepTime);			                	
 							} catch (InterruptedException e) {
 								System.out.println("KeyPressThread: 2. Wait Error");
 								e.printStackTrace();
 							}
-			                this.isInputAllFinished(true);
+			                //this.isInputAllFinished(true);
+			                objKeyPressThreadUsed.isInputAllFinished(true);
 	            		}//end if inputAllFinished
 	            	}//end input:
 	            	//}//End synchro
