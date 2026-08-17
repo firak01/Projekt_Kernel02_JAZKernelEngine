@@ -58,8 +58,8 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 
 		@Override
 		public void makeMenueMain() throws InterruptedException, ExceptionZZZ {
-			TODOGOON20260817://Erzeuge irgendwelche Dummy Einträge 
-			
+			//TODOGOON20260817://Erzeuge irgendwelche Dummy Einträge 
+			System.out.println("MAKE MENUE MAIN");
 		}
 
 		@Override

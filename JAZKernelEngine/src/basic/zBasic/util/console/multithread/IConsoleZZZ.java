@@ -6,10 +6,8 @@ public interface IConsoleZZZ extends IThreadEnabledZZZ {
 	public long getSleepTime();
 	public void setSleepTime(long lSleepTime);
 	
-	public IConsoleThreadZZZ getConsoleThread();
-
-	public IConsoleUserZZZ getConsoleUserObject();
-	public void setConsoleUserObject(IConsoleUserZZZ objConsoleUser) ;	
+	public IConsoleUserStartableZZZ getConsoleUserStartableObject();
+	public void setConsoleUserStartableObject(IConsoleUserStartableZZZ objConsoleUserStartable) ;	
 	
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);

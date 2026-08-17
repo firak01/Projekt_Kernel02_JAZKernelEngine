@@ -9,6 +9,7 @@ import basic.zBasic.util.console.multithread.AbstractKeyPressThreadZZZ;
 import basic.zBasic.util.console.multithread.IConsoleZZZ;
 import basic.zBasic.util.console.multithread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.multithread.IKeyPressThreadConstantZZZ;
+import basic.zBasic.util.console.multithread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.multithread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -51,6 +52,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		public boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
+				IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
+				
+				
 			//In the JDK 7 release, you can use a String object in the expression of a switch statement:
             //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
             //vorher lowercase
@@ -77,7 +81,11 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	break;
             case "1":
             	this.isCurrentInputValid(true);
-            	this.processROT13_(hmVariable);            	            						                						                						                					                		              
+            	//this.processROT13_(hmVariable);              	
+            	objKeyPressThreadUsed = new KeyPressThreadDecryptZZZ(this.getConsole());
+            	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
+            	this.setMethodForThreadUsed("processROT13");           
+            	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             case "2":
             	this.isCurrentInputValid(true);
@@ -119,7 +127,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 				//Das passiert beim Aufruf der Verschlüsselung selbst.
 	        	System.out.println("Geben Sie den zu entschluesselnden Text als String ein");
             	String sInput = this.getInputReader().nextLine();
-            	if(hmVariable!=null) hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_TEXT_UNCRYPTED, sInput);
+            	if(hmVariable!=null) hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_TEXT_ENCRYPTED, sInput);
             	if(StringZZZ.isEmpty(sInput)) {
             		this.cancelToMenue(hmVariable);
             	}
@@ -373,7 +381,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			}//end main:
 			return bReturn;
 		}
-}
+		
+	}
 
 
     

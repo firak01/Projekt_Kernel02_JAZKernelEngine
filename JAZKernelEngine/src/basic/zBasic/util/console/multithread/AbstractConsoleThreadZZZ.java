@@ -21,14 +21,13 @@ import basic.zBasic.util.datatype.string.StringZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public abstract class AbstractConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleZZZ {
+public abstract class AbstractConsoleThreadZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleZZZ {
 	private static final long serialVersionUID = 303154337707751073L;
 
 	protected volatile static IConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
 	private IKeyPressThreadZZZ objThreadKeyPress=null;
-	private IConsoleUserZZZ objConsoleUser = null;
-	private IConsoleThreadZZZ objThreadConsole = null;
+	private IConsoleUserStartableZZZ objConsoleUserStarter = null;
 	
 	//Variablen zur Steuerung des internen Threads
 	private long lSleepTime=1000;
@@ -47,7 +46,7 @@ public abstract class AbstractConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T>
 	
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	protected AbstractConsoleZZZ() {		
+	protected AbstractConsoleThreadZZZ() {		
 		super();
 		ConsoleMain_();
 	}
@@ -77,14 +76,14 @@ public abstract class AbstractConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T>
 					throw ez;
 	        	}
 
-	            final IConsoleThreadZZZ objThreadConsole = this.getConsoleThread();	  
-	            if(objThreadConsole!=null) {
-			        Thread t2 = new Thread((Runnable) objThreadConsole);
-			        t2.start();
-	            }else {
-	        		ExceptionZZZ ez = new ExceptionZZZ("No ConsoleThread provided", iERROR_PROPERTY_MISSING, StringZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
-					throw ez;
-	        	}
+//	            final IConsoleZZZ objThreadConsole = this.getConsoleThread();	  
+//	            if(objThreadConsole!=null) {
+//			        Thread t2 = new Thread((Runnable) objThreadConsole);
+//			        t2.start();
+//	            }else {
+//	        		ExceptionZZZ ez = new ExceptionZZZ("No ConsoleThread provided", iERROR_PROPERTY_MISSING, StringZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+//					throw ez;
+//	        	}
 	         
 	        } catch (Exception e)        {
 	            e.printStackTrace();
@@ -177,13 +176,13 @@ public abstract class AbstractConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T>
 	 }
 
 	@Override
-	public IConsoleUserZZZ getConsoleUserObject() {
-		return this.objConsoleUser;
+	public IConsoleUserStartableZZZ getConsoleUserStartableObject() {
+		return this.objConsoleUserStarter;
 	}
 
 	@Override
-	public void setConsoleUserObject(IConsoleUserZZZ objConsoleUser) {
-		this.objConsoleUser = objConsoleUser;
+	public void setConsoleUserStartableObject(IConsoleUserStartableZZZ objConsoleUser) {
+		this.objConsoleUserStarter = objConsoleUser;
 	}
 
 	@Override
@@ -200,25 +199,7 @@ public abstract class AbstractConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T>
 		this.objThreadKeyPress = objKeyPressThread;
 	}
 	
-	@Override
-	public IConsoleThreadZZZ getConsoleThread() {
-		if(this.objThreadConsole==null) {
-			IKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
-			if(objKeyPressThread!=null) {
-			
-				IConsoleUserZZZ objConsoleUser = this.getConsoleUserObject();
-				if(objConsoleUser!=null) {
-					long lSleepTime = this.getSleepTime();
-					this.objThreadConsole = new ConsoleThreadZZZ(this);			       
-				}
-			}
-		}
-		return this.objThreadConsole;    
-	}
 	
-	private void setConsoleThread(ConsoleThreadZZZ objThreadConsole) {
-		this.objThreadConsole = objThreadConsole;
-	}
 	
 	@Override
 	public boolean isConsoleUserThreadRunning() {

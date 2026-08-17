@@ -2,7 +2,7 @@ package basic.zBasic.util.crypt.thread;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.multithread.AbstractConsoleUserZZZ;
+import basic.zBasic.util.console.multithread.AbstractConsoleUserStartableZZZ;
 import basic.zBasic.util.console.multithread.IConsoleZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMaintypeZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -10,7 +10,7 @@ import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractConsoleUserCryptZZZ extends AbstractConsoleUserZZZ{
+public abstract class AbstractConsoleUserCryptZZZ extends AbstractConsoleUserStartableZZZ{
 	public AbstractConsoleUserCryptZZZ()  throws ExceptionZZZ {
 		super();
 	}

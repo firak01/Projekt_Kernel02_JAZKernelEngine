@@ -21,7 +21,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 	 * @author Fritz Lindhauer, 18.10.2022, 09:15:40
 	 * 
 	 */
-	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ,IConsoleUserZZZ,IKeyPressThreadZZZ {
+	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ, IConsoleUserZZZ, IKeyPressThreadZZZ {
 		private static Scanner inputReader = new Scanner(System.in);
 		protected volatile static IConsoleZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 		
@@ -307,35 +307,36 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	IKeyPressThreadZZZ objKeyPressThreadUsed = this.getKeyPressThreadUsed();
 				        	objKeyPressThreadUsed.isInputAllFinished(false);
 				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
-				        					        	
-//				        	 if(!this.isCurrentInputFinished() && !this.isInputAllFinished()) {
-//				        		boolean bGoon = this.processMenuePostArgumentInput(hmVariable);
-//				        		if(!bGoon) break main; //Quit
-//				        	}
-				        	
+				        					        	//				        	
 				        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
 					        		boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
 					        		if(!bGoon) break main; //Quit
-					        	}
-				        	
-		                	
-	                		
-	                		
+				        	 }
+				        	 
+				        	 
+				        	IConsoleUserStartableZZZ objConsoleUserStarter = this.getConsole().getConsoleUserStartableObject();
+				        	objConsoleUserStarter.startit(hmVariable); //direkter, ohne Thread...
+				        	 
+				        	 
 				        	//#########################################################################
 			                try {
 			                	//Aber hier keine Flags vorhanden if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Warte auf neue Eingabe.");
-			                	Syso.println("Warte auf neue Eingabe.");
+			                	Syso.println("\nWarte auf neue Eingabe.");
 			                	Thread.sleep(lSleepTime);			                	
 							} catch (InterruptedException e) {
 								System.out.println("KeyPressThread: 2. Wait Error");
 								e.printStackTrace();
 							}
-			                //this.isInputAllFinished(true);
+			                //
 			                objKeyPressThreadUsed.isInputAllFinished(true);
+			               	this.isInputAllFinished(false); //Auf zur nächsten Eingabe
+			               
 	            		}//end if inputAllFinished
 	            	}//end input:
 	            	//}//End synchro
-	            	
+	      
+	            	//DA DER CONSOLEUSER JETZT KEIN THREAD IST, HIER NICHT MEHR DARAUF WARTEN
+	            	/*
 	            	while(!this.getConsole().isConsoleUserThreadFinished() && !this.getConsole().isStopped()) {
 			        	 try {
 			             	//System.out.println("Warte auf Ergebnis des Cryptlaufs...");  			        		
@@ -346,7 +347,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 							e.printStackTrace();
 						}
 	            	}//end while		            	
-	            		
+	            	*/	
 	            	
 	            }//end while isStopped
 	    	}//end main:
