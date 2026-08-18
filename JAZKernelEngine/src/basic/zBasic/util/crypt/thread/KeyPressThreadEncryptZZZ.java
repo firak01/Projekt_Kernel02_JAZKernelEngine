@@ -83,7 +83,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             case "1":
             	this.isCurrentInputValid(true);
             	//this.processROT13_(hmVariable);
-            	objKeyPressThreadUsed = new KeyPressThreadEncryptZZZ(this.getConsole());
+            	objKeyPressThreadUsed = this; //new KeyPressThreadEncryptZZZ(this.getConsole());
             	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
             	this.setMethodForThreadUsed("processROT13");           
             	objKeyPressThreadUsed.initit(hmVariable); 
@@ -115,26 +115,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		return bReturn;
 	}
 			
-	public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ{
-		boolean bReturn = true;
-		main:{
-			
-			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
-			switch(sCallingMethod){
-				case "processROT13":
-					processROT13_(hmVariable);
-					break;
-				default:
-					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
-					throw ez;
-			}
-			
-		}//end main:
-		return bReturn;
-	}
-		
 		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = true;
+			boolean bReturn = false;
 			main:{
 
         		//######################################################################
@@ -153,11 +135,34 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             		this.cancelToMenue(hmVariable);
             	}
 				
+            	bReturn = true;
 			}//end main:
 			return bReturn;
 		}
 		
+		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ{
+			boolean bReturn = false;
+			main:{
+				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
+				//Plus alle anderen INPUT - Variablen.
+				
+				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+				switch(sCallingMethod){
+					case "processROT13":
+						processROT13_(hmVariable);
+						break;
+					default:
+						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+						throw ez;
+				}
+				
+				bReturn = true;
+			}//end main:
+			return bReturn;
+		}
+			
 		
+		//###################################################
 		/** Damit wird dieser Thread-Menüpunkt auch von anderen Threads mit Menü nutzbar.
 		 * @param hmVariable
 		 * @throws ExceptionZZZ

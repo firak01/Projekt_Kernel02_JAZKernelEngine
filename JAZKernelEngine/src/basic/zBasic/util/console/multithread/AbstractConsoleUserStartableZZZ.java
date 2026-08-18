@@ -10,7 +10,6 @@ import custom.zKernel.file.ini.FileIniZZZ;
 
 public abstract class AbstractConsoleUserStartableZZZ extends AbstractObjectWithFlagZZZ implements IConsoleUserStartableZZZ {	
 	private IConsoleZZZ objConsole=null;
-	private int iCounter = 0;
 	
 	public AbstractConsoleUserStartableZZZ()  throws ExceptionZZZ {
 		super();
@@ -64,16 +63,7 @@ public abstract class AbstractConsoleUserStartableZZZ extends AbstractObjectWith
 		}//end main:
 		return bReturn;
 	}
-	
-//	@Override
-//	public abstract boolean start() throws ExceptionZZZ;
-		
-	public int getcounter() {
-		return this.iCounter;
-	}
-	
-	
-	 
+		 
 	@Override
 	public synchronized IConsoleZZZ getConsole() {
 		return this.objConsole;

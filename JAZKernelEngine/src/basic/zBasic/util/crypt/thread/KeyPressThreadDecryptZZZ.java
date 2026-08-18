@@ -34,7 +34,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		public void makeMenueMain() throws InterruptedException {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");
-			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
+//			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
 			System.out.println("# ");
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Bitte wählen Sie den Algorithmus:");
@@ -82,7 +82,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             case "1":
             	this.isCurrentInputValid(true);
             	//this.processROT13_(hmVariable);              	
-            	objKeyPressThreadUsed = new KeyPressThreadDecryptZZZ(this.getConsole());
+            	objKeyPressThreadUsed = this; //new KeyPressThreadDecryptZZZ(this.getConsole());
             	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
             	this.setMethodForThreadUsed("processROT13");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
@@ -116,7 +116,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		
 
 		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = true;
+			boolean bReturn = false;
 			main:{
 
         		//######################################################################
@@ -132,11 +132,32 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             		this.cancelToMenue(hmVariable);
             	}
 				
+            	bReturn = true;
+			}//end main:
+			return bReturn;
+		}
+		
+		@Override
+		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+			boolean bReturn = true;
+			main:{
+				
+				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+				switch(sCallingMethod){
+					case "processROT13":
+						processROT13_(hmVariable);
+						break;
+					default:
+						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+						throw ez;
+				}
+				
 			}//end main:
 			return bReturn;
 		}
 		
 		
+		//#########################################################
 		/** Damit wird Thread Menüpunkt auch von anderen Threads mit Menü nutzbar.
 		 * @param hmVariable
 		 * @throws ExceptionZZZ
@@ -362,24 +383,6 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            	}
         		}
         	}	
-		}
-		@Override
-		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = true;
-			main:{
-				
-				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
-				switch(sCallingMethod){
-					case "processROT13":
-						processROT13_(hmVariable);
-						break;
-					default:
-						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
-						throw ez;
-				}
-				
-			}//end main:
-			return bReturn;
 		}
 		
 	}

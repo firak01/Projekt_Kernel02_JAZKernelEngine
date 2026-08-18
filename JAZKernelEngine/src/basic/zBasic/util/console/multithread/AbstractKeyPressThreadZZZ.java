@@ -289,7 +289,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	//######################################################################
 		                	//### Frage nach Mehrfacheingabe
 				        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
-		                		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben weiteren Text verschluesseln?");		                		                			                			    	                			                				               
+		                		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
 		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 		                			this.quit();
 			                	}else {		               		                		
@@ -356,7 +356,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		}    
     	    	
     	@Override
-		public abstract void makeMenueMain() throws InterruptedException,ExceptionZZZ;
+		public abstract void makeMenueMain() throws InterruptedException, ExceptionZZZ;
     	
     	@Override
     	public abstract boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ;
