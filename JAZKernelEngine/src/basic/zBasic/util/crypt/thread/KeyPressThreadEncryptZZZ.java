@@ -6,12 +6,12 @@ import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.multithread.AbstractKeyPressThreadZZZ;
-import basic.zBasic.util.console.multithread.IConsoleZZZ;
-import basic.zBasic.util.console.multithread.IKeyPressConstantZZZ;
-import basic.zBasic.util.console.multithread.IKeyPressThreadConstantZZZ;
-import basic.zBasic.util.console.multithread.IKeyPressThreadZZZ;
-import basic.zBasic.util.console.multithread.KeyPressUtilZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
+import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
+import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
 import basic.zBasic.util.crypt.code.ROTnnZZZ;
@@ -78,31 +78,35 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	break main; 
             case "a":
             	this.isCurrentInputValid(true);            	            	
-            	this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
+            	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	
+            	objKeyPressThreadUsed = this;
+            	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
+            	this.setMethodForThreadUsed("ascii");           
+            	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             case "1":
             	this.isCurrentInputValid(true);
             	//this.processROT13_(hmVariable);
             	objKeyPressThreadUsed = this; //new KeyPressThreadEncryptZZZ(this.getConsole());
             	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
-            	this.setMethodForThreadUsed("processROT13");           
+            	this.setMethodForThreadUsed("processEncryptROT13");           
             	objKeyPressThreadUsed.initit(hmVariable); 
             	break;
             case "2":
             	this.isCurrentInputValid(true);
-            	this.processROTascii_(hmVariable);     
+            	this.processEncrytptROTascii_(hmVariable);     
             	break;
             case "3":
             	this.isCurrentInputValid(true);
-            	this.processROTnumeric_(hmVariable);     
+            	this.processEncryptROTnumeric_(hmVariable);     
             	break;
             case "4":
             	this.isCurrentInputValid(true);
-            	this.processROTnn_(hmVariable);        					                	
+            	this.processEncryptROTnn_(hmVariable);        					                	
             	break;
             case "5":
             	this.isCurrentInputValid(true);
-            	this.processVigenereNn_(hmVariable);
+            	this.processEncryptVigenereNn_(hmVariable);
             	break;
             default:
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
@@ -148,8 +152,11 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 				
 				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 				switch(sCallingMethod){
-					case "processROT13":
-						processROT13_(hmVariable);
+					case "ascii":
+						ascii_(hmVariable);
+						break;
+					case "processEncryptROT13":
+						processEncryptROT13_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -161,26 +168,30 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			return bReturn;
 		}
 			
-		
+		//#########################################################
+		private void ascii_(HashMapZZZ hm) throws ExceptionZZZ {
+			//Hier noch zusätzliche Input Variablen übergebbar.
+		}
+				
 		//###################################################
 		/** Damit wird dieser Thread-Menüpunkt auch von anderen Threads mit Menü nutzbar.
 		 * @param hmVariable
 		 * @throws ExceptionZZZ
 		 */
-		public void processROT13(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		public void processEncryptROT13(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
         		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
         	}
 		}
-		private void processROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void processEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
         		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
         	}
 		}
 		
-		private void processROTascii_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void processEncrytptROTascii_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTascii.getAbbreviation();
         		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
@@ -190,7 +201,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         	}
 		}
 		
-		private void processROTnumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void processEncryptROTnumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTnumeric.getAbbreviation();
         		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
@@ -202,7 +213,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         	}
 		}
 		
-		private void processROTnn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void processEncryptROTnn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 						
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTnn.getAbbreviation();
@@ -296,7 +307,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         	}	
 		}
 		
-		private void processVigenereNn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void processEncryptVigenereNn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.VIGENEREnn.getAbbreviation();

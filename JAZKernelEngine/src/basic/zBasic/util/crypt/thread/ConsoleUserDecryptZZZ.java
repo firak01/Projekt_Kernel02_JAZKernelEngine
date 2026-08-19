@@ -1,8 +1,11 @@
 package basic.zBasic.util.crypt.thread;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.multithread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
+import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -85,8 +88,46 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 //		return bReturn;
 //	}
 	
+	
 	@Override
 	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			//Jetzt können Variablen aus dem KeyPressThread entgegengenommen werden.
+			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			
+			//Nutze auch die nicht startit fähigen Methoden
+			if(!StringZZZ.isEmptyNull(sCallingMethod)) {
+				switch(sCallingMethod){
+					case "ascii":
+						bReturn = ascii_(hmVariable);
+						break;	
+					case "processDecryptROT13":
+						bReturn = processDecryptROT13_(hmVariable);
+						break;
+					default:
+						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+						throw ez;
+				}
+			}else {
+				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
+				bReturn = processDecryptByFactory_(hmVariable);
+			}//sCallingMethod
+									
+			//bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+		
+	//########################################
+	private boolean ascii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		KeyPressThreadUtilZZZ.printTableAscii();		
+		return true;
+	}
+	
+	//########################################
+	
+	private boolean processDecryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
@@ -142,7 +183,11 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 			}
 			
 		}//end main:
-		return bReturn;
-		
+		return bReturn;	
+	}
+	
+	//########################################
+	private boolean processDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		return processDecryptByFactory_(hmVariable);
 	}
 }

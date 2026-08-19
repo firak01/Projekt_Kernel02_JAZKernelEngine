@@ -1,9 +1,0 @@
-package basic.zBasic.util.console.multithread;
-
-import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.util.abstractList.HashMapZZZ;
-
-public interface IConsoleUserZZZ{
-	public IConsoleZZZ getConsole();
-	public void setConsole(IConsoleZZZ objConsole);
-}
