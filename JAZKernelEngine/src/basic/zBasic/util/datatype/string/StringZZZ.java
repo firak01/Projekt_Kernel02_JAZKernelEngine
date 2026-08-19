@@ -5161,13 +5161,16 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 	 * @param sString
 	 * @return
 	 */
-	public static String toShorten(String sString, String[] saDelimiterIn, int[] iaPartLengthIn, String sAppenderIn) throws ExceptionZZZ {
-		String sReturn = sString;
+	public static String toShorten(String sStringIn, String[] saDelimiterIn, int[] iaPartLengthIn, String sAppenderIn) throws ExceptionZZZ {
+		String sReturn = sStringIn;
 		main:{
-			if(StringZZZ.isEmpty(sString))break main;
+			if(StringZZZ.isEmpty(sStringIn))break main;
 			sReturn = "";
 			
+			String sString = sStringIn.trim();
+			
 			boolean isNumeric=false;
+			
 			
 			
 			String[] saDelimiterDefault = {"-","_","."};
@@ -5193,24 +5196,38 @@ StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
 				sAppender = sAppenderIn;
 			}
 			
+			//Mache als heuristische Lösung die Summe der definierten PartLength für den Fall ohne "Appender"
+			int iPartLengthTotal = MathZZZ.sum(iaPartLength);
+			
 			String[] saSplitted = StringZZZ.explode(sString, saDelimiter);
 			int iIndex = -1;
 			int iPartLengthUsed=iaPartLengthDefault[0];
-			for(String sSplitted :saSplitted) {
-				iIndex++;
-				if(iIndex > iaPartLength.length) {
-					//nix, verwende den alten Wert weiter
-				}else {
-					iPartLengthUsed = iaPartLength[iIndex];
-				}
-				String sSplittedTemp = StringZZZ.left(sSplitted, iPartLengthUsed);
-				
-				if(StringZZZ.isEmpty(sReturn)) {					
-					sReturn = sSplittedTemp;
-				}else {
-					sReturn = sReturn + sAppender + sSplittedTemp;
-				}
-			}//end for saSplitted
+			
+			//Nur mit dem sAppender arbeiten, wenn der String aufgeteilt worden ist
+			if(saSplitted.length>=2) {
+				for(String sSplitted :saSplitted) {
+					String sSplittedUsed = sSplitted.trim();
+					if(!StringZZZ.isEmpty(sSplittedUsed)) {
+						iIndex++;
+						if(iIndex > iaPartLength.length) {
+							//nix, verwende den alten Wert weiter
+						}else {
+							iPartLengthUsed = iaPartLength[iIndex];
+						}
+						String sSplittedUsedTemp = StringZZZ.left(sSplittedUsed, iPartLengthUsed);
+						
+						if(StringZZZ.isEmpty(sReturn)) {					
+							sReturn = sSplittedUsedTemp;
+						}else {
+							sReturn = sReturn + sAppender + sSplittedUsedTemp;
+						}
+					}
+				}//end for saSplitted
+			}else {
+				sReturn = saSplitted[0];	
+				sReturn = sReturn.trim();
+				sReturn = StringZZZ.left(sReturn, iPartLengthTotal);
+			}//end if saSplitted.length
 		}
 		return sReturn;
 	}
@@ -5747,7 +5764,13 @@ plain = matcher.replaceAll("<a href=\"$1\">$1</a>");
 			boolean bGoon = false;
 			while(!bGoon){
 				if(sReturn.startsWith(sMark) && sReturn.endsWith(sMark)){
-					sReturn = StringZZZ.midBounds(sReturn, sMark.length(), sMark.length()); //Schneide die Markierungszeichen links und rechts weg					
+					sReturn = StringZZZ.midBounds(sReturn, sMark.length(), sMark.length()); //Schneide die Markierungszeichen links und rechts weg
+					
+					//Falls der String nur aus "Markierungen" besteht, wurde er ggfs. null.
+					//Dies hier korregieren
+					if(sReturn==null) {
+						sReturn = "";
+					}
 				}else{
 					bGoon = true;
 				}
