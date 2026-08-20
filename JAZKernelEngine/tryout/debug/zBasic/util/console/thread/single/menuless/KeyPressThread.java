@@ -1,4 +1,4 @@
-package basic.zBasic.util.console.multithread.simple;
+package debug.zBasic.util.console.thread.single.menuless;
 
 import java.util.Scanner;
 

@@ -1,11 +1,11 @@
-package debug.zBasic.util.console.thread.menu.extended;
+package debug.zBasic.util.console.thread.multi.menu;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.ConsoleThreadZZZ;
 import basic.zBasic.util.console.thread.IConsoleZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadDefaultZZZ;
-import debug.zBasic.util.console.thread.menu.simple.DummyConsoleUserStartableZZZ;
+import debug.zBasic.util.console.thread.single.menu.DummyConsoleUserStartableZZZ;
 
 public class DebugConsoleAsThreadZZZ implements Runnable{
 	protected IConsoleZZZ objConsole = null;

@@ -1,16 +1,16 @@
-package debug.zBasic.util.console.thread.menu.extended;
+package debug.zBasic.util.console.thread.single.menu;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleZZZ;
-import debug.zBasic.util.console.thread.menu.simple.DummyConsoleUserStartableZZZ;
 
-public class DebugConsoleAsThreadMainZZZ {
+public class DebugConsoleMainZZZ {
 
 	public static void main(String[] args) {
-		try {		
-			//Wenn dieser Thread gestartet wird, wartet er, bis die Konsole beendet ist.
-			DebugConsoleAsThreadZZZ objConsoleForDebug = new DebugConsoleAsThreadZZZ(args);
-			objConsoleForDebug.run();
+		try {						
+			//Wird DebugConsoleZZZ nicht als eigener Thread gestartet, läuft das sofort durch 
+			//und gibt das Endergebnis sofort aus.
+			DebugConsoleZZZ objConsoleForDebug = new DebugConsoleZZZ();
+			objConsoleForDebug.startit(args);
 			
 			IConsoleZZZ objConsole = objConsoleForDebug.getConsole();
 			//IConsoleUserStartableZZZ objStartable = objConsole.getConsoleUserStartableObject();

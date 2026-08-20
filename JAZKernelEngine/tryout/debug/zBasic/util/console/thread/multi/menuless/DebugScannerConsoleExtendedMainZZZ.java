@@ -1,7 +1,4 @@
-package debug.zBasic.util.console.thread.nomenu;
-
-import basic.zBasic.util.console.multithread.extended.ConsoleZZZ;
-import basic.zBasic.util.console.multithread.extended.IConsoleEnabledZZZ;
+package debug.zBasic.util.console.thread.multi.menuless;
 
 public class DebugScannerConsoleExtendedMainZZZ {
 

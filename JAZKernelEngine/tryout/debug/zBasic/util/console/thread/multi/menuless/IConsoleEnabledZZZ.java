@@ -1,4 +1,4 @@
-package basic.zBasic.util.console.multithread.extended;
+package debug.zBasic.util.console.thread.multi.menuless;
 
 public interface IConsoleEnabledZZZ {
 	public boolean executeOnConsole() throws InterruptedException;

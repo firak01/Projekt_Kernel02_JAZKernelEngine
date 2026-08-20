@@ -69,7 +69,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			System.out.println("#####################################################################################################");
 			
 			Thread.sleep(this.getSleepTime()); 
-			System.out.println("Warte auf Eingabe Decrypt...");  
+			System.out.println("Warte auf Eingabe Default...");  
 		
 			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 			//       Darum muss man alle Eingaben in dem KeyPressThread erledigen

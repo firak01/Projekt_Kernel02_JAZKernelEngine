@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.nomenu;
+package debug.zBasic.util.console.thread.single.menuless;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import basic.zBasic.util.console.multithread.simple.KeyPressThread;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.ResourceEasyZZZ;
 
@@ -31,7 +30,7 @@ public class DebugScannerConsoleSimpleMainZZZ {
 	        //File f = new File("C:\\fglkernel\\kernellog\\OpenVPNZZZ_ServerStarterLog.txt");		 
 	        try {
 	        	//1. Ermittle eine Testdatei im aktuellen Verzeichnis
-	        	String sConfigFile = FileEasyZZZ.joinFilePathName("tryout\\debug\\zBasic\\util\\console\\thread\\nomenu", "openvpn-status.log");	        	
+	        	String sConfigFile = FileEasyZZZ.joinFilePathName("tryout\\debug\\zBasic\\util\\console\\thread\\menuless", "openvpn-status.log");	        	
 	        	File f = ResourceEasyZZZ.searchFile(sConfigFile);
 	        	
 

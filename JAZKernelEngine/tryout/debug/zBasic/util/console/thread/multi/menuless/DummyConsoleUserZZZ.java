@@ -1,7 +1,6 @@
-package debug.zBasic.util.console.thread.nomenu;
+package debug.zBasic.util.console.thread.multi.menuless;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
-import basic.zBasic.util.console.multithread.extended.IConsoleEnabledZZZ;
 
 public class DummyConsoleUserZZZ extends AbstractObjectWithFlagZZZ implements IConsoleEnabledZZZ {
 	private int iCounter = 0;
