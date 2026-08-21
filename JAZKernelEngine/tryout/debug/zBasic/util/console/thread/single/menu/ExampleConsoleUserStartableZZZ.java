@@ -11,11 +11,11 @@ import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public class DummyConsoleUserStartableZZZ extends AbstractConsoleUserStartableZZZ {
-	public DummyConsoleUserStartableZZZ() throws ExceptionZZZ {
+public class ExampleConsoleUserStartableZZZ extends AbstractConsoleUserStartableZZZ {
+	public ExampleConsoleUserStartableZZZ() throws ExceptionZZZ {
 		super();
 	}
-	public DummyConsoleUserStartableZZZ(IConsoleZZZ objConsole) throws ExceptionZZZ {
+	public ExampleConsoleUserStartableZZZ(IConsoleZZZ objConsole) throws ExceptionZZZ {
 		super(objConsole);
 	}
 
@@ -52,7 +52,7 @@ public class DummyConsoleUserStartableZZZ extends AbstractConsoleUserStartableZZ
 //	}
 	
 	
-	//Start it wird dann von einem anderen Thread aus aufgerufen.
+	//Startit wird dann von einem anderen Thread aus aufgerufen.
 	@Override
 	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;

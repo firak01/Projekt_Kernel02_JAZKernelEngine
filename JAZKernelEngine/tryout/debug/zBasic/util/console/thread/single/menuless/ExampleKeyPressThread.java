@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 	 
-	public class KeyPressThread implements Runnable {
+	public class ExampleKeyPressThread implements Runnable {
 		private long rand;
 		 public long getRand() {
 	     	return this.rand;
@@ -16,7 +16,7 @@ import java.util.Scanner;
         Scanner inputReader = new Scanner(System.in);
 
         //Method that gets called when the object is instantiated
-        public KeyPressThread(long rand2) {
+        public ExampleKeyPressThread(long rand2) {
         	setRand(rand2);
         }
        

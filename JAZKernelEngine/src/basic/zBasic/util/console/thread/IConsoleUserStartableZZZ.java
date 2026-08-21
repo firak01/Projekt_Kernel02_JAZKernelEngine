@@ -5,4 +5,5 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 
 public interface IConsoleUserStartableZZZ extends IConsoleUserZZZ {
 	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ;
+	public boolean startit() throws ExceptionZZZ;
 }

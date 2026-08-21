@@ -34,7 +34,7 @@ public class DebugScannerConsoleSimpleMainZZZ {
 	        	File f = ResourceEasyZZZ.searchFile(sConfigFile);
 	        	
 
-	            final Runnable keyPressThread = new KeyPressThread(rand);
+	            final Runnable keyPressThread = new ExampleKeyPressThread(rand);
 	            Thread t = new Thread(keyPressThread);
 	            t.start();
 
@@ -52,7 +52,7 @@ public class DebugScannerConsoleSimpleMainZZZ {
 	                        @Override
 	                        public void run() {
 	                            try {
-	                            	rand = ((KeyPressThread) keyPressThread).getRand();
+	                            	rand = ((ExampleKeyPressThread) keyPressThread).getRand();
 	                                System.out.println(rand);
 	                                Thread.sleep(rand);
 	                                System.out.println(copy);

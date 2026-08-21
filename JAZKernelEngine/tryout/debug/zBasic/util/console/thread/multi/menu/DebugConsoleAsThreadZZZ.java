@@ -5,7 +5,7 @@ import basic.zBasic.util.console.thread.ConsoleThreadZZZ;
 import basic.zBasic.util.console.thread.IConsoleZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadDefaultZZZ;
-import debug.zBasic.util.console.thread.single.menu.DummyConsoleUserStartableZZZ;
+import debug.zBasic.util.console.thread.single.menu.ExampleConsoleUserStartableZZZ;
 
 public class DebugConsoleAsThreadZZZ implements Runnable{
 	protected IConsoleZZZ objConsole = null;
@@ -30,7 +30,7 @@ public class DebugConsoleAsThreadZZZ implements Runnable{
 		IKeyPressThreadZZZ objKeyPressThread = new KeyPressThreadDefaultZZZ(objConsole, 100);			
 		objConsole.setKeyPressThread(objKeyPressThread);
 					
-		DummyConsoleUserStartableZZZ objConsoleUserStartable = new DummyConsoleUserStartableZZZ(objConsole);			
+		ExampleConsoleUserStartableZZZ objConsoleUserStartable = new ExampleConsoleUserStartableZZZ(objConsole);			
 		objConsole.setConsoleUserStartableObject(objConsoleUserStartable);
 		objConsole.start();		
 	}

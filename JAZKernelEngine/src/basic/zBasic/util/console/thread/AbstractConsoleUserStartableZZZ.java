@@ -64,6 +64,7 @@ public abstract class AbstractConsoleUserStartableZZZ extends AbstractObjectWith
 		return bReturn;
 	}
 		 
+	//### GETTER / SETTER
 	@Override
 	public synchronized IConsoleZZZ getConsole() {
 		return this.objConsole;
@@ -72,5 +73,17 @@ public abstract class AbstractConsoleUserStartableZZZ extends AbstractObjectWith
 	@Override
 	public synchronized void setConsole(IConsoleZZZ objConsole) {
 		this.objConsole = objConsole;
+	}
+	
+	//### Methoden
+	@Override
+	public boolean startit() throws ExceptionZZZ{
+		//Für Klassen, die Methoden ohne Variablenübergabe machen wollen.
+		boolean bReturn = false;
+		main:{
+			
+			bReturn = true;
+		}//end main:
+		return bReturn;
 	}
 }

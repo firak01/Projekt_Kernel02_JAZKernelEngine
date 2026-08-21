@@ -14,7 +14,7 @@ public class DebugConsoleMainZZZ {
 			
 			IConsoleZZZ objConsole = objConsoleForDebug.getConsole();
 			//IConsoleUserStartableZZZ objStartable = objConsole.getConsoleUserStartableObject();
-			DummyConsoleUserStartableZZZ objStartable = (DummyConsoleUserStartableZZZ) objConsole.getConsoleUserStartableObject();
+			ExampleConsoleUserStartableZZZ objStartable = (ExampleConsoleUserStartableZZZ) objConsole.getConsoleUserStartableObject();
 			int iCount = objStartable.getCounter();
 			System.out.println("iCount am Schluss: " + iCount);
 		} catch (ExceptionZZZ e) {

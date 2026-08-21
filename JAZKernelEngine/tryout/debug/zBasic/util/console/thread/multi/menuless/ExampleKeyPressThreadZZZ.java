@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 	 
-	public class KeyPressThreadZZZ implements Runnable {
+	public class ExampleKeyPressThreadZZZ implements Runnable {
 		private long lSleepTime;
 		private boolean bStop = false;
 		
@@ -18,7 +18,7 @@ import java.util.Scanner;
         Scanner inputReader = new Scanner(System.in);
 
         //Method that gets called when the object is instantiated
-        public KeyPressThreadZZZ(long lSleepTime) {
+        public ExampleKeyPressThreadZZZ(long lSleepTime) {
         	setSleepTime(lSleepTime);
         }
        

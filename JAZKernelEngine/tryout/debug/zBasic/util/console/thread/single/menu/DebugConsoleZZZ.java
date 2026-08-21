@@ -21,10 +21,10 @@ public class DebugConsoleZZZ {
 		IConsoleZZZ objConsole = ConsoleThreadZZZ.getInstance();	
 		this.setConsole(objConsole);
 		
-		IKeyPressThreadZZZ objKeyPressThread = new KeyPressThreadDefaultZZZ(objConsole, 100);			
+		IKeyPressThreadZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
 		objConsole.setKeyPressThread(objKeyPressThread);
 					
-		DummyConsoleUserStartableZZZ objConsoleUserStartable = new DummyConsoleUserStartableZZZ(objConsole);			
+		ExampleConsoleUserStartableZZZ objConsoleUserStartable = new ExampleConsoleUserStartableZZZ(objConsole);			
 		objConsole.setConsoleUserStartableObject(objConsoleUserStartable);
 		objConsole.start();		
 	}

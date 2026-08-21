@@ -1,14 +1,22 @@
 package debug.zBasic.util.console.thread.multi.menuless;
 
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.console.thread.IConsoleUserStartableZZZ;
+
 public class DebugScannerConsoleExtendedMainZZZ {
 
 	public static void main(String[] args) {
-		IConsoleEnabledZZZ objConsoleUser = new DummyConsoleUserZZZ();
+		try {
+			IConsoleUserStartableZZZ objConsoleUser = new ExampleConsoleUserStartableZZZ();
 				
-		ConsoleZZZ objConsole = ConsoleZZZ.getInstance();				
-		objConsole.setConsoleUserObject(objConsoleUser);
-		objConsole.start();
+			ExampleConsoleZZZ objConsole = ExampleConsoleZZZ.getInstance();				
+			objConsole.setConsoleUserObject(objConsoleUser);
+			objConsole.start();
 		
+		}catch(ExceptionZZZ ez) {
+			ez.printStackTrace();
+			System.out.println(ez.getMessageLast());
+		}
 	}
 
 }

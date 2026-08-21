@@ -2,7 +2,7 @@ package debug.zBasic.util.console.thread.multi.menu;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleZZZ;
-import debug.zBasic.util.console.thread.single.menu.DummyConsoleUserStartableZZZ;
+import debug.zBasic.util.console.thread.single.menu.ExampleConsoleUserStartableZZZ;
 
 public class DebugConsoleAsThreadMainZZZ {
 
@@ -14,7 +14,7 @@ public class DebugConsoleAsThreadMainZZZ {
 			
 			IConsoleZZZ objConsole = objConsoleForDebug.getConsole();
 			//IConsoleUserStartableZZZ objStartable = objConsole.getConsoleUserStartableObject();
-			DummyConsoleUserStartableZZZ objStartable = (DummyConsoleUserStartableZZZ) objConsole.getConsoleUserStartableObject();
+			ExampleConsoleUserStartableZZZ objStartable = (ExampleConsoleUserStartableZZZ) objConsole.getConsoleUserStartableObject();
 			int iCount = objStartable.getCounter();
 			System.out.println("iCount am Schluss: " + iCount);
 		} catch (ExceptionZZZ e) {
