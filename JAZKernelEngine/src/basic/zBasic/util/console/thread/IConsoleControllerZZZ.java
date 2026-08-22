@@ -2,12 +2,12 @@ package basic.zBasic.util.console.thread;
 
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
-public interface IConsoleZZZ extends IThreadEnabledZZZ {
+public interface IConsoleControllerZZZ extends IThreadEnabledZZZ {
 	public long getSleepTime();
 	public void setSleepTime(long lSleepTime);
 	
-	public IConsoleUserStartableZZZ getConsoleUserStartableObject();
-	public void setConsoleUserStartableObject(IConsoleUserStartableZZZ objConsoleUserStartable) ;	
+	public IConsoleServiceZZZ getConsoleServiceObject();
+	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleUserStartable) ;	
 	
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);

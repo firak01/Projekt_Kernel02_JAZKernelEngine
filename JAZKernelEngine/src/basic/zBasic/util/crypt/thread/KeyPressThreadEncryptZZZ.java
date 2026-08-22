@@ -7,7 +7,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
@@ -25,10 +25,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	 
 	public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{	
         //Method that gets called when the object is instantiated
-		public KeyPressThreadEncryptZZZ(IConsoleZZZ objConsole) {
+		public KeyPressThreadEncryptZZZ(IConsoleControllerZZZ objConsole) {
         	super(objConsole);
         }
-        public KeyPressThreadEncryptZZZ(IConsoleZZZ objConsole, long lSleepTime) {
+        public KeyPressThreadEncryptZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
         	super(objConsole, lSleepTime);
         }
 		@Override
@@ -65,12 +65,12 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             case "+":
             	this.isCurrentInputValid(true);					                	
             	this.setSleepTime(this.getSleepTime()+100);
-            	this.getConsole().setSleepTime(this.getSleepTime());			                	
+            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
             	break;
             case "-":
             	this.isCurrentInputValid(true);
             	this.setSleepTime(this.getSleepTime()-100);
-            	this.getConsole().setSleepTime(this.getSleepTime());			                	
+            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
             	break;
             case "q":
             	this.quit();

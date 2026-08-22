@@ -9,20 +9,20 @@ package basic.zBasic.util.console.thread;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public class ConsoleThreadZZZ<T> extends AbstractConsoleThreadZZZ<T> {
+public class ConsoleControllerZZZ<T> extends AbstractConsoleControllerZZZ<T> {
 	private static final long serialVersionUID = 1222382952813216242L;
 
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	private ConsoleThreadZZZ() {		
+	private ConsoleControllerZZZ() {		
 		super();		
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static IConsoleZZZ getInstance() {
+	public static IConsoleControllerZZZ getInstance() {
 		{
 			if(objConsole==null){
-				objConsole = new ConsoleThreadZZZ();
+				objConsole = new ConsoleControllerZZZ();
 			}
 			return objConsole;		
 		}

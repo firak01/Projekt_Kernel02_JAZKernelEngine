@@ -4,16 +4,16 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractConsoleUserStartableZZZ;
-import basic.zBasic.util.console.thread.IConsoleUserZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
-import basic.zBasic.util.crypt.thread.ConsoleUserEncryptZZZ;
+import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerUserZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.crypt.thread.ConsoleServiceEncryptZZZ;
 
-	public class DummyConsoleUserUserStartableAsThreadZZZ extends AbstractConsoleUserStartableZZZ implements Runnable {
+	public class ExampleConsoleServiceAsThreadZZZ extends AbstractConsoleServiceZZZ implements Runnable {
 	//public class ConsoleUserThreadZZZ extends AbstractKeyPressThreadCommonZZZ{
 		//TODOGOON20260814; Irgendetwas sinnvollens
         //Method that gets called when the object is instantiated
-        public DummyConsoleUserUserStartableAsThreadZZZ(IConsoleZZZ objConsole)  throws ExceptionZZZ {
+        public ExampleConsoleServiceAsThreadZZZ(IConsoleControllerZZZ objConsole)  throws ExceptionZZZ {
         	super(objConsole);        	
         }
      
@@ -48,10 +48,10 @@ import basic.zBasic.util.crypt.thread.ConsoleUserEncryptZZZ;
 //		}	
 		
         public boolean isStopped() {
-    		return this.getConsole().isStopped();
+    		return this.getConsoleController().isStopped();
     	}
     	public void isStopped(boolean bStop) {
-    		this.getConsole().isStopped(bStop);
+    		this.getConsoleController().isStopped(bStop);
     	}
     	public void requestStop() {
     		this.isStopped(true);
@@ -63,23 +63,23 @@ import basic.zBasic.util.crypt.thread.ConsoleUserEncryptZZZ;
 			main:{		
 				try {    				
 		           while(!this.isStopped()) {
-		                long lSleepTime = this.getConsole().getSleepTime();
+		                long lSleepTime = this.getConsoleController().getSleepTime();
 		                //System.out.println("ConsoleThread.sleep: " + lSleepTime);
 		                Thread.sleep(lSleepTime);			                		               
-		                if(this.getConsole().isInputAllFinished()){
-			                IConsoleUserZZZ objUser = this.getConsole().getConsoleUserStartableObject();
+		                if(this.getConsoleController().isInputAllFinished()){
+			                IConsoleControllerUserZZZ objUser = this.getConsoleController().getConsoleServiceObject();
 			                if(objUser!=null) {
-			                	boolean bStop = this.getConsole().isStopped(); 
+			                	boolean bStop = this.getConsoleController().isStopped(); 
 				                if(bStop) {
 				                	//this.getConsole().getConsoleUserObject().requestStop();
 				                	//this.getConsole().getConsoleThread().requestStop();
 				                	this.requestStop();
 				                }else {				                			                		
-			                		if(!this.getConsole().isConsoleUserThreadRunning()) { //den Thread nicht mehrmals starten
+			                		if(!this.getConsoleController().isConsoleUserThreadRunning()) { //den Thread nicht mehrmals starten
 					                		//boolean bResult = this.getConsole().getConsoleUserObject().start();
 			                				//boolean bResult = this.getConsole().getConsoleThread().start();
-					                		this.getConsole().isInputAllFinished(false); //Bereit für neue Eingabe...					                				                			
-					                		this.getConsole().isOutputAllFinished(false); //Bereit für neue Ausgabe...
+					                		this.getConsoleController().isInputAllFinished(false); //Bereit für neue Eingabe...					                				                			
+					                		this.getConsoleController().isOutputAllFinished(false); //Bereit für neue Ausgabe...
 			                		}//end if isConsoleUserThreadRunning()
 				                }			                				               
 			                }else {

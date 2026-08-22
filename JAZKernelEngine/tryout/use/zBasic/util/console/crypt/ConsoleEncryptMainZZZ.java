@@ -1,12 +1,12 @@
 package use.zBasic.util.console.crypt;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.util.console.thread.ConsoleThreadZZZ;
-import basic.zBasic.util.console.thread.IConsoleUserStartableZZZ;
-import basic.zBasic.util.console.thread.IConsoleUserZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerUserZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
-import basic.zBasic.util.crypt.thread.ConsoleUserEncryptZZZ;
+import basic.zBasic.util.crypt.thread.ConsoleServiceEncryptZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadEncryptZZZ;
 
 public class ConsoleEncryptMainZZZ {
@@ -20,14 +20,14 @@ public class ConsoleEncryptMainZZZ {
 			//aber in dieser Applikation OHNE Kernel, also OHNE ini-Konfiguration auskommen!!!    this.objKernel = new KernelZZZ(objConfig, (String) null); //Damit kann man ueber die Startparameter ein anders konfiguriertes Kernel-Objekt erhalten.
 			//TODOGOON20230203: Daher das objConfig in .getInstance(objConfig) übergeben!!!
 
-			IConsoleZZZ objConsole = ConsoleThreadZZZ.getInstance();
+			IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
 			
 			//Merke: Ziel ist es, das was in DebugRot13ZZZ (oder ähnlichen) gemacht wird in einer Endlosschleife durchzuführen.
 			//Der ConsoleUser und die Eingabe so eng miteinander verknüpft, dass man hier den KeyPressCryptThreadZZZ
 			//übergeben wird, der das Verhalten des ...UserCrypt... steuert.
 			//KeyPressThreadEncryptZZZ objKeyPressThread = new KeyPressThreadEncryptZZZ(objConsole);
-			IKeyPressThreadZZZ objKeyPressThread = new KeyPressThreadEncryptZZZ(objConsole);
-			objConsole.setKeyPressThread(objKeyPressThread);
+			IKeyPressThreadZZZ objKeyPressThread = new KeyPressThreadEncryptZZZ(objConsoleController);
+			objConsoleController.setKeyPressThread(objKeyPressThread);
 						
 			//TODOGOON20230203; Übergib die Argumente aus objConsole and objConsoleUser, analog zu KernelKernelZZZ und dort an FileIniZZZ
 			//siehe.....
@@ -49,9 +49,9 @@ public class ConsoleEncryptMainZZZ {
 			
 			//Merke: Ziel ist, dass der ConsoleUser-Thread und der KeyPressThread "Daten" miteinander austauschen können. 
 			//IConsoleUserZZZ objConsoleUser = new ConsoleUserCryptZZZ(objConsole,"DEBUG");
-			IConsoleUserStartableZZZ objConsoleUserStartable = new ConsoleUserEncryptZZZ(objConsole);
-			objConsole.setConsoleUserStartableObject(objConsoleUserStartable);
-			objConsole.start();
+			IConsoleServiceZZZ objConsoleService = new ConsoleServiceEncryptZZZ(objConsoleController);
+			objConsoleController.setConsoleServiceObject(objConsoleService);
+			objConsoleController.start();
 			
 			//TODO 20230127: Weitere-Threads anbinden können, d.h. objConsole.setConsoleUserObejects(Array von IConsoleUser) 
 			//               Aber: Zu bedenken ist, das wohl immer nur 1 Thread per Scanner - Klasse auf die Eingaben hören kann. 

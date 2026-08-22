@@ -21,9 +21,9 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 	 * @author Fritz Lindhauer, 18.10.2022, 09:15:40
 	 * 
 	 */
-	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ, IConsoleUserZZZ, IKeyPressThreadZZZ {
+	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ, IConsoleControllerUserZZZ, IKeyPressThreadZZZ {
 		private static Scanner inputReader = new Scanner(System.in);
-		protected volatile static IConsoleZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
+		protected volatile static IConsoleControllerZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 		
 		private long lSleepTime=1000;//default
 		
@@ -51,13 +51,13 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		
 		@Override 
 		public String getMethodForThreadUsed() throws ExceptionZZZ{
-			HashMapZZZ hm = this.getConsole().getVariableHashMap();
+			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
 			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 		}
 		
 		@Override 
 		public void setMethodForThreadUsed(String sMethod) throws ExceptionZZZ{
-			HashMapZZZ hm = this.getConsole().getVariableHashMap();
+			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
 			hm.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
 		}
 		
@@ -88,21 +88,21 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
         }
         @Override
         public synchronized boolean isInputAllFinished() {
-        	return this.getConsole().isInputAllFinished();
+        	return this.getConsoleController().isInputAllFinished();
         }        
         @Override
         public synchronized void isInputAllFinished(boolean bInputAllFinished) {
-        	this.getConsole().isInputAllFinished(bInputAllFinished);
+        	this.getConsoleController().isInputAllFinished(bInputAllFinished);
         }
         
         @Override
         public synchronized boolean isOutputAllFinished() {
-        	return this.getConsole().isOutputAllFinished();
+        	return this.getConsoleController().isOutputAllFinished();
         } 
         
         @Override
         public synchronized void isOutputAllFinished(boolean bOutputAllFinished) {
-        	this.getConsole().isOutputAllFinished(bOutputAllFinished);
+        	this.getConsoleController().isOutputAllFinished(bOutputAllFinished);
         }
 		
 		@Override
@@ -117,19 +117,19 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		 
 		 @Override
 			public boolean isKeyPressThreadFinished() {
-				return this.getConsole().isKeyPressThreadFinished();
+				return this.getConsoleController().isKeyPressThreadFinished();
 			}
 			@Override
 			public void isKeyPressThreadFinished(boolean bFinished) {
-				this.getConsole().isKeyPressThreadFinished(bFinished);
+				this.getConsoleController().isKeyPressThreadFinished(bFinished);
 			}
 		
         //Method that gets called when the object is instantiated
-        public AbstractKeyPressThreadZZZ(IConsoleZZZ objConsole) {
-        	this.setConsole(objConsole);
+        public AbstractKeyPressThreadZZZ(IConsoleControllerZZZ objConsole) {
+        	this.setConsoleController(objConsole);
         }
-        public AbstractKeyPressThreadZZZ(IConsoleZZZ objConsole, long lSleepTime) {
-        	this.setConsole(objConsole);
+        public AbstractKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
+        	this.setConsoleController(objConsole);
         	this.setSleepTime(lSleepTime);
         }
         
@@ -176,11 +176,11 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		}
        
         @Override
-		public synchronized IConsoleZZZ getConsole() {
+		public synchronized IConsoleControllerZZZ getConsoleController() {
 			return this.objConsole;
 		}
 		@Override
-		public synchronized void setConsole(IConsoleZZZ objConsole) {
+		public synchronized void setConsoleController(IConsoleControllerZZZ objConsole) {
 			this.objConsole = objConsole;
 		}
 		
@@ -207,12 +207,12 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
         
         @Override
         public boolean isStopped() {
-    		return this.getConsole().isStopped();
+    		return this.getConsoleController().isStopped();
     	}
         
         @Override
     	public void isStopped(boolean bStop) {
-    		this.getConsole().isStopped(bStop);
+    		this.getConsoleController().isStopped(bStop);
     	}
         
         @Override
@@ -230,9 +230,9 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
         	main:{
     			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
     			//       Darum muss man alle Eingaben in diesem KeyPressThread erledigen				
-				this.getConsole().isKeyPressThreadRunning(true);
+				this.getConsoleController().isKeyPressThreadRunning(true);
 				
-				HashMapZZZ hmVariable = this.getConsole().getVariableHashMap();								
+				HashMapZZZ hmVariable = this.getConsoleController().getVariableHashMap();								
 	            while(!this.isStopped()){
 	            	
 	            	long lSleepTime = this.getSleepTime();
@@ -314,7 +314,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	 }
 				        	 
 				        	 
-				        	IConsoleUserStartableZZZ objConsoleUserStarter = this.getConsole().getConsoleUserStartableObject();
+				        	IConsoleServiceZZZ objConsoleUserStarter = this.getConsoleController().getConsoleServiceObject();
 				        	objConsoleUserStarter.startit(hmVariable); //direkter, ohne Thread...
 				        	 
 				        	 
@@ -351,7 +351,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 	            	
 	            }//end while isStopped
 	    	}//end main:
-			this.getConsole().isKeyPressThreadFinished(true);
+			this.getConsoleController().isKeyPressThreadFinished(true);
 	    	return bReturn;
 		}    
     	    	

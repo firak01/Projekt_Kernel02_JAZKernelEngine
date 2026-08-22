@@ -1,42 +1,41 @@
 package basic.zBasic.util.console.thread;
 
-import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
+import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.util.abstractList.HashMapCaseInsensitiveZZZ;
-import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
-import custom.zKernel.file.ini.FileIniZZZ;
 
-public abstract class AbstractConsoleUserStartableZZZ extends AbstractObjectWithFlagZZZ implements IConsoleUserStartableZZZ {	
-	private IConsoleZZZ objConsole=null;
+public abstract class AbstractConsoleServiceZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleServiceZZZ {	
+	private static final long serialVersionUID = 839513259027284036L;
 	
-	public AbstractConsoleUserStartableZZZ()  throws ExceptionZZZ {
+	private IConsoleControllerZZZ objConsoleController=null;
+	
+	public AbstractConsoleServiceZZZ()  throws ExceptionZZZ {
 		super();
 	}
-	public AbstractConsoleUserStartableZZZ(IConsoleZZZ objConsole) throws ExceptionZZZ {
+	public AbstractConsoleServiceZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
 		super();
 		AbstractConsoleUserStarterNew_(objConsole,null);
 	}
-	public AbstractConsoleUserStartableZZZ(IConsoleZZZ objConsole,String sFlag) throws ExceptionZZZ {
+	public AbstractConsoleServiceZZZ(IConsoleControllerZZZ objConsole,String sFlag) throws ExceptionZZZ {
 		super();
 		String[]saFlag=new String[1];
 		saFlag[0]=sFlag;
 		AbstractConsoleUserStarterNew_(objConsole,saFlag);
 	}
-	public AbstractConsoleUserStartableZZZ(IConsoleZZZ objConsole,String[] saFlag) throws ExceptionZZZ {
+	public AbstractConsoleServiceZZZ(IConsoleControllerZZZ objConsole,String[] saFlag) throws ExceptionZZZ {
 		super();
 		AbstractConsoleUserStarterNew_(objConsole,saFlag);
 	}
 	
-	private boolean AbstractConsoleUserStarterNew_(IConsoleZZZ objConsole, String[]saFlagControlIn) throws ExceptionZZZ{
+	private boolean AbstractConsoleUserStarterNew_(IConsoleControllerZZZ objConsole, String[]saFlagControlIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			if(objConsole==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("No Console Object provided", iERROR_PARAMETER_MISSING, StringZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}
-			this.setConsole(objConsole);
+			this.setConsoleController(objConsole);
  		
  			//setzen der übergebenen Flags	
 			if(saFlagControlIn != null){
@@ -66,13 +65,13 @@ public abstract class AbstractConsoleUserStartableZZZ extends AbstractObjectWith
 		 
 	//### GETTER / SETTER
 	@Override
-	public synchronized IConsoleZZZ getConsole() {
-		return this.objConsole;
+	public synchronized IConsoleControllerZZZ getConsoleController() {
+		return this.objConsoleController;
 	}
 	
 	@Override
-	public synchronized void setConsole(IConsoleZZZ objConsole) {
-		this.objConsole = objConsole;
+	public synchronized void setConsoleController(IConsoleControllerZZZ objConsoleController) {
+		this.objConsoleController = objConsoleController;
 	}
 	
 	//### Methoden

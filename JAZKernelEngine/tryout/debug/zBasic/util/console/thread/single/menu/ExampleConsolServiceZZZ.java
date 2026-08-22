@@ -5,17 +5,17 @@ import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractConsoleUserStartableZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public class ExampleConsoleUserStartableZZZ extends AbstractConsoleUserStartableZZZ {
-	public ExampleConsoleUserStartableZZZ() throws ExceptionZZZ {
+public class ExampleConsolServiceZZZ extends AbstractConsoleServiceZZZ {
+	public ExampleConsolServiceZZZ() throws ExceptionZZZ {
 		super();
 	}
-	public ExampleConsoleUserStartableZZZ(IConsoleZZZ objConsole) throws ExceptionZZZ {
+	public ExampleConsolServiceZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
 		super(objConsole);
 	}
 

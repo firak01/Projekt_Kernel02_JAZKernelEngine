@@ -4,7 +4,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
@@ -13,10 +13,10 @@ import basic.zBasic.util.datatype.character.ICharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadCommonZZZ implements IKeyPressThreadCryptConstantZZZ{
-	public AbstractKeyPressThreadCryptZZZ(IConsoleZZZ objConsole) {
+	public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole) {
     	super(objConsole);
     }
-    public AbstractKeyPressThreadCryptZZZ(IConsoleZZZ objConsole, long lSleepTime) {
+    public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
     	super(objConsole, lSleepTime);
     }
     

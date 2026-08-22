@@ -1,37 +1,37 @@
 package debug.zBasic.util.console.thread.multi.menu;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.util.console.thread.ConsoleThreadZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadDefaultZZZ;
-import debug.zBasic.util.console.thread.single.menu.ExampleConsoleUserStartableZZZ;
+import debug.zBasic.util.console.thread.single.menu.ExampleConsolServiceZZZ;
 
-public class DebugConsoleAsThreadZZZ implements Runnable{
-	protected IConsoleZZZ objConsole = null;
+public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
+	protected IConsoleControllerZZZ objConsole = null;
 	
-	public DebugConsoleAsThreadZZZ() throws ExceptionZZZ{		
+	public ExampleComposition_ConsoleAsThreadZZZ() throws ExceptionZZZ{		
 	}
 	
-	public DebugConsoleAsThreadZZZ(String[] args) throws ExceptionZZZ{		
+	public ExampleComposition_ConsoleAsThreadZZZ(String[] args) throws ExceptionZZZ{		
 	}
 	
-	public IConsoleZZZ getConsole() throws ExceptionZZZ {
+	public IConsoleControllerZZZ getConsole() throws ExceptionZZZ {
 		return this.objConsole;
 	}
-	public void setConsole(IConsoleZZZ objConsole) throws ExceptionZZZ {
+	public void setConsole(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
 		this.objConsole = objConsole;
 	}
 				
 	public void startit() throws ExceptionZZZ {								
-		IConsoleZZZ objConsole = ConsoleThreadZZZ.getInstance();	
+		IConsoleControllerZZZ objConsole = ConsoleControllerZZZ.getInstance();	
 		this.setConsole(objConsole);
 		
 		IKeyPressThreadZZZ objKeyPressThread = new KeyPressThreadDefaultZZZ(objConsole, 100);			
 		objConsole.setKeyPressThread(objKeyPressThread);
 					
-		ExampleConsoleUserStartableZZZ objConsoleUserStartable = new ExampleConsoleUserStartableZZZ(objConsole);			
-		objConsole.setConsoleUserStartableObject(objConsoleUserStartable);
+		ExampleConsolServiceZZZ objConsoleService = new ExampleConsolServiceZZZ(objConsole);			
+		objConsole.setConsoleServiceObject(objConsoleService);
 		objConsole.start();		
 	}
 

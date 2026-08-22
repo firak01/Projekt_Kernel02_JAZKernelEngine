@@ -3,27 +3,27 @@ package basic.zBasic.util.crypt.thread;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
+public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	private static final long serialVersionUID = 1L;
 
-	public ConsoleUserDecryptZZZ() throws ExceptionZZZ {
+	public ConsoleServiceEncryptZZZ() throws ExceptionZZZ {
 		super();
 	}
 	
-	public ConsoleUserDecryptZZZ(IConsoleZZZ objConsole) throws ExceptionZZZ {
+	public ConsoleServiceEncryptZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
 		super(objConsole);
 	}
-	public ConsoleUserDecryptZZZ(IConsoleZZZ objConsole, String sFlag) throws ExceptionZZZ {
+	public ConsoleServiceEncryptZZZ(IConsoleControllerZZZ objConsole, String sFlag) throws ExceptionZZZ {
 		super(objConsole, sFlag);
 	}
-	public ConsoleUserDecryptZZZ(IConsoleZZZ objConsole, String[] saFlag) throws ExceptionZZZ {
+	public ConsoleServiceEncryptZZZ(IConsoleControllerZZZ objConsole, String[] saFlag) throws ExceptionZZZ {
 		super(objConsole, saFlag);
 	}
 	
@@ -63,12 +63,15 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 //			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread ENDE: WARTE AUF FERTIGE KONSOLENEINGABE ######");
 //			
 //			
-//			//this.isOutputAllFinished(false);			
+//			//this.isOutputAllFinished(false);
+//			
+//			
 //			this.iCounter++;
 //			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Zähler crypt: " + iCounter);
 //
-//			HashMapZZZ<String,Object>hmVariable=this.getConsole().getVariableHashMap();			
+//			HashMapZZZ<String,Object>hmVariable=this.getConsole().getVariableHashMap();
 //			this.startit(hmVariable);
+//			
 //			
 //			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread START: DUMMYWARTEN ALS TEST ######");
 //			 try {				 
@@ -89,6 +92,70 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 //	}
 	
 	
+	//ALTE VERSION
+//	
+//	@Override
+//	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+//		boolean bReturn = false;
+//		main:{
+//			
+//			if(hmVariable!=null) {
+//				//Ausgabewerte zurücksetzen
+//				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_ENCRYPTED);
+//				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_UNCRYPTED);
+//				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_DECRYPTED);
+//			}
+//			
+//			//Debugausgabe, ob auch alles leer ist
+//			if(hmVariable!=null) {
+//				String sDebug = hmVariable.computeDebugString("<BR>","|");
+//				System.out.println(sDebug);
+//			}
+//			
+//			//TODOGOON20260818 - eigentlich müsste hier die MEthode per Fallunterscheidung geholt werden
+//					
+//			//Die eingegebenen Variablen über eine HashMap aus der Console für die Steuereung der Verschlüsselung nutzen. 			
+//			//String sCipher = (String) hmVariable.get(CryptCipherAlgorithmMappedValueZZZ.CryptCipherTypeZZZ.ROT13.getAbbreviation());
+//			String sCipher = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_CIPHER);
+//			if(!StringZZZ.isEmpty(sCipher)) {
+//				ICryptZZZ objCrypt = CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
+//				boolean bSuccess = this.preProcessing(objCrypt, hmVariable);
+//				if(!bSuccess) {					
+//					System.out.println("PreProcessing nicht erfolgreich, Abbruch");
+//					bReturn=false;
+//					break main;
+//				}
+//								
+//				//+++++++++++++++++++++++++++++++++++++++++++++++++
+//								
+//				String sInput = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_TEXT_UNCRYPTED);				
+//				try {
+//					String sOutput = objCrypt.encrypt(sInput);
+//					hmVariable.put(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_ENCRYPTED, sOutput);
+//					
+//					System.out.println("Verschluesselter Wert:\n"+sOutput);
+//					String sOutput2 = objCrypt.decrypt(sOutput);
+//					hmVariable.put(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_DECRYPTED, sOutput2);
+//					System.out.println("Wieder entschluesselter Wert:\n"+sOutput2);
+//					
+//					bReturn = true;
+//				}catch( IllegalArgumentException e) {
+//					String sError=e.getMessage();
+//					System.out.println("Fehler bei der Eingabe.\nText enthaelt fuer die Argumentkombination ungueltige Werte.\nFehler: "+sError +"\nbei Eingabe: "+sInput);
+//					bReturn=false;
+//				}
+//				
+//			}else {
+//				System.out.println("noch kein Schluesselalgorithmus festgelegt.");
+//				bReturn = false;
+//			}
+//			
+//		}//end main:
+//		return bReturn;
+//	}
+	
+	
+	//Startit wird dann ggfs. von einem anderen Thread aus aufgerufen.
 	@Override
 	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -102,8 +169,8 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 					case "ascii":
 						bReturn = ascii_(hmVariable);
 						break;	
-					case "processDecryptROT13":
-						bReturn = processDecryptROT13_(hmVariable);
+					case "processEncryptROT13":
+						bReturn = processEncryptROT13_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -111,14 +178,14 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 				}
 			}else {
 				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
-				bReturn = processDecryptByFactory_(hmVariable);
+				bReturn = processEncryptByFactory_(hmVariable);
 			}//sCallingMethod
 									
 			//bReturn = true;
 		}//end main:
 		return bReturn;
-	}
-		
+	}	
+	
 	//########################################
 	private boolean ascii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		KeyPressThreadUtilZZZ.printTableAscii();		
@@ -126,11 +193,9 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 	}
 	
 	//########################################
-	
-	private boolean processDecryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean processEncryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			
 			if(hmVariable!=null) {
 				//Ausgabewerte zurücksetzen
 				hmVariable.remove(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_ENCRYPTED);
@@ -143,10 +208,10 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 				String sDebug = hmVariable.computeDebugString("<BR>","|");
 				System.out.println(sDebug);
 			}
-					
-			//TODOGOON20260818 - eigentlich müsste hier die MEthode per Fallunterscheidung geholt werden
 			
-			//Die eingegebenen Variablen über eine HashMap aus der Console für die Steuerung der Verschlüsselung nutzen. 			
+			//TODOGOON20260818 - eigentlich müsste hier die MEthode per Fallunterscheidung geholt werden
+					
+			//Die eingegebenen Variablen über eine HashMap aus der Console für die Steuereung der Verschlüsselung nutzen. 			
 			//String sCipher = (String) hmVariable.get(CryptCipherAlgorithmMappedValueZZZ.CryptCipherTypeZZZ.ROT13.getAbbreviation());
 			String sCipher = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_CIPHER);
 			if(!StringZZZ.isEmpty(sCipher)) {
@@ -157,18 +222,18 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 					bReturn=false;
 					break main;
 				}
-				
+								
 				//+++++++++++++++++++++++++++++++++++++++++++++++++
 								
-				String sInput = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_TEXT_ENCRYPTED);				
+				String sInput = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_TEXT_UNCRYPTED);				
 				try {
-					String sOutput = objCrypt.decrypt(sInput);
-					hmVariable.put(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_DECRYPTED, sOutput);
+					String sOutput = objCrypt.encrypt(sInput);
+					hmVariable.put(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_ENCRYPTED, sOutput);
 					
-					System.out.println("Entschluesselter Wert:\n"+sOutput);
-					String sOutput2 = objCrypt.encrypt(sOutput);
-					hmVariable.put(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_ENCRYPTED, sOutput2);
-					System.out.println("Wieder verschluesselter Wert:\n"+sOutput2);
+					System.out.println("Verschluesselter Wert:\n"+sOutput);
+					String sOutput2 = objCrypt.decrypt(sOutput);
+					hmVariable.put(KeyPressThreadEncryptZZZ.sOUTPUT_TEXT_DECRYPTED, sOutput2);
+					System.out.println("Wieder entschluesselter Wert:\n"+sOutput2);
 					
 					bReturn = true;
 				}catch( IllegalArgumentException e) {
@@ -181,13 +246,13 @@ public class ConsoleUserDecryptZZZ extends AbstractConsoleUserCryptZZZ {
 				System.out.println("noch kein Schluesselalgorithmus festgelegt.");
 				bReturn = false;
 			}
-			
 		}//end main:
-		return bReturn;	
+		return bReturn;
 	}
 	
 	//########################################
-	private boolean processDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		return processDecryptByFactory_(hmVariable);
+	private boolean processEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		return processEncryptByFactory_(hmVariable);
 	}
+	
 }

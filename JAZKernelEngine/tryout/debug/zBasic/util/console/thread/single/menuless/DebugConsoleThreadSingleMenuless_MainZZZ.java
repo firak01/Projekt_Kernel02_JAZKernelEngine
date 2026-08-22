@@ -22,7 +22,7 @@ import basic.zBasic.util.file.ResourceEasyZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 07:34:48
  * 
  */
-public class DebugScannerConsoleSimpleMainZZZ {
+public class DebugConsoleThreadSingleMenuless_MainZZZ {
 	static long rand = 10000;
 	public static void main(String[] args) {
 		 ExecutorService executor = Executors.newFixedThreadPool(5);

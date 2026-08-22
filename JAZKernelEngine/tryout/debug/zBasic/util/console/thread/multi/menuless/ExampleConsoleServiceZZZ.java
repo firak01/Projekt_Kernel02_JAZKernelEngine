@@ -1,15 +1,15 @@
 package debug.zBasic.util.console.thread.multi.menuless;
 
-import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractConsoleUserStartableZZZ;
-import basic.zBasic.util.console.thread.IConsoleUserStartableZZZ;
-import basic.zBasic.util.console.thread.IConsoleZZZ;
+import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 
-public class ExampleConsoleUserStartableZZZ extends AbstractConsoleUserStartableZZZ implements IConsoleUserStartableZZZ {
-	
-	public ExampleConsoleUserStartableZZZ() throws ExceptionZZZ {
+public class ExampleConsoleServiceZZZ extends AbstractConsoleServiceZZZ implements IConsoleServiceZZZ {
+	private static final long serialVersionUID = -8542443837227617372L;
+
+	public ExampleConsoleServiceZZZ() throws ExceptionZZZ {
 		super();		
 	}
 
@@ -40,13 +40,13 @@ public class ExampleConsoleUserStartableZZZ extends AbstractConsoleUserStartable
 
 
 	@Override
-	public IConsoleZZZ getConsole() {
+	public IConsoleControllerZZZ getConsoleController() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setConsole(IConsoleZZZ objConsole) {
+	public void setConsoleController(IConsoleControllerZZZ objConsole) {
 		// TODO Auto-generated method stub
 		
 	}

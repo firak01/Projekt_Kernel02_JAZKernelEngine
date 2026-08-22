@@ -14,7 +14,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 
         //Method that gets called when the object is instantiated
-        public KeyPressThreadDefaultZZZ(IConsoleZZZ objConsole, long lSleepTime) {
+        public KeyPressThreadDefaultZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
         	super(objConsole, lSleepTime);
         }
        
@@ -120,12 +120,12 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             case "+":
             	this.isCurrentInputValid(true);					                	
             	this.setSleepTime(this.getSleepTime()+100);
-            	this.getConsole().setSleepTime(this.getSleepTime());			                	
+            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
             	break;
             case "-":
             	this.isCurrentInputValid(true);
             	this.setSleepTime(this.getSleepTime()-100);
-            	this.getConsole().setSleepTime(this.getSleepTime());			                	
+            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
             	break;
             case "q":
             	this.quit();

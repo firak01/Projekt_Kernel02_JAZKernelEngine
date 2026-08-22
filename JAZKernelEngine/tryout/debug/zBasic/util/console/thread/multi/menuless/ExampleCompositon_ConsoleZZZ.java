@@ -7,7 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
-import basic.zBasic.util.console.thread.IConsoleUserStartableZZZ;
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
@@ -18,11 +19,11 @@ import basic.zBasic.util.console.thread.IConsoleUserStartableZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public class ExampleConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExampleConsoleZZZ {
-	private static ExampleConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
+public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExampleConsoleZZZ {
+	private static ExampleCompositon_ConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
 	private ExampleKeyPressThreadZZZ objThreadKeyPress=null;
-	private IConsoleUserStartableZZZ objConsoleUser = null;
+	private IConsoleServiceZZZ objConsoleUser = null;
 	private ExampleConsoleThreadZZZ objThreadConsole = null;
 	
 	//Variablen zur Steuerung des internen Threads
@@ -31,14 +32,14 @@ public class ExampleConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExa
 	
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	private ExampleConsoleZZZ() {		
+	private ExampleCompositon_ConsoleZZZ() {		
 		super();
 		ConsoleMain_();
 	}
 	
-	public static ExampleConsoleZZZ getInstance(){
+	public static ExampleCompositon_ConsoleZZZ getInstance(){
 		if(objConsole==null){
-			objConsole = new ExampleConsoleZZZ();
+			objConsole = new ExampleCompositon_ConsoleZZZ();
 		}
 		return objConsole;		
 	}
@@ -52,10 +53,13 @@ public class ExampleConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExa
 		return bReturn;
 	}
 	
-	public boolean start() {
+	public boolean start() throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{			
-	        try {	        	
+	        try {
+	        	IConsoleServiceZZZ objConsoleUser = new ExampleConsoleServiceZZZ();
+	        	this.setConsoleUserObject(objConsoleUser);
+	        	
 	        	final ExampleKeyPressThreadZZZ objThreadKeyPress = this.getKeyPressThread();
 	            Thread t1 = new Thread(objThreadKeyPress);
 	            t1.start();
@@ -65,7 +69,8 @@ public class ExampleConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExa
 		        t2.start();
 	         
 	        } catch (Exception e)        {
-	            e.printStackTrace();
+	            ExceptionZZZ ez = new ExceptionZZZ(e);
+	            throw ez;
 	        }
 			
 		}//end main:
@@ -90,12 +95,12 @@ public class ExampleConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExa
 	}
 
 	@Override
-	public IConsoleUserStartableZZZ getConsoleUserObject() {
+	public IConsoleServiceZZZ getConsoleUserObject() {
 		return this.objConsoleUser;
 	}
 
 	@Override
-	public void setConsoleUserObject(IConsoleUserStartableZZZ objConsoleUser) {
+	public void setConsoleUserObject(IConsoleServiceZZZ objConsoleUser) {
 		this.objConsoleUser = objConsoleUser;
 	}
 
@@ -118,7 +123,7 @@ public class ExampleConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExa
 			ExampleKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
 			if(objKeyPressThread!=null) {
 			
-				IConsoleUserStartableZZZ objConsoleUser = this.getConsoleUserObject();
+				IConsoleServiceZZZ objConsoleUser = this.getConsoleUserObject();
 				if(objConsoleUser!=null) {
 					long lSleepTime = this.getConsoleSleepTime();
 					this.objThreadConsole = new ExampleConsoleThreadZZZ(lSleepTime, objKeyPressThread);

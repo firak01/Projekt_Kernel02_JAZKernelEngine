@@ -3,14 +3,16 @@ package debug.zBasic.util.console.thread.multi.menuless;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.util.console.thread.IConsoleUserStartableZZZ;
+import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 
 	 
 public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
-	private IConsoleUserStartableZZZ objConsoleUser = null;
+	private IConsoleServiceZZZ objConsoleUser = null;
 	private ExampleKeyPressThreadZZZ objKeyPressThread = null;
 	private long lSleepTime = 1000;
 	private boolean bStop = false;
+	
+	Scanner inputReader = new Scanner(System.in);
 	
 	 public long getSleepTime() {		
      	return this.lSleepTime;
@@ -22,8 +24,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
 		 this.lSleepTime = lSleepTime;
 	 }
 	
-    Scanner inputReader = new Scanner(System.in);
-
+    
     //Method that gets called when the object is instantiated
     public ExampleConsoleThreadZZZ(long lSleepTime, ExampleKeyPressThreadZZZ objKeyPressThread) {
     	this.setSleepTime(lSleepTime);
@@ -40,7 +41,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
                 System.out.println("ConsoleThread.sleep: " + lSleepTime);
                 Thread.sleep(lSleepTime);
                 
-                IConsoleUserStartableZZZ objUser = this.getConsoleUserObject();
+                IConsoleServiceZZZ objUser = this.getConsoleUserObject();
                 if(objUser!=null) {
                 	boolean bStop = this.getKeyPressThread().isStopped(); 
 	                if(bStop) {
@@ -73,11 +74,11 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
 	}
 	
 	@Override
-	public IConsoleUserStartableZZZ getConsoleUserObject() {
+	public IConsoleServiceZZZ getConsoleUserObject() {
 		return this.objConsoleUser;
 	}
 	@Override
-	public void setConsoleUserObject(IConsoleUserStartableZZZ objConsoleUser) {
+	public void setConsoleUserObject(IConsoleServiceZZZ objConsoleUser) {
 		this.objConsoleUser = objConsoleUser;
 	}
 	

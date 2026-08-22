@@ -21,13 +21,13 @@ import basic.zBasic.util.datatype.string.StringZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public abstract class AbstractConsoleThreadZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleZZZ {
+public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleControllerZZZ {
 	private static final long serialVersionUID = 303154337707751073L;
 
-	protected volatile static IConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
+	protected volatile static IConsoleControllerZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
 	private IKeyPressThreadZZZ objThreadKeyPress=null;
-	private IConsoleUserStartableZZZ objConsoleUserStarter = null;
+	private IConsoleServiceZZZ objConsoleUserStarter = null;
 	
 	//Variablen zur Steuerung des internen Threads
 	private long lSleepTime=1000;
@@ -46,7 +46,7 @@ public abstract class AbstractConsoleThreadZZZ<T> extends AbstractObjectWithFlag
 	
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	protected AbstractConsoleThreadZZZ() {		
+	protected AbstractConsoleControllerZZZ() {		
 		super();
 		ConsoleMain_();
 	}
@@ -176,12 +176,12 @@ public abstract class AbstractConsoleThreadZZZ<T> extends AbstractObjectWithFlag
 	 }
 
 	@Override
-	public IConsoleUserStartableZZZ getConsoleUserStartableObject() {
+	public IConsoleServiceZZZ getConsoleServiceObject() {
 		return this.objConsoleUserStarter;
 	}
 
 	@Override
-	public void setConsoleUserStartableObject(IConsoleUserStartableZZZ objConsoleUser) {
+	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleUser) {
 		this.objConsoleUserStarter = objConsoleUser;
 	}
 
