@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
@@ -19,10 +20,13 @@ import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ implements IExampleConsoleZZZ {
-	private static ExampleCompositon_ConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
+public class ExampleComposition_ConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IExampleConsoleZZZ {
+	private static final long serialVersionUID = 2937832009910133403L;
+
+	//SINGLETON
+	private static ExampleComposition_ConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
-	private ExampleKeyPressThreadZZZ objThreadKeyPress=null;
+	private IKeyPressThreadZZZ objThreadKeyPress=null;
 	private IConsoleServiceZZZ objConsoleService = null;
 	private ExampleConsoleThreadZZZ objThreadConsole = null;
 	
@@ -32,14 +36,14 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 	
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	private ExampleCompositon_ConsoleZZZ() {		
+	private ExampleComposition_ConsoleZZZ() {		
 		super();
 		ConsoleMain_();
 	}
 	
-	public static ExampleCompositon_ConsoleZZZ getInstance(){
+	public static ExampleComposition_ConsoleZZZ getInstance(){
 		if(objConsole==null){
-			objConsole = new ExampleCompositon_ConsoleZZZ();
+			objConsole = new ExampleComposition_ConsoleZZZ();
 		}
 		return objConsole;		
 	}
@@ -60,7 +64,7 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 	        	IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ();
 	        	this.setConsoleServiceObject(objConsoleService);
 	        	
-	        	final ExampleKeyPressThreadZZZ objThreadKeyPress = this.getKeyPressThread();
+	        	final ExampleKeyPressThreadZZZ objThreadKeyPress = (ExampleKeyPressThreadZZZ) this.getKeyPressThread();
 	            Thread t1 = new Thread(objThreadKeyPress);
 	            t1.start();
 
@@ -105,7 +109,7 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 	}
 
 	@Override
-	public ExampleKeyPressThreadZZZ getKeyPressThread() {
+	public IKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ {
 		if(this.objThreadKeyPress==null) {
 			long lSleepTime = this.getConsoleSleepTime();
 			this.objThreadKeyPress = new ExampleKeyPressThreadZZZ(lSleepTime);		
@@ -113,14 +117,16 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 		return this.objThreadKeyPress;
 	}
 
-	private void setKeyPressThread(ExampleKeyPressThreadZZZ objKeyPressThread) {
+	@Override
+	public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
 		this.objThreadKeyPress = objKeyPressThread;
 	}
 	
-	@Override
-	public ExampleConsoleThreadZZZ getConsoleThread() {
+	
+	
+	public ExampleConsoleThreadZZZ getConsoleThread() throws ExceptionZZZ {
 		if(this.objThreadConsole==null) {
-			ExampleKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
+			ExampleKeyPressThreadZZZ objKeyPressThread = (ExampleKeyPressThreadZZZ) this.getKeyPressThread();
 			if(objKeyPressThread!=null) {
 			
 				IConsoleServiceZZZ objConsoleUser = this.getConsoleServiceObject();
@@ -134,15 +140,7 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 		return this.objThreadConsole;    
 	}
 	
-	private void setConsoleThread(ExampleConsoleThreadZZZ objThreadConsole) {
+	public void setConsoleThread(ExampleConsoleThreadZZZ objThreadConsole) {
 		this.objThreadConsole = objThreadConsole;
 	}
-	
-	
-	
-	
-
-	
-	
-	
 }

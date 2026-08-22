@@ -3,7 +3,7 @@ package debug.zBasic.util.console.thread.single.menu;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
-import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenueableZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadDefaultZZZ;
 
 
@@ -21,7 +21,7 @@ public class ExampleComposition_ConsoleZZZ {
 		IConsoleControllerZZZ objConsole = ConsoleControllerZZZ.getInstance();	
 		this.setConsole(objConsole);
 		
-		IKeyPressThreadZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
+		IKeyPressThreadMenueableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
 		objConsole.setKeyPressThread(objKeyPressThread);
 					
 		ExampleConsolServiceZZZ objConsoleService = new ExampleConsolServiceZZZ(objConsole);			

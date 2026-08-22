@@ -26,7 +26,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 
 	protected volatile static IConsoleControllerZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
-	private IKeyPressThreadMenulessZZZ objThreadKeyPress=null;
+	private IKeyPressThreadZZZ objThreadKeyPress=null;
 	private IConsoleServiceZZZ objConsoleUserStarter = null;
 	
 	//Variablen zur Steuerung des internen Threads
@@ -67,7 +67,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 		boolean bReturn = false;
 		main:{			
 	        try {	        	
-	        	final IKeyPressThreadMenulessZZZ objThreadKeyPress = this.getKeyPressThread();
+	        	final IKeyPressThreadZZZ objThreadKeyPress = this.getKeyPressThread();
 	        	if(objThreadKeyPress!=null) {
 	        		Thread t1 = new Thread((Runnable) objThreadKeyPress);
 	        		t1.start();
@@ -186,7 +186,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	}
 
 	@Override
-	public IKeyPressThreadMenulessZZZ getKeyPressThread() throws ExceptionZZZ {
+	public IKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ {
 		if(this.objThreadKeyPress==null) {
 			long lSleepTime = this.getSleepTime();
 			this.objThreadKeyPress = new KeyPressThreadDefaultZZZ(this, lSleepTime);		
@@ -195,7 +195,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	}
 
 	@Override
-	public void setKeyPressThread(IKeyPressThreadMenulessZZZ objKeyPressThread)  throws ExceptionZZZ {
+	public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread)  throws ExceptionZZZ {
 		this.objThreadKeyPress = objKeyPressThread;
 	}
 	

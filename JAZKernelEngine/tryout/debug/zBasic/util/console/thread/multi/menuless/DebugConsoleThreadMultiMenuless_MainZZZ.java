@@ -8,7 +8,7 @@ public class DebugConsoleThreadMultiMenuless_MainZZZ {
 	public static void main(String[] args) {
 		try {
 			//Ist kein Thread, darum nur start(), Beispiel mit Compostion als Singleton...	
-			ExampleCompositon_ConsoleZZZ objConsole = ExampleCompositon_ConsoleZZZ.getInstance();							
+			ExampleComposition_ConsoleZZZ objConsole = ExampleComposition_ConsoleZZZ.getInstance();							
 			objConsole.start();
 		
 		}catch(ExceptionZZZ ez) {

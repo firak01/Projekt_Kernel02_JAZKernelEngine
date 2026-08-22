@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
-import basic.zBasic.util.console.thread.IKeyPressThreadMenulessZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 
 	 
 public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
@@ -90,7 +90,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
 	}		
 
 	@Override
-	public void setKeyPressThread(IKeyPressThreadMenulessZZZ objKeyPressThread) throws ExceptionZZZ {
+	public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
 		this.objKeyPressThread = (ExampleKeyPressThreadZZZ) objKeyPressThread;
 	}
 }

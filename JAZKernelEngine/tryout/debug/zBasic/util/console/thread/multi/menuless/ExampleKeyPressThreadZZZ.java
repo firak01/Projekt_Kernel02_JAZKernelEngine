@@ -4,13 +4,12 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonMenulessZZZ;
-import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
 
 
 	 
 	//public class ExampleKeyPressThreadZZZ implements Runnable {
-	public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadCommonMenulessZZZ {
+	public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadZZZ {
 		private long lSleepTime;
 		private boolean bStop = false;
 		
@@ -24,8 +23,8 @@ import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonZZZ;
         Scanner inputReader = new Scanner(System.in);
 
         //Method that gets called when the object is instantiated
-        public ExampleKeyPressThreadZZZ(long lSleepTime) {
-        	super();
+        public ExampleKeyPressThreadZZZ(long lSleepTime) throws ExceptionZZZ {
+        	super(lSleepTime);
         	setSleepTime(lSleepTime);
         }
        

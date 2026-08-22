@@ -2,8 +2,7 @@ package basic.zBasic.util.crypt.thread;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonZZZ;
-import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
@@ -12,11 +11,11 @@ import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.character.ICharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadCommonZZZ implements IKeyPressThreadCryptConstantZZZ{
-	public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole) {
+public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadWithMenueZZZ implements IKeyPressThreadCryptConstantZZZ{
+	public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
     	super(objConsole);
     }
-    public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
+    public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
     	super(objConsole, lSleepTime);
     }
     

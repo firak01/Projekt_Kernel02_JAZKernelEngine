@@ -5,11 +5,11 @@ import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
-import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenueableZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -23,13 +23,15 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 	 
 	public class KeyPressThreadDecryptZZZ extends AbstractKeyPressThreadCryptZZZ implements IKeyPressThreadCryptConstantZZZ{	
-        //Method that gets called when the object is instantiated
-		public KeyPressThreadDecryptZZZ(IConsoleControllerZZZ objConsole) {
+
+		public KeyPressThreadDecryptZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
         	super(objConsole);
         }
-        public KeyPressThreadDecryptZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
+        public KeyPressThreadDecryptZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
         	super(objConsole, lSleepTime);
         }
+        
+        
 		@Override
 		public void makeMenueMain() throws InterruptedException {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
@@ -52,7 +54,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		public boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
-				IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
+				IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
 				
 				
 			//In the JDK 7 release, you can use a String object in the expression of a switch statement:
@@ -80,7 +82,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForThreadUsed("ascii");           
+            	this.setMethodForConsoleService("ascii");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             case "1":
@@ -88,7 +90,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	//this.processROT13_(hmVariable);              	
             	objKeyPressThreadUsed = this; //new KeyPressThreadDecryptZZZ(this.getConsole());
             	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForThreadUsed("processDecryptROT13");           
+            	this.setMethodForConsoleService("processDecryptROT13");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             case "2":

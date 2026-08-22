@@ -32,31 +32,61 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		//protected boolean bCurrentOutputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
 		
-		protected IKeyPressThreadMenulessZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
+		protected IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
 		
-		//### GETTER / SETTER		
+		//############ Konstruktor
+		public AbstractKeyPressThreadZZZ() throws ExceptionZZZ {
+	    	super();
+	    	AbstractKeyPressThreadNew_(null, -1);
+	    }
+		 public AbstractKeyPressThreadZZZ(long lSleepTime) throws ExceptionZZZ {
+	    	super();
+	    	AbstractKeyPressThreadNew_(null, lSleepTime);
+	    }
+		public AbstractKeyPressThreadZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
+	    	super();
+	    	AbstractKeyPressThreadNew_(objConsole, -1);
+	    }
+	    public AbstractKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
+	    	super();
+	    	AbstractKeyPressThreadNew_(objConsole, -1);
+	    }
+		
+		
+		private boolean AbstractKeyPressThreadNew_(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
+	    	boolean bReturn = false;
+	    	main:{
+	    		this.setConsoleController(objConsole);
+	    		this.setSleepTime(lSleepTime);
+	    	}//end main:
+	    	return bReturn;
+	    }
+
+		
+		
+		//### GETTER / SETTER
 		@Override
-		public IKeyPressThreadMenulessZZZ getKeyPressThread() {
+		public IKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ {
 			if(this.objKeyPressThreadUsed==null) {
 				return this;
 			}else {
 				return this.objKeyPressThreadUsed;
-			}	
+			}				
 		}
 
 		@Override
-		public void setKeyPressThread(IKeyPressThreadMenulessZZZ objKeyPressThread) {
-			this.objKeyPressThreadUsed = objKeyPressThread;	
+		public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
+			this.objKeyPressThreadUsed = objKeyPressThread;					
 		}
 		
 		@Override 
-		public String getMethodForThreadUsed() throws ExceptionZZZ{
+		public String getMethodForConsoleService() throws ExceptionZZZ{
 			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
 			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 		}
 		
 		@Override 
-		public void setMethodForThreadUsed(String sMethod) throws ExceptionZZZ{
+		public void setMethodForConsoleService(String sMethod) throws ExceptionZZZ{
 			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
 			hm.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
 		}
@@ -116,23 +146,15 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		 }
 		 
 		 @Override
-			public boolean isKeyPressThreadFinished() {
-				return this.getConsoleController().isKeyPressThreadFinished();
-			}
-			@Override
-			public void isKeyPressThreadFinished(boolean bFinished) {
-				this.getConsoleController().isKeyPressThreadFinished(bFinished);
-			}
+		public boolean isKeyPressThreadFinished() {
+			return this.getConsoleController().isKeyPressThreadFinished();
+		}
+		@Override
+		public void isKeyPressThreadFinished(boolean bFinished) {
+			this.getConsoleController().isKeyPressThreadFinished(bFinished);
+		}
 		
-        //Method that gets called when the object is instantiated
-        public AbstractKeyPressThreadZZZ(IConsoleControllerZZZ objConsole) {
-        	this.setConsoleController(objConsole);
-        }
-        public AbstractKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
-        	this.setConsoleController(objConsole);
-        	this.setSleepTime(lSleepTime);
-        }
-        
+       
         public void cancelToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//wieder so als würde das Menü nicht übersprungen.
 			this.cancelToMenue();
@@ -262,14 +284,14 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        		do {
 				        			this.isCurrentInputFinished(false);
 				        			this.isCurrentInputValid(false);				        							        		
-						        	 try {
+						        	// try {
 						        		if(this.isCurrentMenue()) {				        			
-							        		this.makeMenueMain();  									
+							        		//this.makeMenueMain();  									
 						        		}
-									} catch (InterruptedException e) {
-										System.out.println("KeyPressThread: 1. Wait Error");
-										e.printStackTrace();
-									}
+//									} catch (InterruptedException e) {
+//										System.out.println("KeyPressThread: 1. Wait Error");
+//										e.printStackTrace();
+//									}
 			
 					                //das holt wohl wort fuer wort von der Konsole: String sInput = inputReader.next();
 						        	Scanner inputReader = this.getInputReader();				      
@@ -277,8 +299,8 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 					                System.out.println("Pressed Menueselection:" + sInput);
 					                if(sInput==null) break main;
 					                
-					                boolean bGoon = this.processMenueMainArgumentInput(sInput,hmVariable);
-					                if(!bGoon) break main;//Quit
+					                //boolean bGoon = this.processMenueMainArgumentInput(sInput,hmVariable);
+					                //if(!bGoon) break main;//Quit
 					                
 				        		}while(!this.isCurrentInputValid());	                
 				        	}//end if bSkipArguments	
@@ -304,13 +326,13 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	
 				        	
 				        	//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-				        	IKeyPressThreadZZZ objKeyPressThreadUsed = (IKeyPressThreadZZZ) this.getKeyPressThread();
+				        	IKeyPressThreadZZZ objKeyPressThreadUsed = this.getKeyPressThread();
 				        	objKeyPressThreadUsed.isInputAllFinished(false);
 				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 				        					        	//				        	
 				        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
-					        		boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
-					        		if(!bGoon) break main; //Quit
+					        		//boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+					        		//if(!bGoon) break main; //Quit
 				        	 }
 				        	 
 				        	 
@@ -353,18 +375,6 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 	    	}//end main:
 			this.getConsoleController().isKeyPressThreadFinished(true);
 	    	return bReturn;
-		}    
-    	    	
-    	@Override
-		public abstract void makeMenueMain() throws InterruptedException, ExceptionZZZ;
-    	
-    	@Override
-    	public abstract boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ;
-    	
-    	@Override
-		public abstract boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
-    	
-    	@Override
-    	public abstract boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ;
+		}        	    	    	
     }
 

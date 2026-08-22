@@ -10,11 +10,11 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
-	public class KeyPressThreadDefaultZZZ extends AbstractKeyPressThreadCommonZZZ {
+	public class KeyPressThreadDefaultZZZ extends AbstractKeyPressThreadWithMenueZZZ {
 
 
         //Method that gets called when the object is instantiated
-        public KeyPressThreadDefaultZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) {
+        public KeyPressThreadDefaultZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
         	super(objConsole, lSleepTime);
         }
        
@@ -108,7 +108,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		public boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
-				IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
+				IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
 				
 				
 			//In the JDK 7 release, you can use a String object in the expression of a switch statement:
@@ -136,7 +136,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForThreadUsed("ascii");           
+            	this.setMethodForConsoleService("ascii");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             case "1":
@@ -144,7 +144,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	//this.processROT13_(hmVariable);              	
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForThreadUsed("process1");           
+            	this.setMethodForConsoleService("process1");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             default:
