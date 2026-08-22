@@ -30,7 +30,7 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
 		System.out.println("#######################################################################################################");
 		System.out.println("# TOOL ZUM VERSCHLUESSELN MIT EINFACHEN ALGORITHMEN");
 		System.out.println("# ");
-		System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | A für die Ausgabe der ASCII-Tabelle");
+		System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
 		System.out.println("# Bitte wählen Sie den Algorithmus:");
 		System.out.println("# 1: Rot13");
 		System.out.println("# 2: Rotascii");

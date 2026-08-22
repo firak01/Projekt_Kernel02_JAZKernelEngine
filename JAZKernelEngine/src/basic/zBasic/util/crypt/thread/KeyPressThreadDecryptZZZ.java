@@ -38,7 +38,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			System.out.println("#######################################################################################################");
 //			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
 			System.out.println("# ");
-			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | A für die Ausgabe der ASCII-Tabelle");
+			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M Menü anzeigen | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Bitte wählen Sie den Algorithmus:");
 			System.out.println("# 1: Rot13");
 			System.out.println("# 2: Rotascii");

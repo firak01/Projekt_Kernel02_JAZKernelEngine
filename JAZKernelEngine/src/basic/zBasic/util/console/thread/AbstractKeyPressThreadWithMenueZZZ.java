@@ -163,6 +163,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		}
 		
         public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+        	//System.out.println("Menueeingabe machen");
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//so, damit die Eingabe der Menue-Argumente übersprungen.
 			this.validToMenue();
 		}
@@ -174,11 +175,12 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		}
 		
 		public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+			//System.out.println("Menueeingabe ueberspringen");
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyYes)); //so, damit die Eingabe der Menue-Argumente uebersprungen wird 
 			this.validSkipMenue();
 		}
 		public void validSkipMenue() {			
-			System.out.println("Menue ueberspringen");
+			//System.out.println("Menueaufbau ueberspringen");
 			this.isCurrentInputValid(true);						                			
 	    	this.isCurrentInputFinished(true);
 			this.isCurrentMenue(false);	
@@ -307,48 +309,54 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	//######################################################################
 		                	//### Frage nach Mehrfacheingabe
 				        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
-		                		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
+				        		Syso.printSeparator();
+		                		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
 		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 		                			this.quit();
-			                	}else {		               		                		
-			                		boolean bMenue = BooleanZZZ.stringToBoolean(sInput);
+			                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMenue)) {			                				                				                    
+			                    	this.validToMenue(hmVariable);//Zurueck zum Menü	
+			                    	//Aber sofort und nicht erst noch eine Eingabe abwarten			                    	
+			                	} else {		               		                					                				                		
+			                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
+			                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
+			                		boolean bMenue = bYes && !bDefault;
 			                		if(bMenue) { //Merke: Hier wird die Logik nun vertauscht Y=nicht skippen, da zurück zum Menü
-			                			this.validToMenue();
-			                		}else {
-			                			this.validSkipMenue();			                			
-			                		}		                		
-			                	}
-				        	}
-				        	
-				        	
-				        	//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-				        	IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenueableZZZ) this.getKeyPressThread();
-				        	objKeyPressThreadUsed.isInputAllFinished(false);
-				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
-				        					        	//				        	
-				        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
-					        		boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
-					        		if(!bGoon) break main; //Quit
-				        	 }
-				        	 
-				        	 
-				        	IConsoleServiceZZZ objConsoleUserStarter = this.getConsoleController().getConsoleServiceObject();
-				        	objConsoleUserStarter.startit(hmVariable); //direkter, ohne Thread...
-				        	 
-				        	 
-				        	//#########################################################################
-			                try {
-			                	//Aber hier keine Flags vorhanden if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Warte auf neue Eingabe.");
-			                	Syso.println("\nWarte auf neue Eingabe.");
-			                	Thread.sleep(lSleepTime);			                	
-							} catch (InterruptedException e) {
-								System.out.println("KeyPressThread: 2. Wait Error");
-								e.printStackTrace();
-							}
-			                //
-			                objKeyPressThreadUsed.isInputAllFinished(true);
-			               	this.isInputAllFinished(false); //Auf zur nächsten Eingabe
-			               
+			                			this.validToMenue(hmVariable);//Zurueck zum Menü	
+			                		}else {			                		
+			                			this.validSkipMenue(hmVariable);			                			
+			                		}				                		
+			                		//Jetzt erst noch eine Eingabe machen....
+			                		
+			                		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
+						        	IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenueableZZZ) this.getKeyPressThread();
+						        	objKeyPressThreadUsed.isInputAllFinished(false);
+						        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+						        					        	//				        	
+						        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+							        		boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+							        		if(!bGoon) break main; //Quit
+						        	 }
+						        	 
+						        	 
+						        	IConsoleServiceZZZ objConsoleUserStarter = this.getConsoleController().getConsoleServiceObject();
+						        	objConsoleUserStarter.startit(hmVariable); //direkter, ohne Thread...
+						        	 
+						        	 
+						        	//#########################################################################
+					                try {
+					                	//Aber hier keine Flags vorhanden if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Warte auf neue Eingabe.");
+					                	//Syso.println("\nWarte auf neue Eingabe.");
+					                	Thread.sleep(lSleepTime);			                	
+									} catch (InterruptedException e) {
+										System.out.println("KeyPressThread: 2. Wait Error");
+										e.printStackTrace();
+									}
+					                //
+					                objKeyPressThreadUsed.isInputAllFinished(true);
+					               	this.isInputAllFinished(false); //Auf zur nächsten Eingabe
+					               
+			                	}//end if cKey
+				        	} //end if 	!(this.isCurrentInputFinished() && this.isInputAllFinished())			        					        					        	
 	            		}//end if inputAllFinished
 	            	}//end input:
 	            	//}//End synchro

@@ -22,10 +22,12 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 	 * 
 	 */
 	public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ, IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadZZZ {
+		public static long lSLEEP_TIME_DEFAULT = 1000;
+		
 		private static Scanner inputReader = new Scanner(System.in);
 		protected volatile static IConsoleControllerZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 		
-		private long lSleepTime=1000;//default
+		private long lSleepTime=-1;
 		
 		protected boolean bCurrentInputValid=false;
 		protected boolean bCurrentInputFinished=false;
@@ -135,9 +137,13 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
         	this.getConsoleController().isOutputAllFinished(bOutputAllFinished);
         }
 		
-		@Override
+        @Override
 		 public long getSleepTime() {
-	     	return this.lSleepTime;
+			if(lSleepTime< 0) {
+				return this.lSLEEP_TIME_DEFAULT;
+			}else {
+				return this.lSleepTime;
+			}
 	     }
 		
 		 @Override
@@ -311,11 +317,14 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	//######################################################################
 		                	//### Frage nach Mehrfacheingabe
 				        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
-		                		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
+		                		Syso.printSeparator();
+				        		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
 		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 		                			this.quit();
 			                	}else {		               		                		
-			                		boolean bMenue = BooleanZZZ.stringToBoolean(sInput);
+			                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
+			                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
+			                		boolean bMenue = bYes && !bDefault;
 			                		if(bMenue) { //Merke: Hier wird die Logik nun vertauscht Y=nicht skippen, da zurück zum Menü
 			                			this.validToMenue();
 			                		}else {
@@ -343,7 +352,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	//#########################################################################
 			                try {
 			                	//Aber hier keine Flags vorhanden if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Warte auf neue Eingabe.");
-			                	Syso.println("\nWarte auf neue Eingabe.");
+			                	//Syso.println("\nWarte auf neue Eingabe.");
 			                	Thread.sleep(lSleepTime);			                	
 							} catch (InterruptedException e) {
 								System.out.println("KeyPressThread: 2. Wait Error");

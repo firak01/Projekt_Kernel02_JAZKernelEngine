@@ -134,6 +134,21 @@ public class CharZZZ {
 		return Character.MIN_VALUE; //Das ist der Unicode Character
 	}
 	
+	/**Aber Achtung: Ungeeignet um bei Konsoleneingaben auf ENTER abzuprüfen
+	 * 
+	 * Benutzer drückt: ENTER
+	 *            ↓
+	 *            Scanner.nextLine()
+	 *            ↓
+	 *            sInput = ""
+	 *            
+	 *   
+	 * @return
+	 */
+	public static char getEnter() { 
+		return '\n';
+	}
+	
 	public static String toString(int iCharValue) {
 		//char c = (char)iCharValue;
 		
