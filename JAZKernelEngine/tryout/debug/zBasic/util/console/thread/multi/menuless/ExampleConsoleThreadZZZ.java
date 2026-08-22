@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenulessZZZ;
 
 	 
 public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
-	private IConsoleServiceZZZ objConsoleUser = null;
+	private IConsoleServiceZZZ objConsoleService = null;
 	private ExampleKeyPressThreadZZZ objKeyPressThread = null;
 	private long lSleepTime = 1000;
 	private boolean bStop = false;
@@ -26,7 +27,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
 	
     
     //Method that gets called when the object is instantiated
-    public ExampleConsoleThreadZZZ(long lSleepTime, ExampleKeyPressThreadZZZ objKeyPressThread) {
+    public ExampleConsoleThreadZZZ(long lSleepTime, ExampleKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
     	this.setSleepTime(lSleepTime);
     	this.setKeyPressThread(objKeyPressThread);
     }
@@ -41,7 +42,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
                 System.out.println("ConsoleThread.sleep: " + lSleepTime);
                 Thread.sleep(lSleepTime);
                 
-                IConsoleServiceZZZ objUser = this.getConsoleUserObject();
+                IConsoleServiceZZZ objUser = this.getConsoleServiceObject();
                 if(objUser!=null) {
                 	boolean bStop = this.getKeyPressThread().isStopped(); 
 	                if(bStop) {
@@ -74,26 +75,23 @@ public class ExampleConsoleThreadZZZ implements Runnable,IExampleConsoleZZZ {
 	}
 	
 	@Override
-	public IConsoleServiceZZZ getConsoleUserObject() {
-		return this.objConsoleUser;
+	public IConsoleServiceZZZ getConsoleServiceObject() {
+		return this.objConsoleService;
 	}
 	@Override
-	public void setConsoleUserObject(IConsoleServiceZZZ objConsoleUser) {
-		this.objConsoleUser = objConsoleUser;
+	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleService) {
+		this.objConsoleService = objConsoleService;
 	}
 	
 	
 	@Override
-	public ExampleKeyPressThreadZZZ getKeyPressThread() {
+	public ExampleKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ{
 		return this.objKeyPressThread;
 	}		
-	 private void setKeyPressThread(ExampleKeyPressThreadZZZ objKeyPressThread) {
-			this.objKeyPressThread = objKeyPressThread;
-		}
+
 	@Override
-	public ExampleConsoleThreadZZZ getConsoleThread() {
-		return this;
+	public void setKeyPressThread(IKeyPressThreadMenulessZZZ objKeyPressThread) throws ExceptionZZZ {
+		this.objKeyPressThread = (ExampleKeyPressThreadZZZ) objKeyPressThread;
 	}
-	
 }
 

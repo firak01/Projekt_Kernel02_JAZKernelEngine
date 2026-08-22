@@ -139,7 +139,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	this.isCurrentInputValid(true);            	            	
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
             	objKeyPressThreadUsed = this;
-            	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
+            	this.setKeyPressThread(objKeyPressThreadUsed);
             	this.setMethodForThreadUsed("ascii");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
@@ -147,7 +147,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	this.isCurrentInputValid(true);
             	//this.processROT13_(hmVariable);              	
             	objKeyPressThreadUsed = this;
-            	this.setKeyPressThreadUsed(objKeyPressThreadUsed);
+            	this.setKeyPressThread(objKeyPressThreadUsed);
             	this.setMethodForThreadUsed("process1");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;

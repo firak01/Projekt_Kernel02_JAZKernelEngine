@@ -23,7 +23,7 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 	private static ExampleCompositon_ConsoleZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
 	
 	private ExampleKeyPressThreadZZZ objThreadKeyPress=null;
-	private IConsoleServiceZZZ objConsoleUser = null;
+	private IConsoleServiceZZZ objConsoleService = null;
 	private ExampleConsoleThreadZZZ objThreadConsole = null;
 	
 	//Variablen zur Steuerung des internen Threads
@@ -57,8 +57,8 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 		boolean bReturn = false;
 		main:{			
 	        try {
-	        	IConsoleServiceZZZ objConsoleUser = new ExampleConsoleServiceZZZ();
-	        	this.setConsoleUserObject(objConsoleUser);
+	        	IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ();
+	        	this.setConsoleServiceObject(objConsoleService);
 	        	
 	        	final ExampleKeyPressThreadZZZ objThreadKeyPress = this.getKeyPressThread();
 	            Thread t1 = new Thread(objThreadKeyPress);
@@ -95,13 +95,13 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 	}
 
 	@Override
-	public IConsoleServiceZZZ getConsoleUserObject() {
-		return this.objConsoleUser;
+	public IConsoleServiceZZZ getConsoleServiceObject() {
+		return this.objConsoleService;
 	}
 
 	@Override
-	public void setConsoleUserObject(IConsoleServiceZZZ objConsoleUser) {
-		this.objConsoleUser = objConsoleUser;
+	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleService) {
+		this.objConsoleService = objConsoleService;
 	}
 
 	@Override
@@ -123,11 +123,11 @@ public class ExampleCompositon_ConsoleZZZ extends AbstractObjectWithFlagZZZ impl
 			ExampleKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
 			if(objKeyPressThread!=null) {
 			
-				IConsoleServiceZZZ objConsoleUser = this.getConsoleUserObject();
+				IConsoleServiceZZZ objConsoleUser = this.getConsoleServiceObject();
 				if(objConsoleUser!=null) {
 					long lSleepTime = this.getConsoleSleepTime();
 					this.objThreadConsole = new ExampleConsoleThreadZZZ(lSleepTime, objKeyPressThread);
-			        this.objThreadConsole.setConsoleUserObject(this.getConsoleUserObject());
+			        this.objThreadConsole.setConsoleServiceObject(this.getConsoleServiceObject());
 				}
 			}
 		}

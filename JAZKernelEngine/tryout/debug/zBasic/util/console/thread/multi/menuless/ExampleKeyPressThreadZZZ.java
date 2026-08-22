@@ -2,9 +2,15 @@ package debug.zBasic.util.console.thread.multi.menuless;
 
 import java.util.Scanner;
 
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonMenulessZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadCommonZZZ;
+
 
 	 
-	public class ExampleKeyPressThreadZZZ implements Runnable {
+	//public class ExampleKeyPressThreadZZZ implements Runnable {
+	public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadCommonMenulessZZZ {
 		private long lSleepTime;
 		private boolean bStop = false;
 		
@@ -19,6 +25,7 @@ import java.util.Scanner;
 
         //Method that gets called when the object is instantiated
         public ExampleKeyPressThreadZZZ(long lSleepTime) {
+        	super();
         	setSleepTime(lSleepTime);
         }
        
@@ -69,6 +76,5 @@ import java.util.Scanner;
     	public void requestStop() {
     		this.isStopped(true);
     	}
-
     }
 

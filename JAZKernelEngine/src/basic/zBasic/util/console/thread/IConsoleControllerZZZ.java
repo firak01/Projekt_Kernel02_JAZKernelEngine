@@ -2,21 +2,15 @@ package basic.zBasic.util.console.thread;
 
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
-public interface IConsoleControllerZZZ extends IThreadEnabledZZZ {
+public interface IConsoleControllerZZZ extends IThreadEnabledZZZ, IConsoleServiceUserZZZ, IKeyPressThreadUserZZZ {
 	public long getSleepTime();
 	public void setSleepTime(long lSleepTime);
-	
-	public IConsoleServiceZZZ getConsoleServiceObject();
-	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleUserStartable) ;	
 	
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);
 	
 	public boolean isOutputAllFinished();
 	public void isOutputAllFinished(boolean bOutputFinished);
-	
-	public IKeyPressThreadZZZ getKeyPressThread();
-	public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread);
 	
 	public boolean isKeyPressThreadFinished();
 	public void isKeyPressThreadFinished(boolean bInputThreadFinished); //setzen, wenn die Eingabe im KeyPressThread vorerst abgeschlossen ist.
