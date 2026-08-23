@@ -67,7 +67,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		public void makeMenueMain() throws InterruptedException, ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");		
-			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | A für die Ausgabe der ASCII-Tabelle");
+			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Folgende zusätzliche Aktionen:");
 			System.out.println("# 1: Erhöhe den Dummy Zähler");
 			System.out.println("#####################################################################################################");
@@ -135,6 +135,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	this.quit();
             	bReturn=false;
             	break main; 
+            case "m":
+            	bReturn = true;
+            	break main; //Das Menü ist ja schon da...
             case "a":
             	this.isCurrentInputValid(true);            	            	
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle

@@ -345,8 +345,8 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 				        	 }
 				        	 
 				        	 
-				        	IConsoleServiceZZZ objConsoleUserStarter = this.getConsoleController().getConsoleServiceObject();
-				        	objConsoleUserStarter.startit(hmVariable); //direkter, ohne Thread...
+				        	IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
+				        	objConsoleService.startit(hmVariable); //direkter, ohne Thread...
 				        	 
 				        	 
 				        	//#########################################################################

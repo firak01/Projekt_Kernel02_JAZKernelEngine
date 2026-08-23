@@ -36,7 +36,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		public void makeMenueMain() throws InterruptedException {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");
-//			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
+			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
 			System.out.println("# ");
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M Menü anzeigen | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Bitte wählen Sie den Algorithmus:");
@@ -77,6 +77,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	this.quit();
             	bReturn=false;
             	break main; 
+            case "m":
+            	bReturn = true;
+            	break main; //Das Menü ist ja schon da...
             case "a":
             	this.isCurrentInputValid(true);            	            	
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	

@@ -1,21 +1,26 @@
-package basic.zBasic.util.console.thread;
+package debug.zBasic.util.console.thread.multi.menu;
 
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenueableZZZ;
+import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadDecryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
-	public class KeyPressThreadDefaultZZZ extends AbstractKeyPressThreadWithMenueZZZ {
+	public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadWithMenueZZZ {
 
 
         //Method that gets called when the object is instantiated
-        public KeyPressThreadDefaultZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
+        public ExampleKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
         	super(objConsole, lSleepTime);
         }
        
@@ -67,6 +72,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Folgende zusätzliche Aktionen:");
 			System.out.println("# 1: Erhöhe den Dummy Zähler");
+			System.out.println("# 2: Erhöhe eine Alphanumeric Zähler");
 			System.out.println("#####################################################################################################");
 			
 			Thread.sleep(this.getSleepTime()); 
@@ -151,6 +157,13 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	this.setMethodForConsoleService("process1");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
+            case "2":
+            	this.isCurrentInputValid(true);            	          
+            	objKeyPressThreadUsed = this;
+            	this.setKeyPressThread(objKeyPressThreadUsed);
+            	this.setMethodForConsoleService("processCountAlphanumeric");           
+            	objKeyPressThreadUsed.initit(hmVariable);             	
+            	break;
             default:
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
             	System.out.println("ungueltige Eingabe");
@@ -188,7 +201,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 		@Override
 		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = true;
+			boolean bReturn = false;
 			main:{
 				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
 				//Plus alle anderen INPUT - Variablen.
@@ -197,16 +210,19 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 				switch(sCallingMethod){
 					case "ascii":
-						ascii_(hmVariable);
+						bReturn = ascii_(hmVariable);
 						break;
 					case "process1":
-						process1_(hmVariable);
+						bReturn = process1_(hmVariable);
+						break;
+					case "processCountAlphanumeric":
+						bReturn = processCountAlphanumeric_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
 						throw ez;
 				}
-				
+				//bReturn = true;
 			}//end main:
 			return bReturn;
 		}
@@ -234,5 +250,25 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			}//end main;	
 			return bReturn;
 		}
+		
+		private boolean processCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+			boolean bReturn = false;
+			main:{
+				if(hmVariable!=null) {				
+					//Beispiel mit Verschlüsselung: 
+					//Hier werden die Keys für die Variable als Konstante möglich, da sie ihren eigenen KeyPressThread haben
+	        		//String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
+	        		//hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
+					
+					//Die Verschiedenen alphanumerischen Zähler haben neben ihrem Namen auch eine "Typenzahl"					
+					int iAlphanumericType = ICounterByCharacterAsciiFactoryZZZ.iCounter_TYPE_ALPHANUMERIC_SIGNIFICANT;
+	        		String sAlphanumericType = Integer.toString(iAlphanumericType);
+	        		hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType);
+	        	}
+				bReturn = true;
+			}//end main;	
+			return bReturn;
+		}
+		
     }
 
