@@ -26,13 +26,7 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	public ConsoleServiceDecryptZZZ(IConsoleControllerZZZ objConsole, String[] saFlag) throws ExceptionZZZ {
 		super(objConsole, saFlag);
 	}
-	
-	private int iCounter = 0;
 		
-	public int getcounter() {
-		return this.iCounter;
-	}
-	
 //	@Override
 //	public boolean start() throws ExceptionZZZ {
 //		boolean bReturn = false;
@@ -100,10 +94,10 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 			if(!StringZZZ.isEmptyNull(sCallingMethod)) {
 				switch(sCallingMethod){
 					case "ascii":
-						bReturn = ascii_(hmVariable);
+						bReturn = startAscii_(hmVariable);
 						break;	
 					case "processDecryptROT13":
-						bReturn = processDecryptROT13_(hmVariable);
+						bReturn = startDecryptROT13_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -111,7 +105,7 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 				}
 			}else {
 				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
-				bReturn = processDecryptByFactory_(hmVariable);
+				bReturn = startDecryptByFactory_(hmVariable);
 			}//sCallingMethod
 									
 			//bReturn = true;
@@ -120,14 +114,14 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	}
 		
 	//########################################
-	private boolean ascii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		KeyPressThreadUtilZZZ.printTableAscii();		
 		return true;
 	}
 	
 	//########################################
 	
-	private boolean processDecryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startDecryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
@@ -147,13 +141,16 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 			//TODOGOON20260818 - eigentlich müsste hier die MEthode per Fallunterscheidung geholt werden
 			
 			//Die eingegebenen Variablen über eine HashMap aus der Console für die Steuerung der Verschlüsselung nutzen. 			
-			//String sCipher = (String) hmVariable.get(CryptCipherAlgorithmMappedValueZZZ.CryptCipherTypeZZZ.ROT13.getAbbreviation());
-			String sCipher = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_CIPHER);
+			//String sCipher = (String) hmVariable.get(CryptCipherAlgorithmMappedValueZZZ.CryptCipherTypeZZZ.ROT13.getAbbreviation());			
+			String sCipher = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_CIPHER);	
+			this.setCryptType(sCipher);
+						
 			if(!StringZZZ.isEmpty(sCipher)) {
-				ICryptZZZ objCrypt = CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
-				boolean bSuccess = this.preProcessing(objCrypt, hmVariable);
+				//ICryptZZZ objCrypt = CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
+				ICryptZZZ objCrypt = this.getCrypt();				
+				boolean bSuccess = this.preStart(objCrypt, hmVariable);
 				if(!bSuccess) {					
-					System.out.println("PreProcessing nicht erfolgreich, Abbruch");
+					System.out.println("PreStart nicht erfolgreich, Abbruch");
 					bReturn=false;
 					break main;
 				}
@@ -187,7 +184,7 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	}
 	
 	//########################################
-	private boolean processDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		return processDecryptByFactory_(hmVariable);
+	private boolean startDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		return startDecryptByFactory_(hmVariable);
 	}
 }

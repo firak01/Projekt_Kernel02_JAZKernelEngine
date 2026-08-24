@@ -10,9 +10,10 @@ import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
+public class ConsoleServiceEncryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<T> {
 	private static final long serialVersionUID = 1L;
-
+	
+	//### Konstruktor
 	public ConsoleServiceEncryptZZZ() throws ExceptionZZZ {
 		super();
 	}
@@ -27,11 +28,8 @@ public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 		super(objConsole, saFlag);
 	}
 	
-	private int iCounter = 0;
-		
-	public int getcounter() {
-		return this.iCounter;
-	}
+
+	
 	
 //	@Override
 //	public boolean start() throws ExceptionZZZ {
@@ -167,10 +165,10 @@ public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 			if(!StringZZZ.isEmptyNull(sCallingMethod)) {
 				switch(sCallingMethod){
 					case "ascii":
-						bReturn = ascii_(hmVariable);
+						bReturn = startAscii_(hmVariable);
 						break;	
 					case "processEncryptROT13":
-						bReturn = processEncryptROT13_(hmVariable);
+						bReturn = startEncryptROT13_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -178,7 +176,7 @@ public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 				}
 			}else {
 				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
-				bReturn = processEncryptByFactory_(hmVariable);
+				bReturn = startEncryptByFactory_(hmVariable);
 			}//sCallingMethod
 									
 			//bReturn = true;
@@ -187,13 +185,13 @@ public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	}	
 	
 	//########################################
-	private boolean ascii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		KeyPressThreadUtilZZZ.printTableAscii();		
 		return true;
 	}
 	
 	//########################################
-	private boolean processEncryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startEncryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			if(hmVariable!=null) {
@@ -213,12 +211,15 @@ public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 					
 			//Die eingegebenen Variablen über eine HashMap aus der Console für die Steuereung der Verschlüsselung nutzen. 			
 			//String sCipher = (String) hmVariable.get(CryptCipherAlgorithmMappedValueZZZ.CryptCipherTypeZZZ.ROT13.getAbbreviation());
-			String sCipher = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_CIPHER);
+			String sCipher = (String) hmVariable.get(KeyPressThreadEncryptZZZ.sINPUT_CIPHER);	
+			this.setCryptType(sCipher);
+			
 			if(!StringZZZ.isEmpty(sCipher)) {
-				ICryptZZZ objCrypt = CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
-				boolean bSuccess = this.preProcessing(objCrypt, hmVariable);
+				//ICryptZZZ objCrypt = CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
+				ICryptZZZ objCrypt = this.getCrypt();
+				boolean bSuccess = this.preStart(objCrypt, hmVariable);
 				if(!bSuccess) {					
-					System.out.println("PreProcessing nicht erfolgreich, Abbruch");
+					System.out.println("PreStart nicht erfolgreich, Abbruch");
 					bReturn=false;
 					break main;
 				}
@@ -251,8 +252,8 @@ public class ConsoleServiceEncryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	}
 	
 	//########################################
-	private boolean processEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		return processEncryptByFactory_(hmVariable);
+	private boolean startEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		return startEncryptByFactory_(hmVariable);
 	}
 	
 }

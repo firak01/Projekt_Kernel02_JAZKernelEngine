@@ -98,19 +98,19 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	break;
             case "2":
             	this.isCurrentInputValid(true);
-            	this.processDecryptROTascii_(hmVariable);     
+            	this.initDecryptROTascii_(hmVariable);     
             	break;
             case "3":
             	this.isCurrentInputValid(true);
-            	this.processDecryptROTnumeric_(hmVariable);     
+            	this.initDecryptROTnumeric_(hmVariable);     
             	break;
             case "4":
             	this.isCurrentInputValid(true);
-            	this.processDecryptROTnn(hmVariable);        					                	
+            	this.initDecryptROTnn_(hmVariable);        					                	
             	break;
             case "5":
             	this.isCurrentInputValid(true);
-            	this.processDecryptVigenereNn_(hmVariable);
+            	this.initDecryptVigenereNn_(hmVariable);
             	break;
             default:
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
@@ -154,10 +154,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 				switch(sCallingMethod){
 					case "ascii":
-						ascii_(hmVariable);
+						initAscii_(hmVariable);
 						break;
 					case "processDecryptROT13":
-						processDecryptROT13_(hmVariable);
+						initDecryptROT13_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -170,7 +170,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		
 		
 		//#########################################################
-		private void ascii_(HashMapZZZ hm) throws ExceptionZZZ {
+		private void initAscii_(HashMapZZZ hm) throws ExceptionZZZ {
 			//Hier noch zusätzliche Input Variablen übergebbar.
 		}
 		
@@ -186,14 +186,14 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         		hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
         	}
 		}
-		private void processDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void initDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
         		hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
         	}
 		}
 		
-		private void processDecryptROTascii_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void initDecryptROTascii_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTascii.getAbbreviation();
         		hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
@@ -203,7 +203,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         	}
 		}
 		
-		private void processDecryptROTnumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void initDecryptROTnumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTnumeric.getAbbreviation();
         		hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
@@ -215,7 +215,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         	}
 		}
 		
-		private void processDecryptROTnn(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void initDecryptROTnn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 						
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTnn.getAbbreviation();
@@ -309,7 +309,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         	}	
 		}
 		
-		private void processDecryptVigenereNn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+		private void initDecryptVigenereNn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 			
 			if(hmVariable!=null) {
         		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.VIGENEREnn.getAbbreviation();

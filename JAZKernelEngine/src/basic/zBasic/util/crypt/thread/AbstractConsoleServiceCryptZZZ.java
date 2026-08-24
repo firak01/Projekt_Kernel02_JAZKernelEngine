@@ -4,13 +4,21 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMaintypeZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractConsoleServiceCryptZZZ extends AbstractConsoleServiceZZZ{
+public abstract class AbstractConsoleServiceCryptZZZ<T> extends AbstractConsoleServiceZZZ<T>{
+	private static final long serialVersionUID = 4300438111371922169L;
+	
+	protected String sCryptType = null;
+	protected ICryptZZZ objCrypt = null;
+	
+	
+	//### KONSTRUKTOR
 	public AbstractConsoleServiceCryptZZZ()  throws ExceptionZZZ {
 		super();
 	}
@@ -24,20 +32,53 @@ public abstract class AbstractConsoleServiceCryptZZZ extends AbstractConsoleServ
 		super(objConsole, saFlag);	
 	}
 	
-	public boolean preProcessing(ICryptZZZ objCrypt, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	//### GETTER / SETTER
+	public String getCryptType() throws ExceptionZZZ{
+		return this.sCryptType;
+	}
+	
+	public void setCryptType(String sCryptType) throws ExceptionZZZ {
+		if(StringZZZ.isEmpty(sCryptType)) {
+			this.sCryptType = sCryptType;
+			this.setCrypt(null);
+		}else if(sCryptType.equals(this.sCryptType)) {
+			//mache nix
+		}else {
+			//bei einem neuen CryptType, setze CryptType Objekt leer.
+			this.sCryptType = sCryptType;
+			this.setCrypt(null);			
+		}
+	}
+	
+	
+	public ICryptZZZ getCrypt() throws ExceptionZZZ{
+		if(this.objCrypt == null) {
+			String sCipher = this.getCryptType();
+			this.objCrypt = CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
+		}
+		return this.objCrypt;
+	}
+	
+	public void setCrypt(ICryptZZZ objCrypt) throws ExceptionZZZ {
+		this.objCrypt = objCrypt;
+	}
+	
+	
+	//### METHODEN
+	public boolean preStart(ICryptZZZ objCrypt, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
-			bReturn = this.preProcessingObject(objCrypt,hmVariable);
+			bReturn = this.preStartObject(objCrypt,hmVariable);
 			if(!bReturn) {
-				System.out.println("PreProcessing Objecteinstellungen nicht erfolgreich, Abbruch");
+				System.out.println("PreStart Objecteinstellungen nicht erfolgreich, Abbruch");
 				bReturn=false;
 				break main;
 			}
 			
-			bReturn = this.preProcessingFlags(objCrypt, hmVariable);
+			bReturn = this.preStartFlags(objCrypt, hmVariable);
 			if(!bReturn) {
-				System.out.println("PreProcessing Flags nicht erfolgreich, Abbruch");
+				System.out.println("PreStart Flags nicht erfolgreich, Abbruch");
 				bReturn=false;
 				break main;
 			}
@@ -45,7 +86,7 @@ public abstract class AbstractConsoleServiceCryptZZZ extends AbstractConsoleServ
 		return bReturn;
 	}
 	
-	public boolean preProcessingObject(ICryptZZZ objCrypt, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStartObject(ICryptZZZ objCrypt, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			String sInput=null;
@@ -81,7 +122,7 @@ public abstract class AbstractConsoleServiceCryptZZZ extends AbstractConsoleServ
 		return bReturn;
 	}
 	
-	public boolean preProcessingFlags(ICryptZZZ objCrypt, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStartFlags(ICryptZZZ objCrypt, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			String sInput=null;

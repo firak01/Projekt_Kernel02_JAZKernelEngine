@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.multi.menu;
+package debug.zBasic.util.console.thread.multi.menu02;
 
 import java.util.Scanner;
 
@@ -161,7 +161,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	this.isCurrentInputValid(true);            	          
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForConsoleService("countAlphanumeric");           
+            	this.setMethodForConsoleService("processCountAlphanumeric");           
             	objKeyPressThreadUsed.initit(hmVariable);             	
             	break;
             default:
@@ -215,7 +215,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 					case "process1":
 						bReturn = initProcess1_(hmVariable);
 						break;
-					case "countAlphanumeric":
+					case "processCountAlphanumeric":
 						bReturn = initCountAlphanumeric_(hmVariable);
 						break;
 					default:

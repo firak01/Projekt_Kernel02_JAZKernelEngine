@@ -90,19 +90,19 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
         	break;
         case "2":
         	this.isCurrentInputValid(true);
-        	this.processEncrytptROTascii_(hmVariable);     
+        	this.initEncrytptROTascii_(hmVariable);     
         	break;
         case "3":
         	this.isCurrentInputValid(true);
-        	this.processEncryptROTnumeric_(hmVariable);     
+        	this.initEncryptROTnumeric_(hmVariable);     
         	break;
         case "4":
         	this.isCurrentInputValid(true);
-        	this.processEncryptROTnn_(hmVariable);        					                	
+        	this.initEncryptROTnn_(hmVariable);        					                	
         	break;
         case "5":
         	this.isCurrentInputValid(true);
-        	this.processEncryptVigenereNn_(hmVariable);
+        	this.initEncryptVigenereNn_(hmVariable);
         	break;
         default:
         	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
@@ -149,10 +149,10 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
 			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 			switch(sCallingMethod){
 				case "ascii":
-					ascii_(hmVariable);
+					initAscii_(hmVariable);
 					break;
 				case "processEncryptROT13":
-					processEncryptROT13_(hmVariable);
+					initEncryptROT13_(hmVariable);
 					break;
 				default:
 					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -165,7 +165,7 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
 	}
 		
 	//#########################################################
-	private void ascii_(HashMapZZZ hm) throws ExceptionZZZ {
+	private void initAscii_(HashMapZZZ hm) throws ExceptionZZZ {
 		//Hier noch zusätzliche Input Variablen übergebbar.
 	}
 			
@@ -174,20 +174,20 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
 	 * @param hmVariable
 	 * @throws ExceptionZZZ
 	 */
-	public void processEncryptROT13(HashMapZZZ hmVariable) throws ExceptionZZZ{
+	public void initEncryptROT13(HashMapZZZ hmVariable) throws ExceptionZZZ{
 		if(hmVariable!=null) {
     		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
     		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
     	}
 	}
-	private void processEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+	private void initEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 		if(hmVariable!=null) {
     		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
     		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
     	}
 	}
 	
-	private void processEncrytptROTascii_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+	private void initEncrytptROTascii_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 		if(hmVariable!=null) {
     		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTascii.getAbbreviation();
     		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
@@ -197,7 +197,7 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
     	}
 	}
 	
-	private void processEncryptROTnumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+	private void initEncryptROTnumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 		if(hmVariable!=null) {
     		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTnumeric.getAbbreviation();
     		hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_CIPHER, sCipher);
@@ -209,7 +209,7 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
     	}
 	}
 	
-	private void processEncryptROTnn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+	private void initEncryptROTnn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 					
 		if(hmVariable!=null) {
     		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROTnn.getAbbreviation();
@@ -303,7 +303,7 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
     	}	
 	}
 	
-	private void processEncryptVigenereNn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
+	private void initEncryptVigenereNn_(HashMapZZZ hmVariable) throws ExceptionZZZ{
 		
 		if(hmVariable!=null) {
     		String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.VIGENEREnn.getAbbreviation();

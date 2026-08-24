@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.multi.menu;
+package debug.zBasic.util.console.thread.multi.menu02;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -13,8 +13,8 @@ import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServiceMyCounterZZZ<T> {
-	private static final long serialVersionUID = -2911808778962336187L;
+public class ConsoleServiceMyAlphabetCounterZZZ extends AbstractConsoleServiceMyCounterZZZ {
+	private static final long serialVersionUID = 1L;
 
 	public ConsoleServiceMyAlphabetCounterZZZ() throws ExceptionZZZ {
 		super();
@@ -30,6 +30,11 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		super(objConsole, saFlag);
 	}
 	
+	private int iCounter = 0;
+		
+	public int getcounter() {
+		return this.iCounter;
+	}
 	
 //	@Override
 //	public boolean start() throws ExceptionZZZ {
@@ -97,8 +102,8 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 			//Nutze auch die nicht startit fähigen Methoden
 			if(!StringZZZ.isEmptyNull(sCallingMethod)) {
 				switch(sCallingMethod){	
-					case "countAlphanumeric":
-						bReturn = startCountAlphanumeric_(hmVariable);
+					case "processCountAlphanumeric":
+						bReturn = processCountAlphanumeric_(hmVariable);
 						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
@@ -106,7 +111,7 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 				}
 			}else {
 				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
-				bReturn = startCountByFactory_(hmVariable);
+				bReturn = processCountByFactory_(hmVariable);
 			}//sCallingMethod
 									
 			//bReturn = true;
@@ -114,15 +119,15 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		return bReturn;
 	}
 	
-	private boolean startCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		return startCountByFactory_(hmVariable);
+	private boolean processCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		return processCountByFactory_(hmVariable);
 	}
 		
 	
 	
 	//########################################
 	
-	private boolean startCountByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean processCountByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
@@ -142,13 +147,10 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 			
 			//Dahinter steckt eine definierte Zahl.
 			String sCounterKey = (String) hmVariable.get("INPUT_COUNTER_TYPE");
-			int iCounterType = StringZZZ.toInteger(sCounterKey);	
-			this.setCounterType(iCounterType);
-			
+			int iCounterType = StringZZZ.toInteger(sCounterKey);		
 			if(iCounterType>=1) {
-				//ICounterStringZZZ objCounter = CounterByCharacterAsciiFactoryZZZ.getInstance().createCounter(iCounterType);//CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
-				ICounterStringZZZ<?> objCounter = this.getCounter();
-				boolean bSuccess = this.preStart(objCounter, hmVariable);
+				ICounterStringZZZ objCounter = CounterByCharacterAsciiFactoryZZZ.getInstance().createCounter(iCounterType);//CryptAlgorithmFactoryZZZ.getInstance().createAlgorithmType(sCipher);
+				boolean bSuccess = this.preProcessing(objCounter, hmVariable);
 				if(!bSuccess) {					
 					System.out.println("PreProcessing nicht erfolgreich, Abbruch");
 					bReturn=false;

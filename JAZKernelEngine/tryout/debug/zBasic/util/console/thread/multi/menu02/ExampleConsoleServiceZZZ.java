@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.multi.menu;
+package debug.zBasic.util.console.thread.multi.menu02;
 
 import java.util.Scanner;
 
@@ -74,7 +74,7 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 				case "process1":
 					bReturn = startProcess1_(hmVariable);
 					break;
-				case "countAlphanumeric":
+				case "processCountAlphanumeric":
 					bReturn = startCountAlphanumeric_(hmVariable);
 					break;
 				default:
