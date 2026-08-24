@@ -31,7 +31,7 @@ public class ExampleConsolServiceZZZ extends AbstractConsoleServiceZZZ {
 		this.iCounter = iCounter;
 	}
 	
-	//Das ist kein eigener Thread mehr
+	//Das ist kein eigener Thread mehr, dafür gibt es nun den ConsoleServiceThreadZZZ
 //	@Override
 //	public boolean start() throws ExceptionZZZ {
 //		boolean bReturn = false;

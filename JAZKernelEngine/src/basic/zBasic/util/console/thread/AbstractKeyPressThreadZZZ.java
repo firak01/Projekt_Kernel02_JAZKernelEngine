@@ -297,6 +297,9 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 //									} catch (InterruptedException e) {
 //										System.out.println("KeyPressThread: 1. Wait Error");
 //										e.printStackTrace();
+//						        												
+//										ExceptionZZZ ez = new ExceptionZZZ(e);
+//										throw ez;
 //									}
 			
 					                //das holt wohl wort fuer wort von der Konsole: String sInput = inputReader.next();
@@ -357,6 +360,9 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 							} catch (InterruptedException e) {
 								System.out.println("KeyPressThread: 2. Wait Error");
 								e.printStackTrace();
+																
+								ExceptionZZZ ez = new ExceptionZZZ(e);
+								throw ez;
 							}
 			                //
 			                objKeyPressThreadUsed.isInputAllFinished(true);
@@ -365,21 +371,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 	            		}//end if inputAllFinished
 	            	}//end input:
 	            	//}//End synchro
-	      
-	            	//DA DER CONSOLEUSER JETZT KEIN THREAD IST, HIER NICHT MEHR DARAUF WARTEN
-	            	/*
-	            	while(!this.getConsole().isConsoleUserThreadFinished() && !this.getConsole().isStopped()) {
-			        	 try {
-			             	//System.out.println("Warte auf Ergebnis des Cryptlaufs...");  			        		
-							Thread.sleep(lSleepTime);  		
-							//this.isInputAllFinished(false);//Bereit für neue Eingaben, hier und nicht nach der Schleife!!!
-						} catch (InterruptedException e) {
-							System.out.println("KeyPressThread: 2. Wait Error");
-							e.printStackTrace();
-						}
-	            	}//end while		            	
-	            	*/	
-	            	
+	      	            	
 	            }//end while isStopped
 	    	}//end main:
 			this.getConsoleController().isKeyPressThreadFinished(true);

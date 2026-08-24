@@ -14,8 +14,6 @@ public interface IKeyPressThreadZZZ extends IThreadEnabledZZZ, IKeyPressThreadUs
 	   
 	
 	//###########################################################
-	public long getSleepTime();
-	public void setSleepTime(long lSleepTime);
 
 	public Scanner getInputReader();//Das Scanner Objekt
 	public void setInputReader(Scanner objScanner);

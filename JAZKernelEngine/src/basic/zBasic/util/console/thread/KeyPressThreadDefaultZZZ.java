@@ -35,6 +35,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 //					} catch (InterruptedException e) {
 //						System.out.println("KeyPressThread: 1. Wait Error");
 //						e.printStackTrace();
+//        
+//		
+//		ExceptionZZZ ez = new ExceptionZZZ(e);
+//		throw ez;
 //					}
 //	
 //		        	Scanner inputReader = this.getInputReader();
@@ -61,7 +65,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 //		}
 
 		@Override
-		public void makeMenueMain() throws InterruptedException, ExceptionZZZ {
+		public void makeMenueMain() throws ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");		
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
@@ -69,7 +73,14 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			System.out.println("# 1: Erhöhe den Dummy Zähler");
 			System.out.println("#####################################################################################################");
 			
-			Thread.sleep(this.getSleepTime()); 
+			try {
+				Thread.sleep(this.getSleepTime());
+			} catch (InterruptedException e) {	
+				System.out.println("KeyPressThread: 1. Wait Error");
+				e.printStackTrace();
+				ExceptionZZZ ez = new ExceptionZZZ(e);
+				throw ez;
+			} 
 			System.out.println("Warte auf Eingabe Default...");  
 		
 			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
@@ -84,6 +95,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 //				} catch (InterruptedException e) {
 //					System.out.println("KeyPressThread: 1. Wait Error");
 //					e.printStackTrace();
+//			
+//			ExceptionZZZ ez = new ExceptionZZZ(e);
+//			throw ez;
 //				}
 //
 //	        	Scanner inputReader = this.getInputReader();

@@ -30,7 +30,8 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	private IConsoleServiceZZZ objConsoleUserStarter = null;
 	
 	//Variablen zur Steuerung des internen Threads
-	private long lSleepTime=1000;
+	public static long lSLEEPTIME_DEFAULT = 1000;
+	private long lSleepTime=-1;
 	private volatile static boolean bStop = false;
 	private volatile static boolean bInputFinished=false;
 	private volatile static boolean bOutputFinished=false;
@@ -163,12 +164,16 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	
 	
 	@Override
-	public long getSleepTime() {
-		return this.lSleepTime;
-	}
+	 public long getSleepTime() throws ExceptionZZZ {
+		if(lSleepTime< 0) {
+			return this.lSLEEPTIME_DEFAULT;
+		}else {
+			return this.lSleepTime;
+		}
+    }
 	
 	@Override
-	 public void setSleepTime(long lSleepTime) {
+	 public void setSleepTime(long lSleepTime) throws ExceptionZZZ {
 		 if(lSleepTime<0){
 			 lSleepTime=0;
 		 }

@@ -8,4 +8,7 @@ public interface IThreadEnabledZZZ {
 	public boolean isStopped();
 	public void isStopped(boolean bStop);
 	public void requestStop();
+	
+	public long getSleepTime() throws ExceptionZZZ;
+	public void setSleepTime(long lSleepTime) throws ExceptionZZZ;	
 }

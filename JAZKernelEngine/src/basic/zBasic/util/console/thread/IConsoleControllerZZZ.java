@@ -1,11 +1,9 @@
 package basic.zBasic.util.console.thread;
 
+import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
 public interface IConsoleControllerZZZ extends IThreadEnabledZZZ, IConsoleServiceUserZZZ, IKeyPressThreadUserZZZ {
-	public long getSleepTime();
-	public void setSleepTime(long lSleepTime);
-	
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);
 	

@@ -11,6 +11,7 @@ import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.crypt.thread.ConsoleServiceEncryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menuless.ExampleConsoleThreadZZZ;
 
 public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> implements IExampleConsoleServiceZZZ {
 	private static final long serialVersionUID = -310118654741546925L;
@@ -21,8 +22,8 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 	public ExampleConsoleServiceZZZ() throws ExceptionZZZ {
 		super();
 	}
-	public ExampleConsoleServiceZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
-		super(objConsole);
+	public ExampleConsoleServiceZZZ(IConsoleControllerZZZ objConsoleController) throws ExceptionZZZ {
+		super(objConsoleController);
 	}
 
 	
@@ -74,7 +75,7 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 				case "process1":
 					bReturn = startProcess1_(hmVariable);
 					break;
-				case "processCountAlphanumeric":
+				case "countAlphanumeric":
 					bReturn = startCountAlphanumeric_(hmVariable);
 					break;
 				default:
@@ -114,7 +115,18 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		boolean bReturn = false;
 		main:{
 			ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
-			bReturn = objCounterService.startit(hmVariable);
+			//wird jetzt im Thread gemacht... bReturn = objCounterService.startit(hmVariable);
+			
+			IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+			
+			//TODOGOON20260824;//IDEE für jede aufgerufenen Methode 1x den ConsoleServiceThreadZZZ erzeugen und dann in einer HashMap ablegen und wieder holen.
+			//Dann wird er nur 1x erstellt und der Thread auch nur 1x gestartet.
+			final ConsoleServiceThreadZZZ objCounterServiceThread = new ConsoleServiceThreadZZZ();
+			objCounterServiceThread.setConsoleController(objConsoleController);
+			objCounterServiceThread.setConsoleServiceObject(objCounterService);
+		    Thread t2 = new Thread(objCounterServiceThread);
+		    t2.start();
+			
 			
 			//Übernimm den Zählerwert (nicht den String!) in den eigenen Zähler.
 			//So kann man ggfs. auf einen anderen Zählertyp umschalten und fortfahren

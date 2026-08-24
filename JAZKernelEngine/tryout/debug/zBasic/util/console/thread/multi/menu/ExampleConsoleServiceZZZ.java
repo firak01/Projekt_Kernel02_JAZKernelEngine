@@ -21,8 +21,8 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 	public ExampleConsoleServiceZZZ() throws ExceptionZZZ {
 		super();
 	}
-	public ExampleConsoleServiceZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
-		super(objConsole);
+	public ExampleConsoleServiceZZZ(IConsoleControllerZZZ objConsoleController) throws ExceptionZZZ {
+		super(objConsoleController);
 	}
 
 	

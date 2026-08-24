@@ -33,7 +33,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         
         
 		@Override
-		public void makeMenueMain() throws InterruptedException {
+		public void makeMenueMain() throws ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");
 			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
@@ -47,7 +47,14 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			System.out.println("# 5: VigenereNn");
 			System.out.println("#####################################################################################################");
          	System.out.println("Warte auf Eingabe Decrypt...");                 	
-			Thread.sleep(this.getSleepTime()); 
+			try {
+				Thread.sleep(this.getSleepTime());					
+			} catch (InterruptedException e) {
+				System.out.println("KeyPressThread: 1. Wait Error");
+				e.printStackTrace();
+				ExceptionZZZ ez = new ExceptionZZZ(e);
+				throw ez;	
+			} 
 		}
 		
 		@Override

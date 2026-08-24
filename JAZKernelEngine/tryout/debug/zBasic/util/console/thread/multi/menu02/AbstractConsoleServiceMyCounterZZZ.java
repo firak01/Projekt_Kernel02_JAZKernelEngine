@@ -4,6 +4,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.counter.CounterByCharacterAsciiFactoryZZZ;
 import basic.zBasic.util.counter.ICounterStringZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMaintypeZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -11,7 +12,13 @@ import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractConsoleServiceMyCounterZZZ extends AbstractConsoleServiceZZZ{
+public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractConsoleServiceZZZ<T>{
+	private static final long serialVersionUID = -6550457210699817938L;
+	
+	protected ICounterStringZZZ<?> objCounter = null;
+	protected int iCounterType = 0;	
+	
+	//### Konstruktor
 	public AbstractConsoleServiceMyCounterZZZ()  throws ExceptionZZZ {
 		super();
 	}
@@ -25,20 +32,43 @@ public abstract class AbstractConsoleServiceMyCounterZZZ extends AbstractConsole
 		super(objConsole, saFlag);	
 	}
 	
-	public boolean preProcessing(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	//### GETTER / SETTER
+	public int getCounterType() throws ExceptionZZZ{
+		return this.iCounterType;
+	}
+	
+	public void setCounterType(int iCounterType) throws ExceptionZZZ{
+		this.setCounter(null);
+		this.iCounterType = iCounterType;
+	}
+	
+	public ICounterStringZZZ getCounter() throws ExceptionZZZ {
+		if(this.objCounter == null) {
+			int iCounterType = this.getCounterType();
+			this.objCounter  = CounterByCharacterAsciiFactoryZZZ.getInstance().createCounter(iCounterType); 
+		}
+		return this.objCounter;
+	}
+	
+	public void setCounter(ICounterStringZZZ objCounter) throws ExceptionZZZ {
+		this.objCounter = objCounter;		
+	}
+	
+	//### Methoden
+	public boolean preStart(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
-			bReturn = this.preProcessingObject(objCounter,hmVariable);
+			bReturn = this.preStartObject(objCounter,hmVariable);
 			if(!bReturn) {
-				System.out.println("PreProcessing Objecteinstellungen nicht erfolgreich, Abbruch");
+				System.out.println("PreStart Objecteinstellungen nicht erfolgreich, Abbruch");
 				bReturn=false;
 				break main;
 			}
 			
-			bReturn = this.preProcessingFlags(objCounter, hmVariable);
+			bReturn = this.preStartFlags(objCounter, hmVariable);
 			if(!bReturn) {
-				System.out.println("PreProcessing Flags nicht erfolgreich, Abbruch");
+				System.out.println("PreStart Flags nicht erfolgreich, Abbruch");
 				bReturn=false;
 				break main;
 			}
@@ -46,7 +76,7 @@ public abstract class AbstractConsoleServiceMyCounterZZZ extends AbstractConsole
 		return bReturn;
 	}
 	
-	public boolean preProcessingObject(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStartObject(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 //			String sInput=null;
@@ -82,7 +112,7 @@ public abstract class AbstractConsoleServiceMyCounterZZZ extends AbstractConsole
 		return bReturn;
 	}
 	
-	public boolean preProcessingFlags(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStartFlags(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			

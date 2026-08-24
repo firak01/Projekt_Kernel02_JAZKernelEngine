@@ -56,6 +56,9 @@ public class ConsoleServiceEncryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<
 //				} catch (InterruptedException e) {
 //					System.out.println("KeyPressThread: Wait Error");
 //					e.printStackTrace();
+//	
+//	ExceptionZZZ ez = new ExceptionZZZ(e);
+//	throw ez;
 //				}				 
 //			}while(!this.getConsole().isInputAllFinished());
 //			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread ENDE: WARTE AUF FERTIGE KONSOLENEINGABE ######");
@@ -77,6 +80,9 @@ public class ConsoleServiceEncryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<
 //			} catch (InterruptedException e) {
 //				System.out.println("KeyPressThread: Wait Error");
 //				e.printStackTrace();
+//	
+//	ExceptionZZZ ez = new ExceptionZZZ(e);
+//	throw ez;
 //			}
 //			 if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread ENDE: DUMMYWARTEN ALS TEST ######");			 
 //			 this.isOutputAllFinished(true);			
