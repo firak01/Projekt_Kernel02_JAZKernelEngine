@@ -700,7 +700,7 @@ public class StringFormatManagerZZZ extends AbstractStringFormatManagerZZZ imple
 
 			
 			listasJaggedTemp = super.computeJaggedArrayList_(objFormater, classObj, sLogs);
-			listasJaggedReturn.addAll(listasJaggedTemp);
+			if(listasJaggedTemp!=null) listasJaggedReturn.addAll(listasJaggedTemp);
 			
 			//4. Zeilen buendig machen
 			//Das ist hier zwar nur 1 Zeile, wir muessen aber alle Justifier ansetzen, um an die passende Stelle zu ruecken

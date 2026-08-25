@@ -38,7 +38,6 @@ public class ConsoleControllerZZZ<T> extends AbstractConsoleControllerZZZ<T> {
 		 */
 		@Override
 		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return false;
+			return true; //... hier gibt es keine Einschränkung den Status nicht zu feuern.
 		}	
 }

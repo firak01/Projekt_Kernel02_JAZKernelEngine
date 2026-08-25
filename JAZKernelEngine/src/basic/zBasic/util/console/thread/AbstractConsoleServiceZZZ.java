@@ -77,6 +77,11 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 	
 	//### Methoden
 	@Override
+	public boolean start() throws ExceptionZZZ {
+		return this.startit();
+	}
+	
+	@Override
 	public boolean startit() throws ExceptionZZZ{
 		//Für Klassen, die Methoden ohne Variablenübergabe machen wollen.
 		boolean bReturn = false;

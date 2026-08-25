@@ -123,9 +123,22 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 	}
 
 	@Override
-	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
+		boolean bReturn = false;
+		main:{
+			//TODOGOON ; FALLUNTERSCHEIDUNG.
+			if(eventStatusLocal==null)break main;
+			
+			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
+			if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
+				
+				this.requestStop();
+				
+			}
+			bReturn = true;
+		}//end main:
+		return bReturn;
+
 	}
 
 	@Override
@@ -201,7 +214,19 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
+	 */
+	@Override
+	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+		return true; //... hier gibt es keine Einschränkung den Status nicht zu feuern.
+	}
+	
+	//########################################
+	//### FLAG HANDLING
+	//########################################
+	
 	@Override
 	public boolean getFlag(basic.zKernel.status.IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
 		// TODO Auto-generated method stub
@@ -236,15 +261,5 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 		return false;
 	}
 
-	@Override
-	public boolean start() throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 }

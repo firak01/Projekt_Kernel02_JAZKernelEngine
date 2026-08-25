@@ -43,9 +43,6 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	}
 	
 	//### aus Runnable
-	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
-	 */
 	@Override
 	public void run() {
 		try {
@@ -62,22 +59,18 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	
 	@Override
 	public boolean isStopped() throws ExceptionZZZ {		
-		//return this.bStop;
-		//Dies nun über den STATUSLOCAL lösen
 		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);
 	}
 	
 	@Override
-	public void isStopped(boolean bStop) throws ExceptionZZZ {
-		//this.bStop = bStop;
-		//Dies nun über den STATUSLOCAL lösen
-		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, bStop);
+	public void isStopped(boolean bStop) throws ExceptionZZZ {		
+		this.requestStop();
 	}
 	
 	@Override
-	public void requestStop() throws ExceptionZZZ {
-		this.isStopped(true);
-		this.offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+	public void requestStop() throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
 	}
 
 	@Override

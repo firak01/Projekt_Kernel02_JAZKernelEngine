@@ -157,18 +157,30 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 
 	        @Override
 	        public boolean isStopped() throws ExceptionZZZ {
-	    		return this.getConsoleController().isStopped();
+	        	return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);	    		
 	    	}
 	        
 	        @Override
 	    	public void isStopped(boolean bStop) throws ExceptionZZZ {
-	    		this.getConsoleController().isStopped(bStop);
+	        	this.requestStop();
 	    	}
 	        
 	        @Override
 	    	public void requestStop() throws ExceptionZZZ {
-	    		this.isStopped(true);
+	        	
+	        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+	    		
+	        	//20260825
+	        	//Momentan ist der ConsoleController nicht registriert. Ihn also so ansteuern.
+	        	//ER soll dann die an ihn registrierten anderen Threads stoppen.
+	        	
+	        	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
+	        	//D.h. er müsste andere Interfaces noch implementieren.
+	    		this.getConsoleController().isStopped(true);
+	        	
 	    	}
+	        
 
 	        /** Abstrakte Methode, die so angelegt ist, das sie von anderen Consolen genutzt werden kann.
 	         *  Bisherige Implementierungen:

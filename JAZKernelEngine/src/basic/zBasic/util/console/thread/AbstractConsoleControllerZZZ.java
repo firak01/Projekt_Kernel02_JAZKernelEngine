@@ -11,6 +11,7 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 
@@ -24,7 +25,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
  * 
  */
 //public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleControllerZZZ {
-public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerZZZ {
+public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerZZZ {
 	private static final long serialVersionUID = 303154337707751073L;
 
 	protected volatile static IConsoleControllerZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!

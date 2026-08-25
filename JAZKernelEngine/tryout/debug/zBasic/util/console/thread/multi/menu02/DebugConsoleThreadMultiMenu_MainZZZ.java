@@ -11,7 +11,10 @@ public class DebugConsoleThreadMultiMenu_MainZZZ {
 		try {		
 			//Wenn dieser Thread gestartet wird, wartet er, bis die Konsole beendet ist.
 			ExampleComposition_ConsoleAsThreadZZZ objConsoleThread = new ExampleComposition_ConsoleAsThreadZZZ(args);
-			objConsoleThread.run(); //Erstellt dann alle notwendigen Objekte
+			
+			//Erstellt darin alle notwendigen Objekte. Endlosschleife, bis die Console beendet wird. 
+			//... Beendet wird die Konsole durch: }while(!this.getConsole().isStopped());
+			objConsoleThread.run(); 
 			
 			//###########################################
 			//Für die Schlussausgabe
@@ -22,9 +25,9 @@ public class DebugConsoleThreadMultiMenu_MainZZZ {
 			//(ExampleConsolServiceZZZ) 
 			int iCount = objStartable.getCounter();
 			System.out.println("iCount am Schluss: " + iCount);
-		} catch (ExceptionZZZ e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ExceptionZZZ ez) {
+			System.out.println(ez.getMessageLast());
+			ez.printStackTrace();
 		}
 		
 	}

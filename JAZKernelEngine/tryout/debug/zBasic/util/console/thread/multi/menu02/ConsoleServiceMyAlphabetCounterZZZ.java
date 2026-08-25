@@ -174,10 +174,16 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 						
 				String sOutput = objCounter.getStringNext();
 				hmVariable.put("OUTPUT_COUNTER_VALUE_CURRENT", sOutput);
-							
-				//#####################
+
 				//### AUSGABE
 				System.out.println(sOutput);
+
+				
+				//##################### Direkt den Wert im ConsolenService Setzten
+				//                      ... z.B. für die Ausgabe des Zählers am Schluss.
+				IExampleConsoleServiceZZZ objConsoleService = (IExampleConsoleServiceZZZ) this.getConsoleController().getConsoleServiceObject();
+				if(objConsoleService!=null) objConsoleService.setCounter(iValueCurrent);
+				//#####################
 				
 				bReturn = true;
 			}else {

@@ -114,10 +114,13 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 	private boolean startCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
-			//wird jetzt im Thread gemacht... bReturn = objCounterService.startit(hmVariable);
-			
 			IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+			
+			//Der Service, der im Thread ausgeführt wird
+			ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
+			objCounterService.setConsoleController(objConsoleController); //Damit kann er dann auf globale Angaben der Console zugreifen
+			                                                              //!!! er kann dann auch darüber auf den ConsoleService zugreifen.
+			                                                              //    Dort kann er dann das bisherige Ergebnis ablegen
 			
 			//TODOGOON20260824;//IDEE für jede aufgerufenen Methode 1x den ConsoleServiceThreadZZZ erzeugen und dann in einer HashMap ablegen und wieder holen.
 			//Dann wird er nur 1x erstellt und der Thread auch nur 1x gestartet.
@@ -125,15 +128,17 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 			objCounterServiceThread.setConsoleController(objConsoleController);
 			objCounterServiceThread.setConsoleServiceObject(objCounterService);
 			
-			//TODOGOON20260825: Den objCounterServiceThread am ConsoleController registrieren.
+			//Den objCounterServiceThread am ConsoleController registrieren.
 			//Dann kann er auf die "quit" Anweisung reagieren.
 		    objConsoleController.registerForStatusLocalEvent(objCounterServiceThread);
-	
-			
+	  
+			//Den neu erstellten Thread starten, er wird dann aus dem 
+		    //ConsoleServiceMyAlphabetCounterZZZ - Objekt die Methode startit() aufrufen.
 		    Thread t2 = new Thread(objCounterServiceThread);
 		    t2.start();
 			
-		  		
+		  	//ACHTUNG... Es wird nicht auf das Ende des Threads gewartet.	
+		    //           Man bekommt also immer 0.
 			//Übernimm den Zählerwert (nicht den String!) in den eigenen Zähler.
 			//So kann man ggfs. auf einen anderen Zählertyp umschalten und fortfahren
 			String sCounter = (String) hmVariable.get("OUTPUT_COUNTER_VALUE_CURRENT");
@@ -142,4 +147,6 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		}//end main:
 		return bReturn;	
 	}
+	
+	
 }

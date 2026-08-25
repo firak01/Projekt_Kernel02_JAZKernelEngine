@@ -20,20 +20,15 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 
 public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerUserZZZ, IConsoleServiceUserZZZ {
+	private static final long serialVersionUID = -1207680138665628581L;
+	
 	protected volatile IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 	protected volatile IConsoleServiceZZZ objConsoleService = null;
-
-	protected boolean bStop = false;
 	
 	public static long lSLEEPTIME_DEFAULT = 1000;	
 	protected long lSleepTime = -1;
 	
 	//### Konstruktor
-	/**Z.B. Wg. Reflection immer den Standardkonstruktor zur Verfügung stellen.
-	 * 
-	 * 31.01.2021, 12:15:10, Fritz Lindhauer
-	 * @throws ExceptionZZZ 
-	 */
 	public AbstractConsoleServiceThreadZZZ() throws ExceptionZZZ {
 		super();
 		AbstractThreadNew_();
@@ -77,30 +72,23 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 		this.objConsoleService = objConsoleService;
 	}
 	
-	
+	//###################################################
 	//### METHODEN
-	@Override
-	public void run() {
-		try {        		
-			this.start();
-		} catch (ExceptionZZZ e) {				
-			e.printStackTrace();
-		}
-	}
-	
+		
 	//### aus IThreadEnabledZZZ
 	@Override
-	public boolean isStopped() {
-		return this.bStop;
+	public boolean isStopped() throws ExceptionZZZ {
+		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);
 	}
 	
 	@Override
-	public void isStopped(boolean bStop) {
-		this.bStop = bStop;
+	public void isStopped(boolean bStop) throws ExceptionZZZ {
+		//this.bStop = bStop;
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, bStop);
 	}
 	
 	@Override
-	public void requestStop() {
+	public void requestStop() throws ExceptionZZZ {
 		this.isStopped(true);
 	}
 	
@@ -134,14 +122,33 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	        	
 	        	long lSleepTime = this.getSleepTime();
 	        	
-	        	//Nein, das startet doppelt den consoleController.ConsoleService-Thread
-	        	//IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
-				//objConsoleService.startit(hmVariable); //direkter, ohne Thread...
-					        	 
-	        	IConsoleServiceZZZ objConsoleService = this.getConsoleServiceObject();
-	        	objConsoleService.startit(hmVariable); //direkter, ohne weiteren Thread...
-					   
+	        	/* Z.B. in ExamplanConsoleService wird, wenn entsprechender Menüpunkt ausgewählt wurde
+	        	 *      folgendes aufgerufen,
+	        	 *      sprich: Das steckt hinter: objConsoleService.startit(hmVariable);
+	        	 *      
+	        	   private boolean startCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+						boolean bReturn = false;
+						main:{
+							ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
+							
+							IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+							
+							//Einen neuen Thread erstellen
+							final ConsoleServiceThreadZZZ objCounterServiceThread = new ConsoleServiceThreadZZZ();
+							objCounterServiceThread.setConsoleController(objConsoleController);
+							objCounterServiceThread.setConsoleServiceObject(objCounterService);
+							
+							//Den objCounterServiceThread am ConsoleController registrieren.
+							//Dann kann er z.B. auf die "quit" Anweisung reagieren.
+						    objConsoleController.registerForStatusLocalEvent(objCounterServiceThread);
+												
+						    Thread t2 = new Thread(objCounterServiceThread);
+						    t2.start();					        	
+	        	*/
 	        	
+	        	IConsoleServiceZZZ objConsoleService = this.getConsoleServiceObject();
+	        	objConsoleService.startit(hmVariable); //direkter Aufruf der Service-Methode, ohne weiteren Thread...
+
 	        	
 	        	//#########################################################################
                 try {
@@ -163,8 +170,7 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 
 	@Override
 	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		return true; //... hier gibt es keine Einschränkung den Status nicht zu feuern.
 	}
 	
 	
