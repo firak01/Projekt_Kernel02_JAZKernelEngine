@@ -24,21 +24,15 @@ public class DummyTestProgramWithStatusLocalByInterfaceExtendedZZZ extends Abstr
 	//+++ CUSTOM STATUS LISTENING
 	//+++++++++++++++++++++++++++
 	@Override
-	public boolean startCustom() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return false;
+	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+		return true; //Es gibt hier keinen Grund das Werfen des Status einzuschränken.
 	}
 
-		@Override
-		public boolean start() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-			return true;
-		}
+	@Override
+	public boolean startCustom() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 		
 }
