@@ -30,7 +30,7 @@ import basic.zKernel.status.StatusLocalAvailableHelperZZZ;
  * @author Fritz Lindhauer, 20.01.2024, 16:52:42
  * 
  */
-public abstract class AbstractProgramWithStatusLocalRunnableZZZ extends AbstractProgramWithStatusZZZ implements IProgramRunnableZZZ {
+public abstract class AbstractProgramWithStatusLocalRunnableZZZ extends AbstractProgramWithStatusLocalZZZ implements IProgramRunnableZZZ {
 	private static final long serialVersionUID = 841548064355621206L;
 	
 	

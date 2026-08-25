@@ -402,7 +402,17 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
             	}
     		}
     	}	
-	}		
+	}	
+	
+	//########################
+	/* (non-Javadoc)
+	 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
+	 */
+	@Override
+	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
 

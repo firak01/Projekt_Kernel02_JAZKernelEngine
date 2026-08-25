@@ -16,57 +16,20 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
-	public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadWithMenueZZZ {
+	public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenueZZZ<T> {
+		private static final long serialVersionUID = 8005787839127612992L;
 
 
-        //Method that gets called when the object is instantiated
+		//Method that gets called when the object is instantiated
         public ExampleKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
         	super(objConsole, lSleepTime);
         }
        
-// 		@Override
-//		public boolean start() throws ExceptionZZZ {
-//			boolean bReturn = false;
-//        	main:{
-//    			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
-//    			//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
-//	        	System.out.println("Eingaben: [ ] oder Q");
-//	            while(!this.isStopped()){
-//	            	long lSleepTime = this.getSleepTime();
-//	            	long lSleepTimeConsole = this.getConsole().getSleepTime();
-//		        	 try {
-//		             	System.out.println("Kein warten auf Eingabe. Die ist während des laufenden Threads möglich ...");                 	
-//						Thread.sleep(lSleepTime);                 	
-//					} catch (InterruptedException e) {
-//						System.out.println("KeyPressThread: 1. Wait Error");
-//						e.printStackTrace();
-//					}
-//	
-//		        	Scanner inputReader = this.getInputReader();
-//	                String input = inputReader.next();
-//	                System.out.println("Pressed " + input);
-//	                if (input.equals("[")) {
-//	                	lSleepTimeConsole+=100;
-//	                	this.getConsole().setSleepTime(lSleepTimeConsole);
-//	                }
-//	                if (input.equals("]")) {
-//	                	lSleepTimeConsole-=100;
-//	                	this.getConsole().setSleepTime(lSleepTimeConsole);
-//	                }
-//	                if (input.equalsIgnoreCase("Q")) {
-//	                    this.requestStop();
-//	                	break; // stop KeyPressThread durch Setzen einer internen Variablen
-//	                }
-//	                
-//	                System.out.println("Nach der Eingabe.");	               					
-//	            }//end while
-//	            bReturn = true;
-//	    	}//end main:
-//	    	return bReturn;
-//		}
-
 		@Override
 		public void makeMenueMain() throws ExceptionZZZ {
+			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
+			//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
+			
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");		
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
@@ -82,102 +45,72 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 				ExceptionZZZ ez = new ExceptionZZZ(e);
 				throw ez;	
 			} 
-			System.out.println("Warte auf Eingabe Default...");  
-		
-			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
-			//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
-//        	System.out.println("Eingaben: [ ] oder Q");
-//            while(!this.isStopped()){
-//            	long lSleepTime = this.getSleepTime();
-//            	long lSleepTimeConsole = this.getConsole().getSleepTime();
-//	        	 try {
-//	             	System.out.println("Kein warten auf Eingabe. Die ist während des laufenden Threads möglich ...");                 	
-//					Thread.sleep(lSleepTime);                 	
-//				} catch (InterruptedException e) {
-//					System.out.println("KeyPressThread: 1. Wait Error");
-//					e.printStackTrace();
-//				}
-//
-//	        	Scanner inputReader = this.getInputReader();
-//                String input = inputReader.next();
-//                System.out.println("Pressed " + input);
-//                if (input.equals("[")) {
-//                	lSleepTimeConsole+=100;
-//                	this.getConsole().setSleepTime(lSleepTimeConsole);
-//                }
-//                if (input.equals("]")) {
-//                	lSleepTimeConsole-=100;
-//                	this.getConsole().setSleepTime(lSleepTimeConsole);
-//                }
-//                if (input.equalsIgnoreCase("Q")) {
-//                    this.requestStop();
-//                	break; // stop KeyPressThread durch Setzen einer internen Variablen
-//                }
-//                
-//                System.out.println("Nach der Eingabe.");
+			System.out.println("Warte auf Eingabe Default...");  	
 		}
 
 		@Override
 		public boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
+				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
+				//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
 				IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
 				
 				
-			//In the JDK 7 release, you can use a String object in the expression of a switch statement:
-            //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
-            //vorher lowercase
-            this.isCurrentMenue(true);
-            String input = sInput.toLowerCase();			                
-            switch(input) {
-            case "+":
-            	this.isCurrentInputValid(true);					                	
-            	this.setSleepTime(this.getSleepTime()+100);
-            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
-            	break;
-            case "-":
-            	this.isCurrentInputValid(true);
-            	this.setSleepTime(this.getSleepTime()-100);
-            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
-            	break;
-            case "q":
-            	this.quit();
-            	bReturn=false;
-            	break main; 
-            case "m":
-            	bReturn = true;
-            	break main; //Das Menü ist ja schon da...
-            case "a":
-            	this.isCurrentInputValid(true);            	            	
-            	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
-            	objKeyPressThreadUsed = this;
-            	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForConsoleService("ascii");           
-            	objKeyPressThreadUsed.initit(hmVariable);             	
-            	break;
-            case "1":
-            	this.isCurrentInputValid(true);
-            	//this.processROT13_(hmVariable);              	
-            	objKeyPressThreadUsed = this;
-            	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForConsoleService("process1");           
-            	objKeyPressThreadUsed.initit(hmVariable);             	
-            	break;
-            case "2":
-            	this.isCurrentInputValid(true);            	          
-            	objKeyPressThreadUsed = this;
-            	this.setKeyPressThread(objKeyPressThreadUsed);
-            	this.setMethodForConsoleService("countAlphanumeric");           
-            	objKeyPressThreadUsed.initit(hmVariable);             	
-            	break;
-            default:
-            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
-            	System.out.println("ungueltige Eingabe");
-            	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
-            	this.isCurrentInputValid(false);					                	
-            	break;
-            }		 		
-		}//end main:
+				//In the JDK 7 release, you can use a String object in the expression of a switch statement:
+	            //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
+	            //vorher lowercase
+	            this.isCurrentMenue(true);
+	            String input = sInput.toLowerCase();			                
+	            switch(input) {
+	            case "+":
+	            	this.isCurrentInputValid(true);					                	
+	            	this.setSleepTime(this.getSleepTime()+100);
+	            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
+	            	break;
+	            case "-":
+	            	this.isCurrentInputValid(true);
+	            	this.setSleepTime(this.getSleepTime()-100);
+	            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
+	            	break;
+	            case "q":
+	            	this.quit();
+	            	bReturn=false;
+	            	break main; 
+	            case "m":
+	            	bReturn = true;
+	            	break main; //Das Menü ist ja schon da...
+	            case "a":
+	            	this.isCurrentInputValid(true);            	            	
+	            	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
+	            	objKeyPressThreadUsed = this;
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
+	            	this.setMethodForConsoleService("ascii");           
+	            	objKeyPressThreadUsed.initit(hmVariable);             	
+	            	break;
+	            case "1":
+	            	this.isCurrentInputValid(true);
+	            	//this.processROT13_(hmVariable);              	
+	            	objKeyPressThreadUsed = this;
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
+	            	this.setMethodForConsoleService("process1");           
+	            	objKeyPressThreadUsed.initit(hmVariable);             	
+	            	break;
+	            case "2":
+	            	this.isCurrentInputValid(true);            	          
+	            	objKeyPressThreadUsed = this;
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
+	            	this.setMethodForConsoleService("countAlphanumeric");           
+	            	objKeyPressThreadUsed.initit(hmVariable);             	
+	            	break;
+	            default:
+	            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
+	            	System.out.println("ungueltige Eingabe");
+	            	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
+	            	this.isCurrentInputValid(false);					                	
+	            	break;
+	            }		 		
+			}//end main:
 		return bReturn;
 		}
 
@@ -276,5 +209,15 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			return bReturn;
 		}
 		
+		
+		//########################
+		/* (non-Javadoc)
+		 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
+		 */
+		@Override
+		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}		
     }
 

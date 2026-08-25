@@ -6,7 +6,7 @@ import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
-public interface IKeyPressThreadZZZ extends IThreadEnabledZZZ, IKeyPressThreadUserZZZ{
+public interface IKeyPressThreadZZZ extends IThreadableZZZ, IKeyPressThreadUserZZZ{
 	
 	//### Für den ConsoleService
 	public String getMethodForConsoleService() throws ExceptionZZZ;

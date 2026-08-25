@@ -275,6 +275,17 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			}//end main;	
 			return bReturn;
 		}
+
+		
+		//########################
+		/* (non-Javadoc)
+		 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
+		 */
+		@Override
+		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
 		
     }
 

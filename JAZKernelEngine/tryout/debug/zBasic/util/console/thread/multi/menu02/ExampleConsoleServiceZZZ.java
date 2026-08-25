@@ -124,10 +124,16 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 			final ConsoleServiceThreadZZZ objCounterServiceThread = new ConsoleServiceThreadZZZ();
 			objCounterServiceThread.setConsoleController(objConsoleController);
 			objCounterServiceThread.setConsoleServiceObject(objCounterService);
+			
+			//TODOGOON20260825: Den objCounterServiceThread am ConsoleController registrieren.
+			//Dann kann er auf die "quit" Anweisung reagieren.
+		    objConsoleController.registerForStatusLocalEvent(objCounterServiceThread);
+	
+			
 		    Thread t2 = new Thread(objCounterServiceThread);
 		    t2.start();
 			
-			
+		  		
 			//Übernimm den Zählerwert (nicht den String!) in den eigenen Zähler.
 			//So kann man ggfs. auf einen anderen Zählertyp umschalten und fortfahren
 			String sCounter = (String) hmVariable.get("OUTPUT_COUNTER_VALUE_CURRENT");

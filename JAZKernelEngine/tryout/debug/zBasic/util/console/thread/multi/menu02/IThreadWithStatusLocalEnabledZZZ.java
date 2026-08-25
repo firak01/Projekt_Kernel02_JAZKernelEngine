@@ -1,9 +1,11 @@
-package basic.zBasic;
+package debug.zBasic.util.console.thread.multi.menu02;
 
 import java.util.EnumSet;
+
+import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 
-public interface IDummyTestObjectWithStatusLocalByInterfaceExtendedZZZ extends IDummyTestObjectWithStatusLocalByInterfaceZZZ{
+public interface IThreadWithStatusLocalEnabledZZZ{
 	
 	
 	//#############################################################
@@ -29,9 +31,14 @@ public interface IDummyTestObjectWithStatusLocalByInterfaceExtendedZZZ extends I
 	//++++++++++++++++++++++++
 	//ALIAS(Gruppenid der Meldung, "Uniquename","Statusmeldung","Beschreibung, wird nicht genutzt....",)
 	public enum STATUSLOCAL implements IEnumSetMappedStatusLocalZZZ{//Folgendes geht nicht, da alle Enums schon von einer Java BasisKlasse erben... extends EnumSetMappedBaseZZZ{
-		ISTESTEXTEDNDED(iSTATUSLOCAL_GROUPID,"istestextendednew","ZZZ: DummyTestObjectWithStatusByInterfaceExtendedZZZ nicht gestartet",""),
-		
-		HASERROR(iSTATUSLOCAL_GROUPID,"haserror","ZZZ: DummyTestObjectWithStatusByInterfaceExtendedZZZ meldet Fehler","");		
+		ISSTARTNEW(iSTATUSLOCAL_GROUPID,"isstartnew","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ nicht gestartet",""),
+		ISSTARTING(iSTATUSLOCAL_GROUPID,"isstarting","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ startet...",""),		
+		ISSTARTED(iSTATUSLOCAL_GROUPID,"isstarted","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ gestartet",""),
+		ISSTARTNO(iSTATUSLOCAL_GROUPID,"isstartno","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ nicht gestartet",""),
+
+		ISSTOPPED(iSTATUSLOCAL_GROUPID,"isstopped","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ beendet",""),
+				
+		HASERROR(iSTATUSLOCAL_GROUPID,"haserror","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ meldet Fehler","");		
 		
 		private int iStatusGroupId;
 		private String sAbbreviation,sStatusMessage,sDescription;

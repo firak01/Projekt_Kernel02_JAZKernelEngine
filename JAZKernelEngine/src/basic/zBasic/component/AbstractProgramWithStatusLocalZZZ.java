@@ -8,7 +8,7 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventBrokerStatusLocalUserZZZ;
 
-public abstract class AbstractProgramWithStatusZZZ extends AbstractObjectWithStatusLocalZZZ implements IProgramZZZ, IModuleUserZZZ, IEventBrokerStatusLocalUserZZZ {
+public abstract class AbstractProgramWithStatusLocalZZZ extends AbstractObjectWithStatusLocalZZZ implements IProgramZZZ, IModuleUserZZZ, IEventBrokerStatusLocalUserZZZ {
 	private static final long serialVersionUID = -3184969965157735065L;
 	protected volatile IModuleZZZ objModule=null; //Das Modul, in der KernelUI - Variante wäre das die Dialogbox aus der das Program gestartet wird.	
 	protected volatile String sProgramName = null;
@@ -19,17 +19,17 @@ public abstract class AbstractProgramWithStatusZZZ extends AbstractObjectWithSta
 	 * 31.01.2021, 12:15:10, Fritz Lindhauer
 	 * @throws ExceptionZZZ 
 	 */
-	public AbstractProgramWithStatusZZZ() throws ExceptionZZZ {
+	public AbstractProgramWithStatusLocalZZZ() throws ExceptionZZZ {
 		super();
 		AbstractProgramNew_();
 	}
 	
-	public AbstractProgramWithStatusZZZ(String[]saFlag) throws ExceptionZZZ {
+	public AbstractProgramWithStatusLocalZZZ(String[]saFlag) throws ExceptionZZZ {
 		super(saFlag);
 		AbstractProgramNew_();
 	}
 	
-	public AbstractProgramWithStatusZZZ(HashMap<String,Boolean> hmFlag) throws ExceptionZZZ {
+	public AbstractProgramWithStatusLocalZZZ(HashMap<String,Boolean> hmFlag) throws ExceptionZZZ {
 		super(hmFlag);
 		AbstractProgramNew_();
 	}

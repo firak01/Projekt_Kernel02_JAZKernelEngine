@@ -1348,7 +1348,6 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 		return this.setStatusLocal(enumStatusMapped.getName(), bStatusValue, sStatusMessage);
 	}
 	
-
 	@Override
 	public boolean setStatusLocal(Enum enumStatusIn, boolean bStatusValue) throws ExceptionZZZ {
 		return this.setStatusLocal(enumStatusIn.name(),bStatusValue);

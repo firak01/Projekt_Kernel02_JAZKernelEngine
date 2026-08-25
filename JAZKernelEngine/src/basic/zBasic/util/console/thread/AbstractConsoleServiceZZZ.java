@@ -4,8 +4,9 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 
-public abstract class AbstractConsoleServiceZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleServiceZZZ {	
+public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleServiceZZZ {	
 	private static final long serialVersionUID = 839513259027284036L;
 	
 	private IConsoleControllerZZZ objConsoleController=null;

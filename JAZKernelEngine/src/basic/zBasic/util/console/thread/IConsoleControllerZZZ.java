@@ -2,8 +2,12 @@ package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zKernel.status.IEventBrokerStatusLocalUserZZZ;
+import basic.zKernel.status.IStatusLocalBasicUserZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 
-public interface IConsoleControllerZZZ extends IThreadEnabledZZZ, IConsoleServiceUserZZZ, IKeyPressThreadUserZZZ {
+public interface IConsoleControllerZZZ extends IThreadableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IKeyPressThreadUserZZZ, IEventBrokerStatusLocalUserZZZ {
+
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);
 	

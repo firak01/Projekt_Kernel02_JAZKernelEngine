@@ -1,5 +1,6 @@
 package debug.zBasic.util.console.thread.multi.menu02;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
@@ -12,13 +13,13 @@ import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenueableZZZ;
-import basic.zBasic.util.console.thread.IThreadEnabledZZZ;
+import basic.zBasic.util.console.thread.IThreadableZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 
-public class AbstractConsoleServiceThreadZZZ implements Runnable,IConsoleServiceThreadZZZ, IConstantZZZ, IConsoleControllerUserZZZ, IConsoleServiceUserZZZ, IThreadEnabledZZZ {
+public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerUserZZZ, IConsoleServiceUserZZZ {
 	protected volatile IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 	protected volatile IConsoleServiceZZZ objConsoleService = null;
 
@@ -26,6 +27,33 @@ public class AbstractConsoleServiceThreadZZZ implements Runnable,IConsoleService
 	
 	public static long lSLEEPTIME_DEFAULT = 1000;	
 	protected long lSleepTime = -1;
+	
+	//### Konstruktor
+	/**Z.B. Wg. Reflection immer den Standardkonstruktor zur Verfügung stellen.
+	 * 
+	 * 31.01.2021, 12:15:10, Fritz Lindhauer
+	 * @throws ExceptionZZZ 
+	 */
+	public AbstractConsoleServiceThreadZZZ() throws ExceptionZZZ {
+		super();
+		AbstractThreadNew_();
+	}
+	
+	public AbstractConsoleServiceThreadZZZ(String[]saFlag) throws ExceptionZZZ {
+		super(saFlag);
+		AbstractThreadNew_();
+	}
+	
+	public AbstractConsoleServiceThreadZZZ(HashMap<String,Boolean> hmFlag) throws ExceptionZZZ {
+		super(hmFlag);
+		AbstractThreadNew_();
+	}
+	
+		
+	private boolean AbstractThreadNew_() throws ExceptionZZZ {
+			
+		return true;
+	}
 	
 	
 	//### GETTER / SETTER
@@ -112,7 +140,9 @@ public class AbstractConsoleServiceThreadZZZ implements Runnable,IConsoleService
 					        	 
 	        	IConsoleServiceZZZ objConsoleService = this.getConsoleServiceObject();
 	        	objConsoleService.startit(hmVariable); //direkter, ohne weiteren Thread...
-					        	 
+					   
+	        	
+	        	
 	        	//#########################################################################
                 try {
                 	Thread.sleep(lSleepTime);			                	
@@ -129,6 +159,12 @@ public class AbstractConsoleServiceThreadZZZ implements Runnable,IConsoleService
 		this.getConsoleController().isKeyPressThreadFinished(true);
 		return bReturn;
 		
+	}
+
+	@Override
+	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

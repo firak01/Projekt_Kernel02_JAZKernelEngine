@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
+import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
+import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 
 
 	 
@@ -19,10 +22,11 @@ import basic.zBasic.util.system.Syso;
 	 * @author Fritz Lindhauer, 18.10.2022, 09:15:40
 	 * 
 	 */
-	public abstract class AbstractKeyPressThreadWithMenueZZZ implements Runnable,IConstantZZZ, IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadMenueableZZZ {
+	public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadMenueableZZZ {
+		private static final long serialVersionUID = -4067907743385739750L;
 		
 		private static Scanner inputReader = new Scanner(System.in);
-		protected volatile static IConsoleControllerZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
+		protected volatile static IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 		
 		public static long lSLEEPTIME_DEFAULT = 1000;		
 		private long lSleepTime=-1;
@@ -150,19 +154,19 @@ import basic.zBasic.util.system.Syso;
 					e.printStackTrace();
 				}
 	        }
-	        
+
 	        @Override
-	        public boolean isStopped() {
+	        public boolean isStopped() throws ExceptionZZZ {
 	    		return this.getConsoleController().isStopped();
 	    	}
 	        
 	        @Override
-	    	public void isStopped(boolean bStop) {
+	    	public void isStopped(boolean bStop) throws ExceptionZZZ {
 	    		this.getConsoleController().isStopped(bStop);
 	    	}
 	        
 	        @Override
-	    	public void requestStop() {
+	    	public void requestStop() throws ExceptionZZZ {
 	    		this.isStopped(true);
 	    	}
 
@@ -263,6 +267,13 @@ import basic.zBasic.util.system.Syso;
 							        	IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
 							        	objConsoleService.startit(hmVariable); //direkter, ohne Thread...
 							        	 
+							        	//TEST TESTS
+							        	boolean bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING);
+							        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarting= " + bTest);
+							        	
+							        	bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTED);
+							        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarted= " + bTest);
+							        	
 							        	 
 							        	//#########################################################################
 						                try {
@@ -340,7 +351,7 @@ import basic.zBasic.util.system.Syso;
 		}
 		
 		
-		public void quit() {
+		public void quit() throws ExceptionZZZ {
 			System.out.println("Beenden");		                					                    
             this.isCurrentInputValid(false);
             this.isCurrentInputFinished(true);
@@ -350,11 +361,11 @@ import basic.zBasic.util.system.Syso;
        
         @Override
 		public synchronized IConsoleControllerZZZ getConsoleController() {
-			return this.objConsole;
+			return this.objConsoleController;
 		}
 		@Override
-		public synchronized void setConsoleController(IConsoleControllerZZZ objConsole) {
-			this.objConsole = objConsole;
+		public synchronized void setConsoleController(IConsoleControllerZZZ objConsoleController) {
+			this.objConsoleController = objConsoleController;
 		}
 		
 		@Override

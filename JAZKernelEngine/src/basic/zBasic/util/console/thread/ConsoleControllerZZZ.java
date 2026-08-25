@@ -1,5 +1,7 @@
 package basic.zBasic.util.console.thread;
 
+import basic.zBasic.ExceptionZZZ;
+
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
  *  
@@ -14,12 +16,12 @@ public class ConsoleControllerZZZ<T> extends AbstractConsoleControllerZZZ<T> {
 
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	private ConsoleControllerZZZ() {		
+	private ConsoleControllerZZZ() throws ExceptionZZZ {		
 		super();		
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static IConsoleControllerZZZ getInstance() {
+	public static IConsoleControllerZZZ getInstance() throws ExceptionZZZ {
 		{
 			if(objConsole==null){
 				objConsole = new ConsoleControllerZZZ();
@@ -27,4 +29,16 @@ public class ConsoleControllerZZZ<T> extends AbstractConsoleControllerZZZ<T> {
 			return objConsole;		
 		}
 	}
+
+	
+
+	//########################
+		/* (non-Javadoc)
+		 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
+		 */
+		@Override
+		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}	
 }

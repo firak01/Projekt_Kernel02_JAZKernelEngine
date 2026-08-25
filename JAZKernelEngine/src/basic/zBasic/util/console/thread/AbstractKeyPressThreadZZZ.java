@@ -195,7 +195,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		}
 		
 		
-		public void quit() {
+		public void quit() throws ExceptionZZZ {
 			System.out.println("Beenden");		                					                    
             this.isCurrentInputValid(false);
             this.isCurrentInputFinished(true);
@@ -234,17 +234,17 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
         }
         
         @Override
-        public boolean isStopped() {
+        public boolean isStopped() throws ExceptionZZZ {
     		return this.getConsoleController().isStopped();
     	}
         
         @Override
-    	public void isStopped(boolean bStop) {
+    	public void isStopped(boolean bStop) throws ExceptionZZZ {
     		this.getConsoleController().isStopped(bStop);
     	}
         
         @Override
-    	public void requestStop() {
+    	public void requestStop() throws ExceptionZZZ {
     		this.isStopped(true);
     	}
 

@@ -11,6 +11,8 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
@@ -21,7 +23,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleControllerZZZ {
+//public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleControllerZZZ {
+public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerZZZ {
 	private static final long serialVersionUID = 303154337707751073L;
 
 	protected volatile static IConsoleControllerZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
@@ -30,9 +33,6 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	private IConsoleServiceZZZ objConsoleUserStarter = null;
 	
 	//Variablen zur Steuerung des internen Threads
-	public static long lSLEEPTIME_DEFAULT = 1000;
-	private long lSleepTime=-1;
-	private volatile static boolean bStop = false;
 	private volatile static boolean bInputFinished=false;
 	private volatile static boolean bOutputFinished=false;
 	private volatile static boolean bInputThreadFinished = false;
@@ -47,7 +47,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	
 	/**Konstruktor ist private, wg. Singleton
 	 */
-	protected AbstractConsoleControllerZZZ() {		
+	protected AbstractConsoleControllerZZZ() throws ExceptionZZZ {		
 		super();
 		ConsoleMain_();
 	}
@@ -64,10 +64,21 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 		return bReturn;
 	}
 	
+	
+	
+	
+	//### aus IThreadEnabledZZZ
+	/* (non-Javadoc)
+	 * @see basic.zBasic.util.console.thread.IThreadEnabledZZZ#start()
+	 */
+	@Override
 	public boolean start() {
 		boolean bReturn = false;
 		main:{			
-	        try {	        	
+	        try {
+	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING, true);
+
+	        	
 	        	final IKeyPressThreadZZZ objThreadKeyPress = this.getKeyPressThread();
 	        	if(objThreadKeyPress!=null) {
 	        		Thread t1 = new Thread((Runnable) objThreadKeyPress);
@@ -76,7 +87,10 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 	        		ExceptionZZZ ez = new ExceptionZZZ("No KeyPressThread provided", iERROR_PROPERTY_MISSING, StringZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 	        	}
+	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTED, true);
+	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING, false);
 
+	        	
 //	            final IConsoleZZZ objThreadConsole = this.getConsoleThread();	  
 //	            if(objThreadConsole!=null) {
 //			        Thread t2 = new Thread((Runnable) objThreadConsole);
@@ -146,39 +160,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWith
 		}
 	}
 	
-	@Override
-	public boolean isStopped() {
-		return this.bStop;
-	}
 	
-	@Override
-	public void isStopped(boolean bStop) {
-		this.bStop = bStop;
-	}
-	
-	@Override
-	public void requestStop() {
-		this.isStopped(true);
-	}
-	
-	
-	
-	@Override
-	 public long getSleepTime() throws ExceptionZZZ {
-		if(lSleepTime< 0) {
-			return this.lSLEEPTIME_DEFAULT;
-		}else {
-			return this.lSleepTime;
-		}
-    }
-	
-	@Override
-	 public void setSleepTime(long lSleepTime) throws ExceptionZZZ {
-		 if(lSleepTime<0){
-			 lSleepTime=0;
-		 }
-		 this.lSleepTime = lSleepTime;
-	 }
 
 	@Override
 	public IConsoleServiceZZZ getConsoleServiceObject() {

@@ -5,10 +5,10 @@ import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
-import basic.zBasic.util.console.thread.IThreadEnabledZZZ;
+import basic.zBasic.util.console.thread.IThreadableZZZ;
 
 	 
-public class ExampleConsoleThreadZZZ implements Runnable,IThreadEnabledZZZ, IExampleConsoleZZZ {
+public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampleConsoleZZZ {
 	private IConsoleServiceZZZ objConsoleService = null;
 	private ExampleKeyPressThreadZZZ objKeyPressThread = null;
 	
