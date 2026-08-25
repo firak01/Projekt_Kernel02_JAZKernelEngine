@@ -280,11 +280,11 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 							        	objConsoleService.startit(hmVariable); //direkter, ohne Thread...
 							        	 
 							        	//TEST TESTS
-							        	boolean bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING);
-							        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarting= " + bTest);
+							        	//boolean bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING);
+							        	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarting= " + bTest);
 							        	
-							        	bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTED);
-							        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarted= " + bTest);
+							        	//bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTED);
+							        	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarted= " + bTest);
 							        	
 							        	 
 							        	//#########################################################################
