@@ -57,7 +57,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
             		bGoon = true;
             	}else {  
             		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-            		System.out.println("ungueltige Eingabe");			                		
+            		System.out.println("Hier ungueltige Eingabe.");			                		
                 	bGoon=false;				                	
             	}				
 			}while(!bGoon);
@@ -100,7 +100,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
             		bGoon = true;
             	}else {  
             		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-            		System.out.println("ungueltige Eingabe");			                		
+            		System.out.println("Hier ungueltige Eingabe. Vielleicht erst zum Menü mit 'm' zurückgehen?");			                		
                 	bGoon=false;				                	
             	}				
 			}while(!bGoon);
@@ -191,7 +191,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
                 		bGoon = true;
                 	}else {
                 		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-                		System.out.println("ungueltige Eingabe");			                		
+                		System.out.println("Hier ungueltige Eingabe.");			                		
 	                	bGoon=false;				                	
                 	}				
 				}while(!bGoon);
@@ -259,8 +259,8 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
                 		bGoon = true;
                 	}else {
                 		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-                		System.out.println("ungueltige Eingabe");			                		
-	                	bGoon=false;				                	
+                		System.out.println("Hier ungueltige Eingabe.");			                		
+	                	bGoon=false;			                	
                 	}				
 				}while(!bGoon);
 				sReturn = sInput;
@@ -304,7 +304,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
                 		bGoon = true;
                 	}else {
                 		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-                		System.out.println("ungueltige Eingabe");			                		
+                		System.out.println("Hier ungueltige Eingabe. Vielleicht erst zum Menü mit 'm' zurückgehen?");			                		
 	                	bGoon=false;				                	
                 	}				
 				}while(!bGoon);

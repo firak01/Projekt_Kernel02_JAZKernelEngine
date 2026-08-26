@@ -248,6 +248,15 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 			                	//### Frage nach Mehrfacheingabe
 					        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
 					        		Syso.printSeparator();
+					        		
+					        		//String[] saKeysOfMenue =
+					        		TODOGOON20260826;//Einmalig makeQuestionYesNoMenueQuit anzeigen. Bei N, danach nur noch processMenueMainArgumentInput auswerten.
+					        		
+					        		TODOGOON20260826;//Hier muss makeQuestionForKeysPressable(this.getInputReader(), saKeysOfMenue, "Eingabemöglichkeiten, siehe Menü. Anzeige des Menüs mit 'm');
+					        		//Anschliessend mit m das Menü anzeigen, und irgendwie noch einen Menübefehl startbar machen (dort ist dann auch q drin).
+					        		//   processMenueMainArgumentInput(sInput, hmVariable);
+					        		
+					        		
 			                		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
