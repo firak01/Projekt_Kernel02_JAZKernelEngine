@@ -49,7 +49,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}
 
 		@Override
-		public boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.

@@ -115,7 +115,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}
 
 		@Override
-		public boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.

@@ -40,6 +40,26 @@ public class MapUtilZZZ implements IConstantZZZ{
 		return bReturn;
 	}
 	
+	
+	//###################################################################################################################
+	public static <K, V> Map<K, V> mergeMaps(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {
+	   return mergeMaps_LastKeyRemains(map1,map2);
+	}
+	
+	public static <K, V> Map<K, V> mergeMaps_LastKeyRemains(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {
+	    LinkedHashMap<K, V> result = new LinkedHashMap<K, V>();
+
+	    if (map1 != null) {
+	        result.putAll(map1);
+	    }
+
+	    if (map2 != null) {
+	        result.putAll(map2);
+	    }
+
+	    return result;
+	}
+	
 	//###################################################################################################################
 	
 	public static <K,V> Map<K,V[]> mergeMapsAndJoinArrayValuesUniqueKeyAcrosswise(Map<K,V[]> m1, Map<K,V[]> m2) throws ExceptionZZZ{

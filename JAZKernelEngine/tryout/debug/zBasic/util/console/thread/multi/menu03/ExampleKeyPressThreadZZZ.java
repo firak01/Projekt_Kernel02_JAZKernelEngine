@@ -1,7 +1,5 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
-import java.util.Scanner;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
@@ -10,9 +8,6 @@ import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
-import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
-import basic.zBasic.util.crypt.thread.KeyPressThreadDecryptZZZ;
-import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
@@ -49,13 +44,13 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}
 
 		@Override
-		public boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = true;
+		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+			boolean bReturn = false;
 			main:{
 				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 				//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
 				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
-				
+				IMenuPointZZZ objMenuPointUsed = null; //In dem Menüpunkt stehen statische Vorgaben, noch weitere Abfragen, der zu startende Code selbst.
 				
 				//In the JDK 7 release, you can use a String object in the expression of a switch statement:
 	            //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
@@ -64,14 +59,17 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            String input = sInput.toLowerCase();			                
 	            switch(input) {
 	            case "+":
-	            	this.isCurrentInputValid(true);					                	
-	            	this.setSleepTime(this.getSleepTime()+100);
-	            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
+	            	this.isCurrentInputValid(true);		
+	            	objMenuPointUsed = new ExampleMenuPoint_PlusZZZ();
+	            	
+	            	objKeyPressThreadUsed = this;
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
 	            case "-":
 	            	this.isCurrentInputValid(true);
-	            	this.setSleepTime(this.getSleepTime()-100);
-	            	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
+	            	objMenuPointUsed = new ExampleMenuPoint_MinusZZZ();	
+	            	objKeyPressThreadUsed = this;
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
 	            case "q":
 	            	this.quit();
@@ -81,12 +79,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            	bReturn = true;
 	            	break main; //Das Menü ist ja schon da...
 	            case "a":
-	            	this.isCurrentInputValid(true);            	            	
-	            	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
+	            	this.isCurrentInputValid(true);  	            	
+	            	objMenuPointUsed = new ExampleMenuPoint_aZZZ();
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	this.setMethodForConsoleService("ascii");           
-	            	objKeyPressThreadUsed.initit(hmVariable);             	
 	            	break;
 	            case "1":
 	            	this.isCurrentInputValid(true);
@@ -108,8 +104,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            	System.out.println("ungueltige Eingabe");
 	            	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
 	            	this.isCurrentInputValid(false);					                	
-	            	break;
-	            }		 		
+	            	break main;
+	            }		 	
+            	this.setMenuPointUsed(objMenuPointUsed);
+	            bReturn = true;
 			}//end main:
 		return bReturn;
 		}

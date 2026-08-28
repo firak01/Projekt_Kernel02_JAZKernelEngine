@@ -194,6 +194,4 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		}//end main:
 		return bReturn;	
 	}
-
-	
 }

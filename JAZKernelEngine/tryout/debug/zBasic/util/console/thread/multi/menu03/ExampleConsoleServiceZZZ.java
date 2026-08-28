@@ -149,4 +149,16 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 	}
 	
 	
+	//Startit wird dann von einem anderen Thread aus aufgerufen.
+	//Das MenuPoint-Objekt hat seinen eigenen Code
+	@Override
+	public boolean startit(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = objMenuPoint.onStartit();
+		}//end main:
+		return bReturn;
+	}	
+	
+	
 }

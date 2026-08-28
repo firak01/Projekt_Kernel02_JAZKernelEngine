@@ -22,9 +22,9 @@ public class DebugConsoleThreadMultiMenu01_MainZZZ {
 			//(ExampleConsolServiceZZZ) 
 			int iCount = objStartable.getCounter();
 			System.out.println("iCount am Schluss: " + iCount);
-		} catch (ExceptionZZZ e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ExceptionZZZ ez) {	
+			System.out.println(ez.getMessageLast());
+			ez.printStackTrace();
 		}
 		
 	}

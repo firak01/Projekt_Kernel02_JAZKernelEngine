@@ -11,6 +11,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 
 	 
@@ -35,6 +36,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 		protected boolean bCurrentInputFinished=false;
 		//protected boolean bCurrentOutputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
+		protected IMenuPointZZZ objMenuPointUsed = null; //Der im Menü ausgewählte Punkt, mit all seinen Eigenschaften und Code, der auszuführen ist.
 		
 		protected IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
 		
@@ -71,6 +73,16 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 		@Override
 		public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread) {
 			this.objKeyPressThreadUsed = objKeyPressThread;	
+		}
+		
+		@Override
+		public IMenuPointZZZ getMenuPointUsed() throws ExceptionZZZ {
+			return this.objMenuPointUsed;
+		}
+		
+		@Override
+		public void setMenuPointUsed(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
+			this.objMenuPointUsed = objMenuPoint;
 		}
 		
 		@Override 
@@ -235,7 +247,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 						                System.out.println("Pressed Menueselection:" + sInput);
 						                if(sInput==null) break main;
 						                
-						                boolean bGoon = this.processMenuMainArgumentInput(sInput,hmVariable);
+						                boolean bGoon = this.processMenuPoint(sInput,hmVariable);
 						                if(!bGoon) break main;//Quit
 						                
 					        		}while(!this.isCurrentInputValid());	                
@@ -285,9 +297,16 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 							        	 }
 							        	 
 							        	 
-							        	IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
-							        	objConsoleService.startit(hmVariable); //direkter, ohne Thread...
 							        	 
+							        	 IMenuPointZZZ objMenuPoint = this.getMenuPointUsed();
+							        	 if(objMenuPoint!=null) {
+							        		 IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) this.getConsoleController().getConsoleServiceObject();
+							        		 objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartin();
+							        	 }else {
+							        		 IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
+							        		 objConsoleService.startit(hmVariable); //direkter, ohne Thread...
+							        	 } 
+							        	
 							        	//TEST TESTS
 							        	//boolean bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING);
 							        	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": STATUSLOCAL isStarting= " + bTest);
@@ -409,7 +428,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
     	public abstract boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ;
     	
     	@Override
-		public abstract boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
+		public abstract boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
     	
     	@Override
     	public abstract boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ;

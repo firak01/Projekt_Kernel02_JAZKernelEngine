@@ -26,9 +26,9 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 	public void run() {
 		try {
 			start();
-		} catch (ExceptionZZZ e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ExceptionZZZ ez) {
+			System.out.println(ez.getMessageLast());
+			ez.printStackTrace();
 		}
 	}
 	
@@ -39,10 +39,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		main:{
 			this.startit();
 			
-			this.getConsole().isConsoleUserThreadRunning(true);
-			//Merke: Diesen Teil nicht als Schleife ausführen... viel zu kompliziert... es gibt schon genug andere Threads
-			//while(!this.isStopped()) {
-										
+			this.getConsole().isConsoleUserThreadRunning(true);							
 			do {
 				 try {				 
 					 Thread.sleep(200);
@@ -54,40 +51,6 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 					throw ez;
 				}
 			}while(!this.getConsole().isStopped());
-			//}while(!this.getConsole().isInputAllFinished());
-				
-//CODE 
-			// Im ConsoleThread wird dann das ausgewertet;
-//			if(this.isStopped()) break main;
-//			if(this.isOutputAllFinished()) break main; //wenn Z.B. schon ein Menuepunkt ausgefuehrt worden ist. Z.B. eine einfache ASCII-Tabelle ausgegeben wurde.
-//			if(!this.isInputAllFinished()) break main; 
-			
-			//Warten auf die fertige Eingabe.			
-			//if(!this.getConsole().isKeyPressThreadFinished()) break main;
-//			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread START: WARTE AUF FERTIGE KONSOLENEINGABE ######");	
-			
-			
-//CODE 			
-//			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread ENDE: WARTE AUF FERTIGE KONSOLENEINGABE ######");
-//			
-//			
-//			//this.isOutputAllFinished(false);			
-//			this.iCounter++;
-//			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("Zähler crypt: " + iCounter);
-//
-//			HashMapZZZ<String,Object>hmVariable=this.getConsole().getVariableHashMap();			
-//			this.startit(hmVariable);
-//			
-//			if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread START: DUMMYWARTEN ALS TEST ######");
-//			 try {				 
-//				 Thread.sleep(4500);
-//			} catch (InterruptedException e) {
-//				System.out.println("KeyPressThread: Wait Error");
-//				e.printStackTrace();
-//			}
-//			 if(this.getFlag(IFlagZEnabledZZZ.FLAGZ.DEBUG)) System.out.println("####### CryptThread ENDE: DUMMYWARTEN ALS TEST ######");			 
-//			 this.isOutputAllFinished(true);			
-			//}//end while !isStopped
 		}//end main:
 		}catch(ExceptionZZZ ez) {
 			ez.printStackTrace();
