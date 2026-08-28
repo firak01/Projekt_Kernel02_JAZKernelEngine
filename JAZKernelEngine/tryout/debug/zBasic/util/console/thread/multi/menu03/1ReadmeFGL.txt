@@ -18,9 +18,11 @@ Diese Fortsetzung beinhaltet:
   Wenn dieses MenuePointObjekt an den ConsoleService übergeben wird,
   dann a) Ist keine Fallunterscheidung mehr darin notwendig
        b) Macht der ConsoleService einfach ein startit() und führt objMenuePoint.onStart() aus...
-       
-Ziel: Man soll über das Menü einfach einen anderen Menüpunkt auswählen können,
+   
+Ziel1: Z.B. die Ascii - Methode ist über das MenuPoint-Objekt ausführbar und muss nicht erste noch woanders implementiert werden.
+    
+Ziel2: Man soll über das Menü einfach einen anderen Menüpunkt auswählen können,
       der dann (ggfs. in seinem in onStart() selbst erzeugten Thread läuft.
       Oder halt etwas anderes selbst macht.
 
-Ziel 2: Man soll wie im menue01 Package die zähler tauschen können.
+Ziel3: Man soll wie im menue01 Package die zähler tauschen können.

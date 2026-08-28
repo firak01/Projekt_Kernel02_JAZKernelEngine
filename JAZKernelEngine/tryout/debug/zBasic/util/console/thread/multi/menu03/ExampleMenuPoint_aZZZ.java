@@ -26,7 +26,7 @@ public class ExampleMenuPoint_aZZZ extends AbstractMenuPointZZZ {
     	//this.setMethodForConsoleService("ascii");           
     	//objKeyPressThreadUsed.initit(hmVariable);
     	
-    	
+    	//Die Lösung, dass der Menüpunkt selbst seinen auszuführenden Code hat ist besser.
     	boolean bReturn = false;
 		main:{
 			KeyPressThreadUtilZZZ.printTableAscii();

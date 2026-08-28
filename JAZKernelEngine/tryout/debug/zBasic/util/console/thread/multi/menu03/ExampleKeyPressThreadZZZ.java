@@ -60,14 +60,14 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            switch(input) {
 	            case "+":
 	            	this.isCurrentInputValid(true);		
-	            	objMenuPointUsed = new ExampleMenuPoint_PlusZZZ();
+	            	objMenuPointUsed = new ExampleMenuPoint_plusZZZ();
 	            	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
 	            case "-":
 	            	this.isCurrentInputValid(true);
-	            	objMenuPointUsed = new ExampleMenuPoint_MinusZZZ();	
+	            	objMenuPointUsed = new ExampleMenuPoint_minusZZZ();	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
