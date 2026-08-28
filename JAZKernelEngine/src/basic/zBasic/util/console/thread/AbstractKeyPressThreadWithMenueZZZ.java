@@ -22,7 +22,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 	 * @author Fritz Lindhauer, 18.10.2022, 09:15:40
 	 * 
 	 */
-	public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadMenueableZZZ {
+	public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadMenuableZZZ {
 		private static final long serialVersionUID = -4067907743385739750L;
 		
 		private static Scanner inputReader = new Scanner(System.in);
@@ -226,7 +226,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 					        			this.isCurrentInputValid(false);				        							        		
 							        	
 							        	if(this.isCurrentMenue()) {				        			
-								        	this.makeMenueMain();  									
+								        	this.makeMenuMain();  									
 							        	}
 														
 						                //das holt wohl wort fuer wort von der Konsole: String sInput = inputReader.next();
@@ -235,7 +235,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 						                System.out.println("Pressed Menueselection:" + sInput);
 						                if(sInput==null) break main;
 						                
-						                boolean bGoon = this.processMenueMainArgumentInput(sInput,hmVariable);
+						                boolean bGoon = this.processMenuMainArgumentInput(sInput,hmVariable);
 						                if(!bGoon) break main;//Quit
 						                
 					        		}while(!this.isCurrentInputValid());	                
@@ -250,9 +250,9 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 					        		Syso.printSeparator();
 					        		
 					        		//String[] saKeysOfMenue =
-					        		TODOGOON20260826;//Einmalig makeQuestionYesNoMenueQuit anzeigen. Bei N, danach nur noch processMenueMainArgumentInput auswerten.
+					        		//TODOGOON20260826;//Einmalig makeQuestionYesNoMenueQuit anzeigen. Bei N, danach nur noch processMenueMainArgumentInput auswerten.
 					        		
-					        		TODOGOON20260826;//Hier muss makeQuestionForKeysPressable(this.getInputReader(), saKeysOfMenue, "Eingabemöglichkeiten, siehe Menü. Anzeige des Menüs mit 'm');
+					        		//TODOGOON20260826;//Hier muss makeQuestionForKeysPressable(this.getInputReader(), saKeysOfMenue, "Eingabemöglichkeiten, siehe Menü. Anzeige des Menüs mit 'm');
 					        		//Anschliessend mit m das Menü anzeigen, und irgendwie noch einen Menübefehl startbar machen (dort ist dann auch q drin).
 					        		//   processMenueMainArgumentInput(sInput, hmVariable);
 					        		
@@ -275,7 +275,7 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 				                		//Jetzt erst noch eine Eingabe machen....
 				                		
 				                		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-							        	IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenueableZZZ) this.getKeyPressThread();
+							        	IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
 							        	objKeyPressThreadUsed.isInputAllFinished(false);
 							        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 							        					        	//				        	
@@ -403,13 +403,13 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
 		
     	    	
     	@Override
-		public abstract void makeMenueMain() throws ExceptionZZZ;
+		public abstract void makeMenuMain() throws ExceptionZZZ;
     	
     	@Override
     	public abstract boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ;
     	
     	@Override
-		public abstract boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
+		public abstract boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
     	
     	@Override
     	public abstract boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ;

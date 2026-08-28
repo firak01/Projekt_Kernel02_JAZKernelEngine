@@ -9,7 +9,7 @@ import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
-import basic.zBasic.util.console.thread.IKeyPressThreadMenueableZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
@@ -33,7 +33,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
         
         
 		@Override
-		public void makeMenueMain() throws ExceptionZZZ {
+		public void makeMenuMain() throws ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");
 			System.out.println("# TOOL ZUM ENTSCHLUESSELN MIT EINFACHEN ALGORITHMEN. !!! Bei bekanntem Schluessel und Algorithmus!!!");
@@ -58,10 +58,10 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}
 		
 		@Override
-		public boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
-				IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
+				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
 				
 				
 			//In the JDK 7 release, you can use a String object in the expression of a switch statement:

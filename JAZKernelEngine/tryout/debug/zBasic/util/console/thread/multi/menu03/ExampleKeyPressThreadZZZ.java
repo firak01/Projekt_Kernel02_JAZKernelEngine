@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.multi.menu02;
+package debug.zBasic.util.console.thread.multi.menu03;
 
 import java.util.Scanner;
 

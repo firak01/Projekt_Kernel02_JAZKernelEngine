@@ -1,10 +1,10 @@
-package debug.zBasic.util.console.thread.multi.menu;
+package debug.zBasic.util.console.thread.multi.menu01;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
-import basic.zBasic.util.console.thread.IKeyPressThreadMenueableZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadDefaultZZZ;
 
 public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
@@ -27,7 +27,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		IConsoleControllerZZZ objConsole = ConsoleControllerZZZ.getInstance();	
 		this.setConsole(objConsole);
 		
-		IKeyPressThreadMenueableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
+		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
 		objConsole.setKeyPressThread(objKeyPressThread);
 					
 		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsole);			

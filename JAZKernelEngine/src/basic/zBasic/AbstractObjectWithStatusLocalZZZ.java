@@ -40,7 +40,8 @@ import basic.zKernel.status.StatusLocalAvailableHelperZZZ;
  * 
  */
 public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjectWithFlagZZZ<Object> implements IStatusLocalMessageUserZZZ, IEventBrokerStatusLocalUserZZZ{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1218960624186397845L;
+	
 	protected volatile HashMap<String, Boolean>hmStatusLocal = new HashMap<String, Boolean>(); //Ziel: Das Frontend soll so Infos im laufende Prozess per Button-Click abrufen koennen.
 	protected volatile HashMap<String, String>hmStatusLocalMessage = new HashMap<String, String>();//20240310; Im Zuge der Arbeiten eingesehen, dass eine extra Message auch in eine extra HashMap gespeichert werden muss.
 	//Dann faellt der extra CircularBufferSpeicher auch weg. Die "abweichenden" Messages werden selbst auch in IStatusBooleanMessage gespeichert.
@@ -221,47 +222,47 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 	
 	
 	//###############################
-		//### Flags ISenderObjectStatusLocalUserZZZ
-		//###############################
-		@Override
-		public boolean getFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-			return this.getFlag(objEnumFlag.name());
-		}
-		@Override
-		public boolean setFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
-			return this.setFlag(objEnumFlag.name(), bFlagValue);
-		}
-		
-		@Override
-		public boolean[] setFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
-			boolean[] baReturn=null;
-			main:{
-				if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
-					baReturn = new boolean[objaEnumFlag.length];
-					int iCounter=-1;
-					for(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
-						iCounter++;
-						boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
-						baReturn[iCounter]=bReturn;
-					}
-					
-					//!!! Ein mögliches init-Flag ist beim direkten setzen der Flags unlogisch.
-					//    Es wird entfernt.
-					this.setFlag(IFlagZEnabledZZZ.FLAGZ.INIT, false);
+	//### Flags ISenderObjectStatusLocalUserZZZ
+	//###############################
+	@Override
+	public boolean getFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.getFlag(objEnumFlag.name());
+	}
+	@Override
+	public boolean setFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlag(objEnumFlag.name(), bFlagValue);
+	}
+	
+	@Override
+	public boolean[] setFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
 				}
-			}//end main:
-			return baReturn;
-		}
-		
-		@Override
-		public boolean proofFlagExists(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-			return this.proofFlagExists(objEnumFlag.name());
-		}	
-		
-		@Override
-		public boolean proofFlagSetBefore(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-			return this.proofFlagSetBefore(objEnumFlag.name());
-		}			
+				
+				//!!! Ein mögliches init-Flag ist beim direkten setzen der Flags unlogisch.
+				//    Es wird entfernt.
+				this.setFlag(IFlagZEnabledZZZ.FLAGZ.INIT, false);
+			}
+		}//end main:
+		return baReturn;
+	}
+	
+	@Override
+	public boolean proofFlagExists(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagExists(objEnumFlag.name());
+	}	
+	
+	@Override
+	public boolean proofFlagSetBefore(ISenderObjectStatusLocalUserZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagSetBefore(objEnumFlag.name());
+	}			
 		
 	
 	

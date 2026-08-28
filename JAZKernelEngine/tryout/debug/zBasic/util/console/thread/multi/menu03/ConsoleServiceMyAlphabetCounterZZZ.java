@@ -1,7 +1,11 @@
-package debug.zBasic.util.console.thread.multi.menu;
+package debug.zBasic.util.console.thread.multi.menu03;
+
+import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
+import basic.zBasic.util.abstractEnum.IEnumSetMappedZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
@@ -12,6 +16,7 @@ import basic.zBasic.util.counter.ICounterStringZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 
 public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServiceMyCounterZZZ<T> {
 	private static final long serialVersionUID = -2911808778962336187L;
@@ -169,10 +174,16 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 						
 				String sOutput = objCounter.getStringNext();
 				hmVariable.put("OUTPUT_COUNTER_VALUE_CURRENT", sOutput);
-							
-				//#####################
+
 				//### AUSGABE
 				System.out.println(sOutput);
+
+				
+				//##################### Direkt den Wert im ConsolenService Setzten
+				//                      ... z.B. für die Ausgabe des Zählers am Schluss.
+				IExampleConsoleServiceZZZ objConsoleService = (IExampleConsoleServiceZZZ) this.getConsoleController().getConsoleServiceObject();
+				if(objConsoleService!=null) objConsoleService.setCounter(iValueCurrent);
+				//#####################
 				
 				bReturn = true;
 			}else {
@@ -183,4 +194,6 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		}//end main:
 		return bReturn;	
 	}
+
+	
 }

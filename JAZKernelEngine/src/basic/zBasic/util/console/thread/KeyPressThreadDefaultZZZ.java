@@ -15,7 +15,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
         }
        
 		@Override
-		public void makeMenueMain() throws ExceptionZZZ {
+		public void makeMenuMain() throws ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");		
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
@@ -37,13 +37,13 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 		}
 
 		@Override
-		public boolean processMenueMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuMainArgumentInput(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 				//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
 				
-				IKeyPressThreadMenueableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
+				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
 				
 				
 				//In the JDK 7 release, you can use a String object in the expression of a switch statement:
