@@ -37,7 +37,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 		}
 
 		@Override
-		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
@@ -97,7 +97,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 		}
 
 		@Override
-		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn =false ;
 			main:{
 //Hier ist nichst zusätzliches zu übergeben.
@@ -121,7 +121,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 		}
 
 		@Override
-		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
@@ -146,7 +146,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 		}
 
 		//#########################################################################
-		private boolean process1_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean process1_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.
@@ -160,7 +160,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 			return bReturn;
 		}
 		
-		private boolean ascii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean ascii_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.

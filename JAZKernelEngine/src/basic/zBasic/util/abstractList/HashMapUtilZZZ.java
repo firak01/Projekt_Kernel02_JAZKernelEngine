@@ -578,6 +578,30 @@ public class HashMapUtilZZZ extends MapUtilZZZ {
 			}
 			return objReturn;
 		}
+		
+		
+		//####################################
+		public static <K, V> HashMap<K, V> mergeMaps(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {			  
+		   return HashMapUtilZZZ.mergeMaps_LastKeyRemains(map1,map2);
+		}
+		
+		public static <K, V> HashMap<K, V> mergeMaps_LastKeyRemains(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {
+		    Map<K, V> mapTemp = MapUtilZZZ.mergeMaps_LastKeyRemains(map1,map2);
+		    return MapUtilZZZ.toHashMap(mapTemp);
+		}
+		
+		//####################################
+		public static <K, V> HashMapZZZ<K, V> mergeMapsZZZ(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {			  
+		   return HashMapUtilZZZ.mergeMapsZZZ_LastKeyRemains(map1,map2);
+		}
+		
+		public static <K, V> HashMapZZZ<K, V> mergeMapsZZZ_LastKeyRemains(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {
+		    Map<K, V> mapTemp = MapUtilZZZ.mergeMaps_LastKeyRemains(map1,map2);
+		    return MapUtilZZZ.toHashMapZZZ(mapTemp);
+		}
+
+		
+		//####################################
 
 		/**
 		 * Merke: Eine normale HashMap ist NIE sortierbar.

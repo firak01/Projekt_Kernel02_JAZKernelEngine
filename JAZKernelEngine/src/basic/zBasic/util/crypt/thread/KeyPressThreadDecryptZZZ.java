@@ -22,7 +22,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
-	public class KeyPressThreadDecryptZZZ extends AbstractKeyPressThreadCryptZZZ implements IKeyPressThreadCryptConstantZZZ{	
+	public class KeyPressThreadDecryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<T> implements IKeyPressThreadCryptConstantZZZ{	
+		private static final long serialVersionUID = -4754351568325092783L;
 
 		public KeyPressThreadDecryptZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
         	super(objConsole);
@@ -58,7 +59,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}
 		
 		@Override
-		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.

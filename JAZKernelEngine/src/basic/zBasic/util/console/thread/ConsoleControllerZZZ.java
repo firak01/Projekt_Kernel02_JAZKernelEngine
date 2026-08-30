@@ -1,6 +1,7 @@
 package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
@@ -39,5 +40,5 @@ public class ConsoleControllerZZZ<T> extends AbstractConsoleControllerZZZ<T> {
 		@Override
 		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
 			return true; //... hier gibt es keine Einschränkung den Status nicht zu feuern.
-		}	
+		}
 }

@@ -3,7 +3,7 @@ package debug.zBasic.util.console.thread.multi.menu02;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
-import debug.zBasic.util.console.thread.single.menu.ExampleConsolServiceZZZ;
+import debug.zBasic.util.console.thread.single.menu.ExampleConsoleServiceZZZ;
 
 public class DebugConsoleThreadMultiMenu02_MainZZZ {
 

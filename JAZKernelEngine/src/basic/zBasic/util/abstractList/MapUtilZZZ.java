@@ -47,7 +47,7 @@ public class MapUtilZZZ implements IConstantZZZ{
 	}
 	
 	public static <K, V> Map<K, V> mergeMaps_LastKeyRemains(Map<K, V> map1, Map<K, V> map2) throws ExceptionZZZ {
-	    LinkedHashMap<K, V> result = new LinkedHashMap<K, V>();
+	    HashMap<K, V> result = new HashMap<K, V>();
 
 	    if (map1 != null) {
 	        result.putAll(map1);
@@ -101,19 +101,35 @@ public class MapUtilZZZ implements IConstantZZZ{
 			
 			Map<K,V[]> mReturnTemp02 = MapUtilZZZ.uniqueValuesKeyAcrosswise(mReturnTemp01);
 			
-			mReturn = MapUtilZZZ.toLinkedHashMap(mReturnTemp02);
+			mReturn = MapUtilZZZ.toLinkedHashMap_ArrayValue(mReturnTemp02);
 			
 		}//end main:
 		return mReturn;
 	}
 	
 	//###############################
-	public static <K,V> HashMap<K,V[]> toHashMap(Map<K,V[]> map){
+	public static <K,V> HashMap<K,V> toHashMap(Map<K,V> map){
+	    if(map == null) return null;
+	    return new HashMap<K,V>(map);
+	}
+	
+	public static <K,V> HashMapZZZ<K,V> toHashMapZZZ(Map<K,V> map){		
+		HashMapZZZ<K,V> hmReturn=null;
+		main:{
+			if(map==null)break main;
+			
+			hmReturn=new HashMapZZZ<K,V>();
+			hmReturn.putAll(map);		
+		}//end main:
+		return hmReturn;
+	}
+	
+	public static <K,V> HashMap<K,V[]> toHashMap_ArrayValue(Map<K,V[]> map){
 	    if(map == null) return null;
 	    return new HashMap<K,V[]>(map);
 	}
 	
-	public static <K,V> LinkedHashMap<K,V[]> toLinkedHashMap(Map<K,V[]> map){
+	public static <K,V> LinkedHashMap<K,V[]> toLinkedHashMap_ArrayValue(Map<K,V[]> map){
 	    if(map == null) return null;
 	    return new LinkedHashMap<K,V[]>(map);
 	}

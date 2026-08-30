@@ -9,6 +9,7 @@ import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 public class ConsoleServiceEncryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<T> {
 	private static final long serialVersionUID = 1L;
@@ -161,7 +162,7 @@ public class ConsoleServiceEncryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<
 	
 	//Startit wird dann ggfs. von einem anderen Thread aus aufgerufen.
 	@Override
-	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			//Jetzt können Variablen aus dem KeyPressThread entgegengenommen werden.
@@ -261,5 +262,4 @@ public class ConsoleServiceEncryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<
 	private boolean startEncryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		return startEncryptByFactory_(hmVariable);
 	}
-	
 }

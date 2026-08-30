@@ -3,6 +3,7 @@ package debug.zBasic.util.console.thread.multi.menu03;
 import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
@@ -12,13 +13,8 @@ public class ExampleMenuPoint_minusZZZ extends AbstractMenuPointZZZ{
 		super();
 	}
 
-	public ExampleMenuPoint_minusZZZ(HashMap<String,String> hmVariableInit) throws ExceptionZZZ {
+	public ExampleMenuPoint_minusZZZ(HashMapZZZ<String,Object> hmVariableInit) throws ExceptionZZZ {
 		super(hmVariableInit);
-	}
-
-	@Override
-	public boolean initit() throws ExceptionZZZ {
-		return false;
 	}
 
 	@Override
@@ -37,5 +33,11 @@ public class ExampleMenuPoint_minusZZZ extends AbstractMenuPointZZZ{
 	    	bReturn = true;
 		}//end main
 		return bReturn;
+	}
+
+	@Override
+	public boolean initit(HashMapZZZ<String, Object> hmVariableExternal) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

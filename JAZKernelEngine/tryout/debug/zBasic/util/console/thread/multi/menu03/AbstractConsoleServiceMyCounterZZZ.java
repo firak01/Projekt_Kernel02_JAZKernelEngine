@@ -1,5 +1,7 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
+import java.util.HashMap;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
@@ -55,7 +57,7 @@ public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractCons
 	}
 	
 	//### Methoden
-	public boolean preStart(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStart(ICounterStringZZZ objCounter, HashMap<String,String>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
@@ -76,7 +78,7 @@ public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractCons
 		return bReturn;
 	}
 	
-	public boolean preStartObject(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStartObject(ICounterStringZZZ objCounter, HashMap<String,String>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 //			String sInput=null;
@@ -112,7 +114,7 @@ public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractCons
 		return bReturn;
 	}
 	
-	public boolean preStartFlags(ICounterStringZZZ objCounter, HashMapZZZ<String,Object>hmVariable) throws ExceptionZZZ {
+	public boolean preStartFlags(ICounterStringZZZ objCounter, HashMap<String,String>hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			

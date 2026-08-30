@@ -3,17 +3,21 @@ package basic.zBasic.util.console.thread;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
@@ -32,6 +36,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	
 	private IKeyPressThreadZZZ objThreadKeyPress=null;
 	private IConsoleServiceZZZ objConsoleUserStarter = null;
+	private IMenuPointZZZ      objMenuPoint = null;
 	
 	//Variablen zur Steuerung des internen Threads
 	private volatile static boolean bInputFinished=false;
@@ -41,9 +46,10 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	private volatile static boolean bConsoleUserThreadFinished = false;
 	private volatile static boolean bConsoleUserThreadRunning = false;
 	
-	//Zur dynmischen Verwaltung von Variablen, die in einem Thread für den anderen Thread gedacht sind
-	private volatile static HashMapZZZ<String,Object> hmVariable = null;
+	//Zur dynmischen Verwaltung von globalen Variablen, die in einem Thread für den anderen Thread gedacht sind
 	//To ensure that updates to variables propagate predictably to other threads, we should apply the volatile modifier to those variables:
+	private volatile HashMapZZZ<String,Object> hmVariable = null;
+
 	
 	
 	/**Konstruktor ist private, wg. Singleton
@@ -65,7 +71,41 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		return bReturn;
 	}
 	
+	//### GETTER / SETTER #######
+
+	@Override
+	public IConsoleServiceZZZ getConsoleServiceObject() {
+		return this.objConsoleUserStarter;
+	}
+
+	@Override
+	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleUser) {
+		this.objConsoleUserStarter = objConsoleUser;
+	}
+
+	@Override
+	public IKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ {
+		if(this.objThreadKeyPress==null) {
+			long lSleepTime = this.getSleepTime();
+			this.objThreadKeyPress = new KeyPressThreadDefaultZZZ(this, lSleepTime);		
+		}
+		return this.objThreadKeyPress;
+	}
+
+	@Override
+	public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread)  throws ExceptionZZZ {
+		this.objThreadKeyPress = objKeyPressThread;
+	}
 	
+	@Override
+	public IMenuPointZZZ getMenuPoint() throws ExceptionZZZ {
+		return this.objMenuPoint;
+	}
+
+	@Override
+	public void setMenuPoint(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
+		this.objMenuPoint = objMenuPoint;
+	}	
 	
 	
 	//### aus IThreadEnabledZZZ
@@ -160,35 +200,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			this.bInputThreadFinished=true;
 		}
 	}
-	
-	
-
-	@Override
-	public IConsoleServiceZZZ getConsoleServiceObject() {
-		return this.objConsoleUserStarter;
-	}
-
-	@Override
-	public void setConsoleServiceObject(IConsoleServiceZZZ objConsoleUser) {
-		this.objConsoleUserStarter = objConsoleUser;
-	}
-
-	@Override
-	public IKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ {
-		if(this.objThreadKeyPress==null) {
-			long lSleepTime = this.getSleepTime();
-			this.objThreadKeyPress = new KeyPressThreadDefaultZZZ(this, lSleepTime);		
-		}
-		return this.objThreadKeyPress;
-	}
-
-	@Override
-	public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread)  throws ExceptionZZZ {
-		this.objThreadKeyPress = objKeyPressThread;
-	}
-	
-	
-	
+		
 	@Override
 	public boolean isConsoleUserThreadRunning() {
 		return this.bConsoleUserThreadRunning;
@@ -220,7 +232,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	}
 	
 	@Override
-	public HashMapZZZ<String,Object> getVariableHashMap(){
+	public HashMapZZZ<String,Object> getVariableHashMap() throws ExceptionZZZ {
 		if(this.hmVariable==null) {
 			this.hmVariable = new HashMapZZZ<String,Object>();
 		}
@@ -228,7 +240,15 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	}
 	
 	@Override
-	public void setVariableHashMap(HashMapZZZ<String,Object> hmVariable) {
+	public void setVariableHashMap(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ{
 		this.hmVariable = hmVariable;
+	}
+	
+	
+	@Override
+	public void addVariableHashMap(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		HashMapZZZ<String,Object> hmOld = this.hmVariable;
+		HashMap<String, Object> hmTemp = HashMapUtilZZZ.mergeMaps_LastKeyRemains(hmOld, hmVariable);
+		this.hmVariable = MapUtilZZZ.toHashMapZZZ(hmTemp);
 	}
 }

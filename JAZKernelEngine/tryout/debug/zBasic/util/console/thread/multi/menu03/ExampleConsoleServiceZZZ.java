@@ -61,7 +61,7 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 	
 	//Startit wird dann von einem anderen Thread aus aufgerufen.
 	@Override
-	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			//Jetzt können Varablen aus dem KeyPressThread entgegengenommen werden.
@@ -69,15 +69,15 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 			if(StringZZZ.isEmptyNull(sCallingMethod)) break main;
 			
 			switch(sCallingMethod){
-				case "ascii":
-					bReturn = startAscii_(hmVariable);
-					break;
+//				case "ascii":
+//					bReturn = startAscii_(hmVariable);
+//					break;
 				case "process1":
 					bReturn = startProcess1_(hmVariable);
 					break;
-				case "countAlphanumeric":
-					bReturn = startCountAlphanumeric_(hmVariable);
-					break;
+//				case "countAlphanumeric":
+//					bReturn = startCountAlphanumeric_(hmVariable);
+//					break;
 				default:
 					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
 					throw ez;
@@ -90,14 +90,14 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		return bReturn;
 	}	
 	
-	private boolean startAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		boolean bReturn = false;
-		main:{
-			KeyPressThreadUtilZZZ.printTableAscii();
-			bReturn = true;
-		}//end main:
-		return bReturn;
-	}
+//	private boolean startAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+//		boolean bReturn = false;
+//		main:{
+//			KeyPressThreadUtilZZZ.printTableAscii();
+//			bReturn = true;
+//		}//end main:
+//		return bReturn;
+//	}
 	
 	private boolean startProcess1_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -111,54 +111,45 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		return bReturn;
 	}
 	
-	private boolean startCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		boolean bReturn = false;
-		main:{
-			IConsoleControllerZZZ objConsoleController = this.getConsoleController();
-			
-			//Der Service, der im Thread ausgeführt wird
-			ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
-			objCounterService.setConsoleController(objConsoleController); //Damit kann er dann auf globale Angaben der Console zugreifen
-			                                                              //!!! er kann dann auch darüber auf den ConsoleService zugreifen.
-			                                                              //    Dort kann er dann das bisherige Ergebnis ablegen
-			
-			//TODOGOON20260824;//IDEE für jede aufgerufenen Methode 1x den ConsoleServiceThreadZZZ erzeugen und dann in einer HashMap ablegen und wieder holen.
-			//Dann wird er nur 1x erstellt und der Thread auch nur 1x gestartet.
-			final ConsoleServiceThreadZZZ objCounterServiceThread = new ConsoleServiceThreadZZZ();
-			objCounterServiceThread.setConsoleController(objConsoleController);
-			objCounterServiceThread.setConsoleServiceObject(objCounterService);
-			
-			//Den objCounterServiceThread am ConsoleController registrieren.
-			//Dann kann er auf die "quit" Anweisung reagieren.
-		    objConsoleController.registerForStatusLocalEvent(objCounterServiceThread);
-	  
-			//Den neu erstellten Thread starten, er wird dann aus dem 
-		    //ConsoleServiceMyAlphabetCounterZZZ - Objekt die Methode startit() aufrufen.
-		    Thread t2 = new Thread(objCounterServiceThread);
-		    t2.start();
-			
-		  	//ACHTUNG... Es wird nicht auf das Ende des Threads gewartet.	
-		    //           Man bekommt also immer 0.
-			//Übernimm den Zählerwert (nicht den String!) in den eigenen Zähler.
-			//So kann man ggfs. auf einen anderen Zählertyp umschalten und fortfahren
-			String sCounter = (String) hmVariable.get("OUTPUT_COUNTER_VALUE_CURRENT");
-			int iCounter = StringZZZ.toInteger(sCounter);
-			this.setCounter(iCounter);
-		}//end main:
-		return bReturn;	
-	}
+//	private boolean startCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+//		boolean bReturn = false;
+//		main:{
+//			IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+//			
+//			//Der Service, der im Thread ausgeführt wird
+//			ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
+//			objCounterService.setConsoleController(objConsoleController); //Damit kann er dann auf globale Angaben der Console zugreifen
+//			                                                              //!!! er kann dann auch darüber auf den ConsoleService zugreifen.
+//			                                                              //    Dort kann er dann das bisherige Ergebnis ablegen
+//			
+//			//TODOGOON20260824;//IDEE für jede aufgerufenen Methode 1x den ConsoleServiceThreadZZZ erzeugen und dann in einer HashMap ablegen und wieder holen.
+//			//Dann wird er nur 1x erstellt und der Thread auch nur 1x gestartet.
+//			final ConsoleServiceThreadZZZ objCounterServiceThread = new ConsoleServiceThreadZZZ();
+//			objCounterServiceThread.setConsoleController(objConsoleController);
+//			objCounterServiceThread.setConsoleServiceObject(objCounterService);
+//			
+//			//Den objCounterServiceThread am ConsoleController registrieren.
+//			//Dann kann er auf die "quit" Anweisung reagieren.
+//		    objConsoleController.registerForStatusLocalEvent(objCounterServiceThread);
+//	  
+//			//Den neu erstellten Thread starten, er wird dann aus dem 
+//		    //ConsoleServiceMyAlphabetCounterZZZ - Objekt die Methode startit() aufrufen.
+//		    Thread t2 = new Thread(objCounterServiceThread);
+//		    t2.start();
+//			
+//		  	//ACHTUNG... Es wird nicht auf das Ende des Threads gewartet.	
+//		    //           Man bekommt also immer 0.
+//			//Übernimm den Zählerwert (nicht den String!) in den eigenen Zähler.
+//			//So kann man ggfs. auf einen anderen Zählertyp umschalten und fortfahren
+//			String sCounter = (String) hmVariable.get("OUTPUT_COUNTER_VALUE_CURRENT");
+//			int iCounter = StringZZZ.toInteger(sCounter);
+//			this.setCounter(iCounter);
+//		}//end main:
+//		return bReturn;	
+//	}
 	
 	
-	//Startit wird dann von einem anderen Thread aus aufgerufen.
-	//Das MenuPoint-Objekt hat seinen eigenen Code
-	@Override
-	public boolean startit(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
-		boolean bReturn = false;
-		main:{
-			bReturn = objMenuPoint.onStartit();
-		}//end main:
-		return bReturn;
-	}	
+	
 	
 	
 }

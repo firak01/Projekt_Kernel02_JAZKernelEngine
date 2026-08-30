@@ -6,20 +6,25 @@ import java.util.Map;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapUtilZZZ;
+import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IThreadableZZZ;
 
 public abstract class AbstractMenuPointZZZ implements IMenuPointZZZ{
 	
-	HashMap<String,String> hmVariable = null;
+	HashMapZZZ<String,Object> hmVariable = null;
+	IThreadableZZZ objThreadForConsoleService = null;
 	
 	public AbstractMenuPointZZZ() throws ExceptionZZZ{
 		AbstractMenuPointNew_(null);
 	}
 	
-	public AbstractMenuPointZZZ(HashMap<String,String> hmVariableInit) throws ExceptionZZZ {
+	public AbstractMenuPointZZZ(HashMapZZZ<String,Object> hmVariableInit) throws ExceptionZZZ {
 		AbstractMenuPointNew_(hmVariableInit);
 	}
 	
-	private boolean AbstractMenuPointNew_(HashMap<String,String> hmVariableInit) throws ExceptionZZZ {
+	private boolean AbstractMenuPointNew_(HashMapZZZ<String,Object> hmVariableInit) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			if(hmVariableInit!=null) {
@@ -31,36 +36,53 @@ public abstract class AbstractMenuPointZZZ implements IMenuPointZZZ{
 		return bReturn;
 	}
 	
-	
+	//### GETTER / SETTER
 	@Override
-	public HashMap<String,String> getVariableHashMap() throws ExceptionZZZ {
+	public HashMapZZZ<String,Object> getVariableHashMap() throws ExceptionZZZ {
 		if(this.hmVariable==null) {
-			this.hmVariable = new HashMap<String,String>();
+			this.hmVariable = new HashMapZZZ<String,Object>();
 		}
 		return this.hmVariable;
 	}
 	
 	@Override
-	public void setVariableHashMap(HashMap<String,String> hmVariable) throws ExceptionZZZ {
+	public void setVariableHashMap(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		this.hmVariable = hmVariable;
 	}
 	
-	@Override
-	public abstract boolean initit() throws ExceptionZZZ;
 	
 	@Override
-	public boolean initit(HashMap<String,String> hmVariableExternal) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			this.initit();
-			
-			LinkedHashMap<String,String> hm = (LinkedHashMap<String, String>) HashMapUtilZZZ.mergeMaps(this.getVariableHashMap(), hmVariableExternal);
-			this.setVariableHashMap(hm);						
-		}//end main
-		return bReturn;
+	public IThreadableZZZ getServiceThread() throws ExceptionZZZ {
+		return this.objThreadForConsoleService;
 	}
+
+	@Override
+	public void setServiceThread(IThreadableZZZ objServiceThread) throws ExceptionZZZ {
+		this.objThreadForConsoleService = objServiceThread;
+	}
+	
+	
+	//############################################################
+	
+	@Override
+	public abstract boolean initit(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ;
 	
 	@Override
 	public abstract boolean onStartit() throws ExceptionZZZ;
 	
+	@Override
+	public boolean onStopit() throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			IThreadableZZZ objThread = this.getServiceThread();
+			if(objThread!=null) {
+				System.out.println("Versuche den aktuellen ServiceThread zu beenden");
+				objThread.requestStop();
+								
+				this.setServiceThread(null);
+			}
+		    bReturn = true;
+		}//end main:
+		return bReturn;
+	}
 }

@@ -24,7 +24,7 @@ public class ExampleComposition_ConsoleZZZ {
 		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
 		objConsole.setKeyPressThread(objKeyPressThread);
 					
-		ExampleConsolServiceZZZ objConsoleService = new ExampleConsolServiceZZZ(objConsole);			
+		ExampleConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsole);			
 		objConsole.setConsoleServiceObject(objConsoleService);
 		objConsole.start();		
 	}

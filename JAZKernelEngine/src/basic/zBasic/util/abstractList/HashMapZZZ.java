@@ -40,15 +40,7 @@ public class HashMapZZZ<K,V> extends HashMap implements  IObjectZZZ, IHashMapZZZ
 	}
 	
 	public static HashMapZZZ toHashMapExtended(HashMap hm) throws ExceptionZZZ {
-		HashMapZZZ hmReturn=null;
-		main:{
-			if(hm==null)break main;
-			
-			hmReturn=new HashMapZZZ();
-			hmReturn.putAll(hm);
-			
-		}//end main:
-		return hmReturn;
+		return MapUtilZZZ.toHashMapZZZ(hm);
 	}
 	
 	public static HashMapZZZ clone(HashMap hm) throws ExceptionZZZ {

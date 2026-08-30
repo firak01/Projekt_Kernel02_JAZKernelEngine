@@ -1,5 +1,6 @@
 package basic.zBasic.util.console.thread;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
@@ -7,6 +8,7 @@ import basic.zBasic.IConstantZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
+import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
@@ -27,7 +29,10 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		private static final long serialVersionUID = -4067907743385739750L;
 		
 		private static Scanner inputReader = new Scanner(System.in);
-		protected volatile static IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
+		protected volatile static IConsoleControllerZZZ objConsoleController = null; //Darüber (und desssen hmVariable) werden die globalen Variablen ausgetauscht
+		protected volatile HashMapZZZ<String, Object> hmVariable = null; //Darüber werden die lokalen Variablen und die Eingabe verwaltet.
+		protected IMenuPointZZZ objMenuPoint = null; //Der im Menü ausgewählte Punkt, mit all seinen Eigenschaften und Code, der auszuführen ist.
+		
 		
 		public static long lSLEEPTIME_DEFAULT = 1000;		
 		private long lSleepTime=-1;
@@ -36,7 +41,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		protected boolean bCurrentInputFinished=false;
 		//protected boolean bCurrentOutputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
-		protected IMenuPointZZZ objMenuPointUsed = null; //Der im Menü ausgewählte Punkt, mit all seinen Eigenschaften und Code, der auszuführen ist.
+		
 		
 		protected IKeyPressThreadZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread-Klassen nutzen
 		
@@ -76,25 +81,45 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		}
 		
 		@Override
-		public IMenuPointZZZ getMenuPointUsed() throws ExceptionZZZ {
-			return this.objMenuPointUsed;
+		public IMenuPointZZZ getMenuPoint() throws ExceptionZZZ {
+			return this.objMenuPoint;
 		}
 		
 		@Override
-		public void setMenuPointUsed(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
-			this.objMenuPointUsed = objMenuPoint;
+		public void setMenuPoint(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
+			this.objMenuPoint = objMenuPoint;
 		}
 		
 		@Override 
+		public HashMapZZZ<String, Object> getVariableHashMap() throws ExceptionZZZ {
+			if(this.hmVariable==null) {
+				this.hmVariable = new HashMapZZZ<String, Object>();				
+			}
+			return this.hmVariable;
+		}
+		
+		@Override
+		public void setVariableHashMap(HashMapZZZ<String, Object> hmVariable ) throws ExceptionZZZ {
+			this.hmVariable = hmVariable;
+		}
+		
+		//######################################
+		@Override 
 		public String getMethodForConsoleService() throws ExceptionZZZ{
-			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
+//			HashMap<String,String> hm = this.getConsoleController().getVariableHashMap();
+//			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			
+			HashMap<String,String> hm = this.getVariableHashMap();
 			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 		}
 		
 		@Override 
 		public void setMethodForConsoleService(String sMethod) throws ExceptionZZZ{
-			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
-			hm.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
+			HashMap<String,String> hm1 = this.getConsoleController().getVariableHashMap();
+			hm1.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
+			
+			HashMap<String,String> hm2 = this.getVariableHashMap();
+			hm2.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
 		}
 		
 		//### Methoden
@@ -206,7 +231,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 	    			//       Darum muss man alle Eingaben in diesem KeyPressThread erledigen				
 					this.getConsoleController().isKeyPressThreadRunning(true);
 					
-					HashMapZZZ hmVariable = this.getConsoleController().getVariableHashMap();								
+					HashMapZZZ<String,Object> hmVariable = this.getConsoleController().getVariableHashMap();								
 		            while(!this.isStopped()){
 		            	
 		            	long lSleepTime = this.getSleepTime();
@@ -229,14 +254,11 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 					        	   
 				        	    //########################################################
 				        	    //#### Eingabe der Argumente
-				        	    this.isCurrentInputFinished(false);
+				        	    //Das wird nur im Menue wieder auf false gesetzt !!! this.isCurrentInputFinished(false);
 					        	if(bSkipArguments) {
 					        		System.out.println("KeyPressThread: bSkipArguments=true");
 					        	}else {				        		
-					        		do {
-					        			this.isCurrentInputFinished(false);
-					        			this.isCurrentInputValid(false);				        							        		
-							        	
+					        		do {					        			
 							        	if(this.isCurrentMenue()) {				        			
 								        	this.makeMenuMain();  									
 							        	}
@@ -273,39 +295,58 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
 				                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMenue)) {			                				                				                    
-				                    	this.validToMenue(hmVariable);//Zurueck zum Menü	
-				                    	//Aber sofort und nicht erst noch eine Eingabe abwarten			                    	
+				                    	this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten	
+				                    	//Aber sofort und nicht erst noch eine Eingabe abwarten
+				                    	
+				                    	//Einen bestehenden Thread stoppen
+				    	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+				                    	IMenuPointZZZ objMenuOld = this.getMenuPoint();
+				    	            	if(objMenuOld!=null) {
+				    	            		objMenuOld.onStopit();
+				    	            	}			                    	
 				                	} else {		               		                					                				                		
 				                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
 				                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
 				                		boolean bMenue = bYes && !bDefault;
 				                		if(bMenue) { //Merke: Hier wird die Logik nun vertauscht Y=nicht skippen, da zurück zum Menü
-				                			this.validToMenue(hmVariable);//Zurueck zum Menü	
+				                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
 				                		}else {			                		
 				                			this.validSkipMenue(hmVariable);			                			
 				                		}				                		
-				                		//Jetzt erst noch eine Eingabe machen....
-				                		
-				                		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-							        	IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
-							        	objKeyPressThreadUsed.isInputAllFinished(false);
-							        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
-							        					        	//				        	
-							        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
-								        		boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
-								        		if(!bGoon) break main; //Quit
-							        	 }
-							        	 
-							        	 
-							        	 
-							        	 IMenuPointZZZ objMenuPoint = this.getMenuPointUsed();
-							        	 if(objMenuPoint!=null) {
-							        		 IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) this.getConsoleController().getConsoleServiceObject();
-							        		 objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartin();
-							        	 }else {
-							        		 IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
-							        		 objConsoleService.startit(hmVariable); //direkter, ohne Thread...
-							        	 } 
+				                			
+//				                		PROBLEM: 
+//				                			WENN MAN EINMAL 2 ausgewählt hat, kommt man nach Änderung zu 1, keine Ausgabe mehr.
+				         
+				                		//PROBLEM BEIM ÄNERN VON 2 IN 1 und wieder in 2 wird dort mit 0 gezählt.
+				                		if(!this.isCurrentInputFinished()) {
+								        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
+								        	if(objMenuPoint!=null) {
+								        		objMenuPoint.initit(hmVariable);
+								        		 
+								        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+								        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
+								        		IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) objConsoleController.getConsoleServiceObject();
+								        		 
+								        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartin();
+								        		this.isCurrentInputFinished(true);//Damit wird sichergestellt, den ConsoleService nur 1x auszuführen.
+								        	 }else {
+								        		 //
+								        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
+										        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+										        objKeyPressThreadUsed.isInputAllFinished(false);
+										        objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+										    
+										        //Jetzt erst noch eine Eingabe machen....					                		
+								        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+										        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+										        	if(!bGoon) break main; //Quit
+									        	}
+								        		 
+								        		 IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
+								        		 objConsoleService.startit(hmVariable); //direkter, ohne Thread...								        		 
+								        	 } 								        	
+					                	}
+							        	
 							        	
 							        	//TEST TESTS
 							        	//boolean bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING);
@@ -355,7 +396,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			}
 		
         
-        public void cancelToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+        public void cancelToMenue(HashMapZZZ<String,Object> hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//wieder so als würde das Menü nicht übersprungen.
 			this.cancelToMenue();
 		}
@@ -366,7 +407,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
     		this.isCurrentInputFinished(true);
 		}
 		
-        public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+        public void validToMenue(HashMapZZZ<String,Object> hmVariable) throws IllegalArgumentException, ExceptionZZZ {
         	//System.out.println("Menueeingabe machen");
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//so, damit die Eingabe der Menue-Argumente übersprungen.
 			this.validToMenue();
@@ -378,15 +419,14 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
     		this.isCurrentInputFinished(true);
 		}
 		
-		public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+		public void validSkipMenue(HashMapZZZ<String,Object> hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 			//System.out.println("Menueeingabe ueberspringen");
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyYes)); //so, damit die Eingabe der Menue-Argumente uebersprungen wird 
 			this.validSkipMenue();
 		}
 		public void validSkipMenue() {			
 			//System.out.println("Menueaufbau ueberspringen");
-			this.isCurrentInputValid(true);						                			
-	    	this.isCurrentInputFinished(true);
+			this.isCurrentInputValid(true);						                		
 			this.isCurrentMenue(false);	
 		}
 		
@@ -425,12 +465,12 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		public abstract void makeMenuMain() throws ExceptionZZZ;
     	
     	@Override
-    	public abstract boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ;
+    	public abstract boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
     	
     	@Override
-		public abstract boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ;
+		public abstract boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
     	
     	@Override
-    	public abstract boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ;
+    	public abstract boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
     }
 

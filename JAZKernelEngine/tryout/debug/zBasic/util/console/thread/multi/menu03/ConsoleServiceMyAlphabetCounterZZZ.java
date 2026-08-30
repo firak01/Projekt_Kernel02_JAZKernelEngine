@@ -6,6 +6,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedZZZ;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
@@ -93,7 +94,14 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 	
 	
 	@Override
-	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	public boolean startit(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
+		HashMapZZZ<String,Object> hmVariable = objMenuPoint.getVariableHashMap();
+		return startit(hmVariable);
+	}
+	
+	
+	@Override
+	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			//Jetzt können Variablen aus dem KeyPressThread entgegengenommen werden.
@@ -119,7 +127,7 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		return bReturn;
 	}
 	
-	private boolean startCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startCountAlphanumeric_(HashMap<String,String> hmVariable) throws ExceptionZZZ {
 		return startCountByFactory_(hmVariable);
 	}
 		
@@ -127,7 +135,7 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 	
 	//########################################
 	
-	private boolean startCountByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startCountByFactory_(HashMap<String,String> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
@@ -140,7 +148,7 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 			
 			//Debugausgabe, ob auch alles leer ist
 			if(hmVariable!=null) {
-				String sDebug = hmVariable.computeDebugString("<BR>","|");
+				String sDebug = HashMapUtilZZZ.computeDebugString(hmVariable, "<BR>","|");
 				System.out.println(sDebug);
 			}
 					
@@ -194,4 +202,6 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		}//end main:
 		return bReturn;	
 	}
+
+	
 }

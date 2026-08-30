@@ -11,11 +11,13 @@ import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public class ExampleConsolServiceZZZ extends AbstractConsoleServiceZZZ {
-	public ExampleConsolServiceZZZ() throws ExceptionZZZ {
+public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> {
+	private static final long serialVersionUID = 5658716094143840791L;
+
+	public ExampleConsoleServiceZZZ() throws ExceptionZZZ {
 		super();
 	}
-	public ExampleConsolServiceZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
+	public ExampleConsoleServiceZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
 		super(objConsole);
 	}
 

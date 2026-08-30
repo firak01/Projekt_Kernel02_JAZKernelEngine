@@ -11,7 +11,9 @@ import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.character.ICharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
-public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThreadWithMenueZZZ implements IKeyPressThreadCryptConstantZZZ{
+public abstract class AbstractKeyPressThreadCryptZZZ<T> extends AbstractKeyPressThreadWithMenueZZZ<T> implements IKeyPressThreadCryptConstantZZZ{
+	private static final long serialVersionUID = -2185639079304730337L;
+
 	public AbstractKeyPressThreadCryptZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
     	super(objConsole);
     }
@@ -20,7 +22,7 @@ public abstract class AbstractKeyPressThreadCryptZZZ extends AbstractKeyPressThr
     }
     
 	
-	protected void questionNumericKey(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	protected void questionNumericKey(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		//######################################################################
     	//### Frage nach dem Numeric-Key (um den dann die Rotation stattfindet
     	if(!this.isCurrentInputFinished()) {

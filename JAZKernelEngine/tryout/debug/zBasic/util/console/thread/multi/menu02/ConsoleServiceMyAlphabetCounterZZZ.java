@@ -17,6 +17,7 @@ import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServiceMyCounterZZZ<T> {
 	private static final long serialVersionUID = -2911808778962336187L;
@@ -194,6 +195,4 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		}//end main:
 		return bReturn;	
 	}
-
-	
 }

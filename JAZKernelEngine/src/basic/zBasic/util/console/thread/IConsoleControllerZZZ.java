@@ -6,8 +6,11 @@ import basic.zKernel.status.IEventBrokerStatusLocalUserZZZ;
 import basic.zKernel.status.IStatusLocalBasicUserZZZ;
 import basic.zKernel.status.IStatusLocalMessageUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointUserZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
-public interface IConsoleControllerZZZ extends IThreadableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IKeyPressThreadUserZZZ, IStatusLocalMessageUserZZZ, IEventBrokerStatusLocalUserZZZ {
+public interface IConsoleControllerZZZ extends IThreadableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ, IKeyPressThreadUserZZZ, IStatusLocalMessageUserZZZ, IEventBrokerStatusLocalUserZZZ {
 
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);
@@ -27,6 +30,10 @@ public interface IConsoleControllerZZZ extends IThreadableZZZ, IStatusLocalBasic
 	public boolean isConsoleUserThreadFinished();
 	public void isConsoleUserThreadFinished(boolean bConsoleUserThreadFinished); //setzen, wenn der gestartete ConsolenUserThread beendet wurde. Dann kann eine neue Eingabe gestartet werden.
 	
-	public HashMapZZZ<String, Object> getVariableHashMap();
-	public void setVariableHashMap(HashMapZZZ<String, Object> hmVariable);
+	//public HashMapZZZ<String, Object> getVariableHashMap() throws ExceptionZZZ;
+	//public void setVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ;
+	public void addVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ;
+	
+	//public IMenuPointZZZ getMenuPoint() throws ExceptionZZZ;
+	//public void setMenuPoint(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ;
 }

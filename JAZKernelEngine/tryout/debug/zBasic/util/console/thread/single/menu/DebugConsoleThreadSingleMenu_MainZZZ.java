@@ -15,7 +15,7 @@ public class DebugConsoleThreadSingleMenu_MainZZZ {
 			//Für die Schlussausgabe
 			//Hole die notwendigen Objekte, um den abschliessenden Wert auszulesen			
 			IConsoleControllerZZZ objConsole = objConsoleForDebug.getConsole();			
-			ExampleConsolServiceZZZ objStartable = (ExampleConsolServiceZZZ) objConsole.getConsoleServiceObject();
+			ExampleConsoleServiceZZZ objStartable = (ExampleConsoleServiceZZZ) objConsole.getConsoleServiceObject();
 			int iCount = objStartable.getCounter();
 			System.out.println("iCount am Schluss: " + iCount + " , ... aber ohne Thread des ExampleConsoleZZZ läuft der Code sofort duch.");
 		} catch (ExceptionZZZ e) {

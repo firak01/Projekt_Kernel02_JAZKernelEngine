@@ -1,8 +1,13 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
@@ -44,13 +49,14 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		@Override
-		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 				//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
 				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
-				IMenuPointZZZ objMenuPointUsed = null; //In dem Menüpunkt stehen statische Vorgaben, noch weitere Abfragen, der zu startende Code selbst.
+				IMenuPointZZZ objMenuPointNew = null; //In dem Menüpunkt stehen statische Vorgaben, noch weitere Abfragen, der zu startende Code selbst.
+				IMenuPointZZZ objMenuOld = null;       
 				
 				//In the JDK 7 release, you can use a String object in the expression of a switch statement:
 	            //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
@@ -59,15 +65,18 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            String input = sInput.toLowerCase();			                
 	            switch(input) {
 	            case "+":
-	            	this.isCurrentInputValid(true);		
-	            	objMenuPointUsed = new ExampleMenuPoint_plusZZZ();
+	            	this.isCurrentInputValid(true);	
+	            	this.isCurrentInputFinished(false);
 	            	
+	            	objMenuPointNew = new ExampleMenuPoint_plusZZZ();	            	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
 	            case "-":
 	            	this.isCurrentInputValid(true);
-	            	objMenuPointUsed = new ExampleMenuPoint_minusZZZ();	
+	            	this.isCurrentInputFinished(false);
+	            		            	
+	            	objMenuPointNew = new ExampleMenuPoint_minusZZZ();	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
@@ -76,28 +85,64 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	bReturn=false;
 	            	break main; 
 	            case "m":
-	            	bReturn = true;
+	            	//aber normalerweise wird dieser Punkt nicht aufgerufen, sondern im Thread wird per if-Abfragen er dann angesteuert.
+	            	this.isCurrentInputValid(true);  	
+	            	this.isCurrentInputFinished(false);
+	            	
+	            	//Einen bestehenden Thread stoppen
+	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+	            	objMenuOld = this.getMenuPoint();
+	            	if(objMenuOld!=null) {
+	            		objMenuOld.onStopit();
+	            	}
+	            		            	
 	            	break main; //Das Menü ist ja schon da...
 	            case "a":
-	            	this.isCurrentInputValid(true);  	            	
-	            	objMenuPointUsed = new ExampleMenuPoint_aZZZ();
+	            	this.isCurrentInputValid(true);  	
+	            	this.isCurrentInputFinished(false);
+	            	
+	            	//Einen bestehenden Thread stoppen
+	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+	            	objMenuOld = this.getMenuPoint();
+	            	if(objMenuOld!=null) {
+	            		objMenuOld.onStopit();
+	            	}
+	            		            	
+	            	objMenuPointNew = new ExampleMenuPoint_aZZZ();
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	break;
 	            case "1":
 	            	this.isCurrentInputValid(true);
-	            	//this.processROT13_(hmVariable);              	
-	            	objKeyPressThreadUsed = this;
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	this.setMethodForConsoleService("process1");           
-	            	objKeyPressThreadUsed.initit(hmVariable);             	
+	            	this.isCurrentInputFinished(false);
+	            	
+	            	//Einen bestehenden Thread stoppen
+	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+	            	objMenuOld = this.getMenuPoint();
+	            	if(objMenuOld!=null) {
+	            		objMenuOld.onStopit();
+	            	}
+	            	
+	            	objMenuPointNew = null;
+	            	objKeyPressThreadUsed = this;	            	   
+	            	objKeyPressThreadUsed.setMethodForConsoleService("process1");
+	            	objKeyPressThreadUsed.initit(hmVariable); 
+	            	this.setKeyPressThread(objKeyPressThreadUsed);	            		            		            	         
 	            	break;
 	            case "2":
-	            	this.isCurrentInputValid(true);            	          
+	            	this.isCurrentInputValid(true);   
+	            	this.isCurrentInputFinished(false);
+	            	
+	            	//Einen bestehenden Thread stoppen
+	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+	            	objMenuOld = this.getMenuPoint();
+	            	if(objMenuOld!=null) {
+	            		objMenuOld.onStopit();
+	            	}
+	            	
+	            	objMenuPointNew = new ExampleMenuPoint_2ZZZ();
 	            	objKeyPressThreadUsed = this;
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	this.setMethodForConsoleService("countAlphanumeric");           
-	            	objKeyPressThreadUsed.initit(hmVariable);             	
+	            	this.setKeyPressThread(objKeyPressThreadUsed);            	
 	            	break;
 	            default:
 	            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
@@ -106,14 +151,14 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	this.isCurrentInputValid(false);					                	
 	            	break main;
 	            }		 	
-            	this.setMenuPointUsed(objMenuPointUsed);
+            	this.setMenuPoint(objMenuPointNew);
 	            bReturn = true;
 			}//end main:
 		return bReturn;
 		}
 
 		@Override
-		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn =false ;
 			main:{
 //Hier ist nichst zusätzliches zu übergeben.
@@ -137,24 +182,25 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		@Override
-		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean initit(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
 				//Plus alle anderen INPUT - Variablen.
-				
-				
+				HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   
+				HashMapZZZ<String, Object> hmVariable = HashMapUtilZZZ.mergeMapsZZZ_LastKeyRemains(hmVariableInternal, hmVariableExternal);
+
 				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 				switch(sCallingMethod){
-					case "ascii":
-						bReturn = initAscii_(hmVariable);
-						break;
+//					case "ascii":
+//						bReturn = initAscii_(hmVariable);
+//						break;
 					case "process1":
 						bReturn = initProcess1_(hmVariable);
 						break;
-					case "countAlphanumeric":
-						bReturn = initCountAlphanumeric_(hmVariable);
-						break;
+//					case "countAlphanumeric":
+//						bReturn = initCountAlphanumeric_(hmVariable);
+//						break;
 					default:
 						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
 						throw ez;
@@ -165,7 +211,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		//#########################################################################
-		private boolean initProcess1_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initProcess1_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.
@@ -179,33 +225,33 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 			return bReturn;
 		}
 		
-		private boolean initAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = false;
-			main:{
-				//Hier noch zusätzliche Input Variablen übergebbar.
-				bReturn = true;
-			}//end main;	
-			return bReturn;
-		}
+//		private boolean initAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+//			boolean bReturn = false;
+//			main:{
+//				//Hier noch zusätzliche Input Variablen übergebbar.
+//				bReturn = true;
+//			}//end main;	
+//			return bReturn;
+//		}
 		
-		private boolean initCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-			boolean bReturn = false;
-			main:{
-				if(hmVariable!=null) {				
-					//Beispiel mit Verschlüsselung: 
-					//Hier werden die Keys für die Variable als Konstante möglich, da sie ihren eigenen KeyPressThread haben
-	        		//String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
-	        		//hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
-					
-					//Die Verschiedenen alphanumerischen Zähler haben neben ihrem Namen auch eine "Typenzahl"					
-					int iAlphanumericType = ICounterByCharacterAsciiFactoryZZZ.iCounter_TYPE_ALPHANUMERIC_SIGNIFICANT;
-	        		String sAlphanumericType = Integer.toString(iAlphanumericType);
-	        		hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType);
-	        	}
-				bReturn = true;
-			}//end main;	
-			return bReturn;
-		}
+//		private boolean initCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+//			boolean bReturn = false;
+//			main:{
+//				if(hmVariable!=null) {				
+//					//Beispiel mit Verschlüsselung: 
+//					//Hier werden die Keys für die Variable als Konstante möglich, da sie ihren eigenen KeyPressThread haben
+//	        		//String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
+//	        		//hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
+//					
+//					//Die Verschiedenen alphanumerischen Zähler haben neben ihrem Namen auch eine "Typenzahl"					
+//					int iAlphanumericType = ICounterByCharacterAsciiFactoryZZZ.iCounter_TYPE_ALPHANUMERIC_SIGNIFICANT;
+//	        		String sAlphanumericType = Integer.toString(iAlphanumericType);
+//	        		hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType);
+//	        	}
+//				bReturn = true;
+//			}//end main;	
+//			return bReturn;
+//		}
 		
 		
 		//########################

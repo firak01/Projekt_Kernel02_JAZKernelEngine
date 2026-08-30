@@ -1,7 +1,10 @@
 package basic.zBasic.util.crypt.thread;
 
+import java.util.HashMap;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
@@ -9,9 +12,11 @@ import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
-public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
-	private static final long serialVersionUID = 1L;
+public class ConsoleServiceDecryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<T> {
+	private static final long serialVersionUID = -268788952256301715L;
+
 
 	public ConsoleServiceDecryptZZZ() throws ExceptionZZZ {
 		super();
@@ -90,7 +95,7 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	
 	
 	@Override
-	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			//Jetzt können Variablen aus dem KeyPressThread entgegengenommen werden.
@@ -120,14 +125,14 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	}
 		
 	//########################################
-	private boolean startAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startAscii_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		KeyPressThreadUtilZZZ.printTableAscii();		
 		return true;
 	}
 	
 	//########################################
 	
-	private boolean startDecryptByFactory_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startDecryptByFactory_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			
@@ -140,7 +145,7 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 			
 			//Debugausgabe, ob auch alles leer ist
 			if(hmVariable!=null) {
-				String sDebug = hmVariable.computeDebugString("<BR>","|");
+				String sDebug = HashMapUtilZZZ.computeDebugString(hmVariable, "<BR>","|");
 				System.out.println(sDebug);
 			}
 					
@@ -190,7 +195,7 @@ public class ConsoleServiceDecryptZZZ extends AbstractConsoleServiceCryptZZZ {
 	}
 	
 	//########################################
-	private boolean startDecryptROT13_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	private boolean startDecryptROT13_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		return startDecryptByFactory_(hmVariable);
 	}
 }
