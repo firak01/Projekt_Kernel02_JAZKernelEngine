@@ -3,6 +3,8 @@ package basic.zBasic.util.console.thread;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.apache.commons.collections4.bag.SynchronizedSortedBag;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -13,6 +15,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 
@@ -25,7 +28,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 	 * @author Fritz Lindhauer, 18.10.2022, 09:15:40
 	 * 
 	 */
-	public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadMenuableZZZ {
+	public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadMenuableZZZ, IConsoleControlableZZZ {
 		private static final long serialVersionUID = -4067907743385739750L;
 		
 		private static Scanner inputReader = new Scanner(System.in);
@@ -39,7 +42,6 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		
 		protected boolean bCurrentInputValid=false;
 		protected boolean bCurrentInputFinished=false;
-		//protected boolean bCurrentOutputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
 		
 		
@@ -166,6 +168,30 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
         	this.getConsoleController().isOutputAllFinished(bOutputAllFinished);
         }
 		
+        //### aus IConsoleControlableZZZ
+        @Override
+        public boolean isQuitted() throws ExceptionZZZ {
+        	return this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED);
+        	
+    	}
+        
+        @Override
+    	public void isQuitted(boolean bStop) throws ExceptionZZZ {
+        	this.requestQuit();
+    	}
+        	       
+        @Override
+    	public void requestQuit() throws ExceptionZZZ {
+        	//Folgendes beendet im Grunde die ganze Konsole "q"="quit"
+        	
+        	
+        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+        	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
+        	
+        	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
+        	//D.h. er müsste andere Interfaces noch implementieren.
+    		this.getConsoleController().isStopped(true);	        	
+    	}
         
         //### aus IThreadEnabledZZZ
 		@Override
@@ -201,21 +227,22 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 	    	public void isStopped(boolean bStop) throws ExceptionZZZ {
 	        	this.requestStop();
 	    	}
-	        
+	        	       
 	        @Override
 	    	public void requestStop() throws ExceptionZZZ {
+	        	TODOGOON20260831;//stopt den thread aber leider nicht...
+	        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
+	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
 	        	
-	        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-	        	this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
-	    		
-	        	//20260825
-	        	//Momentan ist der ConsoleController nicht registriert. Ihn also so ansteuern.
-	        	//ER soll dann die an ihn registrierten anderen Threads stoppen.
-	        	
-	        	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
-	        	//D.h. er müsste andere Interfaces noch implementieren.
-	    		this.getConsoleController().isStopped(true);
-	        	
+//	        	//Folgendes beendet im Grunde die ganze Konsole "q"="quit"
+//	        	
+//	        	
+//	        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+//	        	this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+//	        	
+//	        	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
+//	        	//D.h. er müsste andere Interfaces noch implementieren.
+//	    		this.getConsoleController().isStopped(true);	        	
 	    	}
 	        
 
@@ -227,13 +254,14 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			public boolean start() throws ExceptionZZZ {
 				boolean bReturn = true;
 	        	main:{
+					int iDebugCounterServiceThread=0;
+					
 	    			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 	    			//       Darum muss man alle Eingaben in diesem KeyPressThread erledigen				
 					this.getConsoleController().isKeyPressThreadRunning(true);
-					
-					HashMapZZZ<String,Object> hmVariable = this.getConsoleController().getVariableHashMap();								
-		            while(!this.isStopped()){
-		            	
+												
+					HashMapZZZ<String,Object> hmVariable = this.getVariableHashMap();
+		            while(!this.getConsoleController().isStopped()) {	
 		            	long lSleepTime = this.getSleepTime();
 		            	//synchronized(this) {
 		            	input:{	            		
@@ -290,20 +318,24 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 					        		//Anschliessend mit m das Menü anzeigen, und irgendwie noch einen Menübefehl startbar machen (dort ist dann auch q drin).
 					        		//   processMenueMainArgumentInput(sInput, hmVariable);
 					        		
+					        		//TODOGOON20260831;//Diese Question und die Antworten dynamisch mit einer Liste von Buchstaben/Zeichen definieren.
 					        		
-			                		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
+			                		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
+			                		}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
+			                			this.stop();
 				                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMenue)) {			                				                				                    
 				                    	this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten	
 				                    	//Aber sofort und nicht erst noch eine Eingabe abwarten
+				                    					                    	
+				    	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
 				                    	
-				                    	//Einen bestehenden Thread stoppen
-				    	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
-				                    	IMenuPointZZZ objMenuOld = this.getMenuPoint();
-				    	            	if(objMenuOld!=null) {
-				    	            		objMenuOld.onStopit();
-				    	            	}			                    	
+				                    	//Einen bestehenden Thread stoppen, aber will man das wirklich, nur wenn das menü angezeigt werden soll?
+//				                    	IMenuPointZZZ objMenuOld = this.getMenuPoint();
+//				    	            	if(objMenuOld!=null) {
+//				    	            		objMenuOld.onStopit();
+//				    	            	}			                    	
 				                	} else {		               		                					                				                		
 				                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
 				                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
@@ -321,7 +353,9 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 				                		//if(!this.isCurrentInputFinished()) {
 								        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 								        	if(objMenuPoint!=null) {
-								        		objMenuPoint.initit(hmVariable);
+								        		iDebugCounterServiceThread++;
+								        		System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE THREADS NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
+								        		//objMenuPoint.initit(hmVariable);
 								        		 
 								        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
 								        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
@@ -433,12 +467,20 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		}
 		
 		
-		public void quit() throws ExceptionZZZ {
-			System.out.println("Beenden");		                					                    
+		public void stop() throws ExceptionZZZ {
+			System.out.println("THREAD beenden");		                					                    
             this.isCurrentInputValid(false);
             this.isCurrentInputFinished(true);
             this.isKeyPressThreadFinished(true);
             this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
+		}
+		
+		public void quit() throws ExceptionZZZ {
+			System.out.println("KONSOLE beenden");		                					                    
+            this.isCurrentInputValid(false);
+            this.isCurrentInputFinished(true);
+            this.isKeyPressThreadFinished(true);
+            this.requestQuit(); //stop KeyPressThread über die gesetzte STOP Variable
 		}
        
         @Override

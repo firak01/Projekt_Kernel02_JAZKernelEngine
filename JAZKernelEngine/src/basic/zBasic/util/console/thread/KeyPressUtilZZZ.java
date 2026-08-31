@@ -300,7 +300,55 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
                 	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyMenue)) {
                 		bGoon = true;
                 	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)) {
-                		//System.out.println("Abbruch eingegeben");
+                		//System.out.println("Quit eingegeben");
+                		bGoon = true;                	
+                	}else {
+                		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
+                		System.out.println("Hier ungueltige Eingabe. Vielleicht erst zum Menü mit 'm' zurückgehen?");			                		
+	                	bGoon=false;				                	
+                	}				
+				}while(!bGoon);
+				sReturn = sInput;
+			}//end main:
+			return sReturn;
+		}
+		
+		public static String makeQuestionYesNoMenueStopQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
+			String sReturn = null;
+			main:{
+				if(inputReader==null){
+					String stemp = "'Scanner as InputReader'";
+					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+					throw ez;
+				}
+				
+				String sQuestion = StringZZZ.trim(sQuestionIn);
+				if(StringZZZ.isEmpty(sQuestion)){
+					String stemp = "'Question String'";
+					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+					throw ez;
+				}
+												
+				KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
+				
+				boolean bGoon=false; String sInput = null;
+				do {
+					sInput = inputReader.nextLine();
+					if(sInput.length()==0) { //Merke der Scanner liefert kein '\n' sondern nur eine Leerzeile
+						bGoon = true;
+					}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyNo)) {				                		
+                		bGoon = true;
+                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyYes)) {				                		
+	                	bGoon = true;
+                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyMenue)) {
+                		bGoon = true;
+                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)) {
+                		//System.out.println("Quit eingegeben");
+                		bGoon = true;
+                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
+                		//System.out.println("Stop eingegeben");
                 		bGoon = true;
                 	}else {
                 		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
@@ -360,6 +408,33 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 			String sReturn = KeyPressUtilZZZ.computeKeyTag(Key_yesZZZ.getKey()) + "/";
 			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(Key_noZZZ.getKey()) + "/";
 			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_menueZZZ.getKey()) + "/";
+			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_quitZZZ.getKey());	
+			return sReturn;
+		}
+		
+		//##########################################################
+		public static void printlnQuestionYesNoMenueStopQuit(String sQuestionIn) throws ExceptionZZZ{
+
+			String sQuestion = StringZZZ.trim(sQuestionIn);
+			if(StringZZZ.isEmpty(sQuestion)){
+				String stemp = "'Question String'";
+				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+				ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}	
+			
+			if(sQuestion.endsWith("?")) {
+				sQuestion = StringZZZ.stripRight(sQuestion, "?");
+			}
+			sQuestion = sQuestion + " " + KeyPressUtilZZZ.computeKeyTagStringYesNoMenueStopQuit()+ "?";
+			System.out.println( sQuestion);				
+	}
+		
+		public static String computeKeyTagStringYesNoMenueStopQuit() {
+			String sReturn = KeyPressUtilZZZ.computeKeyTag(Key_yesZZZ.getKey()) + "/";
+			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(Key_noZZZ.getKey()) + "/";
+			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_menueZZZ.getKey()) + "/";
+			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_stopZZZ.getKey()) + "/";
 			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_quitZZZ.getKey());	
 			return sReturn;
 		}

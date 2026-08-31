@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;

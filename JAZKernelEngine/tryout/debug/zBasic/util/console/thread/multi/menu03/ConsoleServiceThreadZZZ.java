@@ -3,6 +3,8 @@ package debug.zBasic.util.console.thread.multi.menu03;
 import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
+import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 
 public class ConsoleServiceThreadZZZ<T> extends AbstractConsoleServiceThreadZZZ<T> {
 	private static final long serialVersionUID = 3708101486270524692L;
@@ -34,4 +36,7 @@ public class ConsoleServiceThreadZZZ<T> extends AbstractConsoleServiceThreadZZZ<
 			
 		return true;
 	}
+	
+	
+	
 }

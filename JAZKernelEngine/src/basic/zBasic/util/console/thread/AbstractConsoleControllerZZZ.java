@@ -10,13 +10,18 @@ import java.util.concurrent.Executors;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
+import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.flag.IFlagZEnabledZZZ;
+import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
@@ -29,7 +34,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
  * 
  */
 //public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleControllerZZZ {
-public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerZZZ {
+public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerZZZ, IConsoleControlableZZZ, IConsoleControllerEnabledZZZ {
 	private static final long serialVersionUID = 303154337707751073L;
 
 	protected volatile static IConsoleControllerZZZ objConsole = null;  //muss static sein, wg. getInstance()!!!
@@ -251,4 +256,182 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		HashMap<String, Object> hmTemp = HashMapUtilZZZ.mergeMaps_LastKeyRemains(hmOld, hmVariable);
 		this.hmVariable = MapUtilZZZ.toHashMapZZZ(hmTemp);
 	}
+	
+	
+	//### aus IConsoleControlableZZZ
+	
+	@Override
+	public boolean isQuitted() throws ExceptionZZZ {		
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED);
+	}
+	
+	@Override
+	public void isQuitted(boolean bStop) throws ExceptionZZZ {		
+		this.requestQuit();
+	}
+	
+	@Override
+	public void requestQuit() throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
+	}
+	
+	//##### Auf Events hören, ist jetzt um QUIT ergänzt
+	@Override
+	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
+		boolean bReturn = false;
+		main:{
+			//TODOGOON ; FALLUNTERSCHEIDUNG.
+			if(eventStatusLocal==null)break main;
+			
+			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
+			if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
+				
+				this.requestStop();
+				
+			}else if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED)) {
+				
+				this.requestQuit();
+			}
+			
+			bReturn = true;
+		}//end main:
+		return bReturn;
+
+	}
+	
+	//###################################################
+	//### FLAG HANDLING
+	//###################################################
+	
+	//### aus IConsoleControllerEnabledZZZ
+	@Override
+	public boolean getFlag(IConsoleControllerEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.getFlag(objEnumFlag.name());
+	}	
+	
+	@Override
+	public boolean setFlag(IConsoleControllerEnabledZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlag(objEnumFlag.name(), bFlagValue);
+	}
+
+	@Override
+	public boolean[] setFlag(IConsoleControllerEnabledZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(IConsoleControllerEnabledZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
+				}
+				
+				//!!! Ein mögliches init-Flag ist beim direkten setzen der Flags unlogisch.
+				//    Es wird entfernt.
+				this.setFlag(IFlagZEnabledZZZ.FLAGZ.INIT, false);
+			}
+		}//end main:
+		return baReturn;
+	}
+
+	@Override
+	public boolean proofFlagExists(IConsoleControllerEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagExists(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean proofFlagSetBefore(IConsoleControllerEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagSetBefore(objEnumFlag.name());
+	}
+
+	
+	
+	//###################################
+	//### FLAG CUSTOM Handling
+	/* ES GIBT HIER KEIN FLAGCUSTOM
+	@Override
+	public boolean getFlagCustom(IAbstractThreadWithStatusLocalEnabledZZZ.FLAGZCUSTOM objEnumFlag) throws ExceptionZZZ {
+		return this.getFlagCustom(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean setFlagCustom(IFileCsvReaderEnabledZZZ.FLAGZCUSTOM objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlagCustom(objEnumFlag.name(), bFlagValue);
+	}
+
+	@Override
+	public boolean[] setFlagCustom(IFileCsvReaderEnabledZZZ.FLAGZCUSTOM[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(IFileCsvReaderEnabledZZZ.FLAGZCUSTOM objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlagCustom(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
+				}
+			}
+		}//end main:
+		return baReturn;
+	}
+
+	@Override
+	public boolean proofFlagCustomExists(IFileCsvReaderEnabledZZZ.FLAGZCUSTOM objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagCustomExists(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean proofFlagCustomSetBefore(IFileCsvReaderEnabledZZZ.FLAGZCUSTOM objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagCustomSetBefore(objEnumFlag.name());
+	}
+	*/
+
+	
+
+	//###################################
+	//### FLAGLOCAL Handling
+
+	/* ES GIBT HIER KEIN FLAGLOCAL
+	//### aus JgitEnabledZZZ	
+	@Override
+	public boolean getFlagLocal(IFileExpansionEnabledZZZ.FLAGZLOCAL objEnumFlag) throws ExceptionZZZ {
+		return this.getFlagLocal(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean setFlagLocal(IFileExpansionEnabledZZZ.FLAGZLOCAL objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		return this.setFlagLocal(objEnumFlag.name(), bFlagValue);
+	}
+
+	@Override
+	public boolean[] setFlagLocal(IFileExpansionEnabledZZZ.FLAGZLOCAL[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+		boolean[] baReturn=null;
+		main:{
+			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
+				baReturn = new boolean[objaEnumFlag.length];
+				int iCounter=-1;
+				for(IFileExpansionEnabledZZZ.FLAGZLOCAL objEnumFlag:objaEnumFlag) {
+					iCounter++;
+					boolean bReturn = this.setFlagLocal(objEnumFlag, bFlagValue);
+					baReturn[iCounter]=bReturn;
+				}
+			}
+		}//end main:
+		return baReturn;
+	}
+
+	@Override
+	public boolean proofFlagLocalExists(IFileExpansionEnabledZZZ.FLAGZLOCAL objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagLocalExists(objEnumFlag.name());
+	}
+
+	@Override
+	public boolean proofFlagLocalSetBefore(IFileExpansionEnabledZZZ.FLAGZLOCAL objEnumFlag) throws ExceptionZZZ {
+		return this.proofFlagSetBefore(objEnumFlag.name());
+	}
+
+	*/
 }

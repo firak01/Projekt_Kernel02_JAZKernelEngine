@@ -8,6 +8,7 @@ public interface IKeyPressConstantZZZ {
 	public static char cKeyMenue='M';
 	public static char cKeyCancel='C';
 	public static char cKeyQuit='Q';
+	public static char cKeyStop='S';
 	
 	public static String sKeyTagOpen="[";
 	public static String sKeyTagClose="]";

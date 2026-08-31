@@ -3,6 +3,7 @@ package basic.zBasic.util.console.thread;
 import basic.zBasic.ExceptionZZZ;
 
 public interface IThreadableZZZ {
+	//Merke Erweiterung um quit() ist: IConsoleControlableZZZ
 	public boolean start() throws ExceptionZZZ;
 	
 	public boolean isStopped() throws ExceptionZZZ;

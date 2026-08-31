@@ -64,75 +64,78 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            this.isCurrentMenue(true);
 	            String input = sInput.toLowerCase();			                
 	            switch(input) {
-	            case "+":
-	            	this.isCurrentInputValid(true);	
-	            	this.isCurrentInputFinished(false);
+	            case "+":	            	
+	            	objMenuPointNew = new ExampleMenuPoint_plusZZZ();
+	            	objMenuPointNew.initit(hmVariable);
+	            	objKeyPressThreadUsed = this;
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	
-	            	objMenuPointNew = new ExampleMenuPoint_plusZZZ();	            	
+	            	this.isCurrentInputValid(true);	
+	            	this.isCurrentInputFinished(false);	            	
+	            	break;
+	            case "-":	            		            
+	            	objMenuPointNew = new ExampleMenuPoint_minusZZZ();
+	            	objMenuPointNew.initit(hmVariable);
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	break;
-	            case "-":
+	            	
 	            	this.isCurrentInputValid(true);
-	            	this.isCurrentInputFinished(false);
-	            		            	
-	            	objMenuPointNew = new ExampleMenuPoint_minusZZZ();	
-	            	objKeyPressThreadUsed = this;
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
+	            	this.isCurrentInputFinished(false);	            	
 	            	break;
+	            case "s": 
+	            	this.stop();
+	            	bReturn = false;
+	            	break main;
 	            case "q":
 	            	this.quit();
 	            	bReturn=false;
 	            	break main; 
 	            case "m":
 	            	//aber normalerweise wird dieser Punkt nicht aufgerufen, sondern im Thread wird per if-Abfragen er dann angesteuert.
-	            	this.isCurrentInputValid(true);  	
-	            	this.isCurrentInputFinished(false);
-	            	
-	            	//Einen bestehenden Thread stoppen
-	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
-	            	objMenuOld = this.getMenuPoint();
-	            	if(objMenuOld!=null) {
-	            		objMenuOld.onStopit();
-	            	}
 	            		            	
+	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
+	            	
+	            	//Einen bestehenden Thread stoppen, klappt, aber will man das, nur weil das Menü angezeigt werden soll?
+//	            	objMenuOld = this.getMenuPoint();
+//	            	if(objMenuOld!=null) {
+//	            		objMenuOld.onStopit();
+//	            	}
+	            	this.isCurrentInputValid(true);  	
+	            	this.isCurrentInputFinished(false);	            		            	
 	            	break main; //Das Menü ist ja schon da...
 	            case "a":
-	            	this.isCurrentInputValid(true);  	
-	            	this.isCurrentInputFinished(false);
-	            	
 	            	//Einen bestehenden Thread stoppen
 	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
 	            	objMenuOld = this.getMenuPoint();
 	            	if(objMenuOld!=null) {
 	            		objMenuOld.onStopit();
-	            	}
-	            		            	
-	            	objMenuPointNew = new ExampleMenuPoint_aZZZ();
+	            	}	            		            	
+	            	objMenuPointNew = new ExampleMenuPoint_aZZZ();	
+	            	objMenuPointNew.initit(hmVariable);
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	break;
-	            case "1":
-	            	this.isCurrentInputValid(true);
-	            	this.isCurrentInputFinished(false);
 	            	
+	            	this.isCurrentInputValid(true);  	
+	            	this.isCurrentInputFinished(false);	            	
+	            	break;
+	            case "1":	            	
 	            	//Einen bestehenden Thread stoppen
 	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
 	            	objMenuOld = this.getMenuPoint();
 	            	if(objMenuOld!=null) {
 	            		objMenuOld.onStopit();
 	            	}
-	            	
 	            	objMenuPointNew = null;
+	            		            		            		            		            
 	            	objKeyPressThreadUsed = this;	            	   
 	            	objKeyPressThreadUsed.setMethodForConsoleService("process1");
 	            	objKeyPressThreadUsed.initit(hmVariable); 
-	            	this.setKeyPressThread(objKeyPressThreadUsed);	            		            		            	         
-	            	break;
-	            case "2":
-	            	this.isCurrentInputValid(true);   
-	            	this.isCurrentInputFinished(false);
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	
+	            	this.isCurrentInputValid(true);
+	            	this.isCurrentInputFinished(false);	            	
+	            	break;
+	            case "2":	            	
 	            	//Einen bestehenden Thread stoppen
 	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
 	            	objMenuOld = this.getMenuPoint();
@@ -141,8 +144,12 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	}
 	            	
 	            	objMenuPointNew = new ExampleMenuPoint_2ZZZ();
+	            	objMenuPointNew.initit(hmVariable);
 	            	objKeyPressThreadUsed = this;
-	            	this.setKeyPressThread(objKeyPressThreadUsed);            	
+	            	this.setKeyPressThread(objKeyPressThreadUsed);
+	            	
+	            	this.isCurrentInputValid(true);   
+	            	this.isCurrentInputFinished(false);	            	
 	            	break;
 	            default:
 	            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");

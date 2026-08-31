@@ -3,12 +3,15 @@ package debug.zBasic.util.console.thread.multi.menu03;
 import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.console.thread.IConsoleControlableZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerUserZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceUserZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ_menuPointUsing;
+import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 
 /**Der ConsoleServiceThread wird dann gestartet,
  * wenn ein einfacher Aufruf des ConsoleService nicht reicht.
@@ -17,7 +20,7 @@ import basic.zBasic.util.console.thread.IConsoleServiceZZZ_menuPointUsing;
  *
  * @param <T>
  */
-public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerUserZZZ, IConsoleServiceUserZZZ {
+public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerUserZZZ, IConsoleServiceUserZZZ, IConsoleControlableZZZ {
 	private static final long serialVersionUID = -1207680138665628581L;
 	
 	protected volatile IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
@@ -192,7 +195,64 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	}
 	
 	
-	
+	//#### 
+		/* (non-Javadoc)
+		 * @see debug.zBasic.util.console.thread.multi.menu03.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ#reactOnStatusLocalEvent(basic.zKernel.status.IEventObjectStatusLocalZZZ)
+		 */
+		@Override
+		public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
+			boolean bReturn = false;
+			main:{			
+				if(eventStatusLocal==null)break main;
+				
+				//Merke: Der hier empfangene Event wird folgendermassen erzeugt, s.: 
+				//class AbstractObjectWithStatusLocalZZZ 
+				//private boolean offerStatusLocal_(String sStatusName, boolean bStatusValue, String sStatusMessage) throws ExceptionZZZ{
+				//
+				//             Darin wird der Status gesucht über:
+				//             ...             
+				//             Ermittle das Enum aus dem Namen
+				//             IEnumSetMappedStatusLocalZZZ objEnumMapped = StatusLocalAvailableHelperZZZ.searchEnumMappedByName(source, sEnumName, true);
+				//			
+				//Daher unbedingt nach dem Namen prüfen und nicht direkt die enums vergleichen
+				//if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
+				
+				//TODOGOON ; FALLUNTERSCHEIDUNG.
+				IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
+				if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {
+					
+					this.requestStop();
+					
+				}
+				
+				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.name())) {
+					
+					this.requestQuit();
+					
+				}
+				bReturn = true;
+			}//end main:
+			return bReturn;
+
+		}
+
+		//### aus IConsoleControlableZZZ
+		@Override
+		public boolean isQuitted() throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void isQuitted(boolean bStop) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void requestQuit() throws ExceptionZZZ {
+			this.requestStop();
+		}
 	
 	
 	

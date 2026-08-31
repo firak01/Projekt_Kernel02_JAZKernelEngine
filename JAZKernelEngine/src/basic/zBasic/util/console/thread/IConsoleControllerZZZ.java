@@ -10,7 +10,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
-public interface IConsoleControllerZZZ extends IThreadableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ, IKeyPressThreadUserZZZ, IStatusLocalMessageUserZZZ, IEventBrokerStatusLocalUserZZZ {
+public interface IConsoleControllerZZZ extends IThreadableZZZ, IConsoleControlableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ, IKeyPressThreadUserZZZ, IStatusLocalMessageUserZZZ, IEventBrokerStatusLocalUserZZZ {
 
 	public boolean isInputAllFinished();
 	public void isInputAllFinished(boolean bInputFinished);
@@ -36,4 +36,6 @@ public interface IConsoleControllerZZZ extends IThreadableZZZ, IStatusLocalBasic
 	
 	//public IMenuPointZZZ getMenuPoint() throws ExceptionZZZ;
 	//public void setMenuPoint(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ;
+	
+	
 }

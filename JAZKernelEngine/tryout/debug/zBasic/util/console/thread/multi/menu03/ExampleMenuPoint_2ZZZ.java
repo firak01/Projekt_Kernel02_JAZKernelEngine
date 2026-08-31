@@ -31,14 +31,14 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 				String sTemp = HashMapUtilZZZ.computeDebugString(hmVariableExternal);
 				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal \n" + sTemp);
 				
-				sCounterValueCurrent = (String) hmVariableExternal.get("INPUT_COUNTER_VALUE_CURRENT");							
+				sCounterValueCurrent = (String) hmVariableExternal.get("OUTPUT_COUNTER_VALUE_CURRENT");							
 			}else {
 				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal ist NULL");				
 			}
 			
 			//Plus alle anderen INPUT - Variablen.			
 			HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   			
-			if(hmVariable!=null) {	
+			if(hmVariableInternal!=null) {	
 				//Übernimm den externen key,... um weiterzählen zu könnne.
 				hmVariableInternal.put("INPUT_COUNTER_VALUE_CURRENT", sCounterValueCurrent);
 				
@@ -86,7 +86,7 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 			//Den objCounterServiceThread am ConsoleController registrieren.
 			//Dann kann er auf die "quit" Anweisung reagieren.
 		    objConsoleController.registerForStatusLocalEvent(objConsoleServiceThread_for_counterService);
-	  
+	  		    
 			//Den neu erstellten Thread starten, er wird dann aus dem 
 		    //ConsoleServiceMyAlphabetCounterZZZ - Objekt die Methode startit() aufrufen.
 		    Thread t2 = new Thread(objConsoleServiceThread_for_counterService);

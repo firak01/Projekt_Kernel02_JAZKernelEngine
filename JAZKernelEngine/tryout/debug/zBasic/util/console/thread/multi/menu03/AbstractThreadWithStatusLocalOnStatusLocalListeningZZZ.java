@@ -129,7 +129,7 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 		main:{			
 			if(eventStatusLocal==null)break main;
 			
-			//Merke: Der Event wird hier erzeugt 
+			//Merke: Der hier empfangene Event wird folgendermassen erzeugt, s.: 
 			//class AbstractObjectWithStatusLocalZZZ 
 			//private boolean offerStatusLocal_(String sStatusName, boolean bStatusValue, String sStatusMessage) throws ExceptionZZZ{
 			//
