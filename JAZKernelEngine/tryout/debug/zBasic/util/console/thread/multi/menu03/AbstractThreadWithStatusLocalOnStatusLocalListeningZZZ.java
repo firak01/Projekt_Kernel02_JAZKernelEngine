@@ -10,6 +10,7 @@ import basic.zBasic.util.abstractEnum.IEnumSetMappedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
+import basic.zKernel.status.StatusLocalAvailableHelperZZZ;
 
 public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T>  implements IListenerObjectStatusLocalZZZ{
 	private static final long serialVersionUID = 202987237863158494L;
@@ -125,12 +126,24 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 	@Override
 	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
 		boolean bReturn = false;
-		main:{
-			//TODOGOON ; FALLUNTERSCHEIDUNG.
+		main:{			
 			if(eventStatusLocal==null)break main;
 			
-			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
-			if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
+			//Merke: Der Event wird hier erzeugt 
+			//class AbstractObjectWithStatusLocalZZZ 
+			//private boolean offerStatusLocal_(String sStatusName, boolean bStatusValue, String sStatusMessage) throws ExceptionZZZ{
+			//
+			//             Darin wird der Status gesucht über:
+			//             ...             
+			//             Ermittle das Enum aus dem Namen
+			//             IEnumSetMappedStatusLocalZZZ objEnumMapped = StatusLocalAvailableHelperZZZ.searchEnumMappedByName(source, sEnumName, true);
+			//			
+			//Daher unbedingt nach dem Namen prüfen und nicht direkt die enums vergleichen
+			//if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
+			
+			//TODOGOON ; FALLUNTERSCHEIDUNG.
+			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
+			if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {
 				
 				this.requestStop();
 				

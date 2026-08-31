@@ -19,5 +19,6 @@ Es gibt darin dann 3 Objekte, die miteinander verknüpft sind:
 
 Probleme:
 Man kann nicht von einem Menüpunkt (Sprich Zähler) zu einem anderen wechseln.
+Dann kommt eine NullPointer Exception
 
 Auch die ASCII - Methode müsste extra implementiert werden (an einer anderen Stelle)

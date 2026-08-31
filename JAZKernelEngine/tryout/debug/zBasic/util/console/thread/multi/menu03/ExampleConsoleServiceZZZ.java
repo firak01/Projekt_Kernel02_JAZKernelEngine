@@ -103,9 +103,28 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		boolean bReturn = false;
 		main:{
 			int iCounter = this.getCounter();
+			//String sInput = (String) hmVariable.get("INPUT_COUNTER_VALUE_CURRENT");
+			//int iCounter = StringZZZ.toInteger(sInput);
 			iCounter++;
+			
+			//### AUSGABE
 			System.out.println("Zähler: " + iCounter);
+			
+			//### VARIABLENWERT RETTEN			
+			//a) eigenen Klasse
 			this.setCounter(iCounter);
+			
+			//b) HashMap, sowohl als Eingabewert als auch als globaler Ausgabewert
+			String sOutput = Integer.toString(iCounter);
+			hmVariable.put("INPUT_COUNTER_VALUE_CURRENT", sOutput);
+			hmVariable.put("OUTPUT_COUNTER_VALUE_CURRENT", sOutput);
+			
+			//##################### Direkt den Wert im ConsolenService Setzten
+			//                      ... z.B. für die Ausgabe des Zählers am Schluss.
+			IExampleConsoleServiceZZZ objConsoleService = (IExampleConsoleServiceZZZ) this.getConsoleController().getConsoleServiceObject();
+			if(objConsoleService!=null) objConsoleService.setCounter(iCounter);
+			//#####################
+			
 			bReturn = true;
 		}//end main:
 		return bReturn;

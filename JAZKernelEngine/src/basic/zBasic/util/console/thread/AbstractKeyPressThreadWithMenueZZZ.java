@@ -206,7 +206,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 	    	public void requestStop() throws ExceptionZZZ {
 	        	
 	        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+	        	this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
 	    		
 	        	//20260825
 	        	//Momentan ist der ConsoleController nicht registriert. Ihn also so ansteuern.
@@ -318,7 +318,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 //				                			WENN MAN EINMAL 2 ausgewählt hat, kommt man nach Änderung zu 1, keine Ausgabe mehr.
 				         
 				                		//PROBLEM BEIM ÄNERN VON 2 IN 1 und wieder in 2 wird dort mit 0 gezählt.
-				                		if(!this.isCurrentInputFinished()) {
+				                		//if(!this.isCurrentInputFinished()) {
 								        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 								        	if(objMenuPoint!=null) {
 								        		objMenuPoint.initit(hmVariable);
@@ -327,8 +327,8 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 								        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
 								        		IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) objConsoleController.getConsoleServiceObject();
 								        		 
-								        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartin();
-								        		this.isCurrentInputFinished(true);//Damit wird sichergestellt, den ConsoleService nur 1x auszuführen.
+								        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartit();
+								        		//this.isCurrentInputFinished(true);//Damit wird sichergestellt, den ConsoleService nur 1x auszuführen.
 								        	 }else {
 								        		 //
 								        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
@@ -342,10 +342,11 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 										        	if(!bGoon) break main; //Quit
 									        	}
 								        		 
-								        		 IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
-								        		 objConsoleService.startit(hmVariable); //direkter, ohne Thread...								        		 
+								        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+								        		IConsoleServiceZZZ objConsoleService = objConsoleController.getConsoleServiceObject();
+								        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...								        		 
 								        	 } 								        	
-					                	}
+					                	//}
 							        	
 							        	
 							        	//TEST TESTS
@@ -369,7 +370,8 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 										}
 						                
 						                
-						                objKeyPressThreadUsed.isInputAllFinished(true);
+						                //objKeyPressThreadUsed.isInputAllFinished(true);
+						                this.getKeyPressThread().isInputAllFinished(true);
 						               	this.isInputAllFinished(false); //Auf zur nächsten Eingabe
 						               
 				                	}//end if cKey

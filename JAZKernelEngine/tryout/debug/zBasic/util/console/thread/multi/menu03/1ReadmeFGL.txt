@@ -1,5 +1,3 @@
-TODOGOON20260828:
-
 Fortsetzung von Menue02
 Beispiel: Zähle hoch.
 Die Idee ist es trotz menue immer weiter zu zählen.
@@ -26,3 +24,9 @@ Ziel2: Man soll über das Menü einfach einen anderen Menüpunkt auswählen kön
       Oder halt etwas anderes selbst macht.
 
 Ziel3: Man soll wie im menue01 Package die zähler tauschen können.
+
+
+TODOGOON 20260831: Problem:
+Beendet man den laufenden "Menüpunkt 2" mit 'q', beendet man die Konsole, 
+aber der Thread mit "Menüpunkt 2" läuft weiter.
+Registriert am KonsolenThread ist der aber. Nur: Meiner Meinung nach wird gar kein Ereignis bei 'q' geworfen. 

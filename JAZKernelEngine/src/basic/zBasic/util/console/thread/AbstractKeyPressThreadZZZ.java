@@ -87,6 +87,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 		}
 		
+		//##########################################
 		@Override 
 		public void setMethodForConsoleService(String sMethod) throws ExceptionZZZ{
 			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
@@ -190,7 +191,6 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 		public void validSkipMenue() {			
 			System.out.println("Menue ueberspringen");
 			this.isCurrentInputValid(true);						                			
-	    	this.isCurrentInputFinished(true);
 			this.isCurrentMenue(false);	
 		}
 		

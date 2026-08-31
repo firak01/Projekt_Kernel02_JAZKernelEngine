@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.ArrayListUniqueZZZ;
+import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.StringFormaterZZZ;
 
@@ -60,7 +62,14 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 			boolean bReacted;
 			
 			try {
-				for(int i = 0 ; i < this.getListenerRegisteredAll().size(); i++){
+				ArrayListUniqueZZZ listaListenerRegistered = this.getListenerRegisteredAll();
+				if(ArrayListUtilZZZ.isEmpty(listaListenerRegistered)) {
+					sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Keine Listener Registriert !!!!!!!!!!!!!";
+					this.logProtocol(sLog);
+					break main;
+				}
+				
+				for(int i = 0 ; i < listaListenerRegistered.size(); i++){
 					//Mit instanceof den Typ abfragen und dahingehend die passende Unterabfrage des Events aufrufen.
 					//Merke: Ohne das instanceof entstehen typcast-mapping-Fehler.
 					IListenerObjectStatusBasicZZZ l = this.getListenerRegisteredAll().get(i);
@@ -97,7 +106,15 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 				}
 			} catch (ExceptionZZZ ez) {
 				try {
-					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws Exception: " + ez.getDetailAllLast();
+					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws ExceptionZZZ: " + ez.getDetailAllLast();
+					this.logProtocol(sLog);
+				} catch (ExceptionZZZ ez2) {				
+					ez2.printStackTrace();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws Exception: " + e.getMessage();
 					this.logProtocol(sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
