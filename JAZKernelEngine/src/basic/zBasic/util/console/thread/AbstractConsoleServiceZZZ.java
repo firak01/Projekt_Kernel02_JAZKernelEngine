@@ -2,9 +2,12 @@ package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleServiceZZZ, IConsoleServiceZZZ_menuPointUsing {	
@@ -137,4 +140,25 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 		}//end main:
 		return bReturn;
 	}	
+	
+	
+	@Override
+	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
+		boolean bReturn = false;
+		main:{
+			if(eventStatusLocal==null)break main;
+			super.reactOnStatusLocalEvent(eventStatusLocal);
+			
+			//TODOGOON20260831; FALLUNTERSCHEIDUNG für IConsoleControllerEnabled.ISTHREAD_STOPPED;
+			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
+			if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
+				
+				this.requestStop();
+				
+			}
+			bReturn = true;
+		}//end main:
+		return bReturn;
+
+	}
 }

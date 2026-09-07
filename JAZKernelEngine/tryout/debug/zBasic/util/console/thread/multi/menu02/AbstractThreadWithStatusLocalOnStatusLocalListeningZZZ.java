@@ -122,8 +122,7 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 	@Override
 	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
 		boolean bReturn = false;
-		main:{
-			//TODOGOON ; FALLUNTERSCHEIDUNG.
+		main:{		
 			if(eventStatusLocal==null)break main;
 			
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();

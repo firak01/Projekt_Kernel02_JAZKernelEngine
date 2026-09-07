@@ -8,4 +8,6 @@ public interface IConsoleControlableZZZ {
     public boolean isQuitted() throws ExceptionZZZ ;
 	public void isQuitted(boolean bStop) throws ExceptionZZZ;
 	public void requestQuit() throws ExceptionZZZ;	
+	
+	//
 }

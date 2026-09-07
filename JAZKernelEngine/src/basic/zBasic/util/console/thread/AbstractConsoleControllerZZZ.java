@@ -17,6 +17,8 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
+import basic.zKernel.status.EventObjectStatusLocalZZZ;
+import basic.zKernel.status.IEventObjectStatusBasicZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
@@ -292,6 +294,42 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			}else if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED)) {
 				
 				this.requestQuit();
+			}else if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
+				
+				
+				//+++++++++++++
+				String sLog;
+				String sStatusName = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getName();
+				boolean bStatusValue = true;
+				String sStatusMessage = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getStatusMessage();
+				
+				//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
+				//Dann erzeuge den Event und feuer ihn ab.	
+				if(this.getSenderStatusLocalUsed()==null) {
+					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+					this.logProtocol(sLog);		
+					break main;
+				}
+				
+				//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
+				if(bStatusValue) { //!!! nur im TRUE Fall wird eine Logausgabe erzeugt... sonst wird das Log zu voll.			
+					sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+					this.logProtocol(sLog);
+				}
+				IEventObjectStatusBasicZZZ event;
+				if(sStatusMessage==null) {
+					event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue);
+				}else{
+					event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue, sStatusMessage);			
+				}
+						
+				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
+				this.logProtocol(sLog);
+				this.getSenderStatusLocalUsed().fireEvent(event);
+						
+				//++++++++++++++++++++
+				
+				
 			}
 			
 			bReturn = true;

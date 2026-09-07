@@ -1,17 +1,12 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
-import java.util.Scanner;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
-import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
-import basic.zBasic.util.crypt.thread.ConsoleServiceEncryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
-import debug.zBasic.util.console.thread.multi.menuless.ExampleConsoleThreadZZZ;
 
 public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> implements IExampleConsoleServiceZZZ {
 	private static final long serialVersionUID = -310118654741546925L;

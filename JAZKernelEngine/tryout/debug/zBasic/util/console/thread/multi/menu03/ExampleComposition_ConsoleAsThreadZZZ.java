@@ -67,9 +67,12 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		//       Darum muss man alles in dem KeyPressThread erledigen
 		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);			
 		objConsoleController.setKeyPressThread(objKeyPressThread);
-			
+		//Nein, keypressthread ist selber kein Listener: objConsoleController.registerForStatusLocalEvent(objKeyPressThread);
+		
 		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsoleController);			
 		objConsoleController.setConsoleServiceObject(objConsoleService);
+		objConsoleController.registerForStatusLocalEvent(objConsoleService);
+		
 		
 		//Merke: Beim Ausführen von Aktionen 	erstellt der ExampleConsoleService ggfs. neue Threads, die dann am ConsoleController registriert werden.
 		//       Dann soll beim Beenden des ConsoleControllers ein entsprechendes Ereignis an alle registrierten Threads geworfen werden.

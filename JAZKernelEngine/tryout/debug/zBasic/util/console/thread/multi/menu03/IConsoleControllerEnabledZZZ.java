@@ -32,6 +32,7 @@ public interface IConsoleControllerEnabledZZZ{
 	//ALIAS(Gruppenid der Meldung, "Uniquename","Statusmeldung","Beschreibung, wird nicht genutzt....",)
 	public enum STATUSLOCAL implements IEnumSetMappedStatusLocalZZZ{//Folgendes geht nicht, da alle Enums schon von einer Java BasisKlasse erben... extends EnumSetMappedBaseZZZ{		
 		ISQUITTED(iSTATUSLOCAL_GROUPID,"isquitted","ZZZ: AbstractConsoleControllerZZZ beendet",""),
+		ISTHREADS_STOPPED(iSTATUSLOCAL_GROUPID,"isthread_stopped","ZZZ: AbstractConsoleControllerZZZ Threads gestoppt",""),
 		;
 		
 		private int iStatusGroupId;

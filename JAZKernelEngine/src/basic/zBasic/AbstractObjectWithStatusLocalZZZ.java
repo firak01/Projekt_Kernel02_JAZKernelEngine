@@ -598,8 +598,8 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			String sStatusName = objEnumStatusIn.name();
 			if(StringZZZ.isEmpty(sStatusName)) break main;
 										
-			HashMap<String, Boolean> hmFlag = this.getHashMapStatusLocal();
-			Boolean objBoolean = hmFlag.get(sStatusName.toUpperCase());
+			HashMap<String, Boolean> hmStatus = this.getHashMapStatusLocal();
+			Boolean objBoolean = hmStatus.get(sStatusName.toUpperCase());
 			if(objBoolean==null){
 				bFunction = false;
 			}else{

@@ -109,14 +109,17 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	objMenuOld = this.getMenuPoint();
 	            	if(objMenuOld!=null) {
 	            		objMenuOld.onStopit();
-	            	}	            		            	
+	            	}	        
+	            	objKeyPressThreadUsed = this;
+	            	objKeyPressThreadUsed.setMethodForConsoleService("");
+	            	
 	            	objMenuPointNew = new ExampleMenuPoint_aZZZ();	
 	            	objMenuPointNew.initit(hmVariable);
-	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	
 	            	this.isCurrentInputValid(true);  	
-	            	this.isCurrentInputFinished(false);	            	
+	            	this.isCurrentInputFinished(false);	 
+	            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
 	            	break;
 	            case "1":	            	
 	            	//Einen bestehenden Thread stoppen
@@ -125,15 +128,16 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	if(objMenuOld!=null) {
 	            		objMenuOld.onStopit();
 	            	}
-	            	objMenuPointNew = null;
-	            		            		            		            		            
-	            	objKeyPressThreadUsed = this;	            	   
+	            	objKeyPressThreadUsed = this;
 	            	objKeyPressThreadUsed.setMethodForConsoleService("process1");
+	            	objMenuPointNew = null;
+
 	            	objKeyPressThreadUsed.initit(hmVariable); 
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	
 	            	this.isCurrentInputValid(true);
-	            	this.isCurrentInputFinished(false);	            	
+	            	this.isCurrentInputFinished(false);	 
+	            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
 	            	break;
 	            case "2":	            	
 	            	//Einen bestehenden Thread stoppen
@@ -142,14 +146,17 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	if(objMenuOld!=null) {
 	            		objMenuOld.onStopit();
 	            	}
+	            	objKeyPressThreadUsed = this;
+	            	objKeyPressThreadUsed.setMethodForConsoleService("");
 	            	
 	            	objMenuPointNew = new ExampleMenuPoint_2ZZZ();
 	            	objMenuPointNew.initit(hmVariable);
-	            	objKeyPressThreadUsed = this;
+	            	
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	
 	            	this.isCurrentInputValid(true);   
-	            	this.isCurrentInputFinished(false);	            	
+	            	this.isCurrentInputFinished(false);	
+	            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
 	            	break;
 	            default:
 	            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");

@@ -11,6 +11,7 @@ import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceUserZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ_menuPointUsing;
+import basic.zBasic.util.system.Syso;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 
 /**Der ConsoleServiceThread wird dann gestartet,
@@ -125,8 +126,24 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 				HashMapZZZ<String, Object> hmVariable = this.getConsoleController().getVariableHashMap();								
 		        while(!this.isStopped()){
 		        	
+		        	//#########################################################################
+		        	IConsoleServiceZZZ objConsoleService = this.getConsoleServiceObject();
+		        	objConsoleService.startit(hmVariable); //direkter Aufruf der Service-Methode, ohne weiteren Thread...
 		        	
+		        	try {
+	                	Thread.sleep(lSleepTime);			                	
+					} catch (InterruptedException e) {
+						System.out.println("ConsoleServiceThread Wait Error");
+						e.printStackTrace();
+						
+						ExceptionZZZ ez = new ExceptionZZZ(e);
+						throw ez;
+					}
+		        }//end while isStopped
+			}else {
+				while(!this.isStopped()){
 		        	
+		        	//#########################################################################	
 		        	/* Z.B. in ExamplanConsoleService wird, wenn entsprechender Menüpunkt ausgewählt wurde
 		        	 *      folgendes aufgerufen,
 		        	 *      sprich: Das steckt hinter: objConsoleService.startit(hmVariable);
@@ -151,24 +168,6 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 							    t2.start();					        	
 		        	*/
 		        	
-		        	//#########################################################################
-		        	IConsoleServiceZZZ objConsoleService = this.getConsoleServiceObject();
-		        	objConsoleService.startit(hmVariable); //direkter Aufruf der Service-Methode, ohne weiteren Thread...
-		        	
-		        	try {
-	                	Thread.sleep(lSleepTime);			                	
-					} catch (InterruptedException e) {
-						System.out.println("ConsoleServiceThread Wait Error");
-						e.printStackTrace();
-						
-						ExceptionZZZ ez = new ExceptionZZZ(e);
-						throw ez;
-					}
-		        }//end while isStopped
-			}else {
-				while(!this.isStopped()){
-		        	
-		        	//#########################################################################			        				        	
 		        	IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) this.getConsoleServiceObject();
 		        	objConsoleService.startit(objMenuPoint); //direkter Aufruf der Service-Methode, ohne weiteren Thread...
 
@@ -220,6 +219,12 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 				//TODOGOON ; FALLUNTERSCHEIDUNG.
 				IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
 				if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {
+					
+					this.requestStop();
+					
+				}
+						
+				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.name())) {
 					
 					this.requestStop();
 					

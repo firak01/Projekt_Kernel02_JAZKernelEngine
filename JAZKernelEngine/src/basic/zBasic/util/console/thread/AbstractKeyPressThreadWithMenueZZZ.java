@@ -230,19 +230,17 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 	        	       
 	        @Override
 	    	public void requestStop() throws ExceptionZZZ {
-	        	TODOGOON20260831;//stopt den thread aber leider nicht...
+	        	//TODOGOON20260831;//stopt den thread aber leider nicht...
 	        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
-	        	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
 	        	
-//	        	//Folgendes beendet im Grunde die ganze Konsole "q"="quit"
-//	        	
-//	        	
+	        	//DAS IST FALSCH, STATT DESSEN MUSS DER CONTROLLER EINEN EVENT AN ALLE REGISTRIERTEN SCHICHEN
+	        	//DER KEYPRESSTHREAD SELBST WIRD NICHT GESTOPPT!!!
+	        	//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);	        	
+	
 //	        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-//	        	this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
-//	        	
-//	        	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
-//	        	//D.h. er müsste andere Interfaces noch implementieren.
-//	    		this.getConsoleController().isStopped(true);	        	
+	        	//this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+	        	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, true);
+        	
 	    	}
 	        
 
@@ -306,6 +304,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			        			this.isInputAllFinished(false);
 					        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 					        	
+					        	
 					        	//######################################################################
 			                	//### Frage nach Mehrfacheingabe
 					        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
@@ -345,12 +344,12 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 				                		}else {			                		
 				                			this.validSkipMenue(hmVariable);			                			
 				                		}				                		
-				                			
-//				                		PROBLEM: 
-//				                			WENN MAN EINMAL 2 ausgewählt hat, kommt man nach Änderung zu 1, keine Ausgabe mehr.
-				         
-				                		//PROBLEM BEIM ÄNERN VON 2 IN 1 und wieder in 2 wird dort mit 0 gezählt.
-				                		//if(!this.isCurrentInputFinished()) {
+
+				                		
+				                		if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
+				                		//if(this.getConsoleController().isConsoleServiceThreadStopped()) {
+				                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
+				                		}else {
 								        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 								        	if(objMenuPoint!=null) {
 								        		iDebugCounterServiceThread++;
@@ -380,7 +379,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 								        		IConsoleServiceZZZ objConsoleService = objConsoleController.getConsoleServiceObject();
 								        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...								        		 
 								        	 } 								        	
-					                	//}
+					                	}
 							        	
 							        	
 							        	//TEST TESTS

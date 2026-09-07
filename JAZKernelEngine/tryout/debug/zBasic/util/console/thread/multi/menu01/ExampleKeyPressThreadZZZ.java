@@ -13,6 +13,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadDecryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 
 
 	 
@@ -153,7 +154,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
             	this.setMethodForConsoleService("ascii");           
-            	objKeyPressThreadUsed.initit(hmVariable);             	
+            	objKeyPressThreadUsed.initit(hmVariable);  
+            	
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
             	break;
             case "1":
             	this.isCurrentInputValid(true);
@@ -161,14 +164,18 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
             	this.setMethodForConsoleService("process1");           
-            	objKeyPressThreadUsed.initit(hmVariable);             	
+            	objKeyPressThreadUsed.initit(hmVariable);   
+            	
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
             	break;
-            case "2":
+            case "2":            	
             	this.isCurrentInputValid(true);            	          
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
             	this.setMethodForConsoleService("countAlphanumeric");           
-            	objKeyPressThreadUsed.initit(hmVariable);             	
+            	objKeyPressThreadUsed.initit(hmVariable);   
+            	
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
             	break;
             default:
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
