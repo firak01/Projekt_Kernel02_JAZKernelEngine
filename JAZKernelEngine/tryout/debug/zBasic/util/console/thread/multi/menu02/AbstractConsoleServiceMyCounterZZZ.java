@@ -6,11 +6,6 @@ import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.counter.CounterByCharacterAsciiFactoryZZZ;
 import basic.zBasic.util.counter.ICounterStringZZZ;
-import basic.zBasic.util.crypt.code.CryptAlgorithmMaintypeZZZ;
-import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
-import basic.zBasic.util.crypt.code.ICryptZZZ;
-import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
-import basic.zBasic.util.datatype.string.StringZZZ;
 
 public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractConsoleServiceZZZ<T>{
 	private static final long serialVersionUID = -6550457210699817938L;

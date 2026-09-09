@@ -1,13 +1,8 @@
 package basic.zBasic.util.console.thread;
 
-import java.util.HashMap;
-import java.util.Scanner;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointUserZZZ;
-import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
 
 public interface IKeyPressThreadMenuableZZZ extends IKeyPressThreadZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ {

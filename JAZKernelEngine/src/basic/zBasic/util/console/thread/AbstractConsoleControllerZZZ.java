@@ -1,14 +1,8 @@
 package basic.zBasic.util.console.thread;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
@@ -21,7 +15,6 @@ import basic.zKernel.status.EventObjectStatusLocalZZZ;
 import basic.zKernel.status.IEventObjectStatusBasicZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
-import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
@@ -44,14 +37,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	private IKeyPressThreadZZZ objThreadKeyPress=null;
 	private IConsoleServiceZZZ objConsoleUserStarter = null;
 	private IMenuPointZZZ      objMenuPoint = null;
-	
-	//Variablen zur Steuerung des internen Threads
-	private volatile static boolean bInputFinished=false;
-	private volatile static boolean bOutputFinished=false;
-	private volatile static boolean bInputThreadFinished = false;
-	private volatile static boolean bInputThreadRunning = false;	
-	private volatile static boolean bConsoleUserThreadFinished = false;
-	private volatile static boolean bConsoleUserThreadRunning = false;
+
 	
 	//Zur dynmischen Verwaltung von globalen Variablen, die in einem Thread für den anderen Thread gedacht sind
 	//To ensure that updates to variables propagate predictably to other threads, we should apply the volatile modifier to those variables:
@@ -116,9 +102,6 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	
 	
 	//### aus IThreadEnabledZZZ
-	/* (non-Javadoc)
-	 * @see basic.zBasic.util.console.thread.IThreadEnabledZZZ#start()
-	 */
 	@Override
 	public boolean start() {
 		boolean bReturn = false;
@@ -157,87 +140,62 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	}
 	
 	@Override
-	public synchronized boolean isInputAllFinished() {
-		return this.bInputFinished;
+	public synchronized boolean isInputAllFinished() throws ExceptionZZZ {
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISINPUTALLFINISHED);
 	}
 	
 	@Override
-	public synchronized void isInputAllFinished(boolean bInputFinished) {
-		this.bInputFinished = bInputFinished;
+	public synchronized void isInputAllFinished(boolean bInputFinished)  throws ExceptionZZZ{
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISINPUTALLFINISHED, bInputFinished);
+	}
+
+	@Override
+	public boolean isKeyPressThreadFinished() throws ExceptionZZZ {
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED);
 	}
 	
 	@Override
-	public synchronized boolean isOutputAllFinished() {
-		return this.bOutputFinished;
-	}
-	
-	@Override
-	public synchronized void isOutputAllFinished(boolean bOutputFinished) {
-		this.bOutputFinished = bOutputFinished;
-	}
-	
-	
-	@Override
-	public boolean isKeyPressThreadFinished() {
-		return this.bInputThreadFinished;
-	}
-	
-	@Override
-	public void isKeyPressThreadFinished(boolean bInputFinished) {
-		this.bInputThreadFinished = bInputFinished;
-		if(this.bInputThreadFinished) {
-			this.bInputThreadRunning=false;
-		}else {
-			this.bInputThreadRunning=true;
-		}
+	public void isKeyPressThreadFinished(boolean bInputFinished)  throws ExceptionZZZ{
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED, bInputFinished);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING,!bInputFinished);
 	}
 	
 	
 	@Override
-	public boolean isKeyPressThreadRunning() {		
-		return this.bInputThreadRunning;
+	public boolean isKeyPressThreadRunning()  throws ExceptionZZZ{		
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING);
 	}
 	
 	@Override
-	public void isKeyPressThreadRunning(boolean bInputRunning) {
-		this.bInputThreadRunning = bInputRunning;
-		if(this.bInputThreadRunning) {
-			this.bInputThreadFinished=false;
-		}else {
-			this.bInputThreadFinished=true;
-		}
+	public void isKeyPressThreadRunning(boolean bInputRunning)  throws ExceptionZZZ{
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING, bInputRunning);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED, !bInputRunning);
 	}
 		
 	@Override
-	public boolean isConsoleUserThreadRunning() {
-		return this.bConsoleUserThreadRunning;
+	public boolean isConsoleUserThreadRunning() throws ExceptionZZZ {
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADRUNNING);
 	}
 
 	@Override
-	public void isConsoleUserThreadRunning(boolean bConsoleUserThreadRunning) {
-		this.bConsoleUserThreadRunning = bConsoleUserThreadRunning;
-		if(this.bConsoleUserThreadRunning) {
-			this.bConsoleUserThreadFinished=false;
-		}else {
-			this.bConsoleUserThreadFinished=true;
-		}
+	public void isConsoleUserThreadRunning(boolean bConsoleUserThreadRunning)  throws ExceptionZZZ{
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADRUNNING, bConsoleUserThreadRunning);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADFINISHED, !bConsoleUserThreadRunning);
 	}
 	
 	@Override
-	public boolean isConsoleUserThreadFinished() {
-		return this.bConsoleUserThreadFinished;
+	public boolean isConsoleUserThreadFinished() throws ExceptionZZZ {
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADFINISHED);
 	}
 
 	@Override
-	public void isConsoleUserThreadFinished(boolean bConsoleUserThreadFinished) {
-		this.bConsoleUserThreadFinished = bConsoleUserThreadFinished;
-		if(this.bConsoleUserThreadFinished) {
-			this.bConsoleUserThreadRunning=false;
-		}else {
-			this.bConsoleUserThreadRunning=true;
-		}
+	public void isConsoleUserThreadFinished(boolean bConsoleUserThreadFinished) throws ExceptionZZZ {
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADFINISHED, bConsoleUserThreadFinished);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADRUNNING, !bConsoleUserThreadFinished);
 	}
 	
+	
+	//### aus IVariableHashMapUserZZZ
 	@Override
 	public HashMapZZZ<String,Object> getVariableHashMap() throws ExceptionZZZ {
 		if(this.hmVariable==null) {
@@ -261,7 +219,6 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	
 	
 	//### aus IConsoleControlableZZZ
-	
 	@Override
 	public boolean isQuitted() throws ExceptionZZZ {		
 		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED);
@@ -326,10 +283,6 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
 				this.logProtocol(sLog);
 				this.getSenderStatusLocalUsed().fireEvent(event);
-						
-				//++++++++++++++++++++
-				
-				
 			}
 			
 			bReturn = true;

@@ -260,7 +260,15 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 //					//Die Verschiedenen alphanumerischen Zähler haben neben ihrem Namen auch eine "Typenzahl"					
 //					int iAlphanumericType = ICounterByCharacterAsciiFactoryZZZ.iCounter_TYPE_ALPHANUMERIC_SIGNIFICANT;
 //	        		String sAlphanumericType = Integer.toString(iAlphanumericType);
-//	        		hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType);
+//	        		//hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType); //LOKAL reicht nicht
+//		
+//		
+//		
+//		HashMapZZZ<String,Object> hm1 = this.getConsoleController().getVariableHashMap();
+//		hm1.put("INPUT_COUNTER_TYPE", sAlphanumericType);
+//		
+//		HashMapZZZ<String,Object> hm2 = this.getVariableHashMap();
+//		hm2.put("INPUT_COUNTER_TYPE", sAlphanumericType);
 //	        	}
 //				bReturn = true;
 //			}//end main;	

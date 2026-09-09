@@ -93,7 +93,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	            	//this.processROT13_(hmVariable);              	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	this.setMethodForConsoleService("process1");           
+	            	this.setMethodForConsoleService("process1");    
 	            	objKeyPressThreadUsed.initit(hmVariable);             	
 	            	break;
 	            case "2":
@@ -146,7 +146,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 				//Plus alle anderen INPUT - Variablen.
 				
 				
-				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+				//String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+				String sCallingMethod= this.getMethodForConsoleService();//(String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 				switch(sCallingMethod){
 					case "ascii":
 						bReturn = initAscii_(hmVariable);
@@ -202,7 +203,15 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 					//Die Verschiedenen alphanumerischen Zähler haben neben ihrem Namen auch eine "Typenzahl"					
 					int iAlphanumericType = ICounterByCharacterAsciiFactoryZZZ.iCounter_TYPE_ALPHANUMERIC_SIGNIFICANT;
 	        		String sAlphanumericType = Integer.toString(iAlphanumericType);
-	        		hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType);
+	        		//hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType); //LOKAL reicht nicht
+	        		
+	        		
+	        		
+	        		HashMapZZZ<String,Object> hm1 = this.getConsoleController().getVariableHashMap();
+	    			hm1.put("INPUT_COUNTER_TYPE", sAlphanumericType);
+	    			
+	    			HashMapZZZ<String,Object> hm2 = this.getVariableHashMap();
+	    			hm2.put("INPUT_COUNTER_TYPE", sAlphanumericType);
 	        	}
 				bReturn = true;
 			}//end main;	

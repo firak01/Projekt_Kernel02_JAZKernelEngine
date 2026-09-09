@@ -1,9 +1,13 @@
 package basic.zBasic.util.console.thread;
 
+import java.util.HashMap;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
@@ -81,6 +85,8 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 		this.objConsoleController = objConsoleController;
 	}
 	
+	
+	//+++++++++++++++++++++++++++
 	@Override
 	public synchronized HashMapZZZ<String, Object> getVariableHashMap() throws ExceptionZZZ {
 		if(this.hmVariable==null) {
@@ -94,6 +100,14 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 		this.hmVariable = hmVariable;
 	}
 	
+	@Override
+	public void addVariableHashMap(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		HashMapZZZ<String,Object> hmOld = this.hmVariable;
+		HashMap<String, Object> hmTemp = HashMapUtilZZZ.mergeMaps_LastKeyRemains(hmOld, hmVariable);
+		this.hmVariable = MapUtilZZZ.toHashMapZZZ(hmTemp);
+	}
+	
+	//+++++++++++++++++++++++++++++
 	@Override 
 	public synchronized IMenuPointZZZ getMenuPoint() throws ExceptionZZZ {
 		return this.objMenuPoint;

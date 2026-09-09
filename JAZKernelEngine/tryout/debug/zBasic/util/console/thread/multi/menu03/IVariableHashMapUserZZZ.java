@@ -6,4 +6,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 public interface IVariableHashMapUserZZZ {
 	public HashMapZZZ<String,Object> getVariableHashMap() throws ExceptionZZZ;
 	public void setVariableHashMap(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++
+	public void addVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ;
 }

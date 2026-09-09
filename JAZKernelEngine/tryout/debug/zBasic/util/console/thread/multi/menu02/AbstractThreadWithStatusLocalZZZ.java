@@ -23,22 +23,27 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	 */
 	public AbstractThreadWithStatusLocalZZZ() throws ExceptionZZZ {
 		super();
-		AbstractThreadNew_();
+		AbstractThreadNew_(-1);
+	}
+	
+	public AbstractThreadWithStatusLocalZZZ(long lSleepTime) throws ExceptionZZZ {
+		super();
+		AbstractThreadNew_(lSleepTime);
 	}
 	
 	public AbstractThreadWithStatusLocalZZZ(String[]saFlag) throws ExceptionZZZ {
 		super(saFlag);
-		AbstractThreadNew_();
+		AbstractThreadNew_(-1);
 	}
 	
 	public AbstractThreadWithStatusLocalZZZ(HashMap<String,Boolean> hmFlag) throws ExceptionZZZ {
 		super(hmFlag);
-		AbstractThreadNew_();
+		AbstractThreadNew_(-1);
 	}
 	
 		
-	private boolean AbstractThreadNew_() throws ExceptionZZZ {
-			
+	private boolean AbstractThreadNew_(long lSleepTime) throws ExceptionZZZ {
+		this.setSleepTime(lSleepTime);
 		return true;
 	}
 	

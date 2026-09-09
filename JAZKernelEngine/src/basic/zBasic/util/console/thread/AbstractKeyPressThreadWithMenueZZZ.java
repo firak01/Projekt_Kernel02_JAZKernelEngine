@@ -8,7 +8,9 @@ import org.apache.commons.collections4.bag.SynchronizedSortedBag;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
+import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
@@ -40,6 +42,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		public static long lSLEEPTIME_DEFAULT = 1000;		
 		private long lSleepTime=-1;
 		
+		//20260908: Diese Eigenschaften werden nur intern verwendet, lass diese erst einmal ohne STATUS 
 		protected boolean bCurrentInputValid=false;
 		protected boolean bCurrentInputFinished=false;
 		protected boolean bMakeMenue=true;//true, damit die erste Anzeige generiert wird
@@ -69,7 +72,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		
 		//### GETTER / SETTER		
 		@Override
-		public IKeyPressThreadZZZ getKeyPressThread() {
+		public IKeyPressThreadZZZ getKeyPressThread() throws ExceptionZZZ {
 			if(this.objKeyPressThreadUsed==null) {
 				return this;
 			}else {
@@ -78,7 +81,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		}
 
 		@Override
-		public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread) {
+		public void setKeyPressThread(IKeyPressThreadZZZ objKeyPressThread)throws ExceptionZZZ {
 			this.objKeyPressThreadUsed = objKeyPressThread;	
 		}
 		
@@ -105,32 +108,41 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			this.hmVariable = hmVariable;
 		}
 		
+		@Override
+		public void addVariableHashMap(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+			HashMapZZZ<String,Object> hmOld = this.hmVariable;
+			HashMap<String, Object> hmTemp = HashMapUtilZZZ.mergeMaps_LastKeyRemains(hmOld, hmVariable);
+			this.hmVariable = MapUtilZZZ.toHashMapZZZ(hmTemp);
+		}
+		
 		//######################################
 		@Override 
 		public String getMethodForConsoleService() throws ExceptionZZZ{
 //			HashMap<String,String> hm = this.getConsoleController().getVariableHashMap();
 //			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 			
-			HashMap<String,String> hm = this.getVariableHashMap();
+			HashMapZZZ<String,Object> hm = this.getVariableHashMap();
 			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 		}
 		
 		@Override 
 		public void setMethodForConsoleService(String sMethod) throws ExceptionZZZ{
-			HashMap<String,String> hm1 = this.getConsoleController().getVariableHashMap();
+			HashMapZZZ<String,Object> hm1 = this.getConsoleController().getVariableHashMap();
 			hm1.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
 			
-			HashMap<String,String> hm2 = this.getVariableHashMap();
+			HashMapZZZ<String,Object> hm2 = this.getVariableHashMap();
 			hm2.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
 		}
 		
 		//### Methoden
+		
+		//### aus IKeyPressThreadZZZ
 		@Override
-		public boolean isCurrentInputFinished() {
+		public boolean isCurrentInputFinished() throws ExceptionZZZ {
         	return this.bCurrentInputFinished;
         }
 		@Override
-        public void isCurrentInputFinished(boolean bCurrentInput) {
+        public void isCurrentInputFinished(boolean bCurrentInput) throws ExceptionZZZ {
         	this.bCurrentInputFinished = bCurrentInput;
         }    
         @Override
@@ -138,7 +150,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
         	return this.bCurrentInputValid;
         }
         @Override
-        public void isCurrentInputValid(boolean bCurrentInput) {
+        public void isCurrentInputValid(boolean bCurrentInput) throws ExceptionZZZ {
         	this.bCurrentInputValid = bCurrentInput;
         }
         @Override
@@ -149,24 +161,26 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
         public void isCurrentMenue(boolean bMakeMenue) {
         	this.bMakeMenue = bMakeMenue;
         }
+
+        //+++++++++++++++++
         @Override
-        public synchronized boolean isInputAllFinished() {
+        public synchronized boolean isInputAllFinished() throws ExceptionZZZ {
         	return this.getConsoleController().isInputAllFinished();
         }        
         @Override
-        public synchronized void isInputAllFinished(boolean bInputAllFinished) {
+        public synchronized void isInputAllFinished(boolean bInputAllFinished) throws ExceptionZZZ {
         	this.getConsoleController().isInputAllFinished(bInputAllFinished);
         }
         
-        @Override
-        public synchronized boolean isOutputAllFinished() {
-        	return this.getConsoleController().isOutputAllFinished();
-        } 
-        
-        @Override
-        public synchronized void isOutputAllFinished(boolean bOutputAllFinished) {
-        	this.getConsoleController().isOutputAllFinished(bOutputAllFinished);
-        }
+		 @Override
+		public boolean isKeyPressThreadFinished() throws ExceptionZZZ {
+			return this.getConsoleController().isKeyPressThreadFinished();
+		}
+		@Override
+		public void isKeyPressThreadFinished(boolean bFinished) throws ExceptionZZZ {
+			this.getConsoleController().isKeyPressThreadFinished(bFinished);
+		}
+		
 		
         //### aus IConsoleControlableZZZ
         @Override
@@ -302,7 +316,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 					        	}//end if bSkipArguments	
 					        					        	
 			        			this.isInputAllFinished(false);
-					        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+//					        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 					        	
 					        	
 					        	//######################################################################
@@ -367,7 +381,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 								        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
 										        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
 										        objKeyPressThreadUsed.isInputAllFinished(false);
-										        objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+//										        objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 										    
 										        //Jetzt erst noch eine Eingabe machen....					                		
 								        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
@@ -420,22 +434,13 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 		 
 		 
 		 
-		 //############################
-		 @Override
-			public boolean isKeyPressThreadFinished() {
-				return this.getConsoleController().isKeyPressThreadFinished();
-			}
-			@Override
-			public void isKeyPressThreadFinished(boolean bFinished) {
-				this.getConsoleController().isKeyPressThreadFinished(bFinished);
-			}
 		
-        
+        //################################
         public void cancelToMenue(HashMapZZZ<String,Object> hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//wieder so als würde das Menü nicht übersprungen.
 			this.cancelToMenue();
 		}
-		public void cancelToMenue() {			
+		public void cancelToMenue() throws ExceptionZZZ {			
 			System.out.println("Abbruch. Zurueck zum Menue");
 			//this.isCurrentInputValid(false);					
     		this.isCurrentMenue(true); //wieder zurück zum Menue
@@ -447,7 +452,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//so, damit die Eingabe der Menue-Argumente übersprungen.
 			this.validToMenue();
 		}
-		public void validToMenue() {			
+		public void validToMenue() throws ExceptionZZZ {			
 			System.out.println("Zurueck zum Menue");
 			this.isCurrentInputValid(true);					
     		this.isCurrentMenue(true);
@@ -459,7 +464,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyYes)); //so, damit die Eingabe der Menue-Argumente uebersprungen wird 
 			this.validSkipMenue();
 		}
-		public void validSkipMenue() {			
+		public void validSkipMenue() throws ExceptionZZZ {			
 			//System.out.println("Menueaufbau ueberspringen");
 			this.isCurrentInputValid(true);						                		
 			this.isCurrentMenue(false);	
