@@ -1,23 +1,16 @@
 package basic.zBasic.util.crypt.thread;
 
-import java.util.Scanner;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
-import basic.zBasic.util.crypt.code.ICharacterPoolEnabledZZZ;
-import basic.zBasic.util.crypt.code.ROTnnZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
-import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
-import basic.zBasic.util.datatype.character.ICharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 
@@ -132,7 +125,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 	}
 		
 
-		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 
@@ -155,7 +148,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		}
 		
 		@Override
-		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean initit(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				
@@ -416,11 +409,23 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		 */
 		@Override
 		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
-		
-		
+		@Override
+		public HashMapZZZ<String, Object> getVariableHashMap() throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public void setVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void addVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 

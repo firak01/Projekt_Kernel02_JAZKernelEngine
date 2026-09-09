@@ -15,7 +15,9 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
-public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{	
+public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<T>{	
+	private static final long serialVersionUID = -3341510310188580862L;
+
 	public KeyPressThreadEncryptZZZ(IConsoleControllerZZZ objConsole) throws ExceptionZZZ {
     	super(objConsole);
     }
@@ -410,8 +412,7 @@ public class KeyPressThreadEncryptZZZ extends AbstractKeyPressThreadCryptZZZ{
 	 */
 	@Override
 	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
 

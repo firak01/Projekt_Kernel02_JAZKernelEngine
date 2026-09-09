@@ -1,18 +1,12 @@
 package debug.zBasic.util.console.thread.multi.menu02;
 
-import java.util.Scanner;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
-import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
-import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
-import basic.zBasic.util.crypt.thread.KeyPressThreadDecryptZZZ;
-import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
@@ -35,7 +29,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Folgende zusätzliche Aktionen:");
 			System.out.println("# 1: Erhöhe den Dummy Zähler");
-			System.out.println("# 2: Erhöhe eine Alphanumeric Zähler");
+			System.out.println("# 2: Erhöhe einen Alphanumeric Zähler");
 			System.out.println("#####################################################################################################");
 			try {
 				Thread.sleep(this.getSleepTime());					

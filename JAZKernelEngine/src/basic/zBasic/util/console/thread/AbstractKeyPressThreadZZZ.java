@@ -20,12 +20,13 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 	 * 
 	 */
 	//public abstract class AbstractKeyPressThreadZZZ implements Runnable,IConstantZZZ, IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadZZZ {
-	public abstract class AbstractKeyPressThreadZZZ extends AbstractThreadWithStatusLocalZZZ implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadZZZ {
+	public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadZZZ {
+		private static final long serialVersionUID = -9040539444164551390L;
 //		public static long lSLEEP_TIME_DEFAULT = 1000;
 //		private long lSleepTime=-1;
 		
 		private static Scanner inputReader = new Scanner(System.in);
-		protected volatile static IConsoleControllerZZZ objConsole = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
+		protected volatile static IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 		
 		protected boolean bCurrentInputValid=false;
 		protected boolean bCurrentInputFinished=false;
@@ -78,13 +79,14 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 			this.objKeyPressThreadUsed = objKeyPressThread;					
 		}
 		
+		//##########################################
 		@Override 
 		public String getMethodForConsoleService() throws ExceptionZZZ{
 			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
 			return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 		}
 		
-		//##########################################
+
 		@Override 
 		public void setMethodForConsoleService(String sMethod) throws ExceptionZZZ{
 			HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
@@ -153,11 +155,10 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 			if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//so, damit die Eingabe der Menue-Argumente übersprungen.
 			this.validToMenue();
 		}
-		public void validToMenue() {			
-			System.out.println("Zurueck zum Menue");
-			this.isCurrentInputValid(true);					
+		public void validToMenue() throws ExceptionZZZ {			
+			System.out.println("Zurueck zum Menue");			
     		this.isCurrentMenue(true);
-    		this.isCurrentInputFinished(true);
+    		this.stop();
 		}
 		
 		public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
@@ -170,10 +171,17 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 			this.isCurrentMenue(false);	
 		}
 		
+		public void stop() throws ExceptionZZZ {
+	        this.isCurrentInputValid(true);
+	        this.isCurrentInputFinished(true);
+	        this.isKeyPressThreadFinished(true);
+	        this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
+		}
+		
 		
 		public void quit() throws ExceptionZZZ {
 			System.out.println("Beenden");		                					                    
-            this.isCurrentInputValid(false);
+            this.isCurrentInputValid(true);
             this.isCurrentInputFinished(true);
             this.isKeyPressThreadFinished(true);
             this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
@@ -181,11 +189,11 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
        
         @Override
 		public synchronized IConsoleControllerZZZ getConsoleController() {
-			return this.objConsole;
+			return this.objConsoleController;
 		}
 		@Override
 		public synchronized void setConsoleController(IConsoleControllerZZZ objConsole) {
-			this.objConsole = objConsole;
+			this.objConsoleController = objConsole;
 		}
 		
 		@Override
@@ -236,7 +244,7 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
     			//       Darum muss man alle Eingaben in diesem KeyPressThread erledigen				
 				this.getConsoleController().isKeyPressThreadRunning(true);
 				
-				HashMapZZZ hmVariable = this.getConsoleController().getVariableHashMap();								
+				HashMapZZZ<String,Object> hmVariable = this.getConsoleController().getVariableHashMap();								
 	            while(!this.isStopped()){
 	            	
 	            	long lSleepTime = this.getSleepTime();

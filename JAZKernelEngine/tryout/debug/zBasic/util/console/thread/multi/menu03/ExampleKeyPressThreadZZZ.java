@@ -1,182 +1,177 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
-import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
-import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 
 
 	 
-	public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenueZZZ<T> {
-		private static final long serialVersionUID = 8005787839127612992L;
+public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenueZZZ<T> {
+	private static final long serialVersionUID = 8005787839127612992L;
 
 
-		//Method that gets called when the object is instantiated
-        public ExampleKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
-        	super(objConsole, lSleepTime);
-        }
-       
-		@Override
-		public void makeMenuMain() throws ExceptionZZZ {
+	//Method that gets called when the object is instantiated
+    public ExampleKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
+    	super(objConsole, lSleepTime);
+    }
+   
+	@Override
+	public void makeMenuMain() throws ExceptionZZZ {
+		//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
+		//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
+		
+		System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
+		System.out.println("#######################################################################################################");		
+		System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
+		System.out.println("# Folgende zusätzliche Aktionen:");
+		System.out.println("# 1: Erhöhe den Dummy Zähler");
+		System.out.println("# 2: Erhöhe einen Alphanumeric Zähler");
+		System.out.println("#####################################################################################################");
+		try {
+			Thread.sleep(this.getSleepTime());					
+		} catch (InterruptedException e) {
+			System.out.println("KeyPressThread: 1. Wait Error");
+			e.printStackTrace();
+			ExceptionZZZ ez = new ExceptionZZZ(e);
+			throw ez;	
+		} 
+		System.out.println("Warte auf Eingabe Default...");  	
+	}
+
+	@Override
+	public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
 			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 			//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
+			IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
+			IMenuPointZZZ objMenuPointNew = null; //In dem Menüpunkt stehen statische Vorgaben, noch weitere Abfragen, der zu startende Code selbst.
+			IMenuPointZZZ objMenuOld = null;       
 			
-			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
-			System.out.println("#######################################################################################################");		
-			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
-			System.out.println("# Folgende zusätzliche Aktionen:");
-			System.out.println("# 1: Erhöhe den Dummy Zähler");
-			System.out.println("# 2: Erhöhe eine Alphanumeric Zähler");
-			System.out.println("#####################################################################################################");
-			try {
-				Thread.sleep(this.getSleepTime());					
-			} catch (InterruptedException e) {
-				System.out.println("KeyPressThread: 1. Wait Error");
-				e.printStackTrace();
-				ExceptionZZZ ez = new ExceptionZZZ(e);
-				throw ez;	
-			} 
-			System.out.println("Warte auf Eingabe Default...");  	
-		}
-
-		@Override
-		public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
-			boolean bReturn = false;
-			main:{
-				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
-				//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
-				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
-				IMenuPointZZZ objMenuPointNew = null; //In dem Menüpunkt stehen statische Vorgaben, noch weitere Abfragen, der zu startende Code selbst.
-				IMenuPointZZZ objMenuOld = null;       
-				
-				//In the JDK 7 release, you can use a String object in the expression of a switch statement:
-	            //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
-	            //vorher lowercase
-	            this.isCurrentMenue(true);
-	            String input = sInput.toLowerCase();			                
-	            switch(input) {
-	            case "+":	            	
-	            	objMenuPointNew = new ExampleMenuPoint_plusZZZ();
-	            	objMenuPointNew.initit(hmVariable);
-	            	objKeyPressThreadUsed = this;
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	
-	            	this.isCurrentInputValid(true);	
-	            	this.isCurrentInputFinished(false);	            	
-	            	break;
-	            case "-":	            		            
-	            	objMenuPointNew = new ExampleMenuPoint_minusZZZ();
-	            	objMenuPointNew.initit(hmVariable);
-	            	objKeyPressThreadUsed = this;
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	
-	            	this.isCurrentInputValid(true);
-	            	this.isCurrentInputFinished(false);	            	
-	            	break;
-	            case "s": 
-	            	this.stop();
-	            	bReturn = false;
-	            	break main;
-	            case "q":
-	            	this.quit();
-	            	bReturn=false;
-	            	break main; 
-	            case "m":
-	            	//aber normalerweise wird dieser Punkt nicht aufgerufen, sondern im Thread wird per if-Abfragen er dann angesteuert.
-	            		            	
-	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
-	            	
-	            	//Einen bestehenden Thread stoppen, klappt, aber will man das, nur weil das Menü angezeigt werden soll?
+			//In the JDK 7 release, you can use a String object in the expression of a switch statement:
+            //Das keine lowercase Methode oder eine Fallunterscheidung in den CASE eingebaut werden kann, 
+            //vorher lowercase
+            this.isCurrentMenue(true);
+            String input = sInput.toLowerCase();			                
+            switch(input) {
+            case "+":	            	
+            	objMenuPointNew = new ExampleMenuPoint_plusZZZ();
+            	objMenuPointNew.initit(hmVariable);
+            	objKeyPressThreadUsed = this;
+            	this.setKeyPressThread(objKeyPressThreadUsed);
+            	
+            	this.isCurrentInputValid(true);	
+            	this.isCurrentInputFinished(false);	            	
+            	break;
+            case "-":	            		            
+            	objMenuPointNew = new ExampleMenuPoint_minusZZZ();
+            	objMenuPointNew.initit(hmVariable);
+            	objKeyPressThreadUsed = this;
+            	this.setKeyPressThread(objKeyPressThreadUsed);
+            	
+            	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	            	
+            	break;
+            case "s": 
+            	this.stop();
+            	bReturn = false;
+            	break main;
+            case "q":
+            	this.quit();
+            	bReturn=false;
+            	break main; 
+            case "m":
+            	//aber normalerweise wird dieser Punkt nicht aufgerufen, sondern im Thread wird per if-Abfragen er dann angesteuert.
+            		            	
+            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
+            	
+            	//Einen bestehenden Thread stoppen, klappt, aber will man das, nur weil das Menü angezeigt werden soll?
 //	            	objMenuOld = this.getMenuPoint();
 //	            	if(objMenuOld!=null) {
 //	            		objMenuOld.onStopit();
 //	            	}
-	            	this.isCurrentInputValid(true);  	
-	            	this.isCurrentInputFinished(false);	            		            	
-	            	break main; //Das Menü ist ja schon da...
-	            case "a":
-	            	//Einen bestehenden Thread stoppen
-	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
-	            	objMenuOld = this.getMenuPoint();
-	            	if(objMenuOld!=null) {
-	            		objMenuOld.onStopit();
-	            	}	        
-	            	objKeyPressThreadUsed = this;
-	            	objKeyPressThreadUsed.setMethodForConsoleService("");
-	            	
-	            	objMenuPointNew = new ExampleMenuPoint_aZZZ();	
-	            	objMenuPointNew.initit(hmVariable);
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	
-	            	this.isCurrentInputValid(true);  	
-	            	this.isCurrentInputFinished(false);	 
-	            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
-	            	break;
-	            case "1":	            	
-	            	//Einen bestehenden Thread stoppen
-	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
-	            	objMenuOld = this.getMenuPoint();
-	            	if(objMenuOld!=null) {
-	            		objMenuOld.onStopit();
-	            	}
-	            	objKeyPressThreadUsed = this;
-	            	objKeyPressThreadUsed.setMethodForConsoleService("process1");
-	            	objMenuPointNew = null;
+            	this.stop();
+            	this.isCurrentMenue(true);            		            	
+            	break main; //Das Menü ist ja schon da...
+            case "a":
+            	//Einen bestehenden Thread stoppen
+            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+            	objMenuOld = this.getMenuPoint();
+            	if(objMenuOld!=null) {
+            		objMenuOld.onStopit();
+            	}	        
+            	objKeyPressThreadUsed = this;
+            	objKeyPressThreadUsed.setMethodForConsoleService("");
+            	
+            	objMenuPointNew = new ExampleMenuPoint_aZZZ();	
+            	objMenuPointNew.initit(hmVariable);
+            	this.setKeyPressThread(objKeyPressThreadUsed);
+            	
+            	this.isCurrentInputValid(true);  	
+            	this.isCurrentInputFinished(false);	 
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	break;
+            case "1":	            	
+            	//Einen bestehenden Thread stoppen
+            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+            	objMenuOld = this.getMenuPoint();
+            	if(objMenuOld!=null) {
+            		objMenuOld.onStopit();
+            	}
+            	objKeyPressThreadUsed = this;
+            	objKeyPressThreadUsed.setMethodForConsoleService("process1");
+            	objMenuPointNew = null;
 
-	            	objKeyPressThreadUsed.initit(hmVariable); 
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	
-	            	this.isCurrentInputValid(true);
-	            	this.isCurrentInputFinished(false);	 
-	            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
-	            	break;
-	            case "2":	            	
-	            	//Einen bestehenden Thread stoppen
-	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
-	            	objMenuOld = this.getMenuPoint();
-	            	if(objMenuOld!=null) {
-	            		objMenuOld.onStopit();
-	            	}
-	            	objKeyPressThreadUsed = this;
-	            	objKeyPressThreadUsed.setMethodForConsoleService("");
-	            	
-	            	objMenuPointNew = new ExampleMenuPoint_2ZZZ();
-	            	objMenuPointNew.initit(hmVariable);
-	            	
-	            	this.setKeyPressThread(objKeyPressThreadUsed);
-	            	
-	            	this.isCurrentInputValid(true);   
-	            	this.isCurrentInputFinished(false);	
-	            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
-	            	break;
-	            default:
-	            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
-	            	System.out.println("ungueltige Eingabe");
-	            	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
-	            	this.isCurrentInputValid(false);					                	
-	            	break main;
-	            }		 	
-            	this.setMenuPoint(objMenuPointNew);
-	            bReturn = true;
-			}//end main:
-		return bReturn;
-		}
+            	objKeyPressThreadUsed.initit(hmVariable); 
+            	this.setKeyPressThread(objKeyPressThreadUsed);
+            	
+            	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	 
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	break;
+            case "2":	            	
+            	//Einen bestehenden Thread stoppen
+            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
+            	objMenuOld = this.getMenuPoint();
+            	if(objMenuOld!=null) {
+            		objMenuOld.onStopit();
+            	}
+            	objKeyPressThreadUsed = this;
+            	objKeyPressThreadUsed.setMethodForConsoleService("");
+            	
+            	objMenuPointNew = new ExampleMenuPoint_2ZZZ();
+            	objMenuPointNew.initit(hmVariable);
+            	
+            	this.setKeyPressThread(objKeyPressThreadUsed);
+            	
+            	this.isCurrentInputValid(true);   
+            	this.isCurrentInputFinished(false);	
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	break;
+            default:
+            	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
+            	System.out.println("ungueltige Eingabe");
+            	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
+            	this.isCurrentInputValid(false);					                	
+            	break main;
+            }		 	
+        	this.setMenuPoint(objMenuPointNew);
+            bReturn = true;
+		}//end main:
+	return bReturn;
+	}
 
-		@Override
-		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
-			boolean bReturn =false ;
-			main:{
+	@Override
+	public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		boolean bReturn =false ;
+		main:{
 //Hier ist nichst zusätzliches zu übergeben.
-				
+			
 //        		//######################################################################
 //	        	//### Eingabe des zu verarbeitenden/hier: entschluesslenden Textes
 //	        	//Merke: Verschluesselte Beispiele kann man sich mit EncryptConsoleMainZZZ erstellen.
@@ -189,56 +184,56 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 //            	if(StringZZZ.isEmpty(sInput)) {
 //            		this.cancelToMenue(hmVariable);
 //            	}
-				
-				bReturn = true;
-			}//end main:
-			return bReturn;
-		}
+			
+			bReturn = true;
+		}//end main:
+		return bReturn;
+	}
 
-		@Override
-		public boolean initit(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ {
-			boolean bReturn = false;
-			main:{
-				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
-				//Plus alle anderen INPUT - Variablen.
-				HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   
-				HashMapZZZ<String, Object> hmVariable = HashMapUtilZZZ.mergeMapsZZZ_LastKeyRemains(hmVariableInternal, hmVariableExternal);
+	@Override
+	public boolean initit(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
+			//Plus alle anderen INPUT - Variablen.
+			HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   
+			HashMapZZZ<String, Object> hmVariable = HashMapUtilZZZ.mergeMapsZZZ_LastKeyRemains(hmVariableInternal, hmVariableExternal);
 
-				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
-				switch(sCallingMethod){
+			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			switch(sCallingMethod){
 //					case "ascii":
 //						bReturn = initAscii_(hmVariable);
 //						break;
-					case "process1":
-						bReturn = initProcess1_(hmVariable);
-						break;
+				case "process1":
+					bReturn = initProcess1_(hmVariable);
+					break;
 //					case "countAlphanumeric":
 //						bReturn = initCountAlphanumeric_(hmVariable);
 //						break;
-					default:
-						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
-						throw ez;
-				}
-				//bReturn = true;
-			}//end main:
-			return bReturn;
-		}
+				default:
+					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+					throw ez;
+			}
+			//bReturn = true;
+		}//end main:
+		return bReturn;
+	}
 
-		//#########################################################################
-		private boolean initProcess1_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
-			boolean bReturn = false;
-			main:{
-				//Hier noch zusätzliche Input Variablen übergebbar.
-				//Beispiel:
-				//if(hmVariable!=null) {
-	        	//	String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
-	        	//	hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
-	        	//}				
-				bReturn = true;
-			}//end main;	
-			return bReturn;
-		}
-		
+	//#########################################################################
+	private boolean initProcess1_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			//Hier noch zusätzliche Input Variablen übergebbar.
+			//Beispiel:
+			//if(hmVariable!=null) {
+        	//	String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
+        	//	hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
+        	//}				
+			bReturn = true;
+		}//end main;	
+		return bReturn;
+	}
+	
 //		private boolean initAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 //			boolean bReturn = false;
 //			main:{
@@ -247,7 +242,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 //			}//end main;	
 //			return bReturn;
 //		}
-		
+	
 //		private boolean initCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
 //			boolean bReturn = false;
 //			main:{
@@ -274,15 +269,15 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 //			}//end main;	
 //			return bReturn;
 //		}
-		
-		
-		//########################
-		/* (non-Javadoc)
-		 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
-		 */
-		@Override
-		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
-			return true; //... hier gibt es keine Einschränkung den Status nicht zu feuern.
-		}		
-    }
+	
+	
+	//########################
+	/* (non-Javadoc)
+	 * @see basic.zBasic.AbstractObjectWithStatusLocalZZZ#queryOfferStatusLocalCustom()
+	 */
+	@Override
+	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
+		return true; //... hier gibt es keine Einschränkung den Status nicht zu feuern.
+	}		
+}
 
