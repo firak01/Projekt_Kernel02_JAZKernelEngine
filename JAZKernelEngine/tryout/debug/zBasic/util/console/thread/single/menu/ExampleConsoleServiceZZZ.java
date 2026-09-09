@@ -54,9 +54,9 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> {
 //	}
 	
 	
-	//Startit wird dann von einem anderen Thread aus aufgerufen.
+	//Startit wird dann von einem anderen Thread aus aufgerufen
 	@Override
-	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			//Jetzt können Varablen aus dem KeyPressThread entgegengenommen werden.
@@ -93,4 +93,6 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> {
 		this.setCounter(iCounter);
 		
 	}
+	
+	
 }

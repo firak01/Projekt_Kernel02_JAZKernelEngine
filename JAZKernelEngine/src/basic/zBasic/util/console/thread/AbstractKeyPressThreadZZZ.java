@@ -8,6 +8,7 @@ import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 
 
 	 
@@ -171,21 +172,15 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 			this.isCurrentMenue(false);	
 		}
 		
-		public void stop() throws ExceptionZZZ {
+		@Override
+		public boolean stop() throws ExceptionZZZ {
 	        this.isCurrentInputValid(true);
 	        this.isCurrentInputFinished(true);
 	        this.isKeyPressThreadFinished(true);
 	        this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
+	        return true;
 		}
 		
-		
-		public void quit() throws ExceptionZZZ {
-			System.out.println("Beenden");		                					                    
-            this.isCurrentInputValid(true);
-            this.isCurrentInputFinished(true);
-            this.isKeyPressThreadFinished(true);
-            this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
-		}
        
         @Override
 		public synchronized IConsoleControllerZZZ getConsoleController() {
@@ -306,9 +301,9 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 				        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
 		                		Syso.printSeparator();
 				        		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
-		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
-		                			this.quit();
-			                	}else {		               		                		
+//		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
+//		                			this.quit();
+//			                	}else {		               		                		
 			                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
 			                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
 			                		boolean bMenue = bYes && !bDefault;
@@ -317,7 +312,7 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 			                		}else {
 			                			this.validSkipMenue();			                			
 			                		}		                		
-			                	}
+//			                	}
 				        	}
 				        	
 				        	
@@ -360,6 +355,7 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 	    	}//end main:
 			this.getConsoleController().isKeyPressThreadFinished(true);
 	    	return bReturn;
-		}        	    	    	
+		}      
+    	
     }
 

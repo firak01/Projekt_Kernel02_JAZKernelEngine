@@ -196,18 +196,6 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	this.requestQuit();
 	}
     	       
-    @Override
-	public void requestQuit() throws ExceptionZZZ {
-    	//Folgendes beendet im Grunde die ganze Konsole "q"="quit"
-    	
-    	
-    	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-    	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
-    	
-    	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
-    	//D.h. er müsste andere Interfaces noch implementieren.
-		this.getConsoleController().isStopped(true);	        	
-	}
     
     //### aus IThreadEnabledZZZ
 //	@Override
@@ -472,17 +460,37 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 //		this.isCurrentMenue(false);	
 //	}
 	
-	
-	public void stop() throws ExceptionZZZ {
+	@Override
+	public boolean stop() throws ExceptionZZZ {
 		System.out.println("THREAD beenden");	
-		super.stop();
+		return super.stop();
 	}
 	
-	public void quit() throws ExceptionZZZ {
-		System.out.println("KONSOLE beenden");		                					                    
-		super.quit();
+	
+	//für Konsole
+	//### aus IConsoleControlable
+	@Override 
+	public boolean quit() throws ExceptionZZZ {
+		System.out.println("Konsole Beenden");		                					                    
+        this.isCurrentInputValid(true);
+        this.isCurrentInputFinished(true);
+        this.isKeyPressThreadFinished(true);
+        this.requestQuit(); //stop KeyPressThread über die gesetzte STOP Variable
+        return true;
 	}
-   
+
+	@Override
+	public void requestQuit() throws ExceptionZZZ {
+    	//Folgendes beendet im Grunde die ganze Konsole "q"="quit"
+    	
+    	
+    	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+    	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
+    	
+    	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
+    	//D.h. er müsste andere Interfaces noch implementieren.
+		this.getConsoleController().isStopped(true);	        	
+	}
 //    @Override
 //	public synchronized IConsoleControllerZZZ getConsoleController() {
 //		return this.objConsoleController;

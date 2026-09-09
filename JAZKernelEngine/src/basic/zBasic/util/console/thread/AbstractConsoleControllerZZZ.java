@@ -139,6 +139,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		return bReturn;		
 	}
 	
+	
+	
+	
 	@Override
 	public synchronized boolean isInputAllFinished() throws ExceptionZZZ {
 		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISINPUTALLFINISHED);
@@ -218,7 +221,24 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	}
 	
 	
+	
+	
 	//### aus IConsoleControlableZZZ
+	public boolean quit() throws ExceptionZZZ {
+		System.out.println("ConsoleController Beenden");		                					                    
+        //this.isCurrentInputValid(true);
+        //this.isCurrentInputFinished(true);
+        this.isKeyPressThreadFinished(true);
+        this.requestQuit(); //stop KeyPressThread über die gesetzte STOP Variable
+        return true;
+	}
+
+	@Override
+	public void requestQuit() throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
+	}
+		
 	@Override
 	public boolean isQuitted() throws ExceptionZZZ {		
 		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED);
@@ -229,11 +249,6 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		this.requestQuit();
 	}
 	
-	@Override
-	public void requestQuit() throws ExceptionZZZ {		
-		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
-	}
 	
 	//##### Auf Events hören, ist jetzt um QUIT ergänzt
 	@Override

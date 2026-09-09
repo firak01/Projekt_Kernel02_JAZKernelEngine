@@ -5,6 +5,7 @@ import basic.zBasic.ExceptionZZZ;
 public interface IThreadableZZZ {
 	//Merke Erweiterung um quit() ist: IConsoleControlableZZZ
 	public boolean start() throws ExceptionZZZ;
+	public boolean stop() throws ExceptionZZZ;
 	
 	public boolean isStopped() throws ExceptionZZZ;
 	public void isStopped(boolean bStop) throws ExceptionZZZ;

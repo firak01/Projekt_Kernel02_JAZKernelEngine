@@ -127,5 +127,11 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 		}//end main:
 		return bReturn;
 	}
+	
+	@Override
+	public boolean stop() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 

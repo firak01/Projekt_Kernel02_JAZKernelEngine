@@ -90,6 +90,12 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	}
 	
 	@Override
+	public boolean stop() throws ExceptionZZZ {
+		this.requestStop();
+		return true;
+	}
+	
+	@Override
 	public void requestStop() throws ExceptionZZZ {
 		this.isStopped(true);
 	}
@@ -242,6 +248,18 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 		}
 
 		//### aus IConsoleControlableZZZ
+
+		@Override
+		public boolean quit() throws ExceptionZZZ {
+			this.requestQuit();
+			return true;
+		}
+		
+		@Override
+		public void requestQuit() throws ExceptionZZZ {
+			this.requestStop();
+		}
+		
 		@Override
 		public boolean isQuitted() throws ExceptionZZZ {
 			// TODO Auto-generated method stub
@@ -253,12 +271,4 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 			// TODO Auto-generated method stub
 			
 		}
-
-		@Override
-		public void requestQuit() throws ExceptionZZZ {
-			this.requestStop();
-		}
-	
-	
-	
 }

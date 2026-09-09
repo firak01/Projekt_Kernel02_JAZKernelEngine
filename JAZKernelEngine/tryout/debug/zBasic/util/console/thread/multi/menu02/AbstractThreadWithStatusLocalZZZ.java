@@ -63,6 +63,18 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	public abstract boolean start() throws ExceptionZZZ;
 	
 	@Override
+	public boolean stop() throws ExceptionZZZ {
+        this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
+        return true;
+	}
+	
+	@Override
+	public void requestStop() throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+	}
+	
+	@Override
 	public boolean isStopped() throws ExceptionZZZ {		
 		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);
 	}
@@ -72,12 +84,6 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 		this.requestStop();
 	}
 	
-	@Override
-	public void requestStop() throws ExceptionZZZ {		
-		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
-	}
-
 	@Override
 	 public long getSleepTime() throws ExceptionZZZ {
 		if(lSleepTime< 0) {
