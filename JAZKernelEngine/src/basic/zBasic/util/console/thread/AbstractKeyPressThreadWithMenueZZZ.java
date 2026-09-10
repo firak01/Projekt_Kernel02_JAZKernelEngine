@@ -3,19 +3,14 @@ package basic.zBasic.util.console.thread;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import org.apache.commons.collections4.bag.SynchronizedSortedBag;
-
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IConstantZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
-import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
-import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
@@ -84,6 +79,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     }
     
     public void cancelToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+    	//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//wieder so als würde das Menü nicht übersprungen.
 		this.cancelToMenue();
 	}
@@ -95,6 +91,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	}
 	
     public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+    	//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyNo));//so, damit die Eingabe der Menue-Argumente übersprungen.
 		this.validToMenue();
 	}
@@ -105,6 +102,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	}
 	
 	public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
+		//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS, BooleanZZZ.charToBoolean(IKeyPressConstantZZZ.cKeyYes)); //so, damit die Eingabe der Menue-Argumente uebersprungen wird 
 		this.validSkipMenue();
 	}
@@ -377,25 +375,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	//D.h. er müsste andere Interfaces noch implementieren.
 		this.getConsoleController().isStopped(true);	        	
 	}
-//    @Override
-//	public synchronized IConsoleControllerZZZ getConsoleController() {
-//		return this.objConsoleController;
-//	}
-//	@Override
-//	public synchronized void setConsoleController(IConsoleControllerZZZ objConsoleController) {
-//		this.objConsoleController = objConsoleController;
-//	}
-	
-//	@Override
-//	public Scanner getInputReader() {
-//		return this.inputReader;
-//	}
-//	
-//	@Override
-//	public void setInputReader(Scanner inputReader) {
-//		this.inputReader = inputReader;
-//	}
-	
+
 	
 	//+++++++++++++++++++++++++++
 	@Override
