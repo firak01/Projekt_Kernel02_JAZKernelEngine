@@ -5,7 +5,9 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadZZZ;
 
 
-public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadZZZ {
+public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadZZZ<T> {
+	private static final long serialVersionUID = -5471924402325569415L;
+	
 	private long lSleepTime;
 	private boolean bStop = false;
 	

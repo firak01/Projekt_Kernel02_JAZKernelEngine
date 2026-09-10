@@ -25,9 +25,6 @@ public interface IKeyPressThreadZZZ extends IThreadableZZZ, IKeyPressThreadUserZ
     public boolean isCurrentInputValid()throws ExceptionZZZ;    //Gedacht für eine WHILE Schleife, z.B. im ersten Menue: Solange die Eingabe abfragen, bis was gueltiges ausgewaehlt wird.
     public void isCurrentInputValid(boolean bCurrentInput)throws ExceptionZZZ;
     
-    public boolean isCurrentMenue() throws ExceptionZZZ;         //falls true, dann soll wieder das Menue mit den Eingabemoeglichkeiten angezeigt werden
-    public void isCurrentMenue(boolean bMakeMenue) throws ExceptionZZZ;
-    
     public boolean isInputAllFinished() throws ExceptionZZZ;
     public void isInputAllFinished(boolean bInputAllFinished)throws ExceptionZZZ; ;
 }
