@@ -21,8 +21,8 @@ import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLoc
 public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithStatusLocalZZZ<T> implements IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ, IKeyPressThreadZZZ {
 	private static final long serialVersionUID = -9040539444164551390L;
 	
-	private static Scanner inputReader = new Scanner(System.in);
-	protected volatile static IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
+	protected Scanner inputReader = new Scanner(System.in);
+	protected volatile IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
 	
 	protected boolean bCurrentInputValid=false;
 	protected boolean bCurrentInputFinished=false;
@@ -75,14 +75,14 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 	//##########################################
 	@Override 
 	public String getMethodForConsoleService() throws ExceptionZZZ{
-		HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
+		HashMapZZZ<String,Object> hm = this.getConsoleController().getVariableHashMap();
 		return (String) hm.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 	}
 	
 
 	@Override 
 	public void setMethodForConsoleService(String sMethod) throws ExceptionZZZ{
-		HashMapZZZ hm = this.getConsoleController().getVariableHashMap();
+		HashMapZZZ<String,Object> hm = this.getConsoleController().getVariableHashMap();
 		hm.put(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED, sMethod);
 	}
 	
@@ -199,17 +199,8 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 			        		do {
 			        			this.isCurrentInputFinished(false);
 			        			this.isCurrentInputValid(false);				        							        		
-					        	// try {
-//					        		if(this.isCurrentMenue()) {				        			
-						        		//this.makeMenueMain();  									
-//					        		}
-//									} catch (InterruptedException e) {
-//										System.out.println("KeyPressThread: 1. Wait Error");
-//										e.printStackTrace();
-//						        												
-//										ExceptionZZZ ez = new ExceptionZZZ(e);
-//										throw ez;
-//									}
+					        	
+			        			//!!! Hier also kein Menü erstellen
 		
 				                //das holt wohl wort fuer wort von der Konsole: String sInput = inputReader.next();
 					        	Scanner inputReader = this.getInputReader();				      
@@ -217,14 +208,13 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 				                System.out.println("Pressed Inputselection:" + sInput);
 				                if(sInput==null) break main;
 				                
-				                //boolean bGoon = this.processMenueMainArgumentInput(sInput,hmVariable);
-				                //if(!bGoon) break main;//Quit
-				                
+				                //!!! Hier also keine interaktive Eingabe 
+				                //this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.
+				               
 			        		}while(!this.isCurrentInputValid());	                
 			        	}//end if bSkipArguments	
 			        					        	
 	        			this.isInputAllFinished(false);
-//				        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 			        	
 			        	//######################################################################
 	                	//### Frage nach Mehrfacheingabe

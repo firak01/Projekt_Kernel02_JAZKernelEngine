@@ -43,7 +43,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		@Override
-		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
@@ -75,7 +75,9 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	bReturn = true;
 	            	break main; //Das Menü ist ja schon da...
 	            case "a":
-	            	this.isCurrentInputValid(true);            	            	
+	            	this.isCurrentInputValid(true);
+	            	this.getConsoleController().resetStatus();
+	            	
 	            	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -84,6 +86,8 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	break;
 	            case "1":
 	            	this.isCurrentInputValid(true);
+	            	this.getConsoleController().resetStatus();
+	            	
 	            	//this.processROT13_(hmVariable);              	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -91,7 +95,9 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 	            	objKeyPressThreadUsed.initit(hmVariable);             	
 	            	break;
 	            case "2":
-	            	this.isCurrentInputValid(true);            	          
+	            	this.isCurrentInputValid(true);
+	            	this.getConsoleController().resetStatus();
+	            	
 	            	objKeyPressThreadUsed = this;
 	            	this.setKeyPressThread(objKeyPressThreadUsed);
 	            	this.setMethodForConsoleService("countAlphanumeric");           
@@ -109,7 +115,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		@Override
-		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn =false ;
 			main:{
 //Hier ist nichst zusätzliches zu übergeben.
@@ -133,7 +139,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		@Override
-		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
@@ -162,7 +168,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 		}
 
 		//#########################################################################
-		private boolean initProcess1_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initProcess1_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.
@@ -176,7 +182,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 			return bReturn;
 		}
 		
-		private boolean initAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initAscii_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.
@@ -185,7 +191,7 @@ import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 			return bReturn;
 		}
 		
-		private boolean initCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initCountAlphanumeric_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				if(hmVariable!=null) {				

@@ -217,24 +217,61 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			        	}//end if bSkipArguments	
 			        					        	
 	        			this.isInputAllFinished(false);
-//					        	this.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
-			        	
-			        	
+			  			        	
 			        	//######################################################################
 	                	//### Frage nach Mehrfacheingabe
 			        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
-			        		Syso.printSeparator();
-			        		
-			        		//String[] saKeysOfMenue =
+			        		 
+			        					                		
+
+	                		
+	                		if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
+	                		//if(this.getConsoleController().isConsoleServiceThreadStopped()) {
+	                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
+	                		}else {
+					        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
+					        	if(objMenuPoint!=null) {
+					        		iDebugCounterServiceThread++;
+					        		System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE THREADS NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
+					        		//objMenuPoint.initit(hmVariable);
+					        		 
+					        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+					        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
+					        		IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) objConsoleController.getConsoleServiceObject();
+					        		 
+					        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartit();
+					        		//this.isCurrentInputFinished(true);//Damit wird sichergestellt, den ConsoleService nur 1x auszuführen.
+					        	 }else {
+					        		 //
+					        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
+							        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+							        objKeyPressThreadUsed.isInputAllFinished(false);
+//										        objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
+							    
+							        //Jetzt erst noch ggfs. eine Eingabe machen....					                		
+					        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+							        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+							        	if(!bGoon) break main; //Quit
+						        	}
+					        		 
+					        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+					        		IConsoleServiceZZZ objConsoleService = objConsoleController.getConsoleServiceObject();
+					        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...								        		 
+					        	 } 								        	
+		                	}
+			        		 
+			        		 
+			        		 
+	                		//String[] saKeysOfMenue =
 			        		//TODOGOON20260826;//Einmalig makeQuestionYesNoMenueQuit anzeigen. Bei N, danach nur noch processMenueMainArgumentInput auswerten.
 			        		
 			        		//TODOGOON20260826;//Hier muss makeQuestionForKeysPressable(this.getInputReader(), saKeysOfMenue, "Eingabemöglichkeiten, siehe Menü. Anzeige des Menüs mit 'm');
 			        		//Anschliessend mit m das Menü anzeigen, und irgendwie noch einen Menübefehl startbar machen (dort ist dann auch q drin).
 			        		//   processMenueMainArgumentInput(sInput, hmVariable);
 			        		
-			        		//TODOGOON20260831;//Diese Question und die Antworten dynamisch mit einer Liste von Buchstaben/Zeichen definieren.
-			        		
-	                		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
+			        		//TODOGOON20260831;//Diese Question und die Antworten dynamisch mit einer Liste von Buchstaben/Zeichen definieren.			        			                						        		 
+			        		Syso.printSeparator();			        		
+			        		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");			        					        					        			                		                			                			    	                			                				              
 	                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 	                			this.quit();
 	                		}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
@@ -251,6 +288,8 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 //				    	            		objMenuOld.onStopit();
 //				    	            	}			                    	
 		                	} else {		               		                					                				                		
+		                		
+					        	
 		                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
 		                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
 		                		boolean bMenue = bYes && !bDefault;
@@ -258,44 +297,8 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 		                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
 		                		}else {			                		
 		                			this.validSkipMenue(hmVariable);			                			
-		                		}				                		
-
+		                		}	
 		                		
-		                		if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
-		                		//if(this.getConsoleController().isConsoleServiceThreadStopped()) {
-		                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
-		                		}else {
-						        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
-						        	if(objMenuPoint!=null) {
-						        		iDebugCounterServiceThread++;
-						        		System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE THREADS NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
-						        		//objMenuPoint.initit(hmVariable);
-						        		 
-						        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
-						        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
-						        		IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) objConsoleController.getConsoleServiceObject();
-						        		 
-						        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartit();
-						        		//this.isCurrentInputFinished(true);//Damit wird sichergestellt, den ConsoleService nur 1x auszuführen.
-						        	 }else {
-						        		 //
-						        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-								        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
-								        objKeyPressThreadUsed.isInputAllFinished(false);
-//										        objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
-								    
-								        //Jetzt erst noch ggfs. eine Eingabe machen....					                		
-						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
-								        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
-								        	if(!bGoon) break main; //Quit
-							        	}
-						        		 
-						        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
-						        		IConsoleServiceZZZ objConsoleService = objConsoleController.getConsoleServiceObject();
-						        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...								        		 
-						        	 } 								        	
-			                	}
-					        	
 					        	
 					        	//TEST TESTS
 					        	//boolean bTest = this.getConsoleController().getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTARTING);

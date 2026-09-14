@@ -17,55 +17,15 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 
 
 	 
-	public class ExampleKeyPressThreadZZZ extends AbstractKeyPressThreadWithMenueZZZ {
+	public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenueZZZ<T> {
+		private static final long serialVersionUID = -3024041143484817513L;
 
 
-        //Method that gets called when the object is instantiated
+		//Method that gets called when the object is instantiated
         public ExampleKeyPressThreadZZZ(IConsoleControllerZZZ objConsole, long lSleepTime) throws ExceptionZZZ {
         	super(objConsole, lSleepTime);
         }
        
-// 		@Override
-//		public boolean start() throws ExceptionZZZ {
-//			boolean bReturn = false;
-//        	main:{
-//    			//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
-//    			//       Darum muss man alle Eingaben in dem KeyPressThread erledigen
-//	        	System.out.println("Eingaben: [ ] oder Q");
-//	            while(!this.isStopped()){
-//	            	long lSleepTime = this.getSleepTime();
-//	            	long lSleepTimeConsole = this.getConsole().getSleepTime();
-//		        	 try {
-//		             	System.out.println("Kein warten auf Eingabe. Die ist während des laufenden Threads möglich ...");                 	
-//						Thread.sleep(lSleepTime);                 	
-//					} catch (InterruptedException e) {
-//						System.out.println("KeyPressThread: 1. Wait Error");
-//						e.printStackTrace();
-//					}
-//	
-//		        	Scanner inputReader = this.getInputReader();
-//	                String input = inputReader.next();
-//	                System.out.println("Pressed " + input);
-//	                if (input.equals("[")) {
-//	                	lSleepTimeConsole+=100;
-//	                	this.getConsole().setSleepTime(lSleepTimeConsole);
-//	                }
-//	                if (input.equals("]")) {
-//	                	lSleepTimeConsole-=100;
-//	                	this.getConsole().setSleepTime(lSleepTimeConsole);
-//	                }
-//	                if (input.equalsIgnoreCase("Q")) {
-//	                    this.requestStop();
-//	                	break; // stop KeyPressThread durch Setzen einer internen Variablen
-//	                }
-//	                
-//	                System.out.println("Nach der Eingabe.");	               					
-//	            }//end while
-//	            bReturn = true;
-//	    	}//end main:
-//	    	return bReturn;
-//		}
-
 		@Override
 		public void makeMenuMain() throws ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
@@ -119,7 +79,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 		}
 
 		@Override
-		public boolean processMenuPoint(String sInput, HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = true;
 			main:{
 				IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = null; //Damit kann man auch andere Thread - Klassen nutzen.
@@ -149,7 +109,8 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
             	bReturn = true;
             	break main; //Das Menü ist ja schon da...
             case "a":
-            	this.isCurrentInputValid(true);            	            	
+            	this.isCurrentInputValid(true); 
+            	this.getConsoleController().resetStatus();
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -160,6 +121,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
             	break;
             case "1":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();
             	//this.processROT13_(hmVariable);              	
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -169,7 +131,9 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
             	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
             	break;
             case "2":            	
-            	this.isCurrentInputValid(true);            	          
+            	this.isCurrentInputValid(true);  
+            	this.getConsoleController().resetStatus();
+            	
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
             	this.setMethodForConsoleService("countAlphanumeric");           
@@ -189,7 +153,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 		}
 
 		@Override
-		public boolean processMenuePostArgumentInput(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn =false ;
 			main:{
 //Hier ist nichst zusätzliches zu übergeben.
@@ -213,7 +177,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 		}
 
 		@Override
-		public boolean initit(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		public boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Die Hier übergebene Methode wird in ... .startit() ausgelesen.
@@ -241,7 +205,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 		}
 
 		//#########################################################################
-		private boolean initProcess1_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initProcess1_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.
@@ -255,7 +219,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 			return bReturn;
 		}
 		
-		private boolean initAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initAscii_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				//Hier noch zusätzliche Input Variablen übergebbar.
@@ -264,7 +228,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 			return bReturn;
 		}
 		
-		private boolean initCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
+		private boolean initCountAlphanumeric_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 			boolean bReturn = false;
 			main:{
 				if(hmVariable!=null) {				

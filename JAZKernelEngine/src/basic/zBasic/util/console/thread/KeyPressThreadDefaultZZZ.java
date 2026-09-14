@@ -70,7 +70,9 @@ public class KeyPressThreadDefaultZZZ<T> extends AbstractKeyPressThreadWithMenue
             	bReturn = true;
             	break main; //Das Menü ist ja schon da...
             case "a":
-            	this.isCurrentInputValid(true);            	            	
+            	this.isCurrentInputValid(true);  
+            	this.getConsoleController().resetStatus();
+            	
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -79,6 +81,8 @@ public class KeyPressThreadDefaultZZZ<T> extends AbstractKeyPressThreadWithMenue
             	break;
             case "1":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();
+            	
             	//this.processROT13_(hmVariable);              	
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
