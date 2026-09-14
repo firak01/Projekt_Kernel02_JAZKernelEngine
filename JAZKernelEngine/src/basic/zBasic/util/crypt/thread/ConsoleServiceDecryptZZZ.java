@@ -9,6 +9,7 @@ import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.Syso;
 
 public class ConsoleServiceDecryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<T> {
 	private static final long serialVersionUID = -268788952256301715L;
@@ -51,6 +52,7 @@ public class ConsoleServiceDecryptZZZ<T> extends AbstractConsoleServiceCryptZZZ<
 				}
 			}else {
 				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
+				Syso.println(ReflectCodeZZZ.getPositionCurrent() + ": Keine ServiceCallMethode vorhanden");
 				bReturn = startDecryptByFactory_(hmVariable);
 			}//sCallingMethod
 									

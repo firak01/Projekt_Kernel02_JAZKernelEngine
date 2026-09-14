@@ -1,9 +1,8 @@
-package use.zBasic.util.console.example;
+package debug.zBasic.util.console.example;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

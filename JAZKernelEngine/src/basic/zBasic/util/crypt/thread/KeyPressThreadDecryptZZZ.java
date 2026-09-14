@@ -12,6 +12,7 @@ import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.Syso;
 
 
 	 
@@ -82,7 +83,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	bReturn = true;
             	break main; //Das Menü ist ja schon da...
             case "a":
-            	this.isCurrentInputValid(true);            	            	
+            	this.isCurrentInputValid(true);           
+            	this.getConsoleController().resetStatus();            	
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	
             	objKeyPressThreadUsed = this;
             	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -91,6 +93,8 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	break;
             case "1":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();  
+            	
             	//this.processROT13_(hmVariable);              	
             	objKeyPressThreadUsed = this; //new KeyPressThreadDecryptZZZ(this.getConsole());
             	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -99,18 +103,22 @@ import basic.zBasic.util.datatype.string.StringZZZ;
             	break;
             case "2":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();            	
             	this.initDecryptROTascii_(hmVariable);     
             	break;
             case "3":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();            	
             	this.initDecryptROTnumeric_(hmVariable);     
             	break;
             case "4":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();            	
             	this.initDecryptROTnn_(hmVariable);        					                	
             	break;
             case "5":
             	this.isCurrentInputValid(true);
+            	this.getConsoleController().resetStatus();            	
             	this.initDecryptVigenereNn_(hmVariable);
             	break;
             default:
@@ -126,25 +134,59 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		
 
 		public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
-			boolean bReturn = false;
+			boolean bReturn = true;
 			main:{
-
-        		//######################################################################
-	        	//### Eingabe des zu verarbeitenden/hier: entschluesslenden Textes
-	        	//Merke: Verschluesselte Beispiele kann man sich mit EncryptConsoleMainZZZ erstellen.
 				
-        		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
-				//Das passiert beim Aufruf der Verschlüsselung selbst.
-	        	System.out.println("Geben Sie den zu entschluesselnden Text als String ein");
-            	String sInput = this.getInputReader().nextLine();
-            	if(hmVariable!=null) hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_TEXT_ENCRYPTED, sInput);
-            	if(StringZZZ.isEmpty(sInput)) {
-            		this.cancelToMenue(hmVariable);
-            	}
-				
-            	bReturn = true;
+				String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+				if(StringZZZ.isEmpty(sCallingMethod)) {
+					//Es müssen die Methoden ohne ServiceCall auch durchgehen.
+//					ExceptionZZZ ez = new ExceptionZZZ("Keine zu behandelnde Methode übergeben", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+//					throw ez;
+					
+					Syso.println(ReflectCodeZZZ.getPositionCurrent() + ": Keine ServiceCallMethode vorhanden.");
+					
+					//######################################################################
+		        	//### Eingabe des zu verarbeitenden/hier: entschluesslenden Textes
+		        	//Merke: Verschluesselte Beispiele kann man sich mit EncryptConsoleMainZZZ erstellen.
+					
+	        		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
+					//Das passiert beim Aufruf der Verschlüsselung selbst.
+		        	System.out.println("Geben Sie den zu entschluesselnden Text als String ein:");
+	            	String sInput = this.getInputReader().nextLine();
+	            	if(hmVariable!=null) hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_TEXT_ENCRYPTED, sInput);
+	            	if(StringZZZ.isEmpty(sInput)) {
+	            		this.cancelToMenue(hmVariable);
+	            	}
+					
+				}else {
+					switch(sCallingMethod){
+						case "ascii":
+							//Es gibt dabei keine weitere Konsolen - Eingabe
+							break;
+						case "processDecryptROT13":
+							
+	
+			        		//######################################################################
+				        	//### Eingabe des zu verarbeitenden/hier: entschluesslenden Textes
+				        	//Merke: Verschluesselte Beispiele kann man sich mit EncryptConsoleMainZZZ erstellen.
+							
+			        		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
+							//Das passiert beim Aufruf der Verschlüsselung selbst.
+				        	System.out.println("Geben Sie den zu entschluesselnden Text als String ein:");
+			            	String sInput = this.getInputReader().nextLine();
+			            	if(hmVariable!=null) hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_TEXT_ENCRYPTED, sInput);
+			            	if(StringZZZ.isEmpty(sInput)) {
+			            		this.cancelToMenue(hmVariable);
+			            	}
+							break;
+						default:
+							ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+							throw ez;
+					}
+				}
+				bReturn = true;
 			}//end main:
-			return bReturn;
+			return bReturn;												
 		}
 		
 		@Override
@@ -410,21 +452,6 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 		@Override
 		public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
 			return true;
-		}
-		@Override
-		public HashMapZZZ<String, Object> getVariableHashMap() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		@Override
-		public void setVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void addVariableHashMap(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			
 		}
 	}
 

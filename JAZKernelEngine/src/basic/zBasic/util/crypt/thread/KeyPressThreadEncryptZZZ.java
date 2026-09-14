@@ -12,6 +12,7 @@ import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.Syso;
 
 
 	 
@@ -82,7 +83,9 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	bReturn = true;
         	break main; //Das Menü ist ja schon da...
         case "a":
-        	this.isCurrentInputValid(true);            	            	
+        	this.isCurrentInputValid(true);     
+        	this.getConsoleController().resetStatus();
+        	
         	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	
         	objKeyPressThreadUsed = this;
         	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -91,6 +94,8 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	break;
         case "1":
         	this.isCurrentInputValid(true);
+        	this.getConsoleController().resetStatus();
+        	
         	//this.processROT13_(hmVariable);
         	objKeyPressThreadUsed = this; //new KeyPressThreadEncryptZZZ(this.getConsole());
         	this.setKeyPressThread(objKeyPressThreadUsed);
@@ -99,18 +104,22 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	break;
         case "2":
         	this.isCurrentInputValid(true);
+        	this.getConsoleController().resetStatus();        	
         	this.initEncrytptROTascii_(hmVariable);     
         	break;
         case "3":
         	this.isCurrentInputValid(true);
+        	this.getConsoleController().resetStatus();        	
         	this.initEncryptROTnumeric_(hmVariable);     
         	break;
         case "4":
         	this.isCurrentInputValid(true);
+        	this.getConsoleController().resetStatus();        	
         	this.initEncryptROTnn_(hmVariable);        					                	
         	break;
         case "5":
         	this.isCurrentInputValid(true);
+        	this.getConsoleController().resetStatus();        	
         	this.initEncryptVigenereNn_(hmVariable);
         	break;
         default:
@@ -128,22 +137,56 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
 		boolean bReturn = false;
 		main:{
 
-    		//######################################################################
-        	//### Eingabe des zu verschluesselnden Textes
-        	//Beispieltexte zum Rauskopieren, enthalten alles relevante...
-        	//abcdefgHIJK1234abcdefg
-        	//Das ist das 4711 Haus der Riesenmaus 0815
-        	
-    		
-    		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
-			//Das passiert beim Aufruf der Verschlüsselung selbst.
-        	System.out.println("Geben Sie den zu verschluesselnden Text als String ein");
-        	String sInput = this.getInputReader().nextLine();
-        	if(hmVariable!=null) hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_TEXT_UNCRYPTED, sInput);
-        	if(StringZZZ.isEmpty(sInput)) {
-        		this.cancelToMenue(hmVariable);
-        	}
-			
+			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			if(StringZZZ.isEmpty(sCallingMethod)) {
+				//Es müssen die Methoden ohne ServiceCall auch durchgehen.
+//				ExceptionZZZ ez = new ExceptionZZZ("Keine zu behandelnde Methode übergeben", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+//				throw ez;
+				
+				Syso.println(ReflectCodeZZZ.getPositionCurrent() + ": Keine ServiceCallMethode vorhanden.");
+				
+				//######################################################################
+	        	//### Eingabe des zu verschluesselnden Textes
+	        	//Beispieltexte zum Rauskopieren, enthalten alles relevante...
+	        	//abcdefgHIJK1234abcdefg
+	        	//Das ist das 4711 Haus der Riesenmaus 0815
+	        		    		
+	    		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
+				//Das passiert beim Aufruf der Verschlüsselung selbst.
+	        	System.out.println("Geben Sie den zu verschluesselnden Text als String ein");
+	        	String sInput = this.getInputReader().nextLine();
+	        	if(hmVariable!=null) hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_TEXT_UNCRYPTED, sInput);
+	        	if(StringZZZ.isEmpty(sInput)) {
+	        		this.cancelToMenue(hmVariable);
+	        	}
+			}else {
+				switch(sCallingMethod){
+				case "ascii":
+					//Es gibt dabei keine weitere Konsolen - Eingabe
+					break;
+				case "processEncryptROT13":
+					
+
+		    		//######################################################################
+		        	//### Eingabe des zu verschluesselnden Textes
+		        	//Beispieltexte zum Rauskopieren, enthalten alles relevante...
+		        	//abcdefgHIJK1234abcdefg
+		        	//Das ist das 4711 Haus der Riesenmaus 0815
+		        			    		
+		    		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
+					//Das passiert beim Aufruf der Verschlüsselung selbst.
+		        	System.out.println("Geben Sie den zu verschluesselnden Text als String ein");
+		        	String sInput = this.getInputReader().nextLine();
+		        	if(hmVariable!=null) hmVariable.put(KeyPressThreadEncryptZZZ.sINPUT_TEXT_UNCRYPTED, sInput);
+		        	if(StringZZZ.isEmpty(sInput)) {
+		        		this.cancelToMenue(hmVariable);
+		        	}
+		        	break;
+				default:
+					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+					throw ez;
+				}
+			}
         	bReturn = true;
 		}//end main:
 		return bReturn;

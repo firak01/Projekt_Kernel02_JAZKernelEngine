@@ -25,4 +25,7 @@ public interface IConsoleControllerZZZ extends IThreadableZZZ, IConsoleControlab
 	public boolean isConsoleUserThreadFinished() throws ExceptionZZZ;
 	public void isConsoleUserThreadFinished(boolean bConsoleUserThreadFinished) throws ExceptionZZZ; //setzen, wenn der gestartete ConsolenUserThread beendet wurde. Dann kann eine neue Eingabe gestartet werden.
 
+	//Bei einem neuen Menüpunkt vorherige Stati zurücksetzten
+	public boolean resetStatus() throws ExceptionZZZ;
+	
 }

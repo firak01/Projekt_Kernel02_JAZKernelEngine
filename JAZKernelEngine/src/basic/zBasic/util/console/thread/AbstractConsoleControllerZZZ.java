@@ -197,6 +197,18 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADRUNNING, !bConsoleUserThreadFinished);
 	}
 	
+	//+++ Wird bei jedem neuen Menüpunkt ausgeführt...
+	@Override
+	public boolean resetStatus() throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+						
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
 	
 	//### aus IVariableHashMapUserZZZ
 	@Override

@@ -1,4 +1,4 @@
-package use.zBasic.util.console.crypt;
+package debug.zBasic.util.console.thread.crypt;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;

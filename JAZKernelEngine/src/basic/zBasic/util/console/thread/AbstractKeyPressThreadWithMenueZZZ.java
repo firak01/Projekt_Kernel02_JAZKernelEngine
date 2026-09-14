@@ -210,7 +210,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                System.out.println("Pressed Menueselection:" + sInput);
 				                if(sInput==null) break main;
 				                
-				                boolean bGoon = this.processMenuPoint(sInput,hmVariable);
+				                boolean bGoon = this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.
 				                if(!bGoon) break main;//Quit
 				                
 			        		}while(!this.isCurrentInputValid());	                
@@ -284,7 +284,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 								        objKeyPressThreadUsed.isInputAllFinished(false);
 //										        objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 								    
-								        //Jetzt erst noch eine Eingabe machen....					                		
+								        //Jetzt erst noch ggfs. eine Eingabe machen....					                		
 						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
 								        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
 								        	if(!bGoon) break main; //Quit

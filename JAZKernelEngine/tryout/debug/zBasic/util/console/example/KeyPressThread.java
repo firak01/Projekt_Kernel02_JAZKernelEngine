@@ -1,4 +1,4 @@
-package use.zBasic.util.console.example;
+package debug.zBasic.util.console.example;
 
 import java.util.Scanner;
 
