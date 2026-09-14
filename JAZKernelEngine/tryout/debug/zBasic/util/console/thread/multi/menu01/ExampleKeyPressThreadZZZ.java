@@ -70,7 +70,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
 		public void makeMenuMain() throws ExceptionZZZ {
 			System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 			System.out.println("#######################################################################################################");		
-			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
+			System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M Menue anzeigen | A für die Ausgabe der ASCII-Tabelle");
 			System.out.println("# Folgende zusätzliche Aktionen:");
 			System.out.println("# 1: Erhöhe den Dummy Zähler");
 			System.out.println("# 2: Erhöhe eine Alphanumeric Zähler");

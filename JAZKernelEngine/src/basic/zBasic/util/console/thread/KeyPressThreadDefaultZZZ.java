@@ -18,7 +18,7 @@ public class KeyPressThreadDefaultZZZ<T> extends AbstractKeyPressThreadWithMenue
 	public void makeMenuMain() throws ExceptionZZZ {
 		System.out.println();//Leerzeile zum ggfs. vorherigen Consolentext
 		System.out.println("#######################################################################################################");		
-		System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M zurueck zum Menue | A für die Ausgabe der ASCII-Tabelle");
+		System.out.println("# Eingaben: + - zur Console-Threadgeschwindigkeit | Q zum Abbruch | M Menü anzeigen | A für die Ausgabe der ASCII-Tabelle");
 		System.out.println("# Folgende zusätzliche Aktionen:");
 		System.out.println("# 1: Erhöhe den Dummy Zähler");
 		System.out.println("#####################################################################################################");			
