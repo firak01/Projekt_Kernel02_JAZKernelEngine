@@ -271,8 +271,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        			this.validSkipRepeatQuestion(hmVariable);
 					        		}else {
 					        			TODOGONN20260915;
-					        			//sInput = KeyPressUtilZZZ.waitForInputYesNoMenueStopQuit(this.getInputReader());
-					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "TODOGOON WARTEN AUF EINE EINGABE OHNE DIESE ANWEISUNGSZEILE");
+					        			sInput = KeyPressUtilZZZ.waitForInputYesNoMenueStopQuit(this.getInputReader());					        			
 					        		}
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
