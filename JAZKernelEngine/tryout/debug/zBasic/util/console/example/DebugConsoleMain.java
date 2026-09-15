@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ConsoleMain {
+public class DebugConsoleMain {
 	static long rand = 10000;
 	public static void main(String[] args) {
 		 ExecutorService executor = Executors.newFixedThreadPool(5);

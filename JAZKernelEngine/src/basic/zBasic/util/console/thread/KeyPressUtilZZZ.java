@@ -333,11 +333,14 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 												
 				KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
 				
+				//Merke: Das Warten auf die inputReader.nextLine() Eingabe verhindert in der aufrufenden Methode, das z.B. ein Thread x-fach gestartet wird.
 				boolean bGoon=false; String sInput = null;
 				do {
 					sInput = inputReader.nextLine();
 					if(sInput.length()==0) { //Merke der Scanner liefert kein '\n' sondern nur eine Leerzeile
-						bGoon = true;
+						bGoon = true; //Merke: Das ist das Problem, das ein einfaches "ENTER" während der Verarbeitung einen zweiten Thread starten würde.
+						              //       Darum ist das bei der "ersten Eingabe" erlaubt.
+						              //       Beim "Warten auf eine Menüeingabe" im folgenden aber nicht mehr. .waitForInputYesNoMenueStopQuit(...);
 					}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyNo)) {				                		
                 		bGoon = true;
                 	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyYes)) {				                		

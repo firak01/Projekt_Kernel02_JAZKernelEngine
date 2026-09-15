@@ -28,7 +28,6 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
  * @author Fritz Lindhauer, 16.10.2022, 08:01:04
  * 
  */
-//public abstract class AbstractConsoleControllerZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConsoleControllerZZZ {
 public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerZZZ, IConsoleControlableZZZ, IConsoleControllerEnabledZZZ {
 	private static final long serialVersionUID = 303154337707751073L;
 

@@ -30,7 +30,7 @@ public class DebugConsoleThreadSingleMenuless_MainZZZ {
 	        //File f = new File("C:\\fglkernel\\kernellog\\OpenVPNZZZ_ServerStarterLog.txt");		 
 	        try {
 	        	//1. Ermittle eine Testdatei im aktuellen Verzeichnis
-	        	String sConfigFile = FileEasyZZZ.joinFilePathName("tryout\\debug\\zBasic\\util\\console\\thread\\menuless", "openvpn-status.log");	        	
+	        	String sConfigFile = FileEasyZZZ.joinFilePathName("tryout\\debug\\zBasic\\util\\console\\thread\\single\\menuless", "openvpn-status.log");	        	
 	        	File f = ResourceEasyZZZ.searchFile(sConfigFile);
 	        	
 

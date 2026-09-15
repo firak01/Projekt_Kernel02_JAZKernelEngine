@@ -180,7 +180,7 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 	            	//while(!this.getConsole().isKeyPressThreadFinished()) {
 	            	if(!this.isInputAllFinished()) {
 		        	    if(hmVariable!=null) {
-		        	    	Object obj = hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS);
+		        	    	Object obj = hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01);
 		        	    	if(obj==null) {
 		        	    		bSkipArguments = false;
 		        	    	}else if (obj instanceof Boolean) {
