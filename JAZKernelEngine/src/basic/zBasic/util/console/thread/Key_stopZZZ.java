@@ -1,14 +1,14 @@
 package basic.zBasic.util.console.thread;
 
-public class Key_stopZZZ extends AbstractKeyZZZ{
-	private static IKeyZZZ objKey=null; //muss static sein, wg. getInstance()!!!
+public class Key_stopZZZ extends AbstractKeyPressCharZZZ{
+	private static IKeyPressCharZZZ objKey=null; //muss static sein, wg. getInstance()!!!
 	
 	//Verwendung als Singleton
 		private Key_stopZZZ() {
 			super();
 		}
 	
-	public static IKeyZZZ getInstance() {
+	public static IKeyPressCharZZZ getInstance() {
 		if(objKey==null) {
 			objKey = new Key_stopZZZ();
 		}
@@ -16,13 +16,18 @@ public class Key_stopZZZ extends AbstractKeyZZZ{
 	}
 	
 	@Override
-	public IKeyZZZ getKeyObject() {
+	public IKeyPressCharZZZ getKeyCharObject() {
 		return this.objKey;
 	}
 
 	@Override
-	public void setKeyObject(IKeyZZZ objKey) {
+	public void setKeyObject(IKeyPressCharZZZ objKey) {
 		this.objKey = objKey;
+	}
+	
+	@Override
+	public String getKeyText() {
+		return "stop";
 	}
 	
 	

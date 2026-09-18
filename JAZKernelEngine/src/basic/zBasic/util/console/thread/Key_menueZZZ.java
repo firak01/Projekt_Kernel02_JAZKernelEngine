@@ -1,14 +1,14 @@
 package basic.zBasic.util.console.thread;
 
-public class Key_menueZZZ extends AbstractKeyZZZ{
-	private static IKeyZZZ objKey=null; //muss static sein, wg. getInstance()!!!
+public class Key_menueZZZ extends AbstractKeyPressCharZZZ{
+	private static IKeyPressCharZZZ objKey=null; //muss static sein, wg. getInstance()!!!
 	
 	//Verwendung als Singleton
 		private Key_menueZZZ() {
 			super();
 		}
 	
-	public static IKeyZZZ getInstance() {
+	public static IKeyPressCharZZZ getInstance() {
 		if(objKey==null) {
 			objKey = new Key_menueZZZ();
 		}
@@ -16,12 +16,12 @@ public class Key_menueZZZ extends AbstractKeyZZZ{
 	}
 	
 	@Override
-	public IKeyZZZ getKeyObject() {
+	public IKeyPressCharZZZ getKeyCharObject() {
 		return this.objKey;
 	}
 
 	@Override
-	public void setKeyObject(IKeyZZZ objKey) {
+	public void setKeyObject(IKeyPressCharZZZ objKey) {
 		this.objKey = objKey;
 	}
 	
@@ -34,5 +34,10 @@ public class Key_menueZZZ extends AbstractKeyZZZ{
 	@Override
 	public char getKeyChar() {
 		return Key_menueZZZ.getKey();
+	}
+	
+	@Override
+	public String getKeyText() {
+		return "menue";
 	}
 }

@@ -61,7 +61,7 @@ public abstract class AbstractKeyPressThreadCryptZZZ<T> extends AbstractKeyPress
     		}
     		        		
     		if(!bCharacterPoolContainsAdditionalOnly) {
-        		String sInput = KeyPressUtilZZZ.makeQuestionYesNoCancel(this.getInputReader(), "Wollen Sie den Pool ergaenzend mit diesen Standard-Zusatzbuchstaben '" + ICharacterExtendedZZZ.sCHARACTER_ADDITIONAL + "' verwenden?");
+        		String sInput = KeyPressUtilZZZ.makeQuestionYesNoCancel(this.getInputReader(), "Wollen Sie den Pool ergaenzend mit diesen Standard-Zusatzbuchstaben '" + ICharacterExtendedZZZ.sCHARACTER_ADDITIONAL + "' verwenden?");    			    			
         		this.isCurrentInputValid(true); 
         		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyCancel)){
         			this.cancelToMenue(hmVariable);

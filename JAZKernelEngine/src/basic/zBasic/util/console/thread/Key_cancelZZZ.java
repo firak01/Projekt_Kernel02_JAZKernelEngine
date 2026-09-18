@@ -1,14 +1,14 @@
 package basic.zBasic.util.console.thread;
 
-public class Key_cancelZZZ extends AbstractKeyZZZ{
-	private static IKeyZZZ objKey=null; //muss static sein, wg. getInstance()!!!
+public class Key_cancelZZZ extends AbstractKeyPressCharZZZ{
+	private static IKeyPressCharZZZ objKey=null; //muss static sein, wg. getInstance()!!!
 	
 	//Verwendung als Singleton
 		private Key_cancelZZZ() {
 			super();
 		}
 	
-	public static IKeyZZZ getInstance() {
+	public static IKeyPressCharZZZ getInstance() {
 		if(objKey==null) {
 			objKey = new Key_cancelZZZ();
 		}
@@ -16,12 +16,12 @@ public class Key_cancelZZZ extends AbstractKeyZZZ{
 	}
 	
 	@Override
-	public IKeyZZZ getKeyObject() {
+	public IKeyPressCharZZZ getKeyCharObject() {
 		return this.objKey;
 	}
 
 	@Override
-	public void setKeyObject(IKeyZZZ objKey) {
+	public void setKeyObject(IKeyPressCharZZZ objKey) {
 		this.objKey = objKey;
 	}
 	
@@ -34,5 +34,11 @@ public class Key_cancelZZZ extends AbstractKeyZZZ{
 	@Override
 	public char getKeyChar() {
 		return Key_cancelZZZ.getKey();
+	}
+	
+	
+	@Override
+	public String getKeyText() {
+		return "cancel";
 	}
 }

@@ -270,7 +270,6 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");
 					        			this.validSkipRepeatQuestion(hmVariable);
 					        		}else {
-					        			TODOGONN20260915;
 					        			sInput = KeyPressUtilZZZ.waitForInputYesNoMenueStopQuit(this.getInputReader());					        			
 					        		}
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
