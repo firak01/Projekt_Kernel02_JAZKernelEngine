@@ -7,4 +7,7 @@ public interface IKeyPressCharZZZ {
 	public String getKeyTag() throws ExceptionZZZ;
 	public String getKeyText() throws ExceptionZZZ;
 	public String getKeyDescription() throws ExceptionZZZ;
+	
+	public boolean isKeyDefault() throws ExceptionZZZ;
+	public void isKeyDefault(boolean bValue) throws ExceptionZZZ;
 }

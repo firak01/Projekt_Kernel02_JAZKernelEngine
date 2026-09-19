@@ -93,7 +93,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
     	//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) {
-			hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, false);//so, damit die Eingabe der Menue-Argumente übersprungen.
+			hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, false);//so, damit die Eingabe der Menue-Argumente NICHT MEHR übersprungen.
 			this.validEnableRepeatQuestion(hmVariable);
 		}
 		this.validToMenue();
@@ -267,7 +267,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        		//Merke: Die Scanner - Eingabe verhindert, dass belibeig viele THREADS gestartet werden. Darum nur die Eingabe "verbergen"					        		
 					        		Syso.printSeparator();		
 					        		if(!bSkipArguments02) {
-					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");
+					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");
 					        			this.validSkipRepeatQuestion(hmVariable);
 					        		}else {
 					        			sInput = KeyPressUtilZZZ.waitForInputYesNoMenueStopQuit(this.getInputReader());					        			
@@ -303,16 +303,23 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                			this.validSkipMenue(hmVariable);				                			
 				                		}
 				                		
-				                		//++
-						        		iDebugCounterServiceThread++;
-						        		System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE THREADS NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
-						        		//objMenuPoint.initit(hmVariable);
-						        		 
-						        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
-						        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
-						        		IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) objConsoleController.getConsoleServiceObject();
-						        		 
-						        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartit();						        		
+				                		//++ Falls gestoppt wurde, nicht doch noch neu starten
+				                		//if(!this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)){
+							        		iDebugCounterServiceThread++;
+							        		System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE THREADS NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
+							        		//objMenuPoint.initit(hmVariable);
+							        		 
+							        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+							        		objConsoleController.addVariableHashMap(objMenuPoint.getVariableHashMap());
+							        		IConsoleServiceZZZ_menuPointUsing objConsoleService = (IConsoleServiceZZZ_menuPointUsing) objConsoleController.getConsoleServiceObject();
+							        		 
+							        		objConsoleService.startit(objMenuPoint); //der Code liegt dann im objMenuPoint.onStartit();
+							        		
+							        		//Nach dem ersten Schritt schon wieder stoppen
+					                		if(this.isCurrentMenue()) {
+					                			this.stop();
+					                		}
+				                		//}
 						        		//++				                					                	
 				                	}//end if cKey
 					        	

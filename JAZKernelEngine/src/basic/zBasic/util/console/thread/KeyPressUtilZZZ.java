@@ -1,9 +1,7 @@
 package basic.zBasic.util.console.thread;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
@@ -159,45 +157,24 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 	}
 	
 	//##########################################################################
-	//### Kompaktere Lösung, mit LinkedHashMap. 
+	//### Kompaktere Lösung, mit ArrayList. 
 	//### Reduziert Code-Redundanz
+	//### Mit dem KeyPress-Objekt kann man auch "Default" Key festlegen
 	//##########################################################################
-//	public static String makeMenuInput(
-//	        Scanner inputReader,
-//	        String question,
-//	        LinkedHashMap<String, String> menuItems) throws ExceptionZZZ {
-//
-//	    if (inputReader == null) {
-//	        throw new ExceptionZZZ("'Scanner as InputReader'",
-//	                iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,
-//	                ReflectCodeZZZ.getMethodCurrentName());
-//	    }
-//	    if (menuItems == null || menuItems.isEmpty()) {
-//	        throw new ExceptionZZZ("'Menu items'",
-//	                iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,
-//	                ReflectCodeZZZ.getMethodCurrentName());
-//	    }
-//
-//	    printlnMenu(question, menuItems);
-//
-//	    while (true) {
-//	        String input = inputReader.nextLine().trim();
-//
-//	        for (String key : menuItems.keySet()) {
-//	            if (key.equalsIgnoreCase(input)) {
-//	                return key; // kanonischen Schlüssel zurückgeben
-//	            }
-//	        }
-//	        System.out.println("Ungültige Eingabe.");
-//	    }
-//	}
-	
-	//Verbessert, weil man den Key nun als Objekt übergibt.
-	//Dann kann man auch "Defaultkeys" festlegen.
+	public static String makeMenuInputLine(Scanner inputReader,
+	        String sQuestion,
+	        ArrayList<IKeyPressCharZZZ> menuItems) throws ExceptionZZZ {
+		return makeMenuInput(inputReader, sQuestion, menuItems, true);
+	}
+	public static String makeMenuInputBlock(Scanner inputReader,
+	        String sQuestion,
+	        ArrayList<IKeyPressCharZZZ> menuItems) throws ExceptionZZZ {
+		return makeMenuInput(inputReader, sQuestion, menuItems, false);
+	}
 	public static String makeMenuInput(
 	        Scanner inputReader,
-	        String question,
-	        ArrayList<IKeyPressCharZZZ> menuItems) throws ExceptionZZZ {
+	        String sQuestion,
+	        ArrayList<IKeyPressCharZZZ> menuItems, boolean bAsLine) throws ExceptionZZZ {
 
 	    if (inputReader == null) {
 	        throw new ExceptionZZZ("'Scanner as InputReader'",
@@ -210,63 +187,120 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 	                ReflectCodeZZZ.getMethodCurrentName());
 	    }
 
-	    printlnMenu(question, menuItems);
-
-	    while (true) {
-	        String input = inputReader.nextLine().trim();
-
-	        //for (String key : menuItems.keySet()) {
-	        for (IKeyPressCharZZZ key : menuItems) {
-	        	String sKey = CharZZZ.toString(key.getKeyChar());
-	            if (sKey.equalsIgnoreCase(input)) {
-	                return sKey; // kanonischen Schlüssel zurückgeben
-	            }
-	        }
-	        System.out.println("Ungültige Eingabe.");
+	    if(bAsLine) {
+	    	printlnMenu(sQuestion, menuItems);
+	    }else {
+	    	printBlockMenu(sQuestion, menuItems);
 	    }
+	    
+	    while (true) {
+	        String sInput = inputReader.nextLine().trim();	  
+	        
+	        //Defaultkey (also ENTER) berücksichtigen
+            if(sInput.length()==0) { //Merke: Die Scanner Klasse liefert bei ENTER einfach eine Leerzeile
+            	for (IKeyPressCharZZZ key : menuItems) {
+		        	if(key.isKeyDefault()) {
+		        		String sKey = CharZZZ.toString(key.getKeyChar());
+		                return sKey; // kanonischen Schlüssel zurückgeben
+		            }	            	           	           
+		        }	    	
+            }else {                        
+		        for (IKeyPressCharZZZ key : menuItems) {
+		        	String sKey = CharZZZ.toString(key.getKeyChar());
+		            if (sKey.equalsIgnoreCase(sInput)) {
+		                return sKey; // kanonischen Schlüssel zurückgeben
+		            }	            	           	           
+		        }
+            }           
+            System.out.println("Ungültige Eingabe.");
+	    }//end while(true)	 
 	}
 	
-
-//	public static void printlnMenu(
-//	        String question,
-//	        LinkedHashMap<String, String> menuItems) {
-//
-//	    StringBuilder text = new StringBuilder(question);
-//	    text.append(System.lineSeparator());
-//
-//	    for (Map.Entry<String, String> entry : menuItems.entrySet()) {
-//	        text.append("  ")
-//	            .append(computeKeyTag(entry.getKey()))
-//	            .append(" ")
-//	            .append(entry.getValue())
-//	            .append(System.lineSeparator());
-//	    }
-//
-//	    System.out.print(text);
-//	}
 	
 	//Verbesserung, da man die ArrayListe der Keys verwendet und so auch default-Keys erzeugen kann
 	public static void printlnMenu(
 	        String question,
 	        ArrayList<IKeyPressCharZZZ> menuItems) throws ExceptionZZZ {
-
-	    StringBuilder text = new StringBuilder(question);
-	    text.append(System.lineSeparator());
-
-	    //for (Map.Entry<String, String> entry : menuItems.entrySet()) {
-	    for(IKeyPressCharZZZ entry : menuItems) {
-	        text.append("  ")
-	            .append(computeKeyTag(entry.getKeyChar()))
-	            .append(" ")
-	            .append(entry.getKeyText())
-	            .append(System.lineSeparator());
-	    }
-
-	    System.out.print(text);
+		String sLine = makeMenuLine(question, menuItems);
+		System.out.println(sLine);
 	}
 	
+	public static void printBlockMenu(
+	        String question,
+	        ArrayList<IKeyPressCharZZZ> menuItems) throws ExceptionZZZ {
+		String sLine = makeMenuBlock(question, menuItems);
+		System.out.println(sLine);
+	}
 	
+	public static String makeMenuBlock(String sQuestion, ArrayList<IKeyPressCharZZZ> listaMenuItem) throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			if(listaMenuItem==null) {
+				throw new ExceptionZZZ("'Menu items'",
+		                iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,
+		                ReflectCodeZZZ.getMethodCurrentName());				
+			}						
+			if(listaMenuItem.isEmpty()) break main;
+			
+			sReturn = sQuestion + "? ";
+			
+			boolean bKeyDefaultAssigned= false; boolean bKeyTagCreated = false;
+			for(IKeyPressCharZZZ entry : listaMenuItem) {	
+				sReturn = sReturn + StringZZZ.crlf();
+				if(!bKeyTagCreated) {
+					if(entry.isKeyDefault() && !bKeyDefaultAssigned) {
+						bKeyDefaultAssigned = true;
+						sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(entry.getKeyChar());						
+					}else {
+						sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(entry.getKeyChar());
+					}
+				}else {										
+					if(entry.isKeyDefault() && !bKeyDefaultAssigned) {
+						sReturn = sReturn + "/" + KeyPressUtilZZZ.computeKeyTagAsDefault(entry.getKeyChar());
+					}else {
+						sReturn = sReturn + "/" + KeyPressUtilZZZ.computeKeyTag(entry.getKeyChar());
+					}
+				}
+				bKeyTagCreated=true;
+				sReturn = sReturn + " " + entry.getKeyText();				
+			}//end for		
+		}
+		return sReturn;		
+	}
 	
+	public static String makeMenuLine(String sQuestion, ArrayList<IKeyPressCharZZZ> listaMenuItem) throws ExceptionZZZ {
+		String sReturn = null;
+		main:{			
+			if(listaMenuItem==null) {
+				throw new ExceptionZZZ("'Menu items'",
+		                iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,
+		                ReflectCodeZZZ.getMethodCurrentName());				
+			}						
+			if(listaMenuItem.isEmpty()) break main;
+			
+			sReturn = sQuestion + "? ";
+								
+			boolean bKeyDefaultAssigned= false; boolean bKeyTagCreated = false;
+			for(IKeyPressCharZZZ entry : listaMenuItem) {				
+				if(!bKeyTagCreated) {
+					if(entry.isKeyDefault() && !bKeyDefaultAssigned) {
+						bKeyDefaultAssigned = true;
+						sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(entry.getKeyChar());
+					}else {
+						sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(entry.getKeyChar());
+					}
+				}else {					
+					if(entry.isKeyDefault() && !bKeyDefaultAssigned) {
+						sReturn = sReturn + "/" + KeyPressUtilZZZ.computeKeyTagAsDefault(entry.getKeyChar());
+					}else {
+						sReturn = sReturn + "/" + KeyPressUtilZZZ.computeKeyTag(entry.getKeyChar());
+					}
+				}												
+				bKeyTagCreated=true;
+			}//end for			
+		}//end main:		
+		return sReturn;		
+	}					
 	//############################################################
 
 	
@@ -332,6 +366,9 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 			}
 			
 			String sQuestion = StringZZZ.trim(sQuestionIn);
+			if(sQuestion.endsWith("?")) {
+				sQuestion = StringZZZ.stripRight(sQuestion, "?");
+			}
 			if(StringZZZ.isEmpty(sQuestion)){
 				String stemp = "'Question String'";
 				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
@@ -339,20 +376,14 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				throw ez;
 			}
 					
-			//Einsatz der neuen KI generierten Methode
-//			LinkedHashMap<String,String>hmMenuItems=new LinkedHashMap<String,String>();
-//			hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyNo), "Nein");
-//			hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyYes), "Ja");
-//			hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyCancel), "Abbruch");			
-//			String sInput = makeMenuInput(inputReader, sQuestion, hmMenuItems);
-			
-			//20260918
-			//Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
+			//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
 			ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
-			listaKey.add(Key_noZZZ.getInstance());
+			IKeyPressCharZZZ keyNo = Key_noZZZ.getInstance();
+			keyNo.isKeyDefault(true);
+			listaKey.add(keyNo);
 			listaKey.add(Key_yesZZZ.getInstance());
 			listaKey.add(Key_cancelZZZ.getInstance());			
-			String sInput = makeMenuInput(inputReader, sQuestion, listaKey);
+			String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
 		
 			sReturn = sInput;
 		}//end main:
@@ -392,6 +423,9 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				}
 				
 				String sQuestion = StringZZZ.trim(sQuestionIn);
+				if(sQuestion.endsWith("?")) {
+					sQuestion = StringZZZ.stripRight(sQuestion, "?");
+				}
 				if(StringZZZ.isEmpty(sQuestion)){
 					String stemp = "'Question String'";
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
@@ -399,20 +433,14 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 					throw ez;
 				}
 				
-				//Einsatz der neuen KI generierten Methode
-//				LinkedHashMap<String,String>hmMenuItems=new LinkedHashMap<String,String>();
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyNo), "Nein");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyYes), "Ja");				
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyQuit), "Quit");									
-//				String sInput = makeMenuInput(inputReader, sQuestion, hmMenuItems);
-				
-				//20260918
-				//Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
+				//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
 				ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
-				listaKey.add(Key_noZZZ.getInstance());
+				IKeyPressCharZZZ keyNo = Key_noZZZ.getInstance();
+				keyNo.isKeyDefault(true);
+				listaKey.add(keyNo);
 				listaKey.add(Key_yesZZZ.getInstance());
 				listaKey.add(Key_quitZZZ.getInstance());
-				String sInput = makeMenuInput(inputReader, sQuestion, listaKey);
+				String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
 				
 				
 				
@@ -453,29 +481,25 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				}
 				
 				String sQuestion = StringZZZ.trim(sQuestionIn);
+				if(sQuestion.endsWith("?")) {
+					sQuestion = StringZZZ.stripRight(sQuestion, "?");
+				}
 				if(StringZZZ.isEmpty(sQuestion)){
 					String stemp = "'Question String'";
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
 					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
-				
-				//Einsatz der neuen KI generierten Methode
-//				LinkedHashMap<String,String>hmMenuItems=new LinkedHashMap<String,String>();
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyNo), "Nein");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyYes), "Ja");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyMenue), "Menü");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyQuit), "Quit");			
-//				String sInput = makeMenuInput(inputReader, sQuestion, hmMenuItems);
-				
-				//20260918
-				//Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
+								
+				//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
 				ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
-				listaKey.add(Key_noZZZ.getInstance());
+				IKeyPressCharZZZ keyNo = Key_noZZZ.getInstance();
+				keyNo.isKeyDefault(true);
+				listaKey.add(keyNo);
 				listaKey.add(Key_yesZZZ.getInstance());
 				listaKey.add(Key_menueZZZ.getInstance());
 				listaKey.add(Key_quitZZZ.getInstance());
-				String sInput = makeMenuInput(inputReader, sQuestion, listaKey);
+				String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
 			
 				
 				
@@ -517,31 +541,27 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				}
 				
 				String sQuestion = StringZZZ.trim(sQuestionIn);
+				if(sQuestion.endsWith("?")) {
+					sQuestion = StringZZZ.stripRight(sQuestion, "?");
+				}
 				if(StringZZZ.isEmpty(sQuestion)){
 					String stemp = "'Question String'";
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
 					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
-				}
+				}				
 				
-				//Einsatz der neuen KI generierten Methode
-//				LinkedHashMap<String,String>hmMenuItems=new LinkedHashMap<String,String>();
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyNo), "Nein");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyYes), "Ja");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyMenue), "Menü");
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyQuit), "Quit");			
-//				hmMenuItems.put(CharZZZ.toString(IKeyPressConstantZZZ.cKeyStop), "Stop");
-//				String sInput = makeMenuInput(inputReader, sQuestion, hmMenuItems);
-				
-				//20260918
-				//Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
+							
+				//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
 				ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
-				listaKey.add(Key_noZZZ.getInstance());
+				IKeyPressCharZZZ keyNo = Key_noZZZ.getInstance();
+				keyNo.isKeyDefault(true);
+				listaKey.add(keyNo);
 				listaKey.add(Key_yesZZZ.getInstance());
 				listaKey.add(Key_menueZZZ.getInstance());
 				listaKey.add(Key_quitZZZ.getInstance());
 				listaKey.add(Key_stopZZZ.getInstance());
-				String sInput = makeMenuInput(inputReader, sQuestion, listaKey);
+				String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
 			
 				
 				
@@ -661,7 +681,9 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 //	}
 				
 		//###################################################################
-		
+		//### Ausgabe ohne ein Menü oder Frage, hier wird einfach auf eine Eingabe gewartet.
+		//### Für das Warten sorgt die Scanner - Klasse
+		//###################################################################
 		public static String waitForInputYesNoMenueStopQuit(Scanner inputReader) throws ExceptionZZZ{
 			String sReturn = null;
 			main:{

@@ -116,7 +116,11 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
             	this.isCurrentInputFinished(false);	 
             	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
             	break;
-            case "1":	            	
+            case "1":	 
+            	TODOGOON20260919;//Es geht nicht weiter in Menüreihenfolge
+            	                 //2 (Thread) Y (nach erster Ausgabe stoppen und zum Menü) 1(dieser Punkt)
+            	
+            	
             	//Einen bestehenden Thread stoppen
             	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();	            		            	
             	objMenuOld = this.getMenuPoint();

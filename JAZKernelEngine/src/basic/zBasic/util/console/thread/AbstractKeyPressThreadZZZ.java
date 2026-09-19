@@ -220,7 +220,7 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 	                	//### Frage nach Mehrfacheingabe
 			        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
 	                		Syso.printSeparator();
-			        		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");		                		                			                			    	                			                				               
+			        		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");		                		                			                			    	                			                				               
 //		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 //		                			this.quit();
 //			                	}else {		               		                		
