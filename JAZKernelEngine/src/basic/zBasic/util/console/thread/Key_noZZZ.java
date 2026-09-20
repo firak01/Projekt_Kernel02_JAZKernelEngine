@@ -1,7 +1,12 @@
 package basic.zBasic.util.console.thread;
 
+import basic.zBasic.ExceptionZZZ;
+import basic.zKernel.IKernelConfigZZZ;
+import basic.zKernel.KernelConfigZZZ;
+import basic.zKernel.KernelSingletonZZZ;
+
 public class Key_noZZZ extends AbstractKeyPressCharZZZ{
-	private static IKeyPressCharZZZ objKey=null; //muss static sein, wg. getInstance()!!!
+	protected static IKeyPressCharZZZ objKey=null; //muss static sein, wg. getInstance()!!!
 	
 	//Verwendung als Singleton
 		private Key_noZZZ() {
@@ -12,6 +17,15 @@ public class Key_noZZZ extends AbstractKeyPressCharZZZ{
 		if(objKey==null) {
 			objKey = new Key_noZZZ();
 		}
+		return objKey;
+	}
+	
+	//Wenn man den Tastendruck in verschiedenen Menüs verwendet, in denen es z.B. unterschiedliche "Defaultkeys" gibt, sollte man eine neue Instanz holen
+	public static IKeyPressCharZZZ getNewInstance() throws ExceptionZZZ{
+		//Damit wird garantiert einen neue, frische Instanz geholt.
+		//Z.B. bei JUnit Tests ist das notwendig, denn in Folgetests wird mit .getInstance() doch tatsächlich mit dem Objekt des vorherigen Tests gearbeitet.
+		objKey = null;
+		objKey = getInstance();
 		return objKey;
 	}
 	

@@ -252,25 +252,14 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 					        	if(objMenuPoint!=null) {
 					        		
-					        		//### Frage nach Mehrfacheingabe (VOR dem servicestart, sinnvoll bei Thread)
-					        		
-					        		//+++++++++++ 
-					        		//String[] saKeysOfMenue =
-					        		//TODOGOON20260826;//Einmalig makeQuestionYesNoMenueQuit anzeigen. Bei N, danach nur noch processMenueMainArgumentInput auswerten.
-					        		
-					        		//TODOGOON20260826;//Hier muss makeQuestionForKeysPressable(this.getInputReader(), saKeysOfMenue, "Eingabemöglichkeiten, siehe Menü. Anzeige des Menüs mit 'm');
-					        		//Anschliessend mit m das Menü anzeigen, und irgendwie noch einen Menübefehl startbar machen (dort ist dann auch q drin).
-					        		//   processMenueMainArgumentInput(sInput, hmVariable);
-					        		
-					        		//TODOGOON20260831;//Diese Question und die Antworten dynamisch mit einer Liste von Buchstaben/Zeichen definieren.
-					        		
+					        		//### Frage nach Mehrfacheingabe (VOR dem servicestart, sinnvoll bei Thread)					     
 					        		//Merke: Die Scanner - Eingabe verhindert, dass belibeig viele THREADS gestartet werden. Darum nur die Eingabe "verbergen"					        		
 					        		Syso.printSeparator();		
 					        		if(!bSkipArguments02) {
 					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");
 					        			this.validSkipRepeatQuestion(hmVariable);
 					        		}else {
-					        			sInput = KeyPressUtilZZZ.waitForInputYesNoMenueStopQuit(this.getInputReader());					        			
+					        			sInput = KeyPressUtilZZZ.makeWaitForInputYesNoMenueStopQuit(this.getInputReader());					        			
 					        		}
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
@@ -282,10 +271,12 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                    					                    	
 				    	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
 				                    	
-				                    	//Einen bestehenden Thread stoppen, aber will man das wirklich, nur wenn das menü angezeigt werden soll?
+				                    	//Einen bestehenden Thread stoppen, 
+				                    	//aber will man das wirklich, nur wenn das menü angezeigt werden soll?
 //							            IMenuPointZZZ objMenuOld = this.getMenuPoint();
 //							    	    if(objMenuOld!=null) {
 //							    	    	objMenuOld.onStopit();
+							    	    	this.stop();
 //							    	     }	
 				                	
 			                		
@@ -346,17 +337,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...	
 					        		//++
 					        		
-					        		//### Frage nach Mehrfacheingabe (NACH service start, nur sinnvoll ohne Thread)
-					        		
-					        		//+++++++++++ 
-					        		//String[] saKeysOfMenue =
-					        		//TODOGOON20260826;//Einmalig makeQuestionYesNoMenueQuit anzeigen. Bei N, danach nur noch processMenueMainArgumentInput auswerten.
-					        		
-					        		//TODOGOON20260826;//Hier muss makeQuestionForKeysPressable(this.getInputReader(), saKeysOfMenue, "Eingabemöglichkeiten, siehe Menü. Anzeige des Menüs mit 'm');
-					        		//Anschliessend mit m das Menü anzeigen, und irgendwie noch einen Menübefehl startbar machen (dort ist dann auch q drin).
-					        		//   processMenueMainArgumentInput(sInput, hmVariable);
-					        		
-					        		//TODOGOON20260831;//Diese Question und die Antworten dynamisch mit einer Liste von Buchstaben/Zeichen definieren.			        			                						        		 
+					        		//### Frage nach Mehrfacheingabe (NACH service start, nur sinnvoll ohne Thread)			        			                						        		 
 					        		Syso.printSeparator();			        		
 					        		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie jetzt zurueck zum Menue?");			        					        					        			                		                			                			    	                			                				              
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
@@ -424,6 +405,11 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	
 	@Override
 	public boolean stop() throws ExceptionZZZ {
+		IMenuPointZZZ objMenuOld = this.getMenuPoint();
+ 	    if(objMenuOld!=null) {
+ 	    	objMenuOld.onStopit();
+ 	     }	
+		
 		System.out.println("THREAD beenden");	
 		return super.stop();
 	}
