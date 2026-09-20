@@ -338,7 +338,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        		
 					        		//++
 					        		 
-							        objKeyPressThreadUsed.isInputAllFinished(false);
+							        //objKeyPressThreadUsed.isInputAllFinished(false);
 						    								       
 					        		 
 					        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
@@ -358,7 +358,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        		
 					        		//TODOGOON20260831;//Diese Question und die Antworten dynamisch mit einer Liste von Buchstaben/Zeichen definieren.			        			                						        		 
 					        		Syso.printSeparator();			        		
-					        		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie jetzt zurueck zum Menue oder mit den akuellen Menueangaben im gleichen Menüpunkt weiterarbeiten?");			        					        					        			                		                			                			    	                			                				              
+					        		sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie jetzt zurueck zum Menue?");			        					        					        			                		                			                			    	                			                				              
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
 			                		}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {

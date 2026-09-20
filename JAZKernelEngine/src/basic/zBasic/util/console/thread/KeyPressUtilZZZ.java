@@ -304,57 +304,6 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 	//############################################################
 
 	
-	
-	//###########################################
-//	public static String computeKeyTagStringYesNoCancel() {
-//		String sReturn = KeyPressUtilZZZ.computeKeyTag(Key_yesZZZ.getKey()) + "/";
-//		sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_noZZZ.getKey()) + "/";
-//		sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_cancelZZZ.getKey());	
-//		return sReturn;
-//	}
-	
-//		public static String makeQuestionYesNoCancel(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
-//			String sReturn = null;
-//			main:{
-//				if(inputReader==null){
-//					String stemp = "'Scanner as InputReader'";
-//					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-//					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-//					throw ez;
-//				}
-//				
-//				String sQuestion = StringZZZ.trim(sQuestionIn);
-//				if(StringZZZ.isEmpty(sQuestion)){
-//					String stemp = "'Question String'";
-//					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-//					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-//					throw ez;
-//				}
-//												
-//				KeyPressUtilZZZ.printlnQuestionYesNoCancel(sQuestion);
-//				
-//				boolean bGoon=false; String sInput = null;
-//				do {
-//					sInput = inputReader.nextLine();
-//					//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": sInput = '"+sInput+"'");
-//	                if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyNo)) {				                		
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyYes)) {				                		
-//	                	bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyCancel)) {
-//                		//System.out.println("Abbruch eingegeben");
-//                		bGoon = true;
-//                	}else {
-//                		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-//                		System.out.println("Hier ungueltige Eingabe.");			                		
-//	                	bGoon=false;				                	
-//                	}				
-//				}while(!bGoon);
-//				sReturn = sInput;
-//			}//end main:
-//			return sReturn;
-//		}
-	
 	public static String makeQuestionYesNoCancel(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
 		String sReturn = null;
 		main:{
@@ -391,84 +340,41 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 	}
 	
 	
-		
-//		public static void printlnQuestionYesNoCancel(String sQuestionIn) throws ExceptionZZZ{
-//
-//				String sQuestion = StringZZZ.trim(sQuestionIn);
-//				if(StringZZZ.isEmpty(sQuestion)){
-//					String stemp = "'Question String'";
-//					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-//					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-//					throw ez;
-//				}	
-//				
-//				if(sQuestion.endsWith("?")) {
-//					sQuestion = StringZZZ.stripRight(sQuestion, "?");
-//				}
-//				sQuestion = sQuestion + " " + KeyPressUtilZZZ.computeKeyTagStringYesNoCancel()+ "?";
-//				System.out.println( sQuestion);				
-//		}
-		
-		
-		
-		//#############################
-		public static String makeQuestionYesNoQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
-			String sReturn = null;
-			main:{
-				if(inputReader==null){
-					String stemp = "'Scanner as InputReader'";
-					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-					throw ez;
-				}
-				
-				String sQuestion = StringZZZ.trim(sQuestionIn);
-				if(sQuestion.endsWith("?")) {
-					sQuestion = StringZZZ.stripRight(sQuestion, "?");
-				}
-				if(StringZZZ.isEmpty(sQuestion)){
-					String stemp = "'Question String'";
-					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-					throw ez;
-				}
-				
-				//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
-				ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
-				IKeyPressCharZZZ keyNo = Key_noZZZ.getInstance();
-				keyNo.isKeyDefault(true);
-				listaKey.add(keyNo);
-				listaKey.add(Key_yesZZZ.getInstance());
-				listaKey.add(Key_quitZZZ.getInstance());
-				String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
-				
-				
-				
-												
-//				KeyPressUtilZZZ.printlnQuestionYesNoQuit(sQuestion);
-//				
-//				boolean bGoon=false; String sInput = null;
-//				do {
-//					sInput = inputReader.nextLine();
-//					if(sInput.length()==0) { //Merke: Die Scanner Klasse liefert bei ENTER einfach eine Leerzeile
-//						bGoon = true;
-//					}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyNo)) {				                		
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyYes)) {				                		
-//	                	bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)) {
-//                		//System.out.println("Abbruch eingegeben");
-//                		bGoon = true;
-//                	}else {
-//                		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-//                		System.out.println("Hier ungueltige Eingabe.");			                		
-//	                	bGoon=false;			                	
-//                	}				
-//				}while(!bGoon);
-				sReturn = sInput;
-			}//end main:
-			return sReturn;
-		}
+	//#############################
+	public static String makeQuestionYesNoQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
+		String sReturn = null;
+		main:{
+			if(inputReader==null){
+				String stemp = "'Scanner as InputReader'";
+				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+				ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+			
+			String sQuestion = StringZZZ.trim(sQuestionIn);
+			if(sQuestion.endsWith("?")) {
+				sQuestion = StringZZZ.stripRight(sQuestion, "?");
+			}
+			if(StringZZZ.isEmpty(sQuestion)){
+				String stemp = "'Question String'";
+				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+				ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+			
+			//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
+			ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
+			IKeyPressCharZZZ keyNo = Key_noZZZ.getInstance();
+			keyNo.isKeyDefault(true);
+			listaKey.add(keyNo);
+			listaKey.add(Key_yesZZZ.getInstance());
+			listaKey.add(Key_quitZZZ.getInstance());
+			String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
+			
+			sReturn = sInput;
+		}//end main:
+		return sReturn;
+	}
 		
 		public static String makeQuestionYesNoMenueQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
 			String sReturn = null;
@@ -500,31 +406,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				listaKey.add(Key_menueZZZ.getInstance());
 				listaKey.add(Key_quitZZZ.getInstance());
 				String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
-			
-				
-				
-//				KeyPressUtilZZZ.printlnQuestionYesNoMenueQuit(sQuestion);
-//				
-//				boolean bGoon=false; String sInput = null;
-//				do {
-//					sInput = inputReader.nextLine();
-//					if(sInput.length()==0) { //Merke der Scanner liefert kein '\n' sondern nur eine Leerzeile
-//						bGoon = true;
-//					}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyNo)) {				                		
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyYes)) {				                		
-//	                	bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyMenue)) {
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)) {
-//                		//System.out.println("Quit eingegeben");
-//                		bGoon = true;                	
-//                	}else {
-//                		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-//                		System.out.println("Hier ungueltige Eingabe. Vielleicht erst zum Menü mit 'm' zurückgehen?");			                		
-//	                	bGoon=false;				                	
-//                	}				
-//				}while(!bGoon);
+
 				sReturn = sInput;
 			}//end main:
 			return sReturn;
@@ -562,123 +444,13 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				listaKey.add(Key_quitZZZ.getInstance());
 				listaKey.add(Key_stopZZZ.getInstance());
 				String sInput = makeMenuInputLine(inputReader, sQuestion, listaKey);
-			
-				
-				
-//				KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
-//				
-//				//Merke: Das Warten auf die inputReader.nextLine() Eingabe verhindert in der aufrufenden Methode, das z.B. ein Thread x-fach gestartet wird.
-//				boolean bGoon=false; String sInput = null;
-//				do {
-//					sInput = inputReader.nextLine();
-//					if(sInput.length()==0) { //Merke der Scanner liefert kein '\n' sondern nur eine Leerzeile
-//						bGoon = true; //Merke: Das ist das Problem, das ein einfaches "ENTER" während der Verarbeitung einen zweiten Thread starten würde.
-//						              //       Darum ist das bei der "ersten Eingabe" erlaubt.
-//						              //       Beim "Warten auf eine Menüeingabe" im folgenden aber nicht mehr. .waitForInputYesNoMenueStopQuit(...);
-//					}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyNo)) {				                		
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyYes)) {				                		
-//	                	bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyMenue)) {
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)) {
-//                		//System.out.println("Quit eingegeben");
-//                		bGoon = true;
-//                	}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
-//                		//System.out.println("Stop eingegeben");
-//                		bGoon = true;
-//                	}else {
-//                		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
-//                		System.out.println("Hier ungueltige Eingabe. Vielleicht erst zum Menü mit 'm' zurückgehen?");			                		
-//	                	bGoon=false;				                	
-//                	}				
-//				}while(!bGoon);
+
 				sReturn = sInput;
 			}//end main:
 			return sReturn;
 		}
 		
-		//##########################
-//		public static String computeKeyTagStringYesNoQuit() {
-//			String sReturn = KeyPressUtilZZZ.computeKeyTag(Key_yesZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(Key_noZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_quitZZZ.getKey());	
-//			return sReturn;
-//		}
-		
-//		public static void printlnQuestionYesNoQuit(String sQuestionIn) throws ExceptionZZZ{
-//
-//			String sQuestion = StringZZZ.trim(sQuestionIn);
-//			if(StringZZZ.isEmpty(sQuestion)){
-//				String stemp = "'Question String'";
-//				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-//				ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-//				throw ez;
-//			}	
-//			
-//			if(sQuestion.endsWith("?")) {
-//				sQuestion = StringZZZ.stripRight(sQuestion, "?");
-//			}
-//			sQuestion = sQuestion + " " + KeyPressUtilZZZ.computeKeyTagStringYesNoQuit()+ "?";
-//			System.out.println( sQuestion);				
-//	}
-		
-		
-		//###################################################################
-		
-//		public static String computeKeyTagStringYesNoMenueQuit() {
-//			String sReturn = KeyPressUtilZZZ.computeKeyTag(Key_yesZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(Key_noZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_menueZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_quitZZZ.getKey());	
-//			return sReturn;
-//		}
-		
-//		public static void printlnQuestionYesNoMenueQuit(String sQuestionIn) throws ExceptionZZZ{
-//
-//			String sQuestion = StringZZZ.trim(sQuestionIn);
-//			if(StringZZZ.isEmpty(sQuestion)){
-//				String stemp = "'Question String'";
-//				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-//				ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-//				throw ez;
-//			}	
-//			
-//			if(sQuestion.endsWith("?")) {
-//				sQuestion = StringZZZ.stripRight(sQuestion, "?");
-//			}
-//			sQuestion = sQuestion + " " + KeyPressUtilZZZ.computeKeyTagStringYesNoMenueQuit()+ "?";
-//			System.out.println( sQuestion);				
-//	}
-		
-		
-		
-		//##########################################################
-//		public static String computeKeyTagStringYesNoMenueStopQuit() {
-//			String sReturn = KeyPressUtilZZZ.computeKeyTag(Key_yesZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTagAsDefault(Key_noZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_menueZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_stopZZZ.getKey()) + "/";
-//			sReturn = sReturn + KeyPressUtilZZZ.computeKeyTag(Key_quitZZZ.getKey());	
-//			return sReturn;
-//		}
-		
-//		public static void printlnQuestionYesNoMenueStopQuit(String sQuestionIn) throws ExceptionZZZ{
-//
-//			String sQuestion = StringZZZ.trim(sQuestionIn);
-//			if(StringZZZ.isEmpty(sQuestion)){
-//				String stemp = "'Question String'";
-//				System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
-//				ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
-//				throw ez;
-//			}	
-//			
-//			if(sQuestion.endsWith("?")) {
-//				sQuestion = StringZZZ.stripRight(sQuestion, "?");
-//			}
-//			sQuestion = sQuestion + " " + KeyPressUtilZZZ.computeKeyTagStringYesNoMenueStopQuit()+ "?";
-//			System.out.println( sQuestion);				
-//	}
+
 				
 		//###################################################################
 		//### Ausgabe ohne ein Menü oder Frage, hier wird einfach auf eine Eingabe gewartet.
@@ -695,6 +467,11 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				}
 																			
 				//OHNE FRAGE ... KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
+				
+				TODOGOON2026060920;//ArrayList aufbauen und ohne Frage übergeben... analog zu den Fragemethoden
+				
+				
+				
 				
 				//Merke: Das Warten auf die inputReader.nextLine() Eingabe verhindert in der aufrufenden Methode, das z.B. ein Thread x-fach gestartet wird.
 				boolean bGoon=false; String sInput = null;
