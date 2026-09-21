@@ -11,6 +11,7 @@ import basic.zKernel.file.ini.IIniTagWithExpressionZZZ;
 
 public class KernelSingletonZZZ extends AbstractKernelObjectZZZ{
 	private static final long serialVersionUID = 1L;
+	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
 	private static KernelSingletonZZZ objKernelSingleton; //muss als Singleton static sein	
 	
 	//##########################################################

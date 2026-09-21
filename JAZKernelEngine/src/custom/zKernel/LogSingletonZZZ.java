@@ -6,6 +6,7 @@ import basic.zKernel.IKernelConfigZZZ;
 
 public class LogSingletonZZZ extends AbstractKernelLogZZZ{
 	private static final long serialVersionUID = 1L;
+	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
 	private static LogSingletonZZZ objLogSingleton; //muss als Singleton static sein	
 	
 	//##########################################################

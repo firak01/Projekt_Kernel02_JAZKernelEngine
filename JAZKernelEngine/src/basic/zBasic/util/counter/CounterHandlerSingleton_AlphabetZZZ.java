@@ -9,6 +9,7 @@ import basic.zBasic.ReflectCodeKernelZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 
 public class CounterHandlerSingleton_AlphabetZZZ {
+	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
 	private static CounterHandlerSingleton_AlphabetZZZ objCounterSingleton = null; //muss static sein, wg. getInstance()!!!
 	
 	//##########################################################

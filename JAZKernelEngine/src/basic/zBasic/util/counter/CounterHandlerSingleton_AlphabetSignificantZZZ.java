@@ -10,6 +10,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.string.justifier.SeparatorMessageStringJustifierZZZ;
 
 public class CounterHandlerSingleton_AlphabetSignificantZZZ {
+	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
 	private static CounterHandlerSingleton_AlphabetSignificantZZZ objCounterSingleton = null; //muss static sein, wg. getInstance()!!!
 	
 	//##########################################################
