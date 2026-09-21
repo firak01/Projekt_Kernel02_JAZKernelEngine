@@ -1,9 +1,6 @@
 package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zKernel.IKernelConfigZZZ;
-import basic.zKernel.KernelConfigZZZ;
-import basic.zKernel.KernelSingletonZZZ;
 
 public class Key_yesZZZ extends AbstractKeyPressCharZZZ{
 	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
