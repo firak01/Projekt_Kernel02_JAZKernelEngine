@@ -50,22 +50,6 @@ public class Key_quitZZZ extends AbstractKeyPressCharZZZ{
 		
 		return objKey = new Key_quitZZZ();
 	}
-		
-//	public static IKeyPressCharZZZ getInstance() {
-//		if(objKey==null) {
-//			objKey = new Key_quitZZZ();
-//		}
-//		return objKey;
-//	}
-//		
-//	//Wenn man den Tastendruck in verschiedenen Menüs verwendet, in denen es z.B. unterschiedliche "Defaultkeys" gibt, sollte man eine neue Instanz holen
-//	public static IKeyPressCharZZZ getNewInstance() throws ExceptionZZZ{
-//		//Damit wird garantiert einen neue, frische Instanz geholt.
-//		//Z.B. bei JUnit Tests ist das notwendig, denn in Folgetests wird mit .getInstance() doch tatsächlich mit dem Objekt des vorherigen Tests gearbeitet.
-//		objKey = null;
-//		objKey = getInstance();
-//		return objKey;
-//	}
 	
 	@Override
 	public IKeyPressCharZZZ getKeyCharObject() {
