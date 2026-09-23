@@ -262,6 +262,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	
 	
 	//##### Auf Events hören, ist jetzt um QUIT ergänzt
+	/* (non-Javadoc)
+	 * @see debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ#reactOnStatusLocalEvent(basic.zKernel.status.IEventObjectStatusLocalZZZ)
+	 */
 	@Override
 	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
 		boolean bReturn = false;
@@ -269,7 +272,14 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			//TODOGOON ; FALLUNTERSCHEIDUNG.
 			if(eventStatusLocal==null)break main;
 			
+			boolean bValue = eventStatusLocal.getStatusValue();
+			
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
+			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISTHREADFINISHED)) {
+				this.isKeyPressThreadFinished(bValue);					
+			}
+			
+			
 			if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
 				
 				this.requestStop();

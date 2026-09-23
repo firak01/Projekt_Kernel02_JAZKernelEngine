@@ -186,10 +186,13 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 						ExceptionZZZ ez = new ExceptionZZZ(e);
 						throw ez;
 					}						              
-		        }//end while isStopped	        						               		       
+		        }//end while !isStopped	        						               		       
 			}
 		}//end main:
-		this.getConsoleController().isKeyPressThreadFinished(true);
+		
+		TODOGOON20260923;//nicht mehr direkt den Wert setzen, sondern durch den Status an die registrierten Listener 
+		this.setStatusLocal(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISTHREADFINISHED, true);
+		//this.getConsoleController().isKeyPressThreadFinished(true);
 		return bReturn;
 		
 	}
@@ -210,6 +213,9 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 			main:{			
 				if(eventStatusLocal==null)break main;
 				
+				boolean bValue = eventStatusLocal.getStatusValue();
+				
+				
 				//Merke: Der hier empfangene Event wird folgendermassen erzeugt, s.: 
 				//class AbstractObjectWithStatusLocalZZZ 
 				//private boolean offerStatusLocal_(String sStatusName, boolean bStatusValue, String sStatusMessage) throws ExceptionZZZ{
@@ -223,7 +229,9 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 				//if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
 				
 				//TODOGOON ; FALLUNTERSCHEIDUNG.
-				IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
+				IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
+				
+				
 				if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {
 					
 					this.requestStop();

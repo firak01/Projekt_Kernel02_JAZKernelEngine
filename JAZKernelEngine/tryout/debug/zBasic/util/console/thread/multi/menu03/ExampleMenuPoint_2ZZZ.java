@@ -86,7 +86,12 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 			//Den objCounterServiceThread am ConsoleController registrieren.
 			//Dann kann er auf die "quit" Anweisung reagieren.
 		    objConsoleController.registerForStatusLocalEvent(objConsoleServiceThread_for_counterService);
-	  		    
+	  		   
+		    //Den objConsoleController am objCounterServiceThread registrieren. (implementiert IListenerObjectStatusLocalZZZ)
+		    //Dann kann er auf den "stopped" Status reagieren.
+		    objConsoleServiceThread_for_counterService.registerForStatusLocalEvent(objConsoleController);
+		    
+		    
 			//Den neu erstellten Thread starten, er wird dann aus dem 
 		    //ConsoleServiceMyAlphabetCounterZZZ - Objekt die Methode startit() aufrufen.
 		    Thread t2 = new Thread(objConsoleServiceThread_for_counterService);
