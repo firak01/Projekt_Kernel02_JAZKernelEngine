@@ -76,6 +76,11 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
     	this.setKeyPressThread(objKeyPressThread);
     }
  
+    @Override
+	public boolean stop() throws ExceptionZZZ {
+		this.requestStop();
+		return true;
+	}
 	
     @Override
     public boolean isStopped() {
@@ -108,10 +113,14 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 	                if(objUser!=null) {
 	                	boolean bStop = this.getKeyPressThread().isStopped(); 
 		                if(bStop) {
+		                	//Merke: ConsoleService muss kein Thread sein... dann kann man ihn auch nicht stoppen 
 		                	//objUser.requestStop();
+		                	
+		                	//Diese Klasse selbst ist aber ein Thread, den kann man versuchen zu stoppen.
 		                	this.requestStop();
 		                }else {
-		                	 objUser.startit();                     
+		                	//Methode ist gleich benannt, auch wenn ConsoleService kein Thread ist funktioniert es so.
+		                	objUser.startit();                     
 		                }
 	                }else {
 	                	this.requestStop();
@@ -126,12 +135,6 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 	        }
 		}//end main:
 		return bReturn;
-	}
-	
-	@Override
-	public boolean stop() throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
 

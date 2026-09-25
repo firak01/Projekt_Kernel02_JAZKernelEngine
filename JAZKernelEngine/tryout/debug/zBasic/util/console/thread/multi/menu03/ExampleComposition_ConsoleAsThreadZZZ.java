@@ -1,6 +1,7 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IObjectWithStatusEnabledZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
@@ -61,15 +62,18 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 	
 	public void startit() throws ExceptionZZZ {								
 		IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();	
+		objConsoleController.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		this.setConsoleController(objConsoleController);
 		
 		//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 		//       Darum muss man alles in dem KeyPressThread erledigen
-		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);			
+		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);
+		//objKeyPressThread.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		objConsoleController.setKeyPressThread(objKeyPressThread);
 		//Nein, keypressthread ist selber kein Listener: objConsoleController.registerForStatusLocalEvent(objKeyPressThread);
 		
-		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsoleController);			
+		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsoleController);	
+		//objConsoleService.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		objConsoleController.setConsoleServiceObject(objConsoleService);
 		objConsoleController.registerForStatusLocalEvent(objConsoleService);
 		

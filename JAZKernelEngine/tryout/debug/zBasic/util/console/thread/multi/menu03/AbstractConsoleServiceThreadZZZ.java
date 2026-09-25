@@ -21,7 +21,7 @@ import basic.zKernel.status.IEventObjectStatusLocalZZZ;
  *
  * @param <T>
  */
-public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerUserZZZ, IConsoleServiceUserZZZ, IConsoleControlableZZZ {
+public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> implements IConsoleControllerUserZZZ, IConsoleServiceUserZZZ, IConsoleControlableZZZ, IConsoleServiceThreadEnabledZZZ {
 	private static final long serialVersionUID = -1207680138665628581L;
 	
 	protected volatile IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
@@ -80,13 +80,15 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	//### aus IThreadEnabledZZZ
 	@Override
 	public boolean isStopped() throws ExceptionZZZ {
-		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);
+		//return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);
+		return this.getStatusLocal(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED);
 	}
 	
 	@Override
 	public void isStopped(boolean bStop) throws ExceptionZZZ {
 		//this.bStop = bStop;
-		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, bStop);
+		//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL..ISSTOPPED, bStop);
+		this.setStatusLocal(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED, bStop);
 	}
 	
 	@Override
@@ -190,8 +192,8 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 			}
 		}//end main:
 		
-		TODOGOON20260923;//nicht mehr direkt den Wert setzen, sondern durch den Status an die registrierten Listener 
-		this.setStatusLocal(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISTHREADFINISHED, true);
+		//TODOGOON20260923;//nicht mehr direkt den Wert setzen, sondern durch den Status an die registrierten Listener 
+		this.setStatusLocal(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED, true);
 		//this.getConsoleController().isKeyPressThreadFinished(true);
 		return bReturn;
 		
@@ -278,5 +280,49 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 		public void isQuitted(boolean bStop) throws ExceptionZZZ {
 			// TODO Auto-generated method stub
 			
+		}
+
+		//#############################################################
+		//### FLAG HANDLING
+		//#############################################################
+		
+		@Override
+		public boolean getFlag(
+				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ objEnumFlag)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean setFlag(
+				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ objEnumFlag,
+				boolean bFlagValue) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean[] setFlag(
+				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ[] objaEnumFlag,
+				boolean bFlagValue) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean proofFlagExists(
+				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ objEnumFlag)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean proofFlagSetBefore(
+				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ objEnumFlag)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
 		}
 }

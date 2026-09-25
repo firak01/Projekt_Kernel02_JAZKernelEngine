@@ -17,6 +17,7 @@ import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
@@ -269,25 +270,28 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
 		boolean bReturn = false;
 		main:{
-			//TODOGOON ; FALLUNTERSCHEIDUNG.
 			if(eventStatusLocal==null)break main;
 			
 			boolean bValue = eventStatusLocal.getStatusValue();
 			
-			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
-			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISTHREADFINISHED)) {
+			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
+			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
+				this.isKeyPressThreadFinished(bValue);					
+			}
+			
+			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
 				this.isKeyPressThreadFinished(bValue);					
 			}
 			
 			
-			if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
+			if(objStatus.getName().equalsIgnoreCase(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.getName())) {
 				
 				this.requestStop();
 				
-			}else if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED)) {
+			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.getName())) {
 				
 				this.requestQuit();
-			}else if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
+			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getName())) {
 				
 				
 				//+++++++++++++

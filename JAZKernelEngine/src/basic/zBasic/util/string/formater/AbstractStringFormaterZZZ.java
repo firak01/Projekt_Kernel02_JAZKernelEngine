@@ -3635,14 +3635,19 @@ public abstract class AbstractStringFormaterZZZ extends AbstractObjectWithFlagZZ
 
 	@Override
 	public ArrayListZZZ<String> computeJaggedArrayList_(Object obj, String... sLogs) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return null;
+		//Hier nicht die Zeilen buendig machen, es koennten XML-Tags angefordert sein
+		//Die Aufrufende Methode soll sich dann um das Buendig-Machen kuemmern.
+		Class classObj = obj.getClass();
+		ArrayListZZZ<String> listas =  this.computeLinesInLog_Jagged_ArrayList__(classObj, (IEnumSetMappedStringFormatZZZ[]) null, sLogs);		
+		return listas;	
 	}
 
 	@Override
-	public ArrayListZZZ<String> computeJaggedArrayList_(Class classObj, String... sLogs) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayListZZZ<String> computeJaggedArrayList_(Class classObj, String... sLogs) throws ExceptionZZZ {		
+		//Hier nicht die Zeilen buendig machen, es koennten XML-Tags angefordert sein
+		//Die Aufrufende Methode soll sich dann um das Buendig-Machen kuemmern.		
+		ArrayListZZZ<String> listas =  this.computeLinesInLog_Jagged_ArrayList__(classObj, (IEnumSetMappedStringFormatZZZ[]) null, sLogs);		
+		return listas;	
 	}
 
 
