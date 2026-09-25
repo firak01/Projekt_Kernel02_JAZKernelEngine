@@ -35,7 +35,7 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 			//boolean bQueryReactOn = super.queryReactOnStatusLocalEvent(eventStatusLocal);
 			//if(!bQueryReactOn)break main;
 
-			String sLog;
+			//String sLog;
 			
 			//Falls das REQUEST_STOP Flag gesetzt ist, nicht weiter reagieren...
 			//if(this.getFlag(IProgramRunnableZZZ.FLAGZ.REQUEST_STOP)) {
@@ -50,6 +50,7 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 	}
 	
 	//##################
+	//### aus IListenerObjectStatusLocalZZZ#createHashMapStatusLocal4ReactionCustom_String()
 	@Override
 	public HashMap<IEnumSetMappedStatusLocalZZZ, String> createHashMapStatusLocal4ReactionCustom_String() {
 		// TODO Auto-generated method stub

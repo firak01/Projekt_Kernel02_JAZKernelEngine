@@ -25,7 +25,7 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	private static final long serialVersionUID = -1207680138665628581L;
 	
 	protected volatile IConsoleControllerZZZ objConsoleController = null; //Darüber werden die Variablen und auch die Eingaben ausgetauscht
-	protected volatile IConsoleServiceZZZ objConsoleService = null;
+	protected volatile IConsoleServiceZZZ objConsoleService = null;       //Das Service-Objekt, das hier in einer Schleife immer wieder aufgerufen wird.
 	
 	public static long lSLEEPTIME_DEFAULT = 1000;	
 	protected long lSleepTime = -1;
@@ -230,26 +230,17 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 				//Daher unbedingt nach dem Namen prüfen und nicht direkt die enums vergleichen
 				//if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
 				
-				//TODOGOON ; FALLUNTERSCHEIDUNG.
 				IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
-				
-				
-				if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {
-					
-					this.requestStop();
-					
+				if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {					
+					this.requestStop();					
 				}
 						
-				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.name())) {
-					
-					this.requestStop();
-					
+				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.name())) {					
+					this.requestStop();					
 				}
 				
-				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.name())) {
-					
-					this.requestQuit();
-					
+				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.name())) {					
+					this.requestQuit();					
 				}
 				bReturn = true;
 			}//end main:
@@ -272,14 +263,12 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 		
 		@Override
 		public boolean isQuitted() throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			return false;
+			return this.isStopped();
 		}
 
 		@Override
 		public void isQuitted(boolean bStop) throws ExceptionZZZ {
-			// TODO Auto-generated method stub
-			
+			this.isStopped(bStop);
 		}
 
 		//#############################################################

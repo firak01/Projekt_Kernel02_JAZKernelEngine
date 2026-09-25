@@ -69,9 +69,7 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	}
 	
 	@Override
-	public void requestStop() throws ExceptionZZZ {		
-		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-		//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+	public void requestStop() throws ExceptionZZZ {				
 		this.isStopped(true);
 	}
 	
@@ -82,7 +80,7 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	
 	@Override
 	public void isStopped(boolean bStop) throws ExceptionZZZ {		
-		//this.requestStop();
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);		
 		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, bStop);
 	}
 	
