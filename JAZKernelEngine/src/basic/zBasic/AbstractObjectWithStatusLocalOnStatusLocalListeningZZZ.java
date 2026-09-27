@@ -10,10 +10,11 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import basic.zKernel.status.IListenerObjectStatusBasicZZZ;
+import basic.zKernel.status.IListenerObjectStatusLocalEnabledZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
 import basic.zKernel.status.StatusLocalEventHelperZZZ;
 
-public abstract class AbstractObjectWithStatusLocalOnStatusLocalListeningZZZ <T> extends AbstractObjectWithStatusLocalZZZ<Object> implements IListenerObjectStatusLocalZZZ {
+public abstract class AbstractObjectWithStatusLocalOnStatusLocalListeningZZZ <T> extends AbstractObjectWithStatusLocalZZZ<Object> implements IListenerObjectStatusLocalZZZ, IListenerObjectStatusLocalEnabledZZZ {
 	private static final long serialVersionUID = 1L;
 	protected HashMap<IEnumSetMappedStatusLocalZZZ,String> hmEnumSetForAction_String = null; //Hier wird ggfs. der Eigene Status mit dem Status einer anderen Klasse (definiert durch das Interface) gemappt.		
 	protected HashMap<IEnumSetMappedStatusLocalZZZ,IEnumSetMappedZZZ> hmEnumSetForAction_Enum = null; //Hier wird ggfs. der Eigene Status mit dem Status einer anderen Klasse (definiert durch das Interface) gemappt.	
@@ -44,7 +45,7 @@ public abstract class AbstractObjectWithStatusLocalOnStatusLocalListeningZZZ <T>
 			
 			//Das Programm sollte sich ggfs. am eigenen ObjectBroker registrieren.
 			//Ansonsten bleibt nur die reaction4Action-Methode.
-			if(this.getFlag(IListenerObjectStatusLocalZZZ.FLAGZ.REGISTER_SELF_FOR_EVENT)) {
+			if(this.getFlag(IListenerObjectStatusLocalEnabledZZZ.FLAGZ.REGISTER_SELF_FOR_EVENT)) {
 				this.getSenderStatusLocalUsed().addListenerObject(this);
 			}
 			
@@ -58,7 +59,7 @@ public abstract class AbstractObjectWithStatusLocalOnStatusLocalListeningZZZ <T>
 		
 		//Das Programm sollte sich ggfs. am eigenen ObjectBroker registrieren.
 		//Ansonsten bleibt nur die reaction4Action-Methode.
-		if(this.getFlag(IListenerObjectStatusLocalZZZ.FLAGZ.REGISTER_SELF_FOR_EVENT)) {
+		if(this.getFlag(IListenerObjectStatusLocalEnabledZZZ.FLAGZ.REGISTER_SELF_FOR_EVENT)) {
 			this.getSenderStatusLocalUsed().addListenerObject(this);
 		}
 		
@@ -467,25 +468,29 @@ public abstract class AbstractObjectWithStatusLocalOnStatusLocalListeningZZZ <T>
 	//######################################################################
 	//### FLAG-HANDLING                                            #########
 	//######################################################################
+	
 		
-	//### aus IListenerObjectStatusLocalZZZ
+	//### aus IListenerObjectStatusBasicZZZ
+	//... hier noch nix
+		
+	//### aus IListenerObjectStatusLocalEnabledZZZ
 	@Override
-	public boolean getFlag(IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+	public boolean getFlag(IListenerObjectStatusLocalEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
 		return this.getFlag(objEnumFlag.name());
 	}
 	@Override
-	public boolean setFlag(IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+	public boolean setFlag(IListenerObjectStatusLocalEnabledZZZ.FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
 		return this.setFlag(objEnumFlag.name(), bFlagValue);
 	}
 	
 	@Override
-	public boolean[] setFlag(IListenerObjectStatusLocalZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
+	public boolean[] setFlag(IListenerObjectStatusLocalEnabledZZZ.FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ {
 		boolean[] baReturn=null;
 		main:{
 			if(!ArrayUtilZZZ.isNull(objaEnumFlag)) {
 				baReturn = new boolean[objaEnumFlag.length];
 				int iCounter=-1;
-				for(IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
+				for(IListenerObjectStatusLocalEnabledZZZ.FLAGZ objEnumFlag:objaEnumFlag) {
 					iCounter++;
 					boolean bReturn = this.setFlag(objEnumFlag, bFlagValue);
 					baReturn[iCounter]=bReturn;
@@ -500,50 +505,14 @@ public abstract class AbstractObjectWithStatusLocalOnStatusLocalListeningZZZ <T>
 	}
 	
 	@Override
-	public boolean proofFlagExists(IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+	public boolean proofFlagExists(IListenerObjectStatusLocalEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
 		return this.proofFlagExists(objEnumFlag.name());
 	}	
 	
 	@Override
-	public boolean proofFlagSetBefore(IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
+	public boolean proofFlagSetBefore(IListenerObjectStatusLocalEnabledZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
 		return this.proofFlagSetBefore(objEnumFlag.name());
 	}	
-	
-	
-	//### aus IListenerObjectStatusBasicZZZ
-	@Override
-	public boolean getFlag(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setFlag(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag, boolean bFlagValue)
-			throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean[] setFlag(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ[] objaEnumFlag,
-			boolean bFlagValue) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean proofFlagExists(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag)
-			throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean proofFlagSetBefore(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag)
-			throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
 
 

@@ -56,19 +56,4 @@ public interface IListenerObjectStatusLocalZZZ extends IListenerObjectStatusBasi
 	
 	public boolean isEventRelevant2ChangeStatusLocalByClass(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ;
 	public boolean isEventRelevant2ChangeStatusLocalByStatusLocalValue(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ;
-	
-	//#############################################################
-	//### FLAGZ
-	//#############################################################
-	//Merke: REGISTER_ON_SELF_FOR_EVENT bewirkt, dass der geworfenen Event vom Objekt selbst empfangen wird. 
-	//                                           Dadurch ist die Reaktion ggfs. schneller und VOR allen anderen registrierten Objekten. 
-	public enum FLAGZ{
-		DUMMY,REGISTER_SELF_FOR_EVENT, STATUSLOCAL_REACT_ON_VALUEFALSE
-	}
-		
-	boolean getFlag(FLAGZ objEnumFlag) throws ExceptionZZZ;
-	boolean setFlag(FLAGZ objEnumFlag, boolean bFlagValue) throws ExceptionZZZ;
-	boolean[] setFlag(FLAGZ[] objaEnumFlag, boolean bFlagValue) throws ExceptionZZZ;
-	boolean proofFlagExists(FLAGZ objEnumFlag) throws ExceptionZZZ;
-	boolean proofFlagSetBefore(FLAGZ objEnumFlag) throws ExceptionZZZ;
 }

@@ -240,39 +240,7 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 	//### FLAG HANDLING
 	//########################################
 	
-	@Override
-	public boolean getFlag(basic.zKernel.status.IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setFlag(basic.zKernel.status.IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag, boolean bFlagValue)
-			throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean[] setFlag(basic.zKernel.status.IListenerObjectStatusLocalZZZ.FLAGZ[] objaEnumFlag,
-			boolean bFlagValue) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean proofFlagExists(basic.zKernel.status.IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag)
-			throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean proofFlagSetBefore(basic.zKernel.status.IListenerObjectStatusLocalZZZ.FLAGZ objEnumFlag)
-			throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	//### aus IListenerObjectStatusLocalZZZ
+	//.... hier noch nix ...
 	
 }

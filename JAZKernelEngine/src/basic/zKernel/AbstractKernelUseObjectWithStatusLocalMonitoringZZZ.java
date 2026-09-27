@@ -8,6 +8,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import basic.zKernel.status.IListenerObjectStatusLocalEnabledZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalReactZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
 import basic.zKernel.status.ISenderObjectStatusLocalUserZZZ;
@@ -22,7 +23,7 @@ import basic.zKernel.status.IStatusLocalMapForMonitoringStatusLocalUserZZZ;
  * Window>Preferences>Java>Code Generation.
  */
 public abstract class AbstractKernelUseObjectWithStatusLocalMonitoringZZZ extends AbstractObjectWithStatusLocalMonitoringZZZ implements IKernelUserZZZ, IKernelContextUserZZZ, IListenerObjectStatusLocalReactZZZ, IStatusLocalMapForMonitoringStatusLocalUserZZZ {
-	//Wie in AbstractObjectWithStatusListeningZZZ
+	private static final long serialVersionUID = -3202622184881834139L;
 	
 	//Hier wird ggfs. der Eigene Status mit dem Status einer anderen Klasse (definiert durch das Interface) gemappt.
 	protected volatile HashMap<IEnumSetMappedStatusLocalZZZ,IEnumSetMappedStatusLocalZZZ> hmEnumSet =null; 
@@ -110,7 +111,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalMonitoringZZZ extend
 				
 				boolean bValue = eventStatusLocal.getStatusValue();
 				if(!bValue) {
-					if(!this.getFlag(IListenerObjectStatusLocalZZZ.FLAGZ.STATUSLOCAL_REACT_ON_VALUEFALSE)) {
+					if(!this.getFlag(IListenerObjectStatusLocalEnabledZZZ.FLAGZ.STATUSLOCAL_REACT_ON_VALUEFALSE)) {
 						break main; //Nur auf FALSE-Werte reagieren, wenn entsprechendes FLAG gesetzt ist					
 					}
 				}

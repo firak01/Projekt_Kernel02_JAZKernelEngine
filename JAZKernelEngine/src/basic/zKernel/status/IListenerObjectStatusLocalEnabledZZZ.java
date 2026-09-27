@@ -1,20 +1,16 @@
-package basic.zKernel.flag.event;
-
-import java.util.EventListener;
+package basic.zKernel.status;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zKernel.flag.IFlagZEnabledZZZ;
 
-public interface IListenerObjectFlagZsetZZZ extends EventListener, IFlagZEnabledZZZ{
-	public boolean flagChanged(IEventObjectFlagZsetZZZ eventFlagZset) throws ExceptionZZZ;
-
+public interface IListenerObjectStatusLocalEnabledZZZ{
+	
 	//#############################################################
 	//### FLAGZ
 	//#############################################################
 	//Merke: REGISTER_ON_SELF_FOR_EVENT bewirkt, dass der geworfenen Event vom Objekt selbst empfangen wird. 
 	//                                           Dadurch ist die Reaktion ggfs. schneller und VOR allen anderen registrierten Objekten. 
 	public enum FLAGZ{
-		DUMMY,REGISTER_SELF_FOR_EVENT
+		DUMMY,REGISTER_SELF_FOR_EVENT, STATUSLOCAL_REACT_ON_VALUEFALSE
 	}
 		
 	boolean getFlag(FLAGZ objEnumFlag) throws ExceptionZZZ;
