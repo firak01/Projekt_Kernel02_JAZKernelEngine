@@ -238,10 +238,8 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	//### aus IConsoleControlableZZZ
 	public boolean quit() throws ExceptionZZZ {
 		System.out.println("ConsoleController Beenden");		                					                    
-        //this.isCurrentInputValid(true);
-        //this.isCurrentInputFinished(true);
         this.isKeyPressThreadFinished(true);
-        this.requestQuit(); //stop KeyPressThread über die gesetzte STOP Variable
+        this.requestQuit(); 
         return true;
 	}
 
@@ -291,9 +289,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.getName())) {
 				
 				this.requestQuit();
+				
 			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getName())) {
-				
-				
+								
 				//+++++++++++++
 				String sLog;
 				String sStatusName = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getName();

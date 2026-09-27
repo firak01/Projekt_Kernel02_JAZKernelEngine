@@ -2,14 +2,14 @@ package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.status.IEventBrokerStatusLocalUserZZZ;
-import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
+import basic.zKernel.status.IListenerObjectStatusBasicZZZ;
 import basic.zKernel.status.IStatusLocalBasicUserZZZ;
 import basic.zKernel.status.IStatusLocalMessageUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
 
-public interface IConsoleControllerZZZ extends IThreadableZZZ, IConsoleControlableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ, IKeyPressThreadUserZZZ, IStatusLocalMessageUserZZZ, IListenerObjectStatusLocalZZZ, IEventBrokerStatusLocalUserZZZ {
+public interface IConsoleControllerZZZ extends IThreadableZZZ, IConsoleControlableZZZ, IStatusLocalBasicUserZZZ, IThreadWithStatusLocalEnabledZZZ, IConsoleServiceUserZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ, IKeyPressThreadUserZZZ, IStatusLocalMessageUserZZZ, IListenerObjectStatusBasicZZZ, IEventBrokerStatusLocalUserZZZ {
 
 	public boolean isInputAllFinished() throws ExceptionZZZ;
 	public void isInputAllFinished(boolean bInputFinished)throws ExceptionZZZ;

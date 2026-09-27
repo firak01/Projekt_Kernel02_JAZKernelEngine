@@ -66,7 +66,7 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 			//Gut das die per Singleton erreichbar ist.
 	    	IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
 			
-			//Der Service, der im Thread ausgeführt wird
+			//Der Service, der im Thread wiederholt ausgeführt wird
 			ConsoleServiceMyAlphabetCounterZZZ objCounterService = new ConsoleServiceMyAlphabetCounterZZZ();
 			objCounterService.setConsoleController(objConsoleController); //Damit kann er dann auf globale Angaben der Console zugreifen
 			                                                              //!!! er kann dann auch darüber auf den ConsoleService zugreifen.

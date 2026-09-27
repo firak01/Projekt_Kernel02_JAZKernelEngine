@@ -17,7 +17,7 @@ import basic.zBasic.ExceptionZZZ;
  *
  */
 public interface IEventBrokerStatusLocalUserZZZ extends ISenderObjectStatusLocalUserZZZ{
-	public void registerForStatusLocalEvent(IListenerObjectStatusLocalZZZ objEventListener) throws ExceptionZZZ;
-	public void unregisterForStatusLocalEvent(IListenerObjectStatusLocalZZZ objEventListener) throws ExceptionZZZ;	
+	public void registerForStatusLocalEvent(IListenerObjectStatusBasicZZZ objEventListener) throws ExceptionZZZ;
+	public void unregisterForStatusLocalEvent(IListenerObjectStatusBasicZZZ objEventListener) throws ExceptionZZZ;	
 }
 

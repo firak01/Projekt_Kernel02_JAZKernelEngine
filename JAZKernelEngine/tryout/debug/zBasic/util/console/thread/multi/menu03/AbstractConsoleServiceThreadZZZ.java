@@ -275,6 +275,7 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 		//### FLAG HANDLING
 		//#############################################################
 		
+		//### aus IConsoleServiceThreadEnabledZZZ
 		@Override
 		public boolean getFlag(
 				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ objEnumFlag)
@@ -310,6 +311,43 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 		@Override
 		public boolean proofFlagSetBefore(
 				debug.zBasic.util.console.thread.multi.menu03.IConsoleServiceThreadEnabledZZZ.FLAGZ objEnumFlag)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		
+		//### aus IListenerObjectStatusBasicZZZ
+		@Override
+		public boolean getFlag(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean setFlag(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag, boolean bFlagValue)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean[] setFlag(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ[] objaEnumFlag,
+				boolean bFlagValue) throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean proofFlagExists(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag)
+				throws ExceptionZZZ {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean proofFlagSetBefore(basic.zKernel.status.IListenerObjectStatusBasicZZZ.FLAGZ objEnumFlag)
 				throws ExceptionZZZ {
 			// TODO Auto-generated method stub
 			return false;

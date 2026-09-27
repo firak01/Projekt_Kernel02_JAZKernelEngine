@@ -100,8 +100,16 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		main:{
 			int iCounter = this.getCounter();
 			iCounter++;
+			
+			//### AUSGABE
 			System.out.println("Zähler: " + iCounter);
+			
+			//### VARIABLENWERT RETTEN			
+			//a) eigenen Klasse
+			//                      ... z.B. für die Ausgabe des Zählers am Schluss.
 			this.setCounter(iCounter);
+			
+			//#####################
 			bReturn = true;
 		}//end main:
 		return bReturn;
@@ -118,8 +126,6 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 			                                                              //!!! er kann dann auch darüber auf den ConsoleService zugreifen.
 			                                                              //    Dort kann er dann das bisherige Ergebnis ablegen
 			
-			//TODOGOON20260824;//IDEE für jede aufgerufenen Methode 1x den ConsoleServiceThreadZZZ erzeugen und dann in einer HashMap ablegen und wieder holen.
-			//Dann wird er nur 1x erstellt und der Thread auch nur 1x gestartet.
 			final ConsoleServiceThreadZZZ objCounterServiceThread = new ConsoleServiceThreadZZZ();
 			objCounterServiceThread.setConsoleController(objConsoleController);
 			objCounterServiceThread.setConsoleServiceObject(objCounterService);
@@ -139,6 +145,10 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 			//So kann man ggfs. auf einen anderen Zählertyp umschalten und fortfahren
 			String sCounter = (String) hmVariable.get("OUTPUT_COUNTER_VALUE_CURRENT");
 			int iCounter = StringZZZ.toInteger(sCounter);
+			
+			//### VARIABLENWERT RETTEN			
+			//a) eigenen Klasse
+			//          ... z.B. für die Ausgabe des Zählers am Schluss.    
 			this.setCounter(iCounter);
 		}//end main:
 		return bReturn;	

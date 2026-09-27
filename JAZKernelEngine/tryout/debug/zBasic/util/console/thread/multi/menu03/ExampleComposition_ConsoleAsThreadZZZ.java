@@ -46,7 +46,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 					 Thread.sleep(200);
 					 //System.out.println("ExampleComposition_ConsoleAsThreadZZZ wartet auf fertige Konsoleneingabe");
 				} catch (InterruptedException e) {
-					System.out.println("ExampleComposition_ConsoleAsThreadZZZ: Wait Error");
+					System.out.println("03 ExampleComposition_ConsoleAsThreadZZZ: Wait Error");
 					e.printStackTrace();
 					ExceptionZZZ ez = new ExceptionZZZ(e);
 					throw ez;
@@ -68,7 +68,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 		//       Darum muss man alles in dem KeyPressThread erledigen
 		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);
-		//objKeyPressThread.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
+		//Der Key-Thread hat keinen Status, also nicht: objKeyPressThread.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		objConsoleController.setKeyPressThread(objKeyPressThread);
 		//Nein, keypressthread ist selber kein Listener: objConsoleController.registerForStatusLocalEvent(objKeyPressThread);
 		

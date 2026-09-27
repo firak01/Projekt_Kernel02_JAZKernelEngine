@@ -26,9 +26,9 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 	public void run() {
 		try {
 			start();
-		} catch (ExceptionZZZ e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ExceptionZZZ ez) {
+			System.out.println(ez.getMessageLast());
+			ez.printStackTrace();
 		}
 	}
 	
@@ -39,22 +39,18 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		main:{
 			this.startit();
 			
-			this.getConsole().isConsoleUserThreadRunning(true);
-			//Merke: Diesen Teil nicht als Schleife ausführen... viel zu kompliziert... es gibt schon genug andere Threads
-			//while(!this.isStopped()) {
-										
+			this.getConsole().isConsoleUserThreadRunning(true);										
 			do {
 				 try {				 
 					 Thread.sleep(200);
 					 //System.out.println("ExampleComposition_ConsoleAsThreadZZZ wartet auf fertige Konsoleneingabe");
 				} catch (InterruptedException e) {
-					System.out.println("ExampleComposition_ConsoleAsThreadZZZ: Wait Error");
+					System.out.println("02 ExampleComposition_ConsoleAsThreadZZZ: Wait Error");
 					e.printStackTrace();
 					ExceptionZZZ ez = new ExceptionZZZ(e);
 					throw ez;
 				}
-			}while(!this.getConsole().isStopped());
-			//}while(!this.getConsole().isInputAllFinished());
+			}while(!this.getConsole().isStopped());			
 				
 //CODE 
 			// Im ConsoleThread wird dann das ausgewertet;
@@ -102,9 +98,12 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		
 		//Merke: Man kann keine zweite Scanner Klasse auf den sys.in Stream ansetzen.
 		//       Darum muss man alles in dem KeyPressThread erledigen
-		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);			
+		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);
+		//Der Key-Thread hat keinen Status, also nicht: objKeyPressThread.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		objConsoleController.setKeyPressThread(objKeyPressThread);
-			
+		//Nein, keypressthread ist selber kein Listener: objConsoleController.registerForStatusLocalEvent(objKeyPressThread);
+		
+		
 		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsoleController);			
 		objConsoleController.setConsoleServiceObject(objConsoleService);
 		
