@@ -68,6 +68,9 @@ public abstract class AbstractMenuPointZZZ implements IMenuPointZZZ{
 	public abstract boolean initit(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ;
 	
 	@Override
+	public abstract boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ;
+		
+	@Override
 	public abstract boolean onStartit() throws ExceptionZZZ;
 	
 	@Override

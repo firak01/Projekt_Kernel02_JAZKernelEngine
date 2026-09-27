@@ -8,6 +8,7 @@ import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.IThreadableZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
@@ -59,6 +60,48 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 	}
 	
 	@Override
+	public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			//Hier den maximalen Zählerwert übergeben.
+			
+//    		//######################################################################
+//        	//### Eingabe des zu verarbeitenden/hier: entschluesslenden Textes
+//        	//Merke: Verschluesselte Beispiele kann man sich mit EncryptConsoleMainZZZ erstellen.
+//			
+//    		//Merke Fehler abfangen, wie z.B.: Exception in thread "Thread-1" java.lang.IllegalArgumentException: Illegal character 'ß'
+//			//Das passiert beim Aufruf der Verschlüsselung selbst.
+//        	System.out.println("Geben Sie den zu entschluesselnden Text als String ein");
+//        	String sInput = this.getInputReader().nextLine();
+//        	if(hmVariable!=null) hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_TEXT_ENCRYPTED, sInput);
+//        	if(StringZZZ.isEmpty(sInput)) {
+//        		this.cancelToMenue(hmVariable);
+//        	}
+			
+			//######################################################################
+        	//### Eingabe des maximalen Zählerwerts
+        	System.out.println("Geben Sie den maximalen Zählerwert als Zahl ein, ENTER für unbegrenzt: \n");
+
+        	//Der Menüpunkt braucht Zugriff auf die übergeordnete Konsole.
+			//Gut das die per Singleton erreichbar ist.
+	    	IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
+	    	IKeyPressThreadZZZ objKeyPressThread = objConsoleController.getKeyPressThread();
+	    	
+	    	String sInput = objKeyPressThread.getInputReader().nextLine(); //nextLine ist wichtig, sonst rennt er über die nächste Eingabe hinweg
+	    	TODOGOON20260927;//Hier gültigen Zahlenwert oder nix abfragen in einer Endlossscheife....
+	    	
+	    	HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   			
+			if(hmVariableInternal!=null) {	
+				hmVariableInternal.put("INPUT_COUNTER_VALUE_MAX", sInput);
+				this.setVariableHashMap(hmVariableInternal);
+			}
+				    	
+	    	bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
 	public boolean onStartit() throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
@@ -102,4 +145,5 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 		}//end main:
 		return bReturn;
 	}
+	
 }

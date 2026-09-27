@@ -13,7 +13,9 @@ public interface IMenuPointZZZ {
 	public IThreadableZZZ getServiceThread() throws ExceptionZZZ;
 	public void setServiceThread(IThreadableZZZ objServiceThread) throws ExceptionZZZ;
 	
-	public boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; //Die Methode des Threads aufrufen. Hier wird die
+	public boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; 
+	public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
+	
 	
 	//Entweder wird darin:
 	//a) der Code direkt ausgeführt

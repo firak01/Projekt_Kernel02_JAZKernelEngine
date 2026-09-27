@@ -160,17 +160,15 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	       
     @Override
 	public void requestStop() throws ExceptionZZZ {
-    	//TODOGOON20260831;//stopt den thread aber leider nicht...
     	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
     	
     	//DAS IST FALSCH, STATT DESSEN MUSS DER CONTROLLER EINEN EVENT AN ALLE REGISTRIERTEN SCHICHEN
     	//DER KEYPRESSTHREAD SELBST WIRD NICHT GESTOPPT!!!
     	//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);	        	
 
-//	        	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+//      //Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
     	//this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
-    	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, true);
-	
+    	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, true);	
 	}
     
 
@@ -251,14 +249,35 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	                		}else {
 					        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 					        	if(objMenuPoint!=null) {
-					        		
+					        							        							        		
 					        		//### Frage nach Mehrfacheingabe (VOR dem servicestart, sinnvoll bei Thread)					     
 					        		//Merke: Die Scanner - Eingabe verhindert, dass belibeig viele THREADS gestartet werden. Darum nur die Eingabe "verbergen"					        		
 					        		Syso.printSeparator();		
 					        		if(!bSkipArguments02) {
+
+					        			//TODOGOON20260927; //wie ohne Menüpunkt noch weitere Angaben holen... sollte das nicht im Menü-behandelt werden????
+						        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
+								        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+								        
+						        		 //Jetzt erst noch ggfs. eine Eingabe machen....					                		
+						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+								        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+								        	if(!bGoon) break main; //Quit
+							        	}
+						        		
+						        		
+						        		
+						        		 //Jetzt erst noch ggfs. eine Eingabe machen....					                		
+						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+								        	boolean bGoon = objMenuPoint.processMenuePostArgumentInput(hmVariable);
+								        	if(!bGoon) break main; //Quit
+							        	}
+						        		
+					        			
+					        			
 					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");
 					        			this.validSkipRepeatQuestion(hmVariable);
-					        		}else {
+					        		}else {					        			
 					        			sInput = KeyPressUtilZZZ.makeWaitForInputYesNoMenueStopQuit(this.getInputReader());					        			
 					        		}
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
@@ -327,11 +346,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 						        	}
 						        		
 					        		
-					        		//++
-					        		 
-							        //objKeyPressThreadUsed.isInputAllFinished(false);
-						    								       
-					        		 
+					        		//++ 
 					        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
 					        		IConsoleServiceZZZ objConsoleService = objConsoleController.getConsoleServiceObject();
 					        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...	

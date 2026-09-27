@@ -38,8 +38,12 @@ public class ExampleMenuPoint_plusZZZ extends AbstractMenuPointZZZ {
 
 	@Override
 	public boolean initit(HashMapZZZ<String, Object> hmVariableExternal) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	@Override
+	public boolean processMenuePostArgumentInput(HashMapZZZ<String, Object> hmVariableExternal) throws ExceptionZZZ {
+		return true;
 	}
 
 	

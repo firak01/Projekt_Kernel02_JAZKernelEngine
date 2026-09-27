@@ -201,15 +201,15 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
 
 			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
 			switch(sCallingMethod){
-//					case "ascii":
-//						bReturn = initAscii_(hmVariable);
-//						break;
+//				case "ascii":
+//					bReturn = initAscii_(hmVariable);
+//					break;
 				case "process1":
 					bReturn = initProcess1_(hmVariable);
 					break;
-//					case "countAlphanumeric":
-//						bReturn = initCountAlphanumeric_(hmVariable);
-//						break;
+//				case "countAlphanumeric":
+//					bReturn = initCountAlphanumeric_(hmVariable);
+//					break;
 				default:
 					ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
 					throw ez;
