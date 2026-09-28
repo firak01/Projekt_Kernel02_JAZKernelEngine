@@ -1,6 +1,8 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -8,9 +10,18 @@ import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IKeyPressCharZZZ;
+import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.IThreadableZZZ;
 import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
+import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
+import basic.zBasic.util.console.thread.Key_cancelZZZ;
+import basic.zBasic.util.console.thread.Key_enterZZZ;
+import basic.zBasic.util.console.thread.Key_menueZZZ;
+import basic.zBasic.util.console.thread.Key_noZZZ;
+import basic.zBasic.util.console.thread.Key_quitZZZ;
+import basic.zBasic.util.console.thread.Key_yesZZZ;
 import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
@@ -29,6 +40,8 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 		main:{
 			String sCounterValueCurrent = null;
 			if(hmVariableExternal!=null) {
+				
+				//Hole aus der externen HashMap nur die Werte, die interessieren
 				String sTemp = HashMapUtilZZZ.computeDebugString(hmVariableExternal);
 				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal \n" + sTemp);
 				
@@ -60,11 +73,19 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 	}
 	
 	@Override
-	public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+	public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariableExternal) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			//Hier den maximalen Zählerwert übergeben.
+			//Hole aus der externen HashMap nur die Werte, die interessieren
+			if(hmVariableExternal!=null) {
+				
+				//Hole aus der externen HashMap nur die Werte, die interessieren
+				//Hier nix...					
+			}else {
+				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal ist NULL");				
+			}
 			
+
 //    		//######################################################################
 //        	//### Eingabe des zu verarbeitenden/hier: entschluesslenden Textes
 //        	//Merke: Verschluesselte Beispiele kann man sich mit EncryptConsoleMainZZZ erstellen.
@@ -80,23 +101,41 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 			
 			//######################################################################
         	//### Eingabe des maximalen Zählerwerts
-        	System.out.println("Geben Sie den maximalen Zählerwert als Zahl ein, ENTER für unbegrenzt: \n");
-
+			String sQuestion = "Geben Sie den maximalen Zählerwert als Zahl ein, ENTER für unbegrenzt:";
+        	
         	//Der Menüpunkt braucht Zugriff auf die übergeordnete Konsole.
 			//Gut das die per Singleton erreichbar ist.
 	    	IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
 	    	IKeyPressThreadZZZ objKeyPressThread = objConsoleController.getKeyPressThread();
-	    	
-	    	String sInput = objKeyPressThread.getInputReader().nextLine(); //nextLine ist wichtig, sonst rennt er über die nächste Eingabe hinweg
-	    	TODOGOON20260927;//Hier gültigen Zahlenwert oder nix abfragen in einer Endlossscheife....
-	    	
-	    	HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   			
-			if(hmVariableInternal!=null) {	
-				hmVariableInternal.put("INPUT_COUNTER_VALUE_MAX", sInput);
-				this.setVariableHashMap(hmVariableInternal);
-			}
-				    	
-	    	bReturn = true;
+	    	Scanner inputReader = objKeyPressThread.getInputReader();
+
+	    	//String sInput = KeyPressUtilZZZ.makeInputNumericCancel(inputReader, sQuestion);
+			boolean bGoon=false; String sInput = null;
+			do {
+		    	sInput = KeyPressUtilZZZ.makeInputNumericCancel(inputReader, sQuestion, true);
+		    	if(StringZZZ.isEmptyTrimmed(sInput)) {
+		    		//Wert ist unendlich...
+		    		bGoon = true;
+		    		bReturn = true;
+		    	} else if (StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyCancel)) {
+		    		//CANCEL
+		    		bGoon = true;
+		    		bReturn = false;
+		    	} else if(StringZZZ.isNumeric(sInput)) {
+		    		HashMapZZZ<String, Object> hmVariableInternal = this.getVariableHashMap();							   			
+					if(hmVariableInternal!=null) {	
+						hmVariableInternal.put("INPUT_COUNTER_VALUE_MAX", sInput);
+						this.setVariableHashMap(hmVariableInternal);
+					}
+					bGoon = true;
+			    	bReturn = true;	
+		    	} else {	    		    		
+		    		System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - else Zweig: sInput = '"+sInput+"'");
+	        		System.out.println("Hier ungueltige Eingabe. Vielleicht erst zum Menü mit 'm' zurückgehen?");			                		
+	            	bGoon=false;	
+		    	}
+			}while(!bGoon);
+
 		}//end main:
 		return bReturn;
 	}

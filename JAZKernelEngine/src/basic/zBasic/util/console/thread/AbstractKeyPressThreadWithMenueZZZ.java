@@ -9,6 +9,7 @@ import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
+import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
@@ -244,6 +245,9 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	                	//### Starte service
 			        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
 			        		 
+			        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
+						    IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+						        			        		 
 	                		if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
 	                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
 	                		}else {
@@ -255,28 +259,29 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        		Syso.printSeparator();		
 					        		if(!bSkipArguments02) {
 
-					        			//TODOGOON20260927; //wie ohne Menüpunkt noch weitere Angaben holen... sollte das nicht im Menü-behandelt werden????
-						        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-								        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
-								        
-						        		 //Jetzt erst noch ggfs. eine Eingabe machen....					                		
-						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
-								        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
-								        	if(!bGoon) break main; //Quit
-							        	}
+					        			
+						        		 //Jetzt erst noch ggfs. eine Eingabe machen....	
+								        //Merke: Der Code aus dem KeyPressThread soll in den Menüpunkt verlagert sein.
+//						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
+//								        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+//								        	if(!bGoon) break main; //Quit
+//							        	}
 						        		
-						        		
-						        		
-						        		 //Jetzt erst noch ggfs. eine Eingabe machen....					                		
+						        		//#####################################################################
+					        			//Noch weitere Angaben holen... aus dem Menüpunkt						                    	
 						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
 								        	boolean bGoon = objMenuPoint.processMenuePostArgumentInput(hmVariable);
-								        	if(!bGoon) break main; //Quit
-							        	}
-						        		
-					        			
-					        			
-					        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");
-					        			this.validSkipRepeatQuestion(hmVariable);
+								        	
+								        	//Das Problem ist, dass man hier nur true/false auswerten kann.
+								        	//TODOGOON: IRGENDEINEN RETURNCODE......
+								        	//ALSO MOMENTAN: NUR ZURÜCK ZUM MENÜ SINNVOLL....
+								        	if(!bGoon) {
+								        		sInput =  CharZZZ.toString(IKeyPressConstantZZZ.cKeyMenue); //damit wird der 'M' Tastenkey simuliert.								       
+								        	}else {
+							        			sInput = KeyPressUtilZZZ.makeQuestionYesNoMenueStopQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");
+							        			this.validSkipRepeatQuestion(hmVariable);							        		
+								        	}			
+						        		}
 					        		}else {					        			
 					        			sInput = KeyPressUtilZZZ.makeWaitForInputYesNoMenueStopQuit(this.getInputReader());					        			
 					        		}
@@ -331,15 +336,11 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					                		}
 				                		//}
 						        		//++				                					                	
-				                	}//end if cKey
-					        	
-					        		//+++++++++++++++++++++++++ 
+				                	}//end if cKey					        	
 
-					        	 }else {
-					        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
-							        IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
-							        
-					        		 //Jetzt erst noch ggfs. eine Eingabe machen....					                		
+					        	 }else {		
+					        		//#############################################################
+					        		//Noch weitere Angaben holen... aus dem KeyPressThread						        							                		
 					        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
 							        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
 							        	if(!bGoon) break main; //Quit

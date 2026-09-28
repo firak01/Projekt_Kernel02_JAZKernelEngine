@@ -2,7 +2,7 @@ package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
 
-public class Key_menueZZZ extends AbstractKeyPressCharZZZ{
+public class Key_enterZZZ extends AbstractKeyPressCharZZZ{
 	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
 	protected static IKeyPressCharZZZ objKey=null; //muss static sein, wg. getInstance()!!!
 	//##########################################################
@@ -23,7 +23,7 @@ public class Key_menueZZZ extends AbstractKeyPressCharZZZ{
 		    
 	    
 	//Verwendung als Singleton
-	private Key_menueZZZ() {
+	private Key_enterZZZ() {
 		super();
 	}
 	
@@ -49,7 +49,7 @@ public class Key_menueZZZ extends AbstractKeyPressCharZZZ{
 		//String[] saFlagZ={"init"};
 		//objKernelSingelton = new KernelSingletonZZZ(saFlagZ);	
 		
-		return objKey = new Key_menueZZZ();
+		return objKey = new Key_enterZZZ();
 	}
 	
 	@Override
@@ -65,16 +65,16 @@ public class Key_menueZZZ extends AbstractKeyPressCharZZZ{
 	
 
 	public static char getKey() {
-		return IKeyPressConstantZZZ.cKeyMenue;
+		return IKeyPressConstantZZZ.cKeyEnter;
 	}
 
 	@Override
 	public char getKeyChar() {
-		return Key_menueZZZ.getKey();
+		return Key_enterZZZ.getKey();
 	}
-	
+		
 	@Override
-	public String getKeyDescription() {
-		return "menue";
-	}
+	public String getKeyText() {
+		return "enter";
+	}		
 }

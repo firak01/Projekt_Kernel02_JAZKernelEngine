@@ -64,7 +64,7 @@ public class Key_stopZZZ extends AbstractKeyPressCharZZZ{
 	}
 	
 	@Override
-	public String getKeyText() {
+	public String getKeyDescription() {
 		return "stop";
 	}
 	

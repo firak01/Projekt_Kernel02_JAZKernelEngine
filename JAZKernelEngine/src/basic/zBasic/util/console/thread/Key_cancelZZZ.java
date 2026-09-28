@@ -75,7 +75,7 @@ public class Key_cancelZZZ extends AbstractKeyPressCharZZZ{
 	
 	
 	@Override
-	public String getKeyText() {
+	public String getKeyDescription() {
 		return "cancel";
 	}
 }

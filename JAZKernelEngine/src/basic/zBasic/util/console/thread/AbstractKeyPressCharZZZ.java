@@ -1,9 +1,12 @@
 package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.datatype.character.CharZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 
 public abstract class AbstractKeyPressCharZZZ implements IKeyPressCharZZZ, IKeyPressCharUserZZZ, IKeyPressConstantZZZ{
 	protected boolean bKeyDefault=false;
+	protected String sKeyDescription=null;
 	
 	//### GETTER / SETTER
 	@Override
@@ -25,14 +28,26 @@ public abstract class AbstractKeyPressCharZZZ implements IKeyPressCharZZZ, IKeyP
 	}
 	
 	@Override
-	public abstract char getKeyChar();
+	public abstract char getKeyChar() throws ExceptionZZZ;
+		
+	@Override
+	public String getKeyText() throws ExceptionZZZ {
+		return CharZZZ.toString(this.getKeyChar());
+	}
+	
 	
 	@Override
-	public abstract String getKeyText();
+	public String getKeyDescription() throws ExceptionZZZ {
+		if(StringZZZ.isEmpty(this.sKeyDescription)) {
+			return this.getKeyText();
+		}else {
+			return this.sKeyDescription;
+		}
+	}
 	
 	@Override
-	public String getKeyDescription() {
-		return "";
+	public void setKeyDescription(String sKeyDescription) throws ExceptionZZZ {
+		this.sKeyDescription = sKeyDescription;
 	}
 	
 

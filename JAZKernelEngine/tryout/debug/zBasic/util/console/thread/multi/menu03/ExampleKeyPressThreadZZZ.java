@@ -234,40 +234,12 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
 		return bReturn;
 	}
 	
+//CODE: Jetzt im MenuePoint .initit() 
 //		private boolean initAscii_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-//			boolean bReturn = false;
-//			main:{
-//				//Hier noch zusätzliche Input Variablen übergebbar.
-//				bReturn = true;
-//			}//end main;	
-//			return bReturn;
 //		}
 	
+//CODE: Jetzt im MenuePoint .initit() 	
 //		private boolean initCountAlphanumeric_(HashMapZZZ hmVariable) throws ExceptionZZZ {
-//			boolean bReturn = false;
-//			main:{
-//				if(hmVariable!=null) {				
-//					//Beispiel mit Verschlüsselung: 
-//					//Hier werden die Keys für die Variable als Konstante möglich, da sie ihren eigenen KeyPressThread haben
-//	        		//String sCipher = CryptAlgorithmMappedValueZZZ.CipherTypeZZZ.ROT13.getAbbreviation();
-//	        		//hmVariable.put(KeyPressThreadDecryptZZZ.sINPUT_CIPHER, sCipher);
-//					
-//					//Die Verschiedenen alphanumerischen Zähler haben neben ihrem Namen auch eine "Typenzahl"					
-//					int iAlphanumericType = ICounterByCharacterAsciiFactoryZZZ.iCounter_TYPE_ALPHANUMERIC_SIGNIFICANT;
-//	        		String sAlphanumericType = Integer.toString(iAlphanumericType);
-//	        		//hmVariable.put("INPUT_COUNTER_TYPE", sAlphanumericType); //LOKAL reicht nicht
-//		
-//		
-//		
-//		HashMapZZZ<String,Object> hm1 = this.getConsoleController().getVariableHashMap();
-//		hm1.put("INPUT_COUNTER_TYPE", sAlphanumericType);
-//		
-//		HashMapZZZ<String,Object> hm2 = this.getVariableHashMap();
-//		hm2.put("INPUT_COUNTER_TYPE", sAlphanumericType);
-//	        	}
-//				bReturn = true;
-//			}//end main;	
-//			return bReturn;
 //		}
 	
 	

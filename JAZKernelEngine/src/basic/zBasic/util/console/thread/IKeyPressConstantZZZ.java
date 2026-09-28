@@ -1,6 +1,9 @@
 package basic.zBasic.util.console.thread;
 
+import basic.zBasic.util.datatype.character.CharZZZ;
+
 public interface IKeyPressConstantZZZ {
+	public static char cKeyEnter = CharZZZ.getEmpty();
 	public static char cKeyYes='Y';
 	public static char cKeyNo='N';
 	public static char cKeyMenue='M';

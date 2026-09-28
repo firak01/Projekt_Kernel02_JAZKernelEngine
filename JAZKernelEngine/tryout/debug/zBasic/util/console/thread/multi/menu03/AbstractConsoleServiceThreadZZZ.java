@@ -11,7 +11,6 @@ import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceUserZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ_menuPointUsing;
-import basic.zBasic.util.system.Syso;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 
 /**Der ConsoleServiceThread wird dann gestartet,

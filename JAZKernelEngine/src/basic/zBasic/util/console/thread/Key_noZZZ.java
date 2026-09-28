@@ -63,7 +63,7 @@ public class Key_noZZZ extends AbstractKeyPressCharZZZ{
 	}
 	
 	@Override
-	public String getKeyText() {
+	public String getKeyDescription() {
 		return "no";
 	}
 	

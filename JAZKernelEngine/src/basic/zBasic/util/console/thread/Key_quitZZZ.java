@@ -62,7 +62,7 @@ public class Key_quitZZZ extends AbstractKeyPressCharZZZ{
 	}
 	
 	@Override
-	public String getKeyText() {
+	public String getKeyDescription() {
 		return "quit";
 	}
 	
