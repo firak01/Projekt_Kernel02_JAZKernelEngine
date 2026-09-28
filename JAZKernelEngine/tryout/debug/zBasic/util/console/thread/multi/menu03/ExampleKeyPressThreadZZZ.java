@@ -114,7 +114,8 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
             	
             	this.isCurrentInputValid(true);  	
             	this.isCurrentInputFinished(false);	 
-            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	//this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	this.getConsoleController().resetStatus();
             	break;
             case "1":	 
             	//Einen bestehenden Thread stoppen
@@ -132,7 +133,8 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
             	
             	this.isCurrentInputValid(true);
             	this.isCurrentInputFinished(false);	 
-            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	//this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	this.getConsoleController().resetStatus();
             	break;
             case "2":	            	
             	//Einen bestehenden Thread stoppen
@@ -151,13 +153,15 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
             	
             	this.isCurrentInputValid(true);   
             	this.isCurrentInputFinished(false);	
-            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	//this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	this.getConsoleController().resetStatus();
             	break;
             default:
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
             	System.out.println("ungueltige Eingabe");
             	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
-            	this.isCurrentInputValid(false);					                	
+            	this.isCurrentInputValid(false);
+            	this.isCurrentInputFinished(false);	
             	break main;
             }		 	
         	this.setMenuPoint(objMenuPointNew);

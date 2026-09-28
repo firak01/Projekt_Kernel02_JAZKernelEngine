@@ -66,7 +66,7 @@ import basic.zBasic.util.system.Syso;
             String input = sInput.toLowerCase();			                
             switch(input) {
             case "+":
-            	this.isCurrentInputValid(true);					                	
+            	this.isCurrentInputValid(true);
             	this.setSleepTime(this.getSleepTime()+100);
             	this.getConsoleController().setSleepTime(this.getSleepTime());			                	
             	break;
@@ -83,7 +83,8 @@ import basic.zBasic.util.system.Syso;
             	bReturn = true;
             	break main; //Das Menü ist ja schon da...
             case "a":
-            	this.isCurrentInputValid(true);           
+            	this.isCurrentInputValid(true);  
+            	this.isCurrentInputFinished(false);	
             	this.getConsoleController().resetStatus();            	
             	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	
             	objKeyPressThreadUsed = this;
@@ -93,6 +94,7 @@ import basic.zBasic.util.system.Syso;
             	break;
             case "1":
             	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	
             	this.getConsoleController().resetStatus();  
             	
             	//this.processROT13_(hmVariable);              	
@@ -103,21 +105,25 @@ import basic.zBasic.util.system.Syso;
             	break;
             case "2":
             	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	
             	this.getConsoleController().resetStatus();            	
             	this.initDecryptROTascii_(hmVariable);     
             	break;
             case "3":
             	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	
             	this.getConsoleController().resetStatus();            	
             	this.initDecryptROTnumeric_(hmVariable);     
             	break;
             case "4":
             	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	
             	this.getConsoleController().resetStatus();            	
             	this.initDecryptROTnn_(hmVariable);        					                	
             	break;
             case "5":
             	this.isCurrentInputValid(true);
+            	this.isCurrentInputFinished(false);	
             	this.getConsoleController().resetStatus();            	
             	this.initDecryptVigenereNn_(hmVariable);
             	break;
@@ -125,7 +131,8 @@ import basic.zBasic.util.system.Syso;
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
             	System.out.println("ungueltige Eingabe");
             	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
-            	this.isCurrentInputValid(false);					                	
+            	this.isCurrentInputValid(false);	
+            	this.isCurrentInputFinished(false);	
             	break;
             }		 		
 		}//end main:

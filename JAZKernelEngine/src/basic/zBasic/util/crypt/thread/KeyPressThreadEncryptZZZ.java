@@ -83,7 +83,8 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	bReturn = true;
         	break main; //Das Menü ist ja schon da...
         case "a":
-        	this.isCurrentInputValid(true);     
+        	this.isCurrentInputValid(true); 
+        	this.isCurrentInputFinished(false);	
         	this.getConsoleController().resetStatus();
         	
         	//this.printTableASCII(hmVariable);//Mache eine einfache Print-Ausgabe der ASCII Tabelle           	            	
@@ -94,6 +95,7 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	break;
         case "1":
         	this.isCurrentInputValid(true);
+        	this.isCurrentInputFinished(false);	
         	this.getConsoleController().resetStatus();
         	
         	//this.processROT13_(hmVariable);
@@ -104,21 +106,25 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	break;
         case "2":
         	this.isCurrentInputValid(true);
+        	this.isCurrentInputFinished(false);	
         	this.getConsoleController().resetStatus();        	
         	this.initEncrytptROTascii_(hmVariable);     
         	break;
         case "3":
         	this.isCurrentInputValid(true);
+        	this.isCurrentInputFinished(false);	
         	this.getConsoleController().resetStatus();        	
         	this.initEncryptROTnumeric_(hmVariable);     
         	break;
         case "4":
         	this.isCurrentInputValid(true);
+        	this.isCurrentInputFinished(false);	
         	this.getConsoleController().resetStatus();        	
         	this.initEncryptROTnn_(hmVariable);        					                	
         	break;
         case "5":
         	this.isCurrentInputValid(true);
+        	this.isCurrentInputFinished(false);	
         	this.getConsoleController().resetStatus();        	
         	this.initEncryptVigenereNn_(hmVariable);
         	break;
@@ -126,7 +132,8 @@ public class KeyPressThreadEncryptZZZ<T> extends AbstractKeyPressThreadCryptZZZ<
         	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
         	System.out.println("ungueltige Eingabe");
         	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
-        	this.isCurrentInputValid(false);					                	
+        	this.isCurrentInputValid(false);	
+        	this.isCurrentInputFinished(false);	
         	break;
         }		 		
 	}//end main:
