@@ -20,4 +20,7 @@ public interface IKeyPressThreadMenuableZZZ extends IKeyPressThreadZZZ, IMenuPoi
 	
     public boolean isCurrentMenue()throws ExceptionZZZ;
     public void isCurrentMenue(boolean bMakeMenue) throws ExceptionZZZ;
+    
+    public boolean isMenueWhenFinished() throws ExceptionZZZ;
+    public void isMenueWhenFinished(boolean bMakeMenueWhenFinished) throws ExceptionZZZ;
 }

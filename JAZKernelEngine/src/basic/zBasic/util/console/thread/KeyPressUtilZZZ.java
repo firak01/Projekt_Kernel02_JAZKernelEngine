@@ -715,16 +715,24 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 	            if(sInput.length()==0) { //Merke: Die Scanner Klasse liefert bei ENTER einfach eine Leerzeile
 	            	for (IKeyPressCharZZZ key : listaKey) {
 			        	if(key.isKeyDefault()) {
-			        		String sKey = CharZZZ.toString(key.getKeyChar());
-			                return sKey; // kanonischen Schlüssel zurückgeben
+			        		if(CharZZZ.isNull(key.getKeyChar())) {//AnyKey
+			        			return sInput;
+			        		}else {
+			        			String sKey = CharZZZ.toString(key.getKeyChar());
+			        			return sKey; // kanonischen Schlüssel zurückgeben
+			        		}
 			            }	            	           	           
 			        }	    	
 	            }else {                        
-			        for (IKeyPressCharZZZ key : listaKey) {
-			        	String sKey = CharZZZ.toString(key.getKeyChar());
-			            if (sKey.equalsIgnoreCase(sInput)) {
-			                return sKey; // kanonischen Schlüssel zurückgeben
-			            }	            	           	           
+			        for (IKeyPressCharZZZ key : listaKey) {			        	
+			        	if(CharZZZ.isNull(key.getKeyChar())) {//AnyKey
+		        			return sInput;
+		        		}else {
+				        	String sKey = CharZZZ.toString(key.getKeyChar());
+				            if (sKey.equalsIgnoreCase(sInput)) {
+				                return sKey; // kanonischen Schlüssel zurückgeben
+				            }	    
+		        		}
 			        }
 	            }           
 	            System.out.println("Ungültige Eingabe.");
@@ -756,6 +764,30 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 				
 				listaKey.add(Key_quitZZZ.getInstance());
 				listaKey.add(Key_stopZZZ.getInstance());
+				String sInput = makeWaitInput(inputReader, listaKey);
+					
+				sReturn = sInput;
+			}//end main:
+			return sReturn;
+		}
+		
+		public static String makeWaitForInputAny(Scanner inputReader) throws ExceptionZZZ{
+			String sReturn = null;
+			main:{
+				if(inputReader==null){
+					String stemp = "'Scanner as InputReader'";
+					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+					throw ez;
+				}
+																			
+				//OHNE FRAGE ... KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
+				
+				//ArrayList aufbauen und ohne Frage übergeben... analog zu den Fragemethoden mit Menü
+				ArrayList<IKeyPressCharZZZ> listaKey = new ArrayList<IKeyPressCharZZZ>();
+				IKeyPressCharZZZ keyAny = Key_anyZZZ.getNewInstance();
+				keyAny.isKeyDefault(true); //ANY Key wird berücksichtigt
+				listaKey.add(keyAny);				
 				String sInput = makeWaitInput(inputReader, listaKey);
 					
 				sReturn = sInput;

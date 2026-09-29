@@ -19,6 +19,7 @@ public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractCons
 	
 	protected ICounterStringZZZ<?> objCounter = null;
 	protected int iCounterType = 0;	
+	protected int iCounterValueMax = -1;
 	
 	//### Konstruktor
 	public AbstractConsoleServiceMyCounterZZZ()  throws ExceptionZZZ {
@@ -44,6 +45,14 @@ public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractCons
 		this.iCounterType = iCounterType;
 	}
 	
+	public int getCounterValueMax() throws ExceptionZZZ{
+		return this.iCounterValueMax;
+	}
+	
+	public void setCounterValueMax(int iCounterValueMax) throws ExceptionZZZ{
+		this.iCounterValueMax = iCounterValueMax;
+	}
+	
 	public ICounterStringZZZ getCounter() throws ExceptionZZZ {
 		if(this.objCounter == null) {
 			int iCounterType = this.getCounterType();
@@ -55,6 +64,8 @@ public abstract class AbstractConsoleServiceMyCounterZZZ<T> extends AbstractCons
 	public void setCounter(ICounterStringZZZ objCounter) throws ExceptionZZZ {
 		this.objCounter = objCounter;		
 	}
+	
+	
 	
 	//### Methoden
 	public boolean preStart(ICounterStringZZZ objCounter, HashMap<String,String>hmVariable) throws ExceptionZZZ {

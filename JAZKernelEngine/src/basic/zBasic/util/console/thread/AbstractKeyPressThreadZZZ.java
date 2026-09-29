@@ -5,6 +5,7 @@ import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
 
@@ -220,7 +221,7 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 	                	//### Frage nach Mehrfacheingabe
 			        	 if(!(this.isCurrentInputFinished() && this.isInputAllFinished())) {
 	                		Syso.printSeparator();
-			        		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");		                		                			                			    	                			                				               
+//			        		sInput = KeyPressUtilZZZ.makeQuestionYesNoQuit(this.getInputReader(), "Wollen Sie danach zurueck zum Menue?");		                		                			                			    	                			                				               
 //		                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 //		                			this.quit();
 //			                	}else {		               		                		

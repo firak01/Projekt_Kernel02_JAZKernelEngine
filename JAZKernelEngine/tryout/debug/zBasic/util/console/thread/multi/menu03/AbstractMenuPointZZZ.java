@@ -82,7 +82,7 @@ public abstract class AbstractMenuPointZZZ implements IMenuPointZZZ{
 				System.out.println("Versuche den aktuellen ServiceThread zu beenden");
 				objThread.requestStop();
 								
-				this.setServiceThread(null);
+				//wird später noch gebraucht, zum Checken ob der ServiceThread beendet ist. this.setServiceThread(null);
 			}
 		    bReturn = true;
 		}//end main:
