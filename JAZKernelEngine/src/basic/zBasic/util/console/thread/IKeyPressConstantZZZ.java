@@ -11,6 +11,9 @@ public interface IKeyPressConstantZZZ {
 	public static char cKeyQuit='Q';
 	public static char cKeyStop='S';
 	
+	public static char cKeyMinus='-';
+	public static char cKeyPlus='+';
+	
 	public static String sKeyTagOpen="[";
 	public static String sKeyTagClose="]";
 }

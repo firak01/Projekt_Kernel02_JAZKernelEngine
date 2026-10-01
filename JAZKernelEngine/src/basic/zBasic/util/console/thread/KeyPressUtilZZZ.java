@@ -666,10 +666,13 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 							
 				//20260918 Verbessert mit ArrayList und dem KeyObjekt... dann kann man auch Default-Keys übergeben.
 				ArrayList<IKeyPressCharZZZ>listaKey = new ArrayList<IKeyPressCharZZZ>();
-				IKeyPressCharZZZ keyNo = Key_noZZZ.getNewInstance();
-				keyNo.isKeyDefault(true);
+				IKeyPressCharZZZ keyNo = Key_noZZZ.getNewInstance();				
 				listaKey.add(keyNo);
-				listaKey.add(Key_yesZZZ.getInstance());
+				
+				IKeyPressCharZZZ keyYes = Key_yesZZZ.getNewInstance();
+				keyYes.isKeyDefault(true);
+				listaKey.add(keyYes);
+				
 				listaKey.add(Key_menueZZZ.getInstance());
 				listaKey.add(Key_quitZZZ.getInstance());
 				listaKey.add(Key_stopZZZ.getInstance());

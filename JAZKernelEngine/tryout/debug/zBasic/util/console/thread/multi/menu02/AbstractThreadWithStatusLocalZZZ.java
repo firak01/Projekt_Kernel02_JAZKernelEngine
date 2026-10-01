@@ -13,7 +13,7 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	private static final long serialVersionUID = -5409829624205292974L;
 		
 	//Variablen zur Steuerung des internen Threads
-	public static long lSLEEPTIME_DEFAULT = 1000;
+	public static long lSLEEPTIME_DEFAULT = 10000;
 	private long lSleepTime=-1;	
 	
 	/**Z.B. Wg. Reflection immer den Standardkonstruktor zur Verfügung stellen.

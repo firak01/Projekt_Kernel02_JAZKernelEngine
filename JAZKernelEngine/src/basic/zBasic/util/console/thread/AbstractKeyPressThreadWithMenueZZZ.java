@@ -281,10 +281,13 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        		//### Frage nach Mehrfacheingabe (VOR dem servicestart, sinnvoll bei Thread)					     
 					        		//Merke: Die Scanner - Eingabe verhindert, dass belibeig viele THREADS gestartet werden. Darum nur die Eingabe "verbergen"					        		
 					        		Syso.printSeparator();		
-					        		if(!bSkipArguments02) {
-
+					        		if(bSkipArguments02) {
+					        			//Damit wartet man auf bestimmte Punkte... sInput = KeyPressUtilZZZ.makeWaitForInputYesNoMenueStopQuit(this.getInputReader());
+					        			//Warten auf irgendeine Eingabe, z.B. nach dem Ende des ConsoleServiceThreads
+//FGL20261001 TEST TODOGOON    			sInput = KeyPressUtilZZZ.makeWaitForInputAny(this.getInputReader());					        									        		
+					        		}else {					        			
 					        			
-						        		 //Jetzt erst noch ggfs. eine Eingabe machen....	
+					        			 //Jetzt erst noch ggfs. eine Eingabe machen....	
 								        //Merke: Der Code aus dem KeyPressThread soll in den Menüpunkt verlagert sein.
 //						        		if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
 //								        	boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
@@ -308,11 +311,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 							        			
 								        	}			
 						        		}
-					        		}else {					        			
-					        			//Damit wartet man auf bestimmte Punkte... sInput = KeyPressUtilZZZ.makeWaitForInputYesNoMenueStopQuit(this.getInputReader());
-					        			//Warten auf irgendeine Eingabe, z.B. nach dem Ende des ConsoleServiceThreads
-					        			sInput = KeyPressUtilZZZ.makeWaitForInputAny(this.getInputReader());
-					        		}
+					        		}//end if bSkipArguments02
 			                		if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyQuit)){
 			                			this.quit();
 			                		}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
@@ -328,7 +327,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 //							            IMenuPointZZZ objMenuOld = this.getMenuPoint();
 //							    	    if(objMenuOld!=null) {
 //							    	    	objMenuOld.onStopit();
-							    	    	this.stop();
+				                    		this.stop();
 //							    	     }	
 				                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyYes)) {	
 				                		boolean bYes = BooleanZZZ.stringToBoolean(sInput);
@@ -338,7 +337,11 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                			this.validToMenueLater(hmVariable);//Zurueck zum Menü nach dem Ende vorbereiten
 				                		}else {			                		
 				                			this.validSkipMenue(hmVariable);			                			
-				                		}	
+				                		}
+				                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMinus)) {
+				                		this.setSleepTime(this.getSleepTime() - 1000);
+				                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyPlus)) {
+				                		this.setSleepTime(this.getSleepTime() + 1000);
 				                	} else {				                		
 				                		this.validSkipMenue(hmVariable);				                			
 				                	}//end if cKey	

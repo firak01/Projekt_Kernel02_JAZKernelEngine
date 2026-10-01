@@ -103,7 +103,7 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 				this.setCounterType(iCounterType);
 				
 				String sConterValueMax = (String) hmVariable.get("INPUT_COUNTER_VALUE_MAX"); //Aus ExampleMenuPoint_2ZZZ.initit()
-				iCounterValueMax  = StringZZZ.toInteger(sCounterKey);	
+				iCounterValueMax  = StringZZZ.toInteger(sConterValueMax);	
 				this.setCounterValueMax(iCounterValueMax);
 			}
 			
@@ -132,8 +132,11 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 					iValueCurrent = StringZZZ.toInteger(sValueCurrent);
 				}
 				
+				
 				String sOutput = "Zählerwert '" + sValueCurrent + "' (hochzählen angehalten).";
-				if(iValueCurrent > this.getCounterValueMax() && this.getCounterValueMax()>=0) {
+				
+				
+				if(iValueCurrent >= this.getCounterValueMax() && this.getCounterValueMax()>=1) {
 					//ANHALTEN 
 					IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) objConsoleService.getConsoleController().getKeyPressThread();
 					IMenuPointZZZ objMenuePointOld = objKeyPressThread.getMenuPoint();
@@ -160,7 +163,7 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 				}
 				//+++++++++++++++++++++++++++++++++++++++++++++++++++
 				//AUSGABE
-				System.out.println(sOutput);
+				System.out.println(StringZZZ.repeat("-", 20) + "\n" + sOutput + "\n" + StringZZZ.repeat("-", 20));
 
 				//#####################				
 				bReturn = true;
