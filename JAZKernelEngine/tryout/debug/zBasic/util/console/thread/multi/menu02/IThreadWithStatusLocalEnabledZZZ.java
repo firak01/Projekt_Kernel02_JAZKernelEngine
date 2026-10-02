@@ -36,8 +36,12 @@ public interface IThreadWithStatusLocalEnabledZZZ{
 		ISSTARTED(iSTATUSLOCAL_GROUPID,"isstarted","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ gestartet",""),
 		ISSTARTNO(iSTATUSLOCAL_GROUPID,"isstartno","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ nicht gestartet",""),
 
-		ISSTOPPED(iSTATUSLOCAL_GROUPID,"isstopped","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ beendet",""),
-				
+		ISPAUSED(iSTATUSLOCAL_GROUPID,"ispaused","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ pausiert",""),
+		
+		ISSTOPPED(iSTATUSLOCAL_GROUPID,"isstopped","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ gestoppt",""),
+
+		ISFINISHED(iSTATUSLOCAL_GROUPID,"isfinished","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ beendet",""),
+		
 		HASERROR(iSTATUSLOCAL_GROUPID,"haserror","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ meldet Fehler","");		
 		
 		private int iStatusGroupId;

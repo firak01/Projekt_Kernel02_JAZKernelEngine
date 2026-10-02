@@ -36,10 +36,10 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
 			if(objStatus.equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)) {
 				
-				this.requestStop();
+				bReturn = this.requestStop(true);
 				
 			}
-			bReturn = true;
+			//bReturn = true;
 		}//end main:
 		return bReturn;
 

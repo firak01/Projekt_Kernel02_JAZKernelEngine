@@ -88,10 +88,12 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	}
 	
 	@Override
-	public void requestStop() throws ExceptionZZZ {
-		this.isStopped(true);
+	public boolean requestStop(boolean bStop) throws ExceptionZZZ {
+		this.isStopped(bStop);
+		return true;
 	}
 	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++
 	@Override
 	public long getSleepTime() throws ExceptionZZZ {
 		if(lSleepTime< 0) {

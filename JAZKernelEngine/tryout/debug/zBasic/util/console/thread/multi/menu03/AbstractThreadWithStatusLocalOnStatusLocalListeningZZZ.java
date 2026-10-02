@@ -143,12 +143,10 @@ public abstract class AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ<T> 
 			
 			//TODOGOON ; FALLUNTERSCHEIDUNG.
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
-			if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {
-				
-				this.requestStop();
-				
+			if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {				
+				bReturn = this.requestStop(true);				
 			}
-			bReturn = true;
+			//bReturn = true;
 		}//end main:
 		return bReturn;
 

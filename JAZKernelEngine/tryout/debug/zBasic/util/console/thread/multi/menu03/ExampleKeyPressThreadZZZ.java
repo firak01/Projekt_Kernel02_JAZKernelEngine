@@ -162,6 +162,7 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
             	this.isCurrentMenue(false);//Neue Eingabe OHNE erneut das Menue aufzubauen.
             	this.isCurrentInputValid(false);
             	this.isCurrentInputFinished(false);	
+            	bReturn = true; //nicht abbrechen
             	break main;
             }		 	
         	this.setMenuPoint(objMenuPointNew);

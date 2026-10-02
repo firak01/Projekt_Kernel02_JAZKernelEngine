@@ -165,12 +165,12 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 			
 			//TODOGOON20260831; FALLUNTERSCHEIDUNG für IConsoleControllerEnabled.ISTHREAD_STOPPED;
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
-			if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED)) {
+			if(objStatus.equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED)) {
 				
-				this.requestStop();
+				bReturn = this.requestStop(true);
 				
 			}
-			bReturn = true;
+			//bReturn = true;
 		}//end main:
 		return bReturn;
 

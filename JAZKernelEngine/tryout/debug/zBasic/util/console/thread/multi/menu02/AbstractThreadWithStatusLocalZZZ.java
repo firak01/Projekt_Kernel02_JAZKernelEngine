@@ -62,15 +62,40 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	@Override
 	public abstract boolean start() throws ExceptionZZZ;
 	
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	@Override
-	public boolean stop() throws ExceptionZZZ {
-        this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
-        return true;
+	public boolean pause() throws ExceptionZZZ {
+        return this.requestPause(true); //stop KeyPressThread über die gesetzte STOP Variable        
 	}
 	
 	@Override
-	public void requestStop() throws ExceptionZZZ {				
+	public boolean requestPause(boolean bPause) throws ExceptionZZZ {				
+		this.isPaused(true);
+		return true;
+	}
+	
+	@Override
+	public boolean isPaused() throws ExceptionZZZ {		
+		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISPAUSED);
+	}
+	
+	@Override
+	public void isPaused(boolean bPause) throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);		
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISPAUSED, bPause);
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean stop() throws ExceptionZZZ {
+        return this.requestStop(true); //stop KeyPressThread über die gesetzte STOP Variable        
+	}
+	
+	@Override
+	public boolean requestStop(boolean bStop) throws ExceptionZZZ {				
 		this.isStopped(true);
+		return true;
 	}
 	
 	@Override
@@ -84,6 +109,30 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, bStop);
 	}
 	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean finish() throws ExceptionZZZ {
+        return this.requestFinish(true); //stop KeyPressThread über die gesetzte STOP Variable        
+	}
+	
+	@Override
+	public boolean requestFinish(boolean bFinish) throws ExceptionZZZ {				
+		this.isFinished(bFinish);
+		return true;
+	}
+	
+	@Override
+	public boolean isFinished() throws ExceptionZZZ {		
+		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED);
+	}
+	
+	@Override
+	public void isFinished(boolean bFinish) throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);		
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED, bFinish);
+	}
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	@Override
 	 public long getSleepTime() throws ExceptionZZZ {
 		if(lSleepTime< 0) {

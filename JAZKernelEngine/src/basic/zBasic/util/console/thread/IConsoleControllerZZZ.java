@@ -20,6 +20,9 @@ public interface IConsoleControllerZZZ extends IThreadableZZZ, IConsoleControlab
 	public boolean isKeyPressThreadFinished() throws ExceptionZZZ;
 	public void isKeyPressThreadFinished(boolean bInputThreadFinished) throws ExceptionZZZ; //setzen, wenn die Eingabe im KeyPressThread vorerst abgeschlossen ist.
 
+	public boolean isKeyPressThreadStopped() throws ExceptionZZZ;
+	public void isKeyPressThreadStopped(boolean bInputThreadStopped) throws ExceptionZZZ; //setzen, wenn die Eingabe im KeyPressThread vorerst abgeschlossen ist.
+
 	public boolean isConsoleUserThreadRunning() throws ExceptionZZZ;
 	public void isConsoleUserThreadRunning(boolean bConsoleUserThreadRunning) throws ExceptionZZZ; //setzen, wenn der gestartete ConsolenUserThread beendet wurde. Dann kann eine neue Eingabe gestartet werden.
 		

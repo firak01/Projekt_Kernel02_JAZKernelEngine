@@ -32,14 +32,19 @@ public interface IConsoleControllerEnabledZZZ{
 	//ALIAS(Gruppenid der Meldung, "Uniquename","Statusmeldung","Beschreibung, wird nicht genutzt....",)
 	public enum STATUSLOCAL implements IEnumSetMappedStatusLocalZZZ{//Folgendes geht nicht, da alle Enums schon von einer Java BasisKlasse erben... extends EnumSetMappedBaseZZZ{
 		ISKEYPRESSTHREADRUNNING(iSTATUSLOCAL_GROUPID,"iskeypressthreadrunning","ZZZ: AbstractConsoleControllerZZZ KeyPressThread läuft",""),
+		ISKEYPRESSTHREADSTOPPED(iSTATUSLOCAL_GROUPID,"iskeypressthreadstopped","ZZZ: AbstractConsoleControllerZZZ KeyPressThread gestoppt",""),
 		ISKEYPRESSTHREADFINISHED(iSTATUSLOCAL_GROUPID,"iskeypressthreadfinished","ZZZ: AbstractConsoleControllerZZZ KeyPressThread ist beendet",""),
+
 		ISCONSOLEUSERTHREADRUNNING(iSTATUSLOCAL_GROUPID,"isconsoleuserthreadrunning","ZZZ: AbstractConsoleControllerZZZ ConsoleUserThread läuft",""),
 		ISCONSOLEUSERTHREADFINISHED(iSTATUSLOCAL_GROUPID,"isconsoleuserthreadfinished","ZZZ: AbstractConsoleControllerZZZ ConsoleUserThread ist beendet",""),
 		
 		
 		ISINPUTALLFINISHED(iSTATUSLOCAL_GROUPID,"isinputallfinished","ZZZ: AbstractConsoleControllerZZZ alle Eingaben beendet",""),
 		ISQUITTED(iSTATUSLOCAL_GROUPID,"isquitted","ZZZ: AbstractConsoleControllerZZZ beendet",""),
-		ISTHREADS_STOPPED(iSTATUSLOCAL_GROUPID,"isthread_stopped","ZZZ: AbstractConsoleControllerZZZ Threads gestoppt",""),
+
+		ISTHREAD_PAUSED(iSTATUSLOCAL_GROUPID,"isthread_paused","ZZZ: AbstractConsoleControllerZZZ Thread gestoppt",""),
+		ISTHREAD_STOPPED(iSTATUSLOCAL_GROUPID,"isthread_stopped","ZZZ: AbstractConsoleControllerZZZ Thread gestoppt",""),
+		ISTHREAD_FINISHED(iSTATUSLOCAL_GROUPID,"isthread_finished","ZZZ: AbstractConsoleControllerZZZ Thread beendet",""),
 		;
 		
 		private int iStatusGroupId;

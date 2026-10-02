@@ -73,7 +73,7 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 					//Mit instanceof den Typ abfragen und dahingehend die passende Unterabfrage des Events aufrufen.
 					//Merke: Ohne das instanceof entstehen typcast-mapping-Fehler.
 					IListenerObjectStatusBasicZZZ l = this.getListenerRegisteredAll().get(i);
-					if(l instanceof IListenerObjectStatusLocalZZZ) {
+					if(l instanceof IListenerObjectStatusBasicZZZ) {
 						
 						//Das Problem ist: Wenn ... Objekt den Status nicht hat wird eine Exception geworfen und komplett abgebrochen
 						//Damit das bei einem Monitor-Objekt nicht passiert, wird dort auch in das Mapping der eigenen zu den fremden Statuswerten geguckt.						
@@ -84,7 +84,7 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 						String sLogUsedAdditional = StringFormatManagerZZZ.getInstance().compute(objFormater, l, "");											
 						sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Called for IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
 						this.logProtocol(sLog);
-						IListenerObjectStatusLocalZZZ lused = (IListenerObjectStatusLocalZZZ) l;
+						IListenerObjectStatusBasicZZZ lused = (IListenerObjectStatusBasicZZZ) l;
 						bReacted = lused.reactOnStatusLocalEvent(eventUsed);
 						if(!bReacted) {
 							sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> NICHT reagiert hat IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;

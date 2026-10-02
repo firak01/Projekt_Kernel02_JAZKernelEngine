@@ -75,7 +75,8 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	
 	//###################################################
 	//### METHODEN
-		
+
+	
 	//### aus IThreadEnabledZZZ
 	@Override
 	public boolean isStopped() throws ExceptionZZZ {
@@ -92,15 +93,49 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 	
 	@Override
 	public boolean stop() throws ExceptionZZZ {
-		this.requestStop();
+		return this.requestStop(true);
+	}
+	
+	@Override
+	public boolean requestStop(boolean bStop) throws ExceptionZZZ {
+		this.isStopped(true);
+		return true;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean pause() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+	@Override
+	public boolean requestFinish(boolean bFinish) throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED, bFinish);
 		return true;
 	}
 	
 	@Override
-	public void requestStop() throws ExceptionZZZ {
-		this.isStopped(true);
+	public boolean isFinished() throws ExceptionZZZ {		
+		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED);
 	}
 	
+	@Override
+	public void isFinished(boolean bFinish) throws ExceptionZZZ {		
+		this.requestFinish(bFinish);
+	}
+	
+	@Override
+	public boolean finish() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++
 	@Override
 	public long getSleepTime() throws ExceptionZZZ {
 		if(lSleepTime< 0) {
@@ -231,17 +266,17 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 				
 				IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();
 				if(objStatus.getName().equals(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.name())) {					
-					this.requestStop();					
+					bReturn = this.requestStop(true);					
 				}
 						
-				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.name())) {					
-					this.requestStop();					
+				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.name())) {					
+					bReturn = this.requestStop(true);					
 				}
 				
 				if(objStatus.getName().equals(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.name())) {					
-					this.requestQuit();					
+					bReturn = this.requestQuit(true);					
 				}
-				bReturn = true;
+				//bReturn = true;
 			}//end main:
 			return bReturn;
 
@@ -251,13 +286,13 @@ public class AbstractConsoleServiceThreadZZZ<T> extends AbstractThreadWithStatus
 
 		@Override
 		public boolean quit() throws ExceptionZZZ {
-			this.requestQuit();
-			return true;
+			return this.requestQuit(true);
 		}
 		
 		@Override
-		public void requestQuit() throws ExceptionZZZ {
-			this.requestStop();
+		public boolean requestQuit(boolean bQuit) throws ExceptionZZZ {
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			return this.requestStop(bQuit);
 		}
 		
 		@Override

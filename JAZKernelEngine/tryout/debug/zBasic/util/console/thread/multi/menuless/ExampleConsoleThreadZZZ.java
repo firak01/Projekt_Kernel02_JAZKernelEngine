@@ -76,26 +76,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
     	this.setKeyPressThread(objKeyPressThread);
     }
  
-    @Override
-	public boolean stop() throws ExceptionZZZ {
-		this.requestStop();
-		return true;
-	}
-	
-    @Override
-    public boolean isStopped() {
-		return this.bStop;
-	}
-    
-    @Override
-	public void isStopped(boolean bStop) {
-		this.bStop = bStop;
-	}
-    
-    @Override
-	public void requestStop() {
-		this.isStopped(true);
-	}
+   
 	
 	@Override
 	public boolean start() throws ExceptionZZZ {
@@ -117,13 +98,13 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 		                	//objUser.requestStop();
 		                	
 		                	//Diese Klasse selbst ist aber ein Thread, den kann man versuchen zu stoppen.
-		                	this.requestStop();
+		                	this.requestStop(true);
 		                }else {
 		                	//Methode ist gleich benannt, auch wenn ConsoleService kein Thread ist funktioniert es so.
 		                	objUser.startit();                     
 		                }
 	                }else {
-	                	this.requestStop();
+	                	this.requestStop(true);
 	                }
 	            }
 	           
@@ -135,6 +116,72 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 	        }
 		}//end main:
 		return bReturn;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++
+	 @Override
+	public boolean stop() throws ExceptionZZZ {
+		return this.requestStop(true);
+	}
+	
+    @Override
+    public boolean isStopped() {
+		return this.bStop;
+	}
+    
+    @Override
+	public void isStopped(boolean bStop) {
+		this.bStop = bStop;
+	}
+    
+    @Override
+	public boolean requestStop(boolean bStop) {
+		this.isStopped(bStop);
+		return true;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean pause() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean requestPause(boolean bPause) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isPaused() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void isPaused(boolean bPause) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean finish() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean requestFinish(boolean bFinish) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isFinished() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void isFinished(boolean bFinish) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

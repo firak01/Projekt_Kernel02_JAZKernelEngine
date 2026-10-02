@@ -128,14 +128,17 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
     }
     //########################################
     
+    //### aus IThreadableZZZ
 	@Override
 	public boolean stop() throws ExceptionZZZ {
         this.isCurrentInputValid(true);
         this.isCurrentInputFinished(true);
         this.isKeyPressThreadFinished(true);
-        this.requestStop(); //stop KeyPressThread über die gesetzte STOP Variable
-        return true;
+        return this.requestStop(true); //stop KeyPressThread über die gesetzte STOP Variable
 	}
+	
+	
+	
 	
    
     @Override

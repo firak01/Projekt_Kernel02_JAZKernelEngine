@@ -369,6 +369,23 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 		System.out.println( sQuestion);				
 	}
 	
+	public static void printlnInputAny(String sRemarkIn) throws ExceptionZZZ{
+
+		String sRemark = StringZZZ.trim(sRemarkIn);
+//		if(StringZZZ.isEmpty(sRemark)){
+//			String stemp = "'Question String'";
+//			System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ stemp);
+//			ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
+//			throw ez;
+//		}	
+		
+		if(sRemark.endsWith("?")) {
+			sRemark = StringZZZ.stripRight(sRemark, "?");
+		}
+//		sRemark = sRemark + " " + KeyPressUtilZZZ.computeKeyTagStringInputAlphabetCancel()+ "?";
+		System.out.println( sRemark);				
+	}
+	
 	public static void printlnInputNumericCancel(String sQuestionIn) throws ExceptionZZZ{
 
 		String sQuestion = StringZZZ.trim(sQuestionIn);
@@ -606,7 +623,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 		return sReturn;
 	}
 		
-		public static String makeQuestionYesNoMenueQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
+		public static String makeQuestionYesNoMenuQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
 			String sReturn = null;
 			main:{
 				if(inputReader==null){
@@ -642,7 +659,7 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 			return sReturn;
 		}
 		
-		public static String makeQuestionYesNoMenueStopQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
+		public static String makeQuestionYesNoMenuStopQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
 			String sReturn = null;
 			main:{
 				if(inputReader==null){
@@ -742,7 +759,11 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 		    }//end while(true)	 
 		}
 	
-		public static String makeWaitForInputYesNoMenueStopQuit(Scanner inputReader) throws ExceptionZZZ{
+		
+		public static String makeWaitForInputMinusPlusMenuStopQuit(Scanner inputReader) throws ExceptionZZZ{
+			return makeWaitForInputMinusPlusMenuStopQuit(inputReader,"");
+		}
+		public static String makeWaitForInputMinusPlusMenuStopQuit(Scanner inputReader, String sQuestionIn) throws ExceptionZZZ{
 			String sReturn = null;
 			main:{
 				if(inputReader==null){
@@ -751,22 +772,26 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
-																			
-				//OHNE FRAGE ... KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
-				
+																							
 				//ArrayList aufbauen und ohne Frage übergeben... analog zu den Fragemethoden mit Menü
 				ArrayList<IKeyPressCharZZZ> listaKey = new ArrayList<IKeyPressCharZZZ>();
-				IKeyPressCharZZZ keyNo = Key_noZZZ.getNewInstance();
-				//keyNo.isKeyDefault(true); //ENTER als Defaultkey wird nicht berücksichtigt
-				listaKey.add(keyNo);
-				listaKey.add(Key_yesZZZ.getInstance());
+				IKeyPressCharZZZ keyMinus = Key_minusZZZ.getNewInstance();				
+				listaKey.add(keyMinus);
+				
+				IKeyPressCharZZZ keyPlus = Key_plusZZZ.getNewInstance();				
+				listaKey.add(keyPlus);
 				
 				IKeyPressCharZZZ keyMenue = Key_menueZZZ.getNewInstance();
-				keyMenue.isKeyDefault(true);//ENTER als Defaultkey wird berücksichtigt
+				keyMenue.isKeyDefault(true);//M=Menue als Defaultkey wird berücksichtigt
 				listaKey.add(keyMenue);
 				
 				listaKey.add(Key_quitZZZ.getInstance());
 				listaKey.add(Key_stopZZZ.getInstance());
+				
+				//OHNE FRAGE ... 
+				KeyPressUtilZZZ.printlnMenu(sQuestionIn, listaKey);
+				
+				
 				String sInput = makeWaitInput(inputReader, listaKey);
 					
 				sReturn = sInput;
@@ -775,6 +800,10 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 		}
 		
 		public static String makeWaitForInputAny(Scanner inputReader) throws ExceptionZZZ{
+			return makeWaitForInputAny(inputReader, "Drücken Sie eine beliebige Taste.");
+		}
+		
+		public static String makeWaitForInputAny(Scanner inputReader, String sRemarkIn) throws ExceptionZZZ{
 			String sReturn = null;
 			main:{
 				if(inputReader==null){
@@ -783,8 +812,8 @@ public class KeyPressUtilZZZ implements IKeyPressConstantZZZ, IConstantZZZ{
 					ExceptionZZZ ez = new ExceptionZZZ(stemp,iERROR_PARAMETER_MISSING, KeyPressUtilZZZ.class,  ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
-																			
-				//OHNE FRAGE ... KeyPressUtilZZZ.printlnQuestionYesNoMenueStopQuit(sQuestion);
+																							
+				printlnInputAny(sRemarkIn);
 				
 				//ArrayList aufbauen und ohne Frage übergeben... analog zu den Fragemethoden mit Menü
 				ArrayList<IKeyPressCharZZZ> listaKey = new ArrayList<IKeyPressCharZZZ>();

@@ -156,11 +156,23 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	public boolean isKeyPressThreadFinished() throws ExceptionZZZ {
 		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED);
 	}
-	
+
 	@Override
 	public void isKeyPressThreadFinished(boolean bInputFinished)  throws ExceptionZZZ{
 		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED, bInputFinished);
-		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING,!bInputFinished);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING,!bInputFinished);	
+	}
+	
+	
+	@Override
+	public boolean isKeyPressThreadStopped() throws ExceptionZZZ {
+		return this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED);
+	}
+	
+	@Override
+	public void isKeyPressThreadStopped(boolean bInputStopped)  throws ExceptionZZZ{
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADSTOPPED, bInputStopped);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING,!bInputStopped);
 	}
 	
 	
@@ -173,6 +185,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	public void isKeyPressThreadRunning(boolean bInputRunning)  throws ExceptionZZZ{
 		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING, bInputRunning);
 		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED, !bInputRunning);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADSTOPPED, !bInputRunning);
 	}
 		
 	@Override
@@ -202,7 +215,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	public boolean resetStatus() throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+			this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED, false);
 						
 			bReturn = true;
 		}
@@ -239,14 +252,14 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	public boolean quit() throws ExceptionZZZ {
 		System.out.println("ConsoleController Beenden");		                					                    
         this.isKeyPressThreadFinished(true);
-        this.requestQuit(); 
-        return true;
+        return this.requestQuit(true); 
 	}
 
 	@Override
-	public void requestQuit() throws ExceptionZZZ {		
+	public boolean requestQuit(boolean bQuit) throws ExceptionZZZ {		
 		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
+		this.setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, bQuit);
+		return true;
 	}
 		
 	@Override
@@ -255,8 +268,8 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 	}
 	
 	@Override
-	public void isQuitted(boolean bStop) throws ExceptionZZZ {		
-		this.requestQuit();
+	public void isQuitted(boolean bQuit) throws ExceptionZZZ {		
+		this.requestQuit(bQuit);
 	}
 	
 	
@@ -270,33 +283,45 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		main:{
 			if(eventStatusLocal==null)break main;
 			
+			String sLog;
+			String sStatusName = null; boolean bStatusValue = true; String sStatusMessage = null;
 			boolean bValue = eventStatusLocal.getStatusValue();
+			
 			
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
 			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
-				this.isKeyPressThreadFinished(bValue);					
+				System.out.println(ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED");
+				this.isKeyPressThreadFinished(bValue);
+				
+				System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
+				IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+				objKeyPressThread.isCurrentMenue(true);
+			}
+						
+			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED.getName())){
+				System.out.println(ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED");
+				this.isKeyPressThreadStopped(bValue);
+				
+				
 			}
 			
-			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
-				this.isKeyPressThreadFinished(bValue);					
-			}
 			
 			
 			if(objStatus.getName().equalsIgnoreCase(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED.getName())) {
 				
-				this.requestStop();
+				return this.requestStop(true);
 				
 			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.getName())) {
 				
-				this.requestQuit();
+				return this.requestQuit(true);
+
 				
-			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getName())) {
+			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.getName())) {
 								
 				//+++++++++++++
-				String sLog;
-				String sStatusName = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getName();
-				boolean bStatusValue = true;
-				String sStatusMessage = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED.getStatusMessage();
+				sStatusName = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.getName();
+				bStatusValue = true;
+				sStatusMessage = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.getStatusMessage();
 				
 				//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
 				//Dann erzeuge den Event und feuer ihn ab.	
@@ -306,27 +331,42 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 					break main;
 				}
 				
-				//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
-				if(bStatusValue) { //!!! nur im TRUE Fall wird eine Logausgabe erzeugt... sonst wird das Log zu voll.			
-					sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-					this.logProtocol(sLog);
-				}
-				IEventObjectStatusBasicZZZ event;
-				if(sStatusMessage==null) {
-					event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue);
-				}else{
-					event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue, sStatusMessage);			
-				}
-						
-				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
-				this.logProtocol(sLog);
-				this.getSenderStatusLocalUsed().fireEvent(event);
+				
+			} else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_FINISHED.getName())) {
+					
+					//+++++++++++++
+					sStatusName = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_FINISHED.getName();
+					bStatusValue = true;
+					sStatusMessage = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_FINISHED.getStatusMessage();
+					
+					//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
+					//Dann erzeuge den Event und feuer ihn ab.	
+					if(this.getSenderStatusLocalUsed()==null) {
+						sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+						this.logProtocol(sLog);		
+						break main;
+					}
 			}
-			
+					
+			//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
+			if(bStatusValue) { //!!! nur im TRUE Fall wird eine Logausgabe erzeugt... sonst wird das Log zu voll.			
+				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+				this.logProtocol(sLog);
+			}
+			IEventObjectStatusBasicZZZ event;
+			if(sStatusMessage==null) {
+				event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue);
+			}else{
+				event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue, sStatusMessage);			
+			}
+					
+			sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
+			this.logProtocol(sLog);
+			this.getSenderStatusLocalUsed().fireEvent(event);
+		
 			bReturn = true;
 		}//end main:
 		return bReturn;
-
 	}
 	
 	//###################################################

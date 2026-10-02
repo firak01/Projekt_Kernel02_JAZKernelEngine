@@ -117,7 +117,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
             	this.setMethodForConsoleService("ascii");           
             	objKeyPressThreadUsed.initit(hmVariable);  
             	
-            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED, false);
             	break;
             case "1":
             	this.isCurrentInputValid(true);
@@ -128,7 +128,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
             	this.setMethodForConsoleService("process1");           
             	objKeyPressThreadUsed.initit(hmVariable);   
             	
-            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED, false);
             	break;
             case "2":            	
             	this.isCurrentInputValid(true);  
@@ -139,7 +139,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZ
             	this.setMethodForConsoleService("countAlphanumeric");           
             	objKeyPressThreadUsed.initit(hmVariable);   
             	
-            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREADS_STOPPED, false);
+            	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED, false);
             	break;
             default:
             	System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - default Zweig: sInput = '"+sInput+"'");
