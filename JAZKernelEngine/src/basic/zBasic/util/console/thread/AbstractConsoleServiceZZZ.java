@@ -174,7 +174,10 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 	}
 	
 	@Override
-	public abstract boolean stopit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; 
+	public boolean stopit(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	//Stopit wird dann von einem anderen Thread aus aufgerufen.
 	//Das MenuPoint-Objekt hat seinen eigenen Code, bzw. weiss welches ServiceObject er nutzt.
