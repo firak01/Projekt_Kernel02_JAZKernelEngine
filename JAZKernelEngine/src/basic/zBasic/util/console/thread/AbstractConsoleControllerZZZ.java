@@ -301,8 +301,6 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED.getName())){
 				System.out.println(ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED");
 				this.isKeyPressThreadStopped(bValue);
-				
-				
 			}
 			
 			
@@ -346,6 +344,26 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 						this.logProtocol(sLog);		
 						break main;
 					}
+			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADSTOPPED.getName())){
+				//+++++++++++++
+				sStatusName = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADSTOPPED.getName();
+				bStatusValue = true;
+				sStatusMessage = IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADSTOPPED.getStatusMessage();
+				
+				//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
+				//Dann erzeuge den Event und feuer ihn ab.	
+				if(this.getSenderStatusLocalUsed()==null) {
+					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+					this.logProtocol(sLog);		
+					break main;
+				}
+				
+			}
+			
+			if(StringZZZ.isEmpty(sStatusName)){
+				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Status with name '" + objStatus.getName() + "' is not handled yet.";
+				this.logProtocol(sLog);
+				break main;
 			}
 					
 			//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		

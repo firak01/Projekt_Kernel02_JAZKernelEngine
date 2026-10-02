@@ -156,6 +156,39 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 	}	
 	
 	
+	//+++++++++++++++++++++++++
+	@Override
+	public boolean stopit() throws ExceptionZZZ{
+		//Für Klassen, die Methoden ohne Variablenübergabe machen wollen.
+		boolean bReturn = false;
+		main:{
+			IMenuPointZZZ objMenuPoint = this.getMenuPoint();		
+			if(objMenuPoint==null) {
+				HashMapZZZ<String, Object> hmVariable = this.getVariableHashMap();
+				bReturn = this.stopit(hmVariable);
+			}else {
+				bReturn = this.stopit(objMenuPoint);
+			}
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public abstract boolean stopit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; 
+	
+	//Stopit wird dann von einem anderen Thread aus aufgerufen.
+	//Das MenuPoint-Objekt hat seinen eigenen Code, bzw. weiss welches ServiceObject er nutzt.
+	//Der MenuPoint weiss auch, ob er das ServiceObjekt wiederholt in einem ServiceThreadObject nutzt.
+	@Override
+	public boolean stopit(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			bReturn = objMenuPoint.onStopit();
+		}//end main:
+		return bReturn;
+	}	
+	
+	//+++++++++++++++++++++++
 	@Override
 	public boolean reactOnStatusLocalEvent(IEventObjectStatusLocalZZZ eventStatusLocal) throws ExceptionZZZ {		
 		boolean bReturn = false;

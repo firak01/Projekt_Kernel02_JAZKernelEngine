@@ -36,6 +36,7 @@ public interface IConsoleControllerEnabledZZZ{
 		ISKEYPRESSTHREADFINISHED(iSTATUSLOCAL_GROUPID,"iskeypressthreadfinished","ZZZ: AbstractConsoleControllerZZZ KeyPressThread ist beendet",""),
 
 		ISCONSOLEUSERTHREADRUNNING(iSTATUSLOCAL_GROUPID,"isconsoleuserthreadrunning","ZZZ: AbstractConsoleControllerZZZ ConsoleUserThread läuft",""),
+		ISCONSOLEUSERTHREADSTOPPED(iSTATUSLOCAL_GROUPID,"isconsoleuserthreadstoppe","ZZZ: AbstractConsoleControllerZZZ ConsoleUserThread ist gestoppt",""),
 		ISCONSOLEUSERTHREADFINISHED(iSTATUSLOCAL_GROUPID,"isconsoleuserthreadfinished","ZZZ: AbstractConsoleControllerZZZ ConsoleUserThread ist beendet",""),
 		
 		

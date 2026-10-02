@@ -175,6 +175,64 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 		}//end main:
 		return bReturn;	
 	}
-
 	
+	@Override
+	public boolean stopit(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			//Jetzt können Variablen aus dem KeyPressThread entgegengenommen werden.
+			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			
+			//Nutze auch die nicht stopit fähigen Methoden
+			if(!StringZZZ.isEmptyNull(sCallingMethod)) {
+				switch(sCallingMethod){	
+					case "countAlphanumeric":
+						bReturn = stopCountAlphanumeric_(hmVariable);
+						break;
+					default:
+						ExceptionZZZ ez = new ExceptionZZZ("Nicht behandelte Methode: '" + sCallingMethod + "'", iERROR_PROPERTY_VALUE, this.getClass(), ReflectCodeZZZ.getPositionCurrent());
+						throw ez;
+				}
+			}else {
+				//############## ALTE VERSION, NOCH NICHT ENTFERNT STARTBAR
+				bReturn = stopCountByFactory_(hmVariable);
+			}//sCallingMethod
+									
+			//bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+	
+	private boolean stopCountAlphanumeric_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		return stopCountByFactory_(hmVariable);
+	}
+		
+	
+	
+	//########################################
+	
+	private boolean stopCountByFactory_(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(hmVariable!=null) {
+				
+				//Debugausgabe, ob auch alles gefüllt ist			
+				String sDebug = HashMapUtilZZZ.computeDebugString(hmVariable, "<BR>","|");
+				System.out.println(sDebug);
+				
+				//DIE WERTE AN DEN CONTROLLER ZURÜCKGEBEN
+				IExampleConsoleServiceZZZ objConsoleService = (IExampleConsoleServiceZZZ) this.getConsoleController().getConsoleServiceObject();
+				objConsoleService.getConsoleController().setVariableHashMap(hmVariable);
+	
+				bReturn = true;
+			}else {
+				
+				System.out.println("keine HashMap mit Variablen übergeben.");
+				bReturn = false;
+			}
+			
+			//#####################	
+		}//end main:
+		return bReturn;	
+	}
 }

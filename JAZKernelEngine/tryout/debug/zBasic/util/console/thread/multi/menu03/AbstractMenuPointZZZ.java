@@ -88,4 +88,6 @@ public abstract class AbstractMenuPointZZZ implements IMenuPointZZZ{
 		}//end main:
 		return bReturn;
 	}
+	
+	
 }

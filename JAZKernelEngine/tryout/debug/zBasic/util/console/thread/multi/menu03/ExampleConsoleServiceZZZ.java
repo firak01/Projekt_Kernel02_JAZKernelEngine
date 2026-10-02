@@ -33,27 +33,8 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 		this.iCounter = iCounter;
 	}
 	
+
 	//Das ist kein eigener Thread mehr
-//	@Override
-//	public boolean start() throws ExceptionZZZ {
-//		boolean bReturn = false;
-//		main:{
-//			if(this.isStopped()) break main;
-//			
-//			this.iCounter++;
-//			System.out.println("Zähler: " + iCounter);
-//			 try {				 
-//				Thread.sleep(100);
-//				bReturn = true;
-//			} catch (InterruptedException e) {
-//				System.out.println("KeyPressThread: Wait Error");
-//				e.printStackTrace();
-//			}
-//		}//end main:
-//		return bReturn;	
-//	}
-	
-	
 	//Startit wird dann von einem anderen Thread aus aufgerufen.
 	@Override
 	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
@@ -117,6 +98,18 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 			bReturn = true;
 		}//end main:
 		return bReturn;
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean stopit() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean stopit(HashMapZZZ<String, Object> hmVariable) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 //CODE: Folgendes ist noch vollständig in ...Menue02 - Example

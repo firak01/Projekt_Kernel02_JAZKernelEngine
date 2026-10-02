@@ -467,7 +467,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			                
 			                
 			                //objKeyPressThreadUsed.isInputAllFinished(true);
-			                this.getKeyPressThread().isInputAllFinished(true);
+			                //this.getKeyPressThread().isInputAllFinished(true);
 			               	this.isInputAllFinished(false); //Auf zur nächsten Eingabe
 			               		                	
 			        	} //end if 	!(this.isCurrentInputFinished() && this.isInputAllFinished())			        					        					        	
@@ -483,13 +483,21 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	
 	@Override
 	public boolean stop() throws ExceptionZZZ {
-		IMenuPointZZZ objMenuOld = this.getMenuPoint();
- 	    if(objMenuOld!=null) {
- 	    	objMenuOld.onStopit();
- 	     }	
+		boolean bReturn = false;
+		main:{
+			
 		
 		System.out.println("THREAD beenden");	
-		return super.stop();
+		bReturn = super.stop();
+		if(!bReturn) break main;
+		
+		IMenuPointZZZ objMenuOld = this.getMenuPoint();
+ 	    if(objMenuOld!=null) {
+ 	    	bReturn = objMenuOld.onStopit();
+ 	     }	
+		
+		}//end main:
+		return bReturn;
 	}
 	
 

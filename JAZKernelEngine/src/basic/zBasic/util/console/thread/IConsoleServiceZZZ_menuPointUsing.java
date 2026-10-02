@@ -9,4 +9,8 @@ public interface IConsoleServiceZZZ_menuPointUsing extends IConsoleControllerUse
 	//Das objMenuPoint-Objekt hat den auszuführenden Code in sich, objMenuPoint.onStartit();
 	public boolean startit() throws ExceptionZZZ;
 	public boolean startit(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ;
+	
+	//Das objMenuPoint-Objekt hat den auszuführenden Code in sich, objMenuPoint.onStopit();
+	public boolean stopit() throws ExceptionZZZ;
+	public boolean stopit(IMenuPointZZZ objMenuPoint) throws ExceptionZZZ;
 }

@@ -8,4 +8,7 @@ import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
 public interface IConsoleServiceZZZ extends IConsoleControllerUserZZZ, IVariableHashMapUserZZZ,IListenerObjectStatusBasicZZZ {
 	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
 	public boolean startit() throws ExceptionZZZ;
+	
+	public boolean stopit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
+	public boolean stopit() throws ExceptionZZZ;
 }

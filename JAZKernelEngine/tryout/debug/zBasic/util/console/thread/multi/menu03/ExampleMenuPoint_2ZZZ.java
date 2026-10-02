@@ -10,6 +10,7 @@ import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
+import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IKeyPressCharZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
@@ -181,6 +182,25 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 			
 		  	//ACHTUNG... Es wird nicht auf das Ende des Threads gewartet.			    
 		    bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	@Override
+	public boolean onStopit() throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			bReturn = super.onStopit();
+			if(!bReturn) break main;
+				
+			//Den aktuellen Wert an den Controller zurückschreiben.
+			final ConsoleServiceThreadZZZ objConsoleServiceThread_for_counterService = (ConsoleServiceThreadZZZ) this.getServiceThread();
+			ConsoleServiceMyAlphabetCounterZZZ objConsoleService = (ConsoleServiceMyAlphabetCounterZZZ) objConsoleServiceThread_for_counterService.getConsoleServiceObject();
+			HashMapZZZ<String,Object> hmVariable = this.getVariableHashMap(); //objConsoleService.getVariableHashMap();
+			
+			IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
+			objConsoleController.addVariableHashMap(hmVariable);
 		}//end main:
 		return bReturn;
 	}
