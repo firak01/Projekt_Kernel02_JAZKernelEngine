@@ -1,7 +1,5 @@
 package debug.zBasic.util.console.thread.multi.menu03;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
@@ -10,20 +8,11 @@ import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
-import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
-import basic.zBasic.util.console.thread.IKeyPressCharZZZ;
 import basic.zBasic.util.console.thread.IKeyPressConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
-import basic.zBasic.util.console.thread.IThreadableZZZ;
-import basic.zBasic.util.console.thread.KeyPressThreadUtilZZZ;
 import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
-import basic.zBasic.util.console.thread.Key_cancelZZZ;
-import basic.zBasic.util.console.thread.Key_enterZZZ;
-import basic.zBasic.util.console.thread.Key_menueZZZ;
-import basic.zBasic.util.console.thread.Key_noZZZ;
-import basic.zBasic.util.console.thread.Key_quitZZZ;
-import basic.zBasic.util.console.thread.Key_yesZZZ;
 import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
+import basic.zBasic.util.counter.ICounterStringZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
@@ -201,6 +190,12 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 			
 			IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
 			objConsoleController.addVariableHashMap(hmVariable);
+			
+			ICounterStringZZZ objCounter = objConsoleService.getCounter();
+			int iCount = objCounter.getValueCurrent();			
+			System.out.println(StringZZZ.repeat("-", 20));
+			System.out.println("\nExampleMenuPoint_2 gestoppt.\niCount soweit: " + iCount + "\n");
+			System.out.println(StringZZZ.repeat("-", 20));
 		}//end main:
 		return bReturn;
 	}

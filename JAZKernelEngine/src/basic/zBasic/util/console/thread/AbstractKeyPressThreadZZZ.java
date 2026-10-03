@@ -246,14 +246,19 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 //				        	objKeyPressThreadUsed.isOutputAllFinished(false);//erst nach der Eingabe einen ggfs. vorher
 			        					        	//				        	
 			        	 if(!(objKeyPressThreadUsed.isCurrentInputFinished() && objKeyPressThreadUsed.isInputAllFinished())) {
-				        		//boolean bGoon = objKeyPressThreadUsed.processMenuePostArgumentInput(hmVariable);
+			        		    //TODOGOON: Sollte analog sein zu .processMenuePostArgumentInput
+			        		    //         Aber hier gibt es kein Menue
+				        		//boolean bGoon = objKeyPressThreadUsed.processPostArgumentInput(hmVariable);
 				        		//if(!bGoon) break main; //Quit
 			        	 }
 			        	 
 			        	 
-			        	IConsoleServiceZZZ objConsoleService = this.getConsoleController().getConsoleServiceObject();
-			        	objConsoleService.startit(hmVariable); //direkter, ohne Thread...
-			        	 
+			        	//++ 
+		        		IConsoleControllerZZZ objConsoleController = this.getConsoleController();
+		        		IConsoleServiceZZZ objConsoleService = objConsoleController.getConsoleServiceObject();
+		        		objConsoleService.startit(hmVariable); //direkter, ohne Thread...	
+		        		//++ 
+			        	
 			        	 
 			        	//#########################################################################
 		                try {
@@ -268,7 +273,7 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 							throw ez;
 						}
 		                //
-		                objKeyPressThreadUsed.isInputAllFinished(true);
+		                //objKeyPressThreadUsed.isInputAllFinished(true);
 		               	this.isInputAllFinished(false); //Auf zur nächsten Eingabe
 		               
             		}//end if inputAllFinished

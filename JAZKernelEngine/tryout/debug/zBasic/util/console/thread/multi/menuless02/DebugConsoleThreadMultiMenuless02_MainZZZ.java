@@ -1,9 +1,9 @@
-package debug.zBasic.util.console.thread.multi.menuless;
+package debug.zBasic.util.console.thread.multi.menuless02;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 
-public class DebugConsoleThreadMultiMenuless_MainZZZ {
+public class DebugConsoleThreadMultiMenuless02_MainZZZ {
 
 	public static void main(String[] args) {
 		try {

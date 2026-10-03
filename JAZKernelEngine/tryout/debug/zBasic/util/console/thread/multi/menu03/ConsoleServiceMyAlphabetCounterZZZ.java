@@ -162,9 +162,10 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 				
 				}
 				//+++++++++++++++++++++++++++++++++++++++++++++++++++
-				//AUSGABE
-				System.out.println(StringZZZ.repeat("-", 20) + "\n" + sOutput + "\n" + StringZZZ.repeat("-", 20));
-
+				//AUSGABE				
+				System.out.println(StringZZZ.repeat("-", 20));
+				System.out.println("\n" + sOutput + "\n");
+				System.out.println(StringZZZ.repeat("-", 20));
 				//#####################				
 				bReturn = true;
 			}else {
@@ -224,6 +225,14 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 				IExampleConsoleServiceZZZ objConsoleService = (IExampleConsoleServiceZZZ) this.getConsoleController().getConsoleServiceObject();
 				objConsoleService.getConsoleController().setVariableHashMap(hmVariable);
 	
+				//AUSGABE als Zwischenstand
+				ICounterStringZZZ objCounter = this.getCounter();
+				int iCount = objCounter.getValueCurrent();
+				
+				System.out.println(StringZZZ.repeat("-", 20));
+				System.out.println("\nConsoleServiceMyAlphabetCounter (HashMapZZZ-Weg) beendet.\niCount soweit: " + iCount + "\n");
+				System.out.println(StringZZZ.repeat("-", 20));
+				
 				bReturn = true;
 			}else {
 				

@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.multi.menuless;
+package debug.zBasic.util.console.thread.multi.menuless01;
 
 import java.io.BufferedReader;
 import java.io.File;

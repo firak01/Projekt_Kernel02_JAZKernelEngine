@@ -1,4 +1,4 @@
-package debug.zBasic.util.console.thread.multi.menuless;
+package debug.zBasic.util.console.thread.multi.menuless02;
 
 import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
@@ -29,7 +29,7 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadZZZ<T> {
 
     public void run() 
     {
-    	System.out.println("Eingaben: [ ] oder Q");
+    	System.out.println("Eingaben: + - oder Q");
         while(true){
     	 try {
          	System.out.println("Warte auf Eingabe...");                 	
@@ -39,20 +39,20 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadZZZ<T> {
 			e.printStackTrace();
 		}
 
-            String input = inputReader.next();
-            System.out.println(input);
-            if (input.equals("[")) {
-            	lSleepTime+=100;
-                System.out.println("Pressed [");
-            }
-            if (input.equals("]")) {
-            	lSleepTime-=100;
-               System.out.println("Pressed ]");
-            }
-            if (input.equalsIgnoreCase("Q")) {
-                this.requestStop();
-            	break; // stop KeyPressThread
-            }
+    	 String input = inputReader.next();
+         //System.out.println(input);
+         if (input.equals("-")) { //also Minus mach den Thread langsamer... lSleeptime erhöhen
+         	//System.out.println("Pressed -");
+         	lSleepTime+=100;                
+         }
+         if (input.equals("+")) {  //also Plus mach den Thread schneller... lSleeptime verringern
+         	//System.out.println("Pressed +");
+         	lSleepTime-=100; 
+         }
+         if (input.equalsIgnoreCase("Q")) {
+             this.requestStop();
+         	break; // stop KeyPressThread
+         }
 
             try {
             	System.out.println("Nach der Eingabe.");

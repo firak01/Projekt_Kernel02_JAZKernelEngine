@@ -3,6 +3,7 @@ package debug.zBasic.util.console.thread.multi.menu03;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 import debug.zBasic.util.console.thread.single.menu.ExampleConsoleServiceZZZ;
 
 public class DebugConsoleThreadMultiMenu03_MainZZZ {
@@ -24,7 +25,10 @@ public class DebugConsoleThreadMultiMenu03_MainZZZ {
 			
 			//(ExampleConsolServiceZZZ) 
 			int iCount = objStartable.getCounter();
-			System.out.println("iCount am Schluss: " + iCount);
+
+			System.out.println(StringZZZ.repeat("-", 20));
+			System.out.println("\nProgramm beendet.\niCount am Schluss: " + iCount + "\n");
+			System.out.println(StringZZZ.repeat("-", 20));
 		} catch (ExceptionZZZ ez) {
 			System.out.println(ez.getMessageLast());
 			ez.printStackTrace();
