@@ -23,18 +23,6 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		this.objConsole = objConsole;
 	}
 				
-	public void startit() throws ExceptionZZZ {								
-		IConsoleControllerZZZ objConsole = ConsoleControllerZZZ.getInstance();	
-		this.setConsole(objConsole);
-		
-		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
-		objConsole.setKeyPressThread(objKeyPressThread);
-					
-		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsole);			
-		objConsole.setConsoleServiceObject(objConsoleService);
-		objConsole.start();		
-	}
-
 	@Override
 	public void run() {
 		try {
@@ -102,5 +90,17 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		}
 		this.getConsole().isConsoleUserThreadFinished(true);
 		return bReturn;
+	}
+	
+	public void startit() throws ExceptionZZZ {								
+		IConsoleControllerZZZ objConsole = ConsoleControllerZZZ.getInstance();	
+		this.setConsole(objConsole);
+		
+		IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsole, 100);			
+		objConsole.setKeyPressThread(objKeyPressThread);
+					
+		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsole);			
+		objConsole.setConsoleServiceObject(objConsoleService);
+		objConsole.start();		
 	}
 }

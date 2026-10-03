@@ -10,16 +10,30 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 
 /** Klasse zur Eingabe von Befehlen an der Konsole.
  *  Es wird dann in einer Schleife eine andere Klasse ausgeführt.
  *  
  *  Ausgelegt als Singleton.
  *  
+ *  Als Weiterentwicklung nutzt sie hier 
+ *  -- Einen ConsoleController
+ *  -- AbstractKeyPressThreadZZZ, d.h. die run() Methode wird nicht vom Key-Press Thread komplett überschrieben.
+ *     Ausserdem erbt AbstractKeyPressThreadZZZ von AbstractThreadWithStatusLocalZZZ
+ *     D.h. wir arbeiten hier mit STATUS, statt einfache boolean Variablen zu setzen.
+ *          Also nicht mehr
+ *          	bStop=true.
+ *          Sondern
+ *          	this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, bStop);
+ *              D.h. es wird eine HashMap mit den Statuswerten gefüllt. 
  * 
- * @author Fritz Lindhauer, 16.10.2022, 08:01:04
+ * @author Fritz Lindhauer, 03.10.2026, 08:01:04
  * 
  */
+TODOGOON20261003;//Baue das so auf wie:
+//package debug.zBasic.util.console.thread.multi.menu03;
+//                   ExampleComposition_ConsoleAsThreadZZZ
 public class ExampleComposition_ConsoleZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IExampleConsoleZZZ {
 	private static final long serialVersionUID = 2937832009910133403L;
 

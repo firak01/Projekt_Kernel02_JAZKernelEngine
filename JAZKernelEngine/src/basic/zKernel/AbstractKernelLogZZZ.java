@@ -20,6 +20,8 @@ import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerXmlZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
+import basic.zBasic.util.system.Syso;
+import basic.zBasic.util.system.SystemZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
 import basic.zUtil.io.FileExpansionZZZ;
@@ -906,7 +908,29 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		boolean bReturn = false;
 		FileTextWriterZZZ objFileWriter;
 		try {
-			System.out.println(stemp);
+			//TODOGOON20261003 MAn muss das LogLevel übergeben können.
+			//                 Am besten als ENUM
+			//
+			//Momentan gibt es nur
+			//    this.logProtocol(sLog);	
+			//    Damit wird immer diese Ausgabe gemacht.
+			//
+			//Führe nun ein			
+			//this.logDebug 
+			//     Prüfe darin, ob das DebugLevel passt. Wenn ja:
+			//	   this.logProtocol
+		    //this.logWarning
+			//Prüfe darin, ob das DebugLevel passt. Wenn ja:
+			//	   this.logProtocol
+			//this.logInfo   
+			
+			//System.out.println(stemp);
+			//Syso.println("SYSO: " + stemp);			
+			//Syso.println(stemp, true);
+			
+			
+			//public void println(String s, int iPrintLevel) throws ExceptionZZZ{
+			SystemZZZ.getInstance().println("SYSTEM" + stemp, 3); //3=Alles, 0=NICHTS
 			
 			objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);						
