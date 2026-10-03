@@ -6,8 +6,9 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
+import custom.zKernel.ILogLevelUserZZZ;
 
-public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlagZEnabledZZZ{
+public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlagZEnabledZZZ, ILogLevelUserZZZ{
 
 	
 	//Das Objekt für die Übergabeparameter, per Batch

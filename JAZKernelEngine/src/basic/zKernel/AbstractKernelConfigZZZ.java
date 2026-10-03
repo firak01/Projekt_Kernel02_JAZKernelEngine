@@ -35,6 +35,8 @@ import basic.zKernel.file.ini.IKernelJsonIniSolverZZZ;
 import basic.zKernel.file.ini.IKernelJsonMapIniSolverZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIniZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIni_PathZZZ;
+import custom.zKernel.ILogZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 /**Klasse wertet Kommandozeilenparamter aus, hinsichtlich der zu verwendenden Kernel-Konfiguration
@@ -46,6 +48,7 @@ import custom.zKernel.file.ini.FileIniZZZ;
  * -f = file (.ini)
  * -ld = log directory
  * -lf = log filename
+ * -ll = log level
  * -z = flagz, JSON String mit dem beliebige Flags von aussen gesetzt werden. Sie werden in einer extra HashMap-verwaltet.
  * Mit diesen Informationen kann dann das eigentliche Kernel-Objekt erstellt werden
  * Z.B.:  -z {"DEBUGUI_PANELLABEL_ON":true,"DEBUGUI_PANELLIST_STRATEGIE_ENTRYFIRST":true,"DEBUGUI_PANELLIST_STRATEGIE_ENTRYDUMMY":true,"DEBUGUI_PANELLIST_STRATEGIE_ENTRYLAST":true}
@@ -67,6 +70,8 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 	private ICryptZZZ objCrypt = null;
 	private String sCallingProjectPathTotal = null;//Zum Ausrechnen des Pfads diese Projekts, wenn es aus einem anderen Projekt aus aufgerufen wird.
 	
+	protected volatile LOGLEVEL enumLogLevel = null;
+		
 	public AbstractKernelConfigZZZ() throws ExceptionZZZ{
 		super();//20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
 		AbstractKernelConfigNew_(null);
@@ -600,6 +605,57 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 		}
 		return bReturn;
 	}
+	
+	
+	//### aus ILogLevelUserZZZ
+	@Override
+	public LOGLEVEL getLogLevelDefaultEnum() throws ExceptionZZZ{
+		return LOGLEVEL.INFO;
+	}
+	
+	@Override 
+	public String readLogLevel() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("ll");						
+		}//end main:						
+		return sReturn;
+	}
+	
+	@Override 
+	public int getLogLevel() throws ExceptionZZZ {
+		int iReturn = -1;
+		main:{
+			if(enumLogLevel==null) {						
+				String sLogLevel = this.readLogLevel();			
+				if(sLogLevel==null){
+					LOGLEVEL enumLogLevel = this.getLogLevelDefaultEnum();
+					iReturn = enumLogLevel.ordinal();				
+				}else {
+					iReturn = StringZZZ.toInteger(sLogLevel);
+				}	
+			}else {
+				iReturn = enumLogLevel.ordinal();
+			}
+		}//end main:
+		return iReturn;
+	}
+	
+
+	@Override
+	public void setLogLevel(LOGLEVEL enumLogLevel) throws ExceptionZZZ {
+		this.enumLogLevel = enumLogLevel;
+	}
+	
+	@Override
+	public LOGLEVEL getLogLevelEnum() throws ExceptionZZZ{
+		return this.enumLogLevel;
+	}
+	
 	
 	//###############################################################
 	//### "fachliche" actions

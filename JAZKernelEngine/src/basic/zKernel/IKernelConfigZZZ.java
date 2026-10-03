@@ -7,6 +7,7 @@ import basic.zBasic.config.IConfigProjectHelperZZZ;
 import basic.zBasic.config.IConfigZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
 /** Interface, welches von KernelConfigZZZ etc. eingebunden wird, um die Default Werte festzulegen.
  * @author lindhauer
@@ -19,7 +20,7 @@ public interface IKernelConfigZZZ extends IKernelConfigConstantZZZ, IConfigZZZ, 
 	* 
 	* lindhauer; 25.07.2007 07:20:25
 	 * @throws ExceptionZZZ 
-	 */
+	 */	
 	public String readApplicationKey() throws ExceptionZZZ;
 	public String getApplicationKeyDefault();
 	public String readSystemNumber() throws ExceptionZZZ;
@@ -38,9 +39,10 @@ public interface IKernelConfigZZZ extends IKernelConfigConstantZZZ, IConfigZZZ, 
 	public String getLogDirectoryNameDefault();
 	public String readLogDirectoryName() throws ExceptionZZZ;
 	public boolean isLogDirectoryNameDefault(String sValue) throws ExceptionZZZ;
-	
-	
 
+	//ergänzend zu IKernelLogLevelUserZZZ
+	public String readLogLevel() throws ExceptionZZZ;
+	public LOGLEVEL getLogLevelDefaultEnum() throws ExceptionZZZ;
 	
 	public boolean isOnServer() throws ExceptionZZZ;
 	public boolean isInJar() throws ExceptionZZZ;

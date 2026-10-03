@@ -20,7 +20,7 @@ import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerXmlZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
-import basic.zBasic.util.system.Syso;
+import basic.zBasic.util.system.ISystemZZZ;
 import basic.zBasic.util.system.SystemZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
@@ -29,6 +29,7 @@ import basic.zUtil.io.IFileExpansionEnabledZZZ;
 import basic.zUtil.io.IFileExpansionUserZZZ;
 import basic.zUtil.io.IFileExpansionZZZ;
 import custom.zKernel.ConfigZZZ;
+import custom.zKernel.ILogLevelUserZZZ;
 import custom.zKernel.ILogZZZ;
 import custom.zKernel.LogZZZ;
 import custom.zUtil.io.FileZZZ;
@@ -47,7 +48,8 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	//flags 
 	//private boolean bFlagUse_FILE_Expansion; //Zeigt an, ob eine Dateinamens Expansion angehängt werden muss, oder eine bestehende Expansion ersetzt hat.
 	protected volatile IKernelConfigZZZ objConfig = null;   //die Werte für den Applikationskey, Systemnummer, etc.
-		
+	protected volatile ILogLevelUserZZZ.LOGLEVEL enumLogLevel = null;
+	
 	private String sLogFilename=null;
 	private String sLogDirectorypath=null;
 	
@@ -147,6 +149,50 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	}//end main:
 		
 	}
+	
+	//### aus ILogLevelUserZZZ
+	@Override
+	public LOGLEVEL getLogLevelEnumDefault() throws ExceptionZZZ{
+		return LOGLEVEL.INFO;
+	}
+	
+	@Override
+	public LOGLEVEL getLogLevelEnum() throws ExceptionZZZ{
+		LOGLEVEL enumLogLevel = this.enumLogLevel;
+		if(enumLogLevel==null) {
+			IKernelConfigZZZ objConfig = this.getConfigObject();
+			if(objConfig!=null) {
+				LOGLEVEL enumLogLevelByConfig = objConfig.getLogLevelEnum();
+				this.enumLogLevel = enumLogLevelByConfig;
+			}
+			
+			if(this.enumLogLevel==null) {
+				LOGLEVEL enumLogLevelDefault = this.getLogLevelEnumDefault();
+				this.enumLogLevel = enumLogLevelDefault;
+			}
+		}
+		return this.enumLogLevel;
+	}
+	
+	@Override
+	public void setLogLevel(LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		this.enumLogLevel = enumLogLevel;
+	}
+	
+	@Override
+	public int getLogLevel() throws ExceptionZZZ{
+		int iReturn = -1;
+		main:{
+			LOGLEVEL enumLogLevel = this.getLogLevelEnum();
+			if(enumLogLevel == null) {
+				LOGLEVEL enumLogLevelDefault = this.getLogLevelEnumDefault();
+				this.enumLogLevel = enumLogLevelDefault;
+			}
+			iReturn = this.enumLogLevel.ordinal();
+		}//end main:
+		return iReturn;
+	}
+	
 
 	//### aus IStringFormatManagerUserZZZ #########################
 	public IStringFormatManagerZZZ getStringFormatManager() throws ExceptionZZZ{
@@ -166,6 +212,8 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		IStringFormatManagerZZZ objFormatManager = this.getStringFormatManager();
 		return AbstractKernelLogZZZ.computeLine(object, objFormatManager, sLog);				
 	}
+	
+	
 	
 	
 	//#########################################################################################################
@@ -908,7 +956,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		boolean bReturn = false;
 		FileTextWriterZZZ objFileWriter;
 		try {
-			//TODOGOON20261003 MAn muss das LogLevel übergeben können.
+			//TODOGOON20261003 Man muss das LogLevel übergeben können.
 			//                 Am besten als ENUM
 			//
 			//Momentan gibt es nur
@@ -928,9 +976,13 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 			//Syso.println("SYSO: " + stemp);			
 			//Syso.println(stemp, true);
 			
+			//3=Alles, 0=NICHTS, s. ILogLevelUserZZZ
+			int iLogLevel = this.getLogLevel();
 			
 			//public void println(String s, int iPrintLevel) throws ExceptionZZZ{
-			SystemZZZ.getInstance().println("SYSTEM" + stemp, 3); //3=Alles, 0=NICHTS
+//			ISystemZZZ objSystem = SystemZZZ.getNewInstance();
+//			objSystem.setPrintLevel(iLogLevel); //ne, dann würde ja immer etwas ausgedruck
+			SystemZZZ.getInstance().println("SYSTEM" + stemp, iLogLevel); 
 			
 			objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);						

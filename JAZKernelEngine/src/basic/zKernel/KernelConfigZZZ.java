@@ -2,6 +2,7 @@ package basic.zKernel;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.AbstractKernelConfigZZZ;
+import custom.zKernel.ILogZZZ;
 
 /**
  *  Default Configuration of this project
@@ -16,6 +17,8 @@ public class KernelConfigZZZ extends AbstractKernelConfigZZZ{
 	private static String sFILE_CONFIG_DEFAULT = "ZKernelConfigKernel_default.ini";
 	private static String sKEY_APPLICATION_DEFAULT = "ZZZ";
 	private static String sNUMBER_SYSTEM_DEFAULT= "01";
+	
+	
 	
 	public KernelConfigZZZ() throws ExceptionZZZ{
 		super();

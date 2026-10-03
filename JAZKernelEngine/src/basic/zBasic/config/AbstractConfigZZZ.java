@@ -16,11 +16,15 @@ import basic.zKernel.config.help.IKernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
+import custom.zKernel.ILogLevelUserZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
 public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
 	private static final long serialVersionUID = 3005226115171469499L;
 		
 	protected GetOptZZZ objOpt = null;
+	protected volatile ILogLevelUserZZZ.LOGLEVEL enumLogLevel = null;
+	
 	
 	public AbstractConfigZZZ() throws ExceptionZZZ{
 		super();//20210403: Das direkte Setzen der Flags wird nun in ObjectZZZ komplett erledigt
@@ -177,6 +181,8 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		}//end main:		
 		return sReturn;
 	}
+
+	
 	@Override
 	public String getPrintLevelDefault() throws ExceptionZZZ {
 		int i = IConfigZZZ.iPRINT_LEVEL_DEFAULT; 
@@ -340,5 +346,43 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			sReturn = objOpt.readValue("h");
 		}//end main:		
 		return sReturn;
-	}		
+	}	
+	
+	//### aus ILogLevelUserZZZ
+	public LOGLEVEL getLogLevelEnumDefault() throws ExceptionZZZ{
+		return LOGLEVEL.INFO;
+	}
+	public LOGLEVEL getLogLevelEnum() throws ExceptionZZZ{		
+		return this.enumLogLevel;
+	}
+	public void setLogLevel(LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		this.enumLogLevel = enumLogLevel;
+	}
+	public int getLogLevel() throws ExceptionZZZ{
+		int iReturn = -1;
+		main:{
+			LOGLEVEL enumLogLevel = this.getLogLevelEnum();
+			if(enumLogLevel == null) {
+				enumLogLevel = this.getLogLevelEnumDefault();
+				iReturn = enumLogLevel.ordinal();
+				
+				GetOptZZZ objOpt = this.getOptObject();
+				if(objOpt==null) break main;
+				if(objOpt.getFlag("isLoaded")==false) break main;
+				
+				String sReturn = objOpt.readValue("ll");
+				if(StringZZZ.isEmpty(sReturn)) {
+					break main;
+				}else {
+					iReturn = StringZZZ.toInteger(sReturn);
+				}
+			}else {
+				iReturn = enumLogLevel.ordinal();
+			}
+		}//end main
+		return iReturn;
+	}
+	
+	
+	
 }

@@ -59,10 +59,10 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	}
 	
 	@Override
-	public void println(String s, int iPrintLevel) throws ExceptionZZZ{
+	public void println(String s, int iPrintLevelUsed) throws ExceptionZZZ{
 		main:{
-			int iPrintLevelCurrent = this.getPrintLevel();
-			if(iPrintLevel < iPrintLevelCurrent) break main;		
+			int iPrintLevelAllowed = this.getPrintLevel();
+			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.println(s);
