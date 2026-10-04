@@ -1,26 +1,23 @@
 package basic.zBasic.util.system;
 
-import java.util.LinkedHashMap;
-
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.util.abstractList.ArrayListUniqueZZZ;
-import basic.zBasic.util.abstractList.ArrayListZZZ;
-import basic.zBasic.util.string.justifier.IStringJustifierZZZ;
+import basic.zKernel.IKernelConfigUserZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
-public interface ISystemZZZ extends IListenerObjectFlagZsetZZZ, ISystemEnabledZZZ{
+public interface ISystemZZZ extends IListenerObjectFlagZsetZZZ, ISystemEnabledZZZ, IKernelConfigUserZZZ, IPrintLevelUserZZZ{
 		
 	//############################################################
 	// GETTER / SETTER
 	//############################################################
-	public int getPrintLevel() throws ExceptionZZZ;
-	public void setPrintLevel(int iPrintLevel) throws ExceptionZZZ;
 	
 	//############################################################
 	//### Methoden
 	//############################################################
 	public void println(String s, boolean bPrintOutput) throws ExceptionZZZ;
 	public void println(String s, int iPrintLevel) throws ExceptionZZZ;
+	public void println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
+	public void println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
 	
 	
 	//#############################################################

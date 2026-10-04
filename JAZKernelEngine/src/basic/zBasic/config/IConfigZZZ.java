@@ -3,12 +3,13 @@ package basic.zBasic.config;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
 
-public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlagZEnabledZZZ, ILogLevelUserZZZ{
+public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlagZEnabledZZZ, ILogLevelUserZZZ, IPrintLevelUserZZZ{
 
 	
 	//Das Objekt für die Übergabeparameter, per Batch
@@ -39,9 +40,8 @@ public interface IConfigZZZ extends IConfigProjectZZZ, IConfigConstantZZZ, IFlag
 	public String createHelp() throws ExceptionZZZ;
 	public List<IKernelConfigHelpLineZZZ>getHelpList() throws ExceptionZZZ;
 	
-
 	public String readPrintLevel() throws ExceptionZZZ;
-	public String getPrintLevelDefault() throws ExceptionZZZ;
+	public String readLogLevel() throws ExceptionZZZ;
 	
 	//Ergänzend zu IConfigProjectZZZ
 	public String readProjectName() throws ExceptionZZZ;

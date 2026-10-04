@@ -2,11 +2,17 @@ package basic.zBasic.util.system;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.AbstractKernelLogZZZ;
+import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IEventObjectFlagZsetZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
+import custom.zKernel.ConfigZZZ;
+import custom.zKernel.ILogLevelUserZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
 public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements ISystemZZZ{
 	private static final long serialVersionUID = -41535753990842671L;
@@ -23,7 +29,9 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//Neue Separatoren werden in diese Liste reingemischt (ArrayListUtilZZZ.merge...)
 	//Z.B: protected volatile ArrayListZZZ<IEnumSetMappedStringFormatZZZ> listaSeparator=null;
 	
-	protected volatile int iPrintLevel=3; //Wieviel ausgedruckt werden soll 3=Debug All, 0 = NONE;
+	protected volatile IKernelConfigZZZ objConfig = null;   //die Werte für den Applikationskey, Systemnummer, etc.
+	protected volatile IPrintLevelUserZZZ.PRINTLEVEL enumPrintLevelOverall = null; //Wieviel ausgedruckt werden soll 3=Debug All, 0 = NONE;
+	
 	
 	//als private deklariert, damit man es nicht so instanzieren kann, sondern die Methode .getInstance() verwenden muss		
 	protected AbstractSystemZZZ() throws ExceptionZZZ{
@@ -31,23 +39,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	}
 	
 	
-	//#####################################################
-	//### GETTER / SETTER
-	//#####################################################
-	@Override
-	public int getPrintLevel() throws ExceptionZZZ{
-		return this.iPrintLevel;
-	}
-	
-	@Override
-	public void setPrintLevel(int iPrintLevel) throws ExceptionZZZ{
-		this.iPrintLevel = iPrintLevel;
-	}
-	
-	//#####################################################
-	//### Methoden
-	//#####################################################
-	
+	//### aus ISystemZZZ
 	@Override
 	public void println(String s, boolean bPrintOutput) throws ExceptionZZZ{
 		main:{
@@ -58,10 +50,34 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		}//end main:
 	}
 	
+	
 	@Override
-	public void println(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+	public void println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
 		main:{
-			int iPrintLevelAllowed = this.getPrintLevel();
+			if(enumLogLevel==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+		
+			int iPrintLevelAllowed = this.getPrintLevelOverall();
+			int iLogLevelUsed = enumLogLevel.ordinal();
+			if(iLogLevelUsed > iPrintLevelAllowed) break main;		
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			
+			System.out.println(s);
+		}//end main:
+	}
+	
+	@Override
+	public void println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+		main:{
+			if(enumPrintLevel==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("enumPrintLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+		
+			int iPrintLevelAllowed = this.getPrintLevelOverall();
+			int iPrintLevelUsed = enumPrintLevel.ordinal();
 			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
@@ -69,6 +85,74 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		}//end main:
 	}
 	
+	@Override
+	public void println(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+		main:{
+			int iPrintLevelAllowed = this.getPrintLevelOverall();
+			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			
+			System.out.println(s);
+		}//end main:
+	}
+	
+	
+	//### aus IPrintLevelUserZZZ
+	@Override
+	public PRINTLEVEL getPrintLevelOverallEnumDefault() throws ExceptionZZZ{
+		return PRINTLEVEL.INFO;
+	}
+	
+	@Override
+	public PRINTLEVEL getPrintLevelOverallEnum() throws ExceptionZZZ{
+		PRINTLEVEL enumLogLevel = this.enumPrintLevelOverall;
+		if(enumLogLevel==null) {
+			IKernelConfigZZZ objConfig = this.getConfigObject();
+			if(objConfig!=null) {
+				PRINTLEVEL enumPrintLevelByConfig = objConfig.getPrintLevelOverallEnum();
+				this.enumPrintLevelOverall = enumPrintLevelByConfig;
+			}
+			
+			if(this.enumPrintLevelOverall==null) {
+				PRINTLEVEL enumPrintLevelDefault = this.getPrintLevelOverallEnumDefault();
+				this.enumPrintLevelOverall = enumPrintLevelDefault;
+			}
+		}
+		return this.enumPrintLevelOverall;
+	}
+	
+	@Override
+	public void setPrintLevelOverall(PRINTLEVEL enumLogLevel) throws ExceptionZZZ{
+		this.enumPrintLevelOverall = enumLogLevel;
+	}
+	
+	@Override
+	public int getPrintLevelOverall() throws ExceptionZZZ{
+		int iReturn = -1;
+		main:{
+			PRINTLEVEL enumPrintLevel = this.getPrintLevelOverallEnum();
+			if(enumPrintLevel == null) {
+				PRINTLEVEL enumPrintLevelDefault = this.getPrintLevelOverallEnumDefault();
+				this.enumPrintLevelOverall = enumPrintLevelDefault;
+			}
+			iReturn = this.enumPrintLevelOverall.ordinal();
+		}//end main:
+		return iReturn;
+	}
+	
+	//### aus IKernelConfigUserZZZ
+	@Override
+	public IKernelConfigZZZ getConfigObject() throws ExceptionZZZ{
+		if(this.objConfig==null){
+			this.objConfig = new ConfigZZZ(null);			
+		}
+		return this.objConfig;
+	}
+	
+	@Override
+	public void setConfigObject(IKernelConfigZZZ objConfig){
+		this.objConfig = objConfig;
+	}
 	
 	//###########################################
 	//### FLAG HANDLING

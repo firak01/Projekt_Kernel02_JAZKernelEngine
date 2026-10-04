@@ -8,6 +8,7 @@ import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 import basic.zBasic.util.crypt.thread.ConsoleServiceEncryptZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadEncryptZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
 import basic.zBasic.util.system.ISystemZZZ;
 import basic.zBasic.util.system.SystemZZZ;
 import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
@@ -26,12 +27,12 @@ public class ConsoleEncryptMainZZZ {
 			
 			ISystemZZZ objSystem = SystemZZZ.getInstance();
 			//objSystem.setPrintLevel(0); //ne, dann würde ja nie etwas ausgedruck
-			objSystem.setPrintLevel(2); //ne, dann würde ja nie etwas ausgedruck
+			objSystem.setPrintLevelOverall(PRINTLEVEL.INFO); //Oberste Anweisung. Gib nur aus was INFO oder noch wichtiger ist.
 			
-			LogSingletonZZZ.getInstance().setLogLevel(LOGLEVEL.INFO); //d.h. alle Logs sind nun INFO=2 
+			LogSingletonZZZ.getInstance().setLogLevelOverall(LOGLEVEL.DEBUG); //d.h. alle Logs sind als Default nun wie angegeben 
 			//Wenn debugLevel > printLevelAllowed wird nix gedruckt.
 			//     debugLevel  <= printLevelAllowed wird gedruckt
-			int iLogLevel = LogSingletonZZZ.getInstance().getLogLevel();
+			int iLogLevel = LogSingletonZZZ.getInstance().getLogLevelOverall();
 			
 			IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
 			

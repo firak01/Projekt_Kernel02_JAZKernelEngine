@@ -7,8 +7,11 @@ import java.util.List;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectLaunchArgumentZZZ;
+import basic.zBasic.util.datatype.enums.EnumUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ;
+import basic.zBasic.util.system.SystemZZZ;
 import basic.zKernel.AbstractKernelConfigZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.IKernelConfigZZZ;
@@ -17,13 +20,14 @@ import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
-import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
+import custom.zKernel.LogSingletonZZZ;
 
 public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
 	private static final long serialVersionUID = 3005226115171469499L;
 		
 	protected GetOptZZZ objOpt = null;
-	protected volatile ILogLevelUserZZZ.LOGLEVEL enumLogLevel = null;
+	protected volatile ILogLevelUserZZZ.LOGLEVEL enumLogLevelOverall = null;
+	protected volatile IPrintLevelUserZZZ.PRINTLEVEL enumPrintLevelOverall = null;
 	
 	
 	public AbstractConfigZZZ() throws ExceptionZZZ{
@@ -165,29 +169,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		return this.objOpt;
 	}
 	
-
-	@Override
-	public String readPrintLevel() throws ExceptionZZZ {
-		String sReturn = null;
-		main:{
-			GetOptZZZ objOpt = this.getOptObject();
-			if(objOpt==null) break main;
-			if(objOpt.getFlag("isLoaded")==false) break main;
-			
-			sReturn = objOpt.readValue("printLevel");
-			if(sReturn==null){
-				sReturn = this.getPrintLevelDefault();
-			}
-		}//end main:		
-		return sReturn;
-	}
-
-	
-	@Override
-	public String getPrintLevelDefault() throws ExceptionZZZ {
-		int i = IConfigZZZ.iPRINT_LEVEL_DEFAULT; 
-		return StringZZZ.toString(i);
-	}
+	//### aus IPrintLevelUserZZZ
 	
 	@Override
 	public String getConfigFlagzJsonDefault() {
@@ -348,33 +330,77 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		return sReturn;
 	}	
 	
+	@Override
+	public String readPrintLevel() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("printLevel");			
+		}//end main:		
+		return sReturn;
+	}
+	
+	@Override
+	public String readLogLevel() throws ExceptionZZZ {
+		String sReturn = null;
+		main:{
+			GetOptZZZ objOpt = this.getOptObject();
+			if(objOpt==null) break main;
+			if(objOpt.getFlag("isLoaded")==false) break main;
+			
+			sReturn = objOpt.readValue("ll");			
+		}//end main:		
+		return sReturn;
+	}
+	
 	//### aus ILogLevelUserZZZ
-	public LOGLEVEL getLogLevelEnumDefault() throws ExceptionZZZ{
-		return LOGLEVEL.INFO;
+	public LOGLEVEL getLogLevelOverallEnumDefault() throws ExceptionZZZ{
+		return LogSingletonZZZ.getInstance().getLogLevelOverallEnumDefault();
 	}
-	public LOGLEVEL getLogLevelEnum() throws ExceptionZZZ{		
-		return this.enumLogLevel;
+	
+	public LOGLEVEL getLogLevelOverallEnum() throws ExceptionZZZ{		
+		LOGLEVEL enumLogLevelReturn = null;
+		main:{
+			enumLogLevelReturn = this.enumLogLevelOverall;  //Endlosschleifengefahr, darum kein getter Verwenden
+		
+			if(enumLogLevelReturn == null) {
+				enumLogLevelReturn = this.getLogLevelOverallEnumDefault();
+				
+				String sReturn = this.readLogLevel();
+				if(StringZZZ.isEmpty(sReturn)) {
+					break main;
+				}else {					
+					//NUN AUS DEM WERT DAS ENUM HOLEN
+					enumLogLevelReturn = EnumUtilZZZ.findEnumIgnoreCase(LOGLEVEL.class, sReturn);					
+				}
+			}		
+		}//end main:
+		return enumLogLevelReturn;
 	}
-	public void setLogLevel(LOGLEVEL enumLogLevel) throws ExceptionZZZ{
-		this.enumLogLevel = enumLogLevel;
+	
+	public void setLogLevelOverall(LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		this.enumLogLevelOverall = enumLogLevel;
 	}
-	public int getLogLevel() throws ExceptionZZZ{
+	
+	public int getLogLevelOverall() throws ExceptionZZZ{
 		int iReturn = -1;
 		main:{
-			LOGLEVEL enumLogLevel = this.getLogLevelEnum();
+			LOGLEVEL enumLogLevel = this.enumLogLevelOverall; //Endlosschleifengefahr, darum kein getter Verwenden
 			if(enumLogLevel == null) {
-				enumLogLevel = this.getLogLevelEnumDefault();
+				enumLogLevel = this.getLogLevelOverallEnumDefault();
 				iReturn = enumLogLevel.ordinal();
 				
-				GetOptZZZ objOpt = this.getOptObject();
-				if(objOpt==null) break main;
-				if(objOpt.getFlag("isLoaded")==false) break main;
-				
-				String sReturn = objOpt.readValue("ll");
+				String sReturn = this.readLogLevel();
 				if(StringZZZ.isEmpty(sReturn)) {
 					break main;
 				}else {
-					iReturn = StringZZZ.toInteger(sReturn);
+					//NUN AUS DEM WERT DAS ENUM HOLEN
+					LOGLEVEL enumLogLevelByConfig = EnumUtilZZZ.findEnumIgnoreCase(LOGLEVEL.class, sReturn);
+					if(enumLogLevelByConfig==null) break main;					
+					iReturn = enumLogLevelByConfig.ordinal();
 				}
 			}else {
 				iReturn = enumLogLevel.ordinal();
@@ -383,6 +409,61 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		return iReturn;
 	}
 	
+	//### aus IPrintLevelUserZZZ
+	@Override
+	public PRINTLEVEL getPrintLevelOverallEnumDefault() throws ExceptionZZZ{
+		return SystemZZZ.getInstance().getPrintLevelOverallEnumDefault();
+	}
 	
+	@Override
+	public PRINTLEVEL getPrintLevelOverallEnum() throws ExceptionZZZ{
+		PRINTLEVEL enumPrintLevelReturn = null;
+		main:{
+			enumPrintLevelReturn = this.enumPrintLevelOverall;  //Endlosschleifengefahr, darum kein getter Verwenden
+		
+			if(enumPrintLevelReturn == null) {
+				enumPrintLevelReturn = this.getPrintLevelOverallEnumDefault();
+				
+				String sReturn = this.readPrintLevel();
+				if(StringZZZ.isEmpty(sReturn)) {
+					break main;
+				}else {					
+					//NUN AUS DEM WERT DAS ENUM HOLEN
+					enumPrintLevelReturn = EnumUtilZZZ.findEnumIgnoreCase(PRINTLEVEL.class, sReturn);					
+				}
+			}
+		
+		}//end main:
+		return enumPrintLevelReturn;
+	}
 	
+	@Override
+	public void setPrintLevelOverall(PRINTLEVEL enumLogLevel) throws ExceptionZZZ{
+		this.enumPrintLevelOverall = enumLogLevel;
+	}
+	
+	@Override
+	public int getPrintLevelOverall() throws ExceptionZZZ{		
+		int iReturn = -1;
+		main:{
+			PRINTLEVEL enumPrintLevel = this.enumPrintLevelOverall;  //Endlosschleifengefahr, darum kein getter Verwenden
+			if(enumPrintLevel == null) {
+				enumPrintLevel = this.getPrintLevelOverallEnumDefault();
+				iReturn = enumPrintLevel.ordinal();
+								
+				String sReturn = this.readPrintLevel();
+				if(StringZZZ.isEmpty(sReturn)) {
+					break main;
+				}else {
+					//NUN AUS DEM WERT DAS ENUM HOLEN
+					PRINTLEVEL enumPrintLevelByConfig = EnumUtilZZZ.findEnumIgnoreCase(PRINTLEVEL.class, sReturn);
+					if(enumPrintLevelByConfig==null) break main;					
+					iReturn = enumPrintLevelByConfig.ordinal();
+				}
+			}else {
+				iReturn = enumPrintLevel.ordinal();
+			}
+		}//end main
+		return iReturn;
+	}
 }

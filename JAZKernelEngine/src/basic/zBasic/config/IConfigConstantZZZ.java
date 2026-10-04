@@ -15,10 +15,6 @@ public interface IConfigConstantZZZ {
   	static String sPROJECT_DIRECTORY = "Project_Kernel02_JAZKernelEngine";
   	static String sPROJECT_NAME = "JAZKernelEngine";
 
-  	//####### Wieviel per Default auf der Konsole ausgeben werden soll
-  	static int iPRINT_LEVEL_DEFAULT = 3; //Als eine Art Debug Level
-  	static int iPRINT_LEVEL_ALL=3;       //also Debug All
-	
 	//#####################################################################
 	//####### Konfiguration der Argumgentuebergabe von aussen an das Program (s. GetOptZZZ).
 	//Merke1: Ein Doppelpunkt bedeutet "es folgt ein Wert". 

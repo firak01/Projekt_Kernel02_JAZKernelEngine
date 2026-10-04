@@ -48,7 +48,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	//flags 
 	//private boolean bFlagUse_FILE_Expansion; //Zeigt an, ob eine Dateinamens Expansion angehängt werden muss, oder eine bestehende Expansion ersetzt hat.
 	protected volatile IKernelConfigZZZ objConfig = null;   //die Werte für den Applikationskey, Systemnummer, etc.
-	protected volatile ILogLevelUserZZZ.LOGLEVEL enumLogLevel = null;
+	protected volatile ILogLevelUserZZZ.LOGLEVEL enumLogLevelOverall = null;
 	
 	private String sLogFilename=null;
 	private String sLogDirectorypath=null;
@@ -152,43 +152,43 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	
 	//### aus ILogLevelUserZZZ
 	@Override
-	public LOGLEVEL getLogLevelEnumDefault() throws ExceptionZZZ{
+	public LOGLEVEL getLogLevelOverallEnumDefault() throws ExceptionZZZ{
 		return LOGLEVEL.INFO;
 	}
 	
 	@Override
-	public LOGLEVEL getLogLevelEnum() throws ExceptionZZZ{
-		LOGLEVEL enumLogLevel = this.enumLogLevel;
+	public LOGLEVEL getLogLevelOverallEnum() throws ExceptionZZZ{
+		LOGLEVEL enumLogLevel = this.enumLogLevelOverall;
 		if(enumLogLevel==null) {
 			IKernelConfigZZZ objConfig = this.getConfigObject();
 			if(objConfig!=null) {
-				LOGLEVEL enumLogLevelByConfig = objConfig.getLogLevelEnum();
-				this.enumLogLevel = enumLogLevelByConfig;
+				LOGLEVEL enumLogLevelByConfig = objConfig.getLogLevelOverallEnum();
+				this.enumLogLevelOverall = enumLogLevelByConfig;
 			}
 			
-			if(this.enumLogLevel==null) {
-				LOGLEVEL enumLogLevelDefault = this.getLogLevelEnumDefault();
-				this.enumLogLevel = enumLogLevelDefault;
+			if(this.enumLogLevelOverall==null) {
+				LOGLEVEL enumLogLevelDefault = this.getLogLevelOverallEnumDefault();
+				this.enumLogLevelOverall = enumLogLevelDefault;
 			}
 		}
-		return this.enumLogLevel;
+		return this.enumLogLevelOverall;
 	}
 	
 	@Override
-	public void setLogLevel(LOGLEVEL enumLogLevel) throws ExceptionZZZ{
-		this.enumLogLevel = enumLogLevel;
+	public void setLogLevelOverall(LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		this.enumLogLevelOverall = enumLogLevel;
 	}
 	
 	@Override
-	public int getLogLevel() throws ExceptionZZZ{
+	public int getLogLevelOverall() throws ExceptionZZZ{
 		int iReturn = -1;
 		main:{
-			LOGLEVEL enumLogLevel = this.getLogLevelEnum();
+			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
 			if(enumLogLevel == null) {
-				LOGLEVEL enumLogLevelDefault = this.getLogLevelEnumDefault();
-				this.enumLogLevel = enumLogLevelDefault;
+				LOGLEVEL enumLogLevelDefault = this.getLogLevelOverallEnumDefault();
+				this.enumLogLevelOverall = enumLogLevelDefault;
 			}
-			iReturn = this.enumLogLevel.ordinal();
+			iReturn = this.enumLogLevelOverall.ordinal();
 		}//end main:
 		return iReturn;
 	}
@@ -956,33 +956,8 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		boolean bReturn = false;
 		FileTextWriterZZZ objFileWriter;
 		try {
-			//TODOGOON20261003 Man muss das LogLevel übergeben können.
-			//                 Am besten als ENUM
-			//
-			//Momentan gibt es nur
-			//    this.logProtocol(sLog);	
-			//    Damit wird immer diese Ausgabe gemacht.
-			//
-			//Führe nun ein			
-			//this.logDebug 
-			//     Prüfe darin, ob das DebugLevel passt. Wenn ja:
-			//	   this.logProtocol
-		    //this.logWarning
-			//Prüfe darin, ob das DebugLevel passt. Wenn ja:
-			//	   this.logProtocol
-			//this.logInfo   
-			
-			//System.out.println(stemp);
-			//Syso.println("SYSO: " + stemp);			
-			//Syso.println(stemp, true);
-			
-			//3=Alles, 0=NICHTS, s. ILogLevelUserZZZ
-			int iLogLevel = this.getLogLevel();
-			
-			//public void println(String s, int iPrintLevel) throws ExceptionZZZ{
-//			ISystemZZZ objSystem = SystemZZZ.getNewInstance();
-//			objSystem.setPrintLevel(iLogLevel); //ne, dann würde ja immer etwas ausgedruck
-			SystemZZZ.getInstance().println("SYSTEM" + stemp, iLogLevel); 
+			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
+			SystemZZZ.getInstance().println(stemp, enumLogLevel);
 			
 			objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);						

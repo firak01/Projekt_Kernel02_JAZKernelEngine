@@ -627,7 +627,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 	}
 	
 	@Override 
-	public int getLogLevel() throws ExceptionZZZ {
+	public int getLogLevelOverall() throws ExceptionZZZ {
 		int iReturn = -1;
 		main:{
 			if(enumLogLevel==null) {						
@@ -647,12 +647,12 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 	
 
 	@Override
-	public void setLogLevel(LOGLEVEL enumLogLevel) throws ExceptionZZZ {
+	public void setLogLevelOverall(LOGLEVEL enumLogLevel) throws ExceptionZZZ {
 		this.enumLogLevel = enumLogLevel;
 	}
 	
 	@Override
-	public LOGLEVEL getLogLevelEnum() throws ExceptionZZZ{
+	public LOGLEVEL getLogLevelOverallEnum() throws ExceptionZZZ{
 		return this.enumLogLevel;
 	}
 	
