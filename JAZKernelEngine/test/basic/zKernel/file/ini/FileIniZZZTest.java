@@ -22,7 +22,7 @@ import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.ini.*;
 import custom.zUtil.io.FileZZZ;
 
@@ -36,7 +36,7 @@ public class FileIniZZZTest extends TestCase {
 	private File objFile;
 	private IKernelZZZ objKernel;
 	private IKernelZZZ objKernelInit;
-	private LogZZZ objLog;
+	private KernelLogZZZ objLog;
 	
 	//+++ Die eigentlichen Test-Objekte
 	private FileIniZZZ objFileIniInit;

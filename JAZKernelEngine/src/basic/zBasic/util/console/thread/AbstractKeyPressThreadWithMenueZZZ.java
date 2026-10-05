@@ -12,6 +12,8 @@ import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
+import custom.zKernel.Log;
+import custom.zKernel.LogZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
@@ -257,13 +259,14 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 												
 				                //das holt wohl wort fuer wort von der Konsole: String sInput = inputReader.next();
 					        	Scanner inputReader = this.getInputReader();				      
-					        	sInput = inputReader.nextLine();
-				                System.out.println("Pressed Menueselection: " + sInput);
+					        	sInput = inputReader.nextLine();				                
+				                Log.writeInfo("Pressed Menueselection: " + sInput);
+				                this.logProtocol("Pressed Menueselection: " + sInput);
 				                if(sInput==null) break main;
 				                
 				                boolean bGoon = this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.
 				                if(!bGoon) {
-				                	System.out.println("Break after Menueselection: "  + sInput);
+				                	Log.writeDebug("Break after Menueselection: "  + sInput);
 				                	break main;//Quit
 				                }
 				                

@@ -14,7 +14,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**
 
@@ -25,7 +25,7 @@ public class KernelFileTextExportCrackZZZ extends AbstractKernelUseObjectZZZ{
     private File objFile;
 
 	
-	public KernelFileTextExportCrackZZZ(IKernelZZZ objKernel, LogZZZ objLog, File objFileToCrack, String sProgramAlias, String[] saFlagControl) throws ExceptionZZZ{
+	public KernelFileTextExportCrackZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, File objFileToCrack, String sProgramAlias, String[] saFlagControl) throws ExceptionZZZ{
 		KernelFileTextExportCrackNew_(objKernel, objLog, objFileToCrack, null, null, sProgramAlias, saFlagControl);		
 	}
 	
@@ -55,7 +55,7 @@ public class KernelFileTextExportCrackZZZ extends AbstractKernelUseObjectZZZ{
 	 @param saFlagControl
 	 @return
 	 */
-	private boolean KernelFileTextExportCrackNew_(IKernelZZZ objKernelIn, LogZZZ objLogIn, File objFileIn, String sDirIn, String sFileIn, String sProgramAliasIn, String[] saFlagControlIn) throws ExceptionZZZ{
+	private boolean KernelFileTextExportCrackNew_(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn, File objFileIn, String sDirIn, String sFileIn, String sProgramAliasIn, String[] saFlagControlIn) throws ExceptionZZZ{
 		boolean bFunction = false;
 		main:{
 						String stemp; boolean btemp;
@@ -129,14 +129,14 @@ public class KernelFileTextExportCrackZZZ extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	@see zzzKernel.basic.KernelAssetKernelZZZ#getLogObject()
 	 */
-	public LogZZZ getLogObject() {
+	public KernelLogZZZ getLogObject() {
 		return this.objLog;
 	}
 
 	/* (non-Javadoc)
 	@see zzzKernel.basic.KernelAssetKernelZZZ#setLogObject(zzzKernel.custom.LogZZZ)
 	 */
-	public void setLogObject(LogZZZ objLog) {
+	public void setLogObject(KernelLogZZZ objLog) {
 		this.objLog = objLog;		
 	}
 

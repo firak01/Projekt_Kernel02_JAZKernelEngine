@@ -10,7 +10,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**
  * @author 0823
@@ -25,7 +25,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalZZZ extends Abstract
 	
 	//Merke: Da es keine Mehrfachvererbung gibt, müssen die Objekte und Methoden aus AbstractKernelUseObjectZZZ hier auch vorkommen...
 	protected volatile IKernelZZZ objKernel=null;
-	protected volatile LogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
+	protected volatile KernelLogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
 	protected volatile IKernelContextZZZ objContext = null; //die Werte des aufrufenden Programms (bzw. sein Klassenname, etc.), Kann anders als beim Kernel selbst sein.
 	
 	
@@ -187,7 +187,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalZZZ extends Abstract
 
 	//aus IKernelLogObjectUserZZZ, analog zu KernelKernelZZZ
 	@Override
-	public LogZZZ getLogObject() throws ExceptionZZZ {
+	public KernelLogZZZ getLogObject() throws ExceptionZZZ {
 		if(this.objLog==null) {
 			IKernelZZZ objKernel = this.getKernelObject();
 			if(objKernel!=null) {
@@ -198,7 +198,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalZZZ extends Abstract
 	}
 
 	@Override
-	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
+	public void setLogObject(KernelLogZZZ objLog) throws ExceptionZZZ {
 		this.objLog = objLog;
 	}	
 	
@@ -217,14 +217,14 @@ public abstract class AbstractKernelUseObjectWithStatusLocalZZZ extends Abstract
 	@Override
 	public void logProtocol(String sLog) throws ExceptionZZZ{
 		if(sLog!=null){			
-			LogZZZ objLog = this.getLogObject();
+			KernelLogZZZ objLog = this.getLogObject();
 			if(objLog==null) {
 				this.logLineDate(sLog);
 			}else {
 				objLog.writeLineDate(sLog);
 			}
 		}else {
-			LogZZZ objLog = this.getLogObject();
+			KernelLogZZZ objLog = this.getLogObject();
 			if(objLog==null) {
 				this.logLineDate("");
 			}else {

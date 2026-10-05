@@ -25,6 +25,13 @@ public interface ILogZZZ extends IKernelConfigUserZZZ, IStringFormatManagerUserZ
 	
 	public FileTextWriterZZZ getFileTextWriterObject() throws ExceptionZZZ;
 	
+	public boolean writeDebug(String sLog) throws ExceptionZZZ;
+	public boolean writeInfo(String sLog) throws ExceptionZZZ;
+	public boolean writeWarning(String sLog) throws ExceptionZZZ;
+	public boolean write(String sLog, LOGLEVEL enumDebugLevel) throws ExceptionZZZ;
+	public boolean writeLine(String sLog, LOGLEVEL enumDebugLevel) throws ExceptionZZZ;
+	
+	
 	public boolean write(String sLog) throws ExceptionZZZ;//wird dann als Synchronized implementiert.
 	public boolean writeLine(String sLog) throws ExceptionZZZ;//wird dann als Synchronized implementiert.
 	public boolean writeLineDate(String sLog) throws ExceptionZZZ;//wird dann als Synchronized implementiert.

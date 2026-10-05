@@ -17,7 +17,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.csv.FileCsvZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 import custom.zUtil.io.FileZZZ;
@@ -89,7 +89,7 @@ public class KernelFileTransformCsv2IniZZZ  extends AbstractKernelUseObjectZZZ{
 	
 	
 	
-	public KernelFileTransformCsv2IniZZZ(IKernelZZZ objKernel, LogZZZ objLog, FileCsvZZZ objCSV, FileIniZZZ objActionConfigurationIni, String sDirTargetIn, String[] saFlagControl) throws ExceptionZZZ{
+	public KernelFileTransformCsv2IniZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, FileCsvZZZ objCSV, FileIniZZZ objActionConfigurationIni, String sDirTargetIn, String[] saFlagControl) throws ExceptionZZZ{
 		KernelFileTransformCsv2IniNew_(objKernel, objLog, objCSV, objActionConfigurationIni, sDirTargetIn, saFlagControl);
 	}
 	
@@ -111,7 +111,7 @@ public class KernelFileTransformCsv2IniZZZ  extends AbstractKernelUseObjectZZZ{
 	 @param saFlagControl
 	 @return
 	 */
-	private boolean KernelFileTransformCsv2IniNew_(IKernelZZZ objKernelIn, LogZZZ objLogIn, FileCsvZZZ objCsvIn, FileIniZZZ objActionConfigurationIniIn, String sDirTargetIn, String[] saFlagControlIn) throws ExceptionZZZ {
+	private boolean KernelFileTransformCsv2IniNew_(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn, FileCsvZZZ objCsvIn, FileIniZZZ objActionConfigurationIniIn, String sDirTargetIn, String[] saFlagControlIn) throws ExceptionZZZ {
 		boolean bReturn = false;
 			String stemp; boolean btemp;
 			main:{
@@ -196,7 +196,7 @@ public class KernelFileTransformCsv2IniZZZ  extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	@see zzzKernel.basic.KernelAssetKernelZZZ#getLogObject()
 	 */
-	public LogZZZ getLogObject() {
+	public KernelLogZZZ getLogObject() {
 		return this.objLog;
 	}
 	
@@ -215,7 +215,7 @@ public class KernelFileTransformCsv2IniZZZ  extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	@see zzzKernel.basic.KernelAssetKernelZZZ#setLogObject(zzzKernel.custom.LogZZZ)
 	 */
-	public void setLogObject(LogZZZ objLog) {
+	public void setLogObject(KernelLogZZZ objLog) {
 	this.objLog = objLog;
 	}
 	
@@ -236,7 +236,7 @@ public class KernelFileTransformCsv2IniZZZ  extends AbstractKernelUseObjectZZZ{
 				
 		main:{
 		IKernelZZZ objKernel = this.getKernelObject();
-		LogZZZ objLog = objKernel.getLogObject();
+		KernelLogZZZ objLog = objKernel.getLogObject();
 		
 		FileCsvZZZ objCSV = this.getCsvObject();			
 	

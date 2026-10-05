@@ -22,7 +22,7 @@ import basic.zKernel.file.ini.IKernelZFormulaIni_PathZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIni_VariableZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IEventBrokerFlagZsetUserZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 public interface IKernelZZZ extends IObjectWithExpressionZZZ, IKernelFileIniUserZZZ, IKernelConfigUserZZZ, IKernelConfigParameterHandlerZZZ,IKernelCacheUserZZZ,IFlagZEnabledZZZ, IKernelExpressionIniParserZZZ,IKernelExpressionIniSolverZZZ, IKernelZFormulaIniZZZ, IKernelZFormulaIni_VariableZZZ, IKernelZFormulaIni_PathZZZ, IKernelJsonArrayIniSolverZZZ, IKernelJsonMapIniSolverZZZ, IKernelJavaCallIniSolverZZZ, IKernelEncryptionIniSolverZZZ{
@@ -37,8 +37,8 @@ public interface IKernelZZZ extends IObjectWithExpressionZZZ, IKernelFileIniUser
 	public abstract boolean proofFlagExists(IKernelZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ;
 	public abstract boolean proofFlagSetBefore(IKernelZZZ.FLAGZ objEnumFlag) throws ExceptionZZZ;
 	
-	public LogZZZ getLogObject();
-	public void setLogObject(LogZZZ objLog);
+	public KernelLogZZZ getLogObject();
+	public void setLogObject(KernelLogZZZ objLog);
 	
 	public String getApplicationKey() throws ExceptionZZZ;
 	public String getSystemKey() throws ExceptionZZZ;	

@@ -20,7 +20,7 @@ import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
-import custom.zKernel.LogSingletonZZZ;
+import custom.zKernel.LogZZZ;
 
 public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
 	private static final long serialVersionUID = 3005226115171469499L;
@@ -358,7 +358,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	
 	//### aus ILogLevelUserZZZ
 	public LOGLEVEL getLogLevelOverallEnumDefault() throws ExceptionZZZ{
-		return LogSingletonZZZ.getInstance().getLogLevelOverallEnumDefault();
+		return LogZZZ.getInstance().getLogLevelOverallEnumDefault();
 	}
 	
 	public LOGLEVEL getLogLevelOverallEnum() throws ExceptionZZZ{		

@@ -1,6 +1,6 @@
 package custom.zKernel.file;
 
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.file.*;
@@ -25,7 +25,7 @@ public class FileTextCopyZZZ extends KernelFileTextCopyZZZ {
 	 * @param saFileTarget
 	 * @param strings
 	 */
-	public FileTextCopyZZZ(IKernelZZZ objKernel, LogZZZ objLog, String sDirectorySource, String sDirectoryTarget, String[] saFileSource, String[] saFileTarget, String[] saFlagControl) throws ExceptionZZZ{
+	public FileTextCopyZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, String sDirectorySource, String sDirectoryTarget, String[] saFileSource, String[] saFileTarget, String[] saFlagControl) throws ExceptionZZZ{
 		super(objKernel, objLog, sDirectorySource, sDirectoryTarget, saFileSource, saFileTarget, saFlagControl);
 	}
 

@@ -76,7 +76,7 @@ import basic.zUtil.io.IFileExpansionEnabledZZZ;
 import custom.zKernel.ConfigZZZ;
 import custom.zKernel.FileFilterModuleZZZ;
 import custom.zKernel.ILogZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 
@@ -113,7 +113,7 @@ public abstract class AbstractKernelObjectZZZ extends AbstractObjectWithFlagZZZ 
 	protected volatile String sSystemNumber="";	
 	protected volatile String sApplicationKey="";
 
-	protected volatile LogZZZ objLog = null;
+	protected volatile KernelLogZZZ objLog = null;
 	protected volatile IKernelConfigZZZ objConfig = null;   //die Werte für den Applikationskey, Systemnummer, etc.
 	protected volatile IKernelContextZZZ objContext = null; //die Werte des aufrufenden Programms (bzw. sein Klassenname, etc.)
 	
@@ -289,7 +289,7 @@ public AbstractKernelObjectZZZ(String[] saArg, String[] saFlagControl) throws Ex
 		File objFile = objKernelOld.getFileConfigKernel();
 		String sFileConfigPath = objFile.getParent();
 		String sFileConfigName = objFile.getName();
-		LogZZZ objLog = objKernelOld.getLogObject();
+		KernelLogZZZ objLog = objKernelOld.getLogObject();
 		IKernelConfigZZZ objConfig = objKernelOld.getConfigObject();
 		
 		KernelNew_(objConfig, null, sApplicationKey, sSystemNumber, sFileConfigPath, sFileConfigName, objLog, (String[]) null);
@@ -311,7 +311,7 @@ public AbstractKernelObjectZZZ(String[] saArg, String[] saFlagControl) throws Ex
 		File objFile = objKernelOld.getFileConfigKernel();
 		String sFileConfigPath = objFile.getParent();
 		String sFileConfigName = objFile.getName();
-		LogZZZ objLog = objKernelOld.getLogObject();
+		KernelLogZZZ objLog = objKernelOld.getLogObject();
 		//MErke: Da saArg übergeben werden soll, nicht das ConfigObjekt des alten Kernels verwenden 
 		//       IKernelConfigZZZ objConfig = objKernelOld.getConfigObject();		
 		//KernelNew_(objConfig, null, sApplicationKey, sSystemNumber, sFileConfigPath, sFileConfigName, objLog, saArg);
@@ -328,7 +328,7 @@ public AbstractKernelObjectZZZ(String[] saArg, String[] saFlagControl) throws Ex
 	
 	//############################
 	@Override
-	public LogZZZ getLogObject(){
+	public KernelLogZZZ getLogObject(){
 		return this.objLog;
 	}
 	
@@ -7026,11 +7026,11 @@ MeinTestParameter=blablaErgebnis
 	}
 	
 	@Override
-	public void setLogObject(LogZZZ objLog){
+	public void setLogObject(KernelLogZZZ objLog){
 		this.objLog = objLog;
 	}
 	
-	private boolean KernelNew_(IKernelConfigZZZ objConfig, IKernelContextZZZ objContext, String sApplicationKeyIn,String sSystemNumberIn, String sDirectoryConfigIn, String sFileConfigIn, LogZZZ objLogIn, String[]saArg) throws ExceptionZZZ{
+	private boolean KernelNew_(IKernelConfigZZZ objConfig, IKernelContextZZZ objContext, String sApplicationKeyIn,String sSystemNumberIn, String sDirectoryConfigIn, String sFileConfigIn, KernelLogZZZ objLogIn, String[]saArg) throws ExceptionZZZ{
 		boolean bReturn = false;		
 		main:{			
 				String stemp=null; boolean btemp=false; String sLog = null;
@@ -7391,7 +7391,7 @@ MeinTestParameter=blablaErgebnis
 				//create the log using the configured path/file
 				IniFile objIni = this.getFileConfigKernelAsIni();
 				
-				LogZZZ objLog = null;
+				KernelLogZZZ objLog = null;
 				if(objLogIn==null){				
 					//TODOGOON202603;//Trotz aller Bemuehungen wird die # Kommentarposition nicht vor der ^ Kommentarposition einsortiert. Daher haben wir einen unverhaeltnismaessig langen String aufgrund einer riesigen Luecke, und die Spaltengrenzen werden auch nach rechts verschoben.
 					sLog = "Erstelle neues Log Object";
@@ -7435,7 +7435,7 @@ MeinTestParameter=blablaErgebnis
 					}
 					
 					if(this.getFlag ("DEBUG")) System.out.println("Initialisiere KernelLog mit folgendem Pfad, Dateinamen: '" + sDirectoryLog +"', '" + sFileLog + "'");
-					objLog = new LogZZZ(sDirectoryLog, sFileLog,IFileExpansionEnabledZZZ.FLAGZ.USE_FILE_EXPANSION.name());
+					objLog = new KernelLogZZZ(sDirectoryLog, sFileLog,IFileExpansionEnabledZZZ.FLAGZ.USE_FILE_EXPANSION.name());
 				}else{
 					System.out.println("Verwende LogObject erneut");
 					objLog = objLogIn;
@@ -7549,7 +7549,7 @@ MeinTestParameter=blablaErgebnis
 	 */
 	@Override
 	public void logLineDate(String sLog) throws ExceptionZZZ {
-		LogZZZ objLog = this.getLogObject();
+		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			String sTemp = AbstractKernelLogZZZ.computeLineDate(this);
 			
@@ -7568,7 +7568,7 @@ MeinTestParameter=blablaErgebnis
 	 */
 	@Override
 	public void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
-		LogZZZ objLog = this.getLogObject();
+		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			//Hier nicht die Position hinzunehmen. Wg. des Leerstring kommt sie dann VOR den Kommentar
 			String sLine = AbstractKernelLogZZZ.computeLineDate(this, ""); 

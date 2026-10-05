@@ -12,12 +12,12 @@ import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.justifier.StringJustifierManagerZZZ;
 import basic.zKernel.KernelContextZZZ;
 import basic.zKernel.KernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import junit.framework.TestCase;
 
 public class LogZZZTest extends TestCase{
 	private KernelZZZ objKernelTest;
-	private LogZZZ objLogTest;
+	private KernelLogZZZ objLogTest;
 	
 	private static final String strTEST_ENTRY01_DEFAULT = new String("bla");
 	private static final String strTEST_ENTRY02_DEFAULT = new String("blub");
@@ -750,7 +750,7 @@ public class LogZZZTest extends TestCase{
 			KernelContextZZZ objContext = new KernelContextZZZ(this.getClass());
 			KernelZZZ objKernelContext =new KernelZZZ("FGL", "01", "test", "ZKernelConfigKernel_test.ini", objContext, (String)null);
 			
-			LogZZZ objLogContext = objKernelContext.getLogObject();
+			KernelLogZZZ objLogContext = objKernelContext.getLogObject();
 			assertEquals("c:\\fglKernel\\kernellog", objLogContext.getDirectory());
 			assertEquals("ZKernelLog_LogZZZtest.txt", objLogContext.getFilename());	
 			
@@ -1011,7 +1011,7 @@ public class LogZZZTest extends TestCase{
 			saArg[2]="-lf";
 			saArg[3]="testLog_Constructor01.txt";
 			IKernelConfigZZZ objConfig = new KernelConfigZZZ(saArg);
-			LogZZZ objLog01 = new LogZZZ(objConfig);
+			KernelLogZZZ objLog01 = new KernelLogZZZ(objConfig);
 			bValue=objLog01.writeLineDateWithPosition(this, strTEST_ENTRY01_DEFAULT);
 			assertTrue(bValue);
 			

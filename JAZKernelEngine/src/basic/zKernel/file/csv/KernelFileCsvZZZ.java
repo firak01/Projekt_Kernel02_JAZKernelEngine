@@ -19,7 +19,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**
 
@@ -29,7 +29,7 @@ public class KernelFileCsvZZZ  extends AbstractKernelUseObjectZZZ{
 	private CSVReader objCSV;
 	private File objFile;
 
-	public KernelFileCsvZZZ(IKernelZZZ objKernel, LogZZZ objLog, String sDirectory, String sFilename, String[] saFlagControl) throws ExceptionZZZ{
+	public KernelFileCsvZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, String sDirectory, String sFilename, String[] saFlagControl) throws ExceptionZZZ{
 		KernelFileCsvNew_(objKernel, objLog, null, sDirectory, sFilename, saFlagControl);
 	}
 
@@ -44,7 +44,7 @@ public class KernelFileCsvZZZ  extends AbstractKernelUseObjectZZZ{
 	 @param saFlagControl
 	 @return
 	 */
-	private boolean KernelFileCsvNew_(IKernelZZZ objKernelIn, LogZZZ objLogIn, File objFileIn, String sDirectoryIn, String sFileIn, String[] saFlagControlIn) throws ExceptionZZZ {
+	private boolean KernelFileCsvNew_(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn, File objFileIn, String sDirectoryIn, String sFileIn, String[] saFlagControlIn) throws ExceptionZZZ {
 		boolean bReturn = false;
 		String stemp; boolean btemp; 
 		main:{
@@ -155,7 +155,7 @@ public class KernelFileCsvZZZ  extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	@see zzzKernel.basic.KernelAssetKernelZZZ#getLogObject()
 	 */
-	public LogZZZ getLogObject() {
+	public KernelLogZZZ getLogObject() {
 		return this.objLog;
 	}
 	
@@ -171,7 +171,7 @@ public class KernelFileCsvZZZ  extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	@see zzzKernel.basic.KernelAssetKernelZZZ#setLogObject(zzzKernel.custom.LogZZZ)
 	 */
-	public void setLogObject(LogZZZ objLog) {
+	public void setLogObject(KernelLogZZZ objLog) {
 		this.objLog = objLog;
 	}
 	

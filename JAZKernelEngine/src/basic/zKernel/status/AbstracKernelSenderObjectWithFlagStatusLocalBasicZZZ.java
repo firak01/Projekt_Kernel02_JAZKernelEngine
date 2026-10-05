@@ -17,7 +17,7 @@ import basic.zKernel.IKernelContextZZZ;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /** Diese Klasse implementiert alles, was benoetigt wird, damit die eigenen Events "Flag hat sich geaendert" abgefeuert werden kann
  *  und auch von den Objekten, die hier registriert sind empfangen wird. Damit fungieren Objekte dieser Klasse als "EventBroker".
@@ -32,7 +32,7 @@ import custom.zKernel.LogZZZ;
 public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ extends AbstractSenderObjectWithFlagStatusLocalBasicZZZ implements IKernelUserZZZ, IKernelContextUserZZZ {
 	private static final long serialVersionUID = 8999783685575147532L;
 	protected volatile IKernelZZZ objKernel=null;
-	protected volatile LogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
+	protected volatile KernelLogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
 	protected volatile IKernelContextZZZ objContext = null; //die Werte des aufrufenden Programms (bzw. sein Klassenname, etc.), Kann anders als beim Kernel selbst sein.
 	
 	public AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ() throws ExceptionZZZ{
@@ -197,18 +197,18 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 
 	//aus IKernelLogObjectUserZZZ, analog zu KernelKernelZZZ
 	@Override
-	public LogZZZ getLogObject() throws ExceptionZZZ {
+	public KernelLogZZZ getLogObject() throws ExceptionZZZ {
 		return this.objLog;
 	}
 
 	@Override
-	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
+	public void setLogObject(KernelLogZZZ objLog) throws ExceptionZZZ {
 		this.objLog = objLog;
 	}	
 	
 	@Override
 	public void logLineDate(String sLog) throws ExceptionZZZ {
-		LogZZZ objLog = this.getLogObject();
+		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			String sTemp = AbstractKernelLogZZZ.computeLineDate(sLog);
 			System.out.println(sTemp);

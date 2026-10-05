@@ -12,7 +12,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.file.KernelFileTextExportCrackZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.csv.FileCsvZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 import custom.zKernel.file.transform.FileTransformCsv2IniZZZ;
@@ -32,7 +32,7 @@ public class FileTextExportCrackZZZ extends KernelFileTextExportCrackZZZ {
 	 @param saFlagControl
 	 @throws ExceptionZZZ
 	 */
-	public FileTextExportCrackZZZ(IKernelZZZ objKernel, LogZZZ objLog, File objFile,String sProgramAlias, String[] saFlagControl) throws ExceptionZZZ {
+	public FileTextExportCrackZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, File objFile,String sProgramAlias, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel, objLog, objFile, sProgramAlias, saFlagControl);
 	}
 	
@@ -42,7 +42,7 @@ public class FileTextExportCrackZZZ extends KernelFileTextExportCrackZZZ {
 			String stemp; 
 			String sDirTarget;
 			//TODO Hier den Transformator csv-->ini starten
-			LogZZZ objLog=null;
+			KernelLogZZZ objLog=null;
 			FileIniZZZ objFileConfigIniExport;
 						try {	
 							IKernelZZZ objKernel = this.getKernelObject();

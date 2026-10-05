@@ -8,7 +8,7 @@ package basic.zKernel.file.transform;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.KernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.csv.FileCsvZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 import custom.zKernel.file.transform.FileTransformCsv2IniZZZ;
@@ -22,7 +22,7 @@ public class DebugFileTransformCsv2IniZZZ {
 
 	public static void main(String[] args) {
 		
-		LogZZZ objLog=null;
+		KernelLogZZZ objLog=null;
 			
 			try {
 			KernelZZZ objKernel = new KernelZZZ("FGL","03","C:\\tempfgl\\KernelConfig","ZKernelConfigKernel_default.ini",(String)null);

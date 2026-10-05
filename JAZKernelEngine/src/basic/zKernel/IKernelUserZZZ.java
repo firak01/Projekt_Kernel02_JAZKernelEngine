@@ -1,7 +1,7 @@
 package basic.zKernel;
 
 import basic.zBasic.ExceptionZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 
 /**

@@ -28,7 +28,7 @@ import basic.zKernel.file.ini.IKernelZFormulaIni_PathZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIni_VariableZZZ;
 import basic.zKernel.file.ini.TestUtilZZZ;
 import custom.zKernel.ConfigFGL;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 import custom.zUtil.io.FileZZZ;
 import junit.framework.TestCase;
@@ -87,7 +87,7 @@ public class KernelZZZTest extends TestCase {
 	private void removeLogFile(IKernelZZZ objKerneltemp) throws ExceptionZZZ{
 		//		Log-File entfernen
 		if(objKerneltemp != null){
-			LogZZZ objLog = objKerneltemp.getLogObject();
+			KernelLogZZZ objLog = objKerneltemp.getLogObject();
 			if(objLog != null){
 				FileZZZ objFile = objLog.getFileObject();
 				if(objFile!=null){
@@ -99,7 +99,7 @@ public class KernelZZZTest extends TestCase {
 	private void removeLogFile(KernelZZZ objKerneltemp) throws ExceptionZZZ{
 		//		Log-File entfernen
 		if(objKerneltemp != null){
-			LogZZZ objLog = objKerneltemp.getLogObject();
+			KernelLogZZZ objLog = objKerneltemp.getLogObject();
 			if(objLog != null){
 				FileZZZ objFile = objLog.getFileObject();
 				if(objFile!=null){

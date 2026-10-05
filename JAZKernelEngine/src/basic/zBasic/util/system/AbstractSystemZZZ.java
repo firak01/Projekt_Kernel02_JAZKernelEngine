@@ -40,6 +40,65 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	
 	
 	//### aus ISystemZZZ
+	//++++++++++++++ Ohne Zeilenumbruch
+	@Override
+	public void print(String s, boolean bPrintOutput) throws ExceptionZZZ{
+		main:{
+			if(!bPrintOutput) break main;		
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			
+			System.out.print(s);
+		}//end main:
+	}
+	
+	
+	@Override
+	public void print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		main:{
+			if(enumLogLevel==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+		
+			int iPrintLevelAllowed = this.getPrintLevelOverall(); //analog zu dem Code in log.writeLine
+			int iLogLevelUsed = enumLogLevel.ordinal();
+			if(iLogLevelUsed > iPrintLevelAllowed) break main;		
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			
+			System.out.print(s);
+		}//end main:
+	}
+	
+	@Override
+	public void print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+		main:{
+			if(enumPrintLevel==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("enumPrintLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+		
+			int iPrintLevelAllowed = this.getPrintLevelOverall();
+			int iPrintLevelUsed = enumPrintLevel.ordinal();
+			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			
+			System.out.print(s);
+		}//end main:
+	}
+	
+	@Override
+	public void print(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+		main:{
+			int iPrintLevelAllowed = this.getPrintLevelOverall();
+			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
+			if(StringZZZ.isEmptyTrimmed(s)) break main;
+			
+			System.out.print(s);
+		}//end main:
+	}
+	
+	
+	//++++++++++++++ Mit Zeilenumbruch
 	@Override
 	public void println(String s, boolean bPrintOutput) throws ExceptionZZZ{
 		main:{
@@ -59,7 +118,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 				throw ez;
 			}
 		
-			int iPrintLevelAllowed = this.getPrintLevelOverall();
+			int iPrintLevelAllowed = this.getPrintLevelOverall(); //analog zu dem Code in log.writeLine
 			int iLogLevelUsed = enumLogLevel.ordinal();
 			if(iLogLevelUsed > iPrintLevelAllowed) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;

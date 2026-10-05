@@ -28,7 +28,7 @@ import basic.zKernel.flag.IFlagZCustomEnabledZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ.FLAGZ;
 import basic.zKernel.flag.util.FlagZFassadeZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zUtil.io.FileExpansionZZZ;
 import custom.zUtil.io.FileZZZ;
 

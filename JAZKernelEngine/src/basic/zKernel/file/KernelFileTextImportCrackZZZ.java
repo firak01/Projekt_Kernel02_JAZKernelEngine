@@ -22,7 +22,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.IKernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 
 /**
@@ -34,7 +34,7 @@ public class KernelFileTextImportCrackZZZ extends AbstractKernelUseObjectZZZ{
 		private File objFile;
 
 
-	public KernelFileTextImportCrackZZZ(IKernelZZZ objKernel, LogZZZ objLog, File objFile, String[] saFlagControl) throws ExceptionZZZ{
+	public KernelFileTextImportCrackZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, File objFile, String[] saFlagControl) throws ExceptionZZZ{
 			KernelFileTextImportCrackNew_(objKernel, objLog, objFile, null, null, saFlagControl);
 		}
 		
@@ -100,7 +100,7 @@ public class KernelFileTextImportCrackZZZ extends AbstractKernelUseObjectZZZ{
 	//return sFunction;
 		}
 		
-		private boolean KernelFileTextImportCrackNew_(IKernelZZZ objKernelIn, LogZZZ objLogIn,File objFileIn, String sDirectoryIn, String sFileIn, String[] saFlagControlIn ) throws ExceptionZZZ{
+		private boolean KernelFileTextImportCrackNew_(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn,File objFileIn, String sDirectoryIn, String sFileIn, String[] saFlagControlIn ) throws ExceptionZZZ{
 			boolean bReturn = false;
 			main:{
 				String stemp; boolean btemp; 
@@ -165,14 +165,14 @@ public class KernelFileTextImportCrackZZZ extends AbstractKernelUseObjectZZZ{
 		/* (non-Javadoc)
 		@see zzzKernel.basic.KernelAssetKernelZZZ#getLogObject()
 		 */
-		public LogZZZ getLogObject() {
+		public KernelLogZZZ getLogObject() {
 		return this.objLog;
 		}
 
 		/* (non-Javadoc)
 		@see zzzKernel.basic.KernelAssetKernelZZZ#setLogObject(zzzKernel.custom.LogZZZ)
 		 */
-		public void setLogObject(LogZZZ objLog) {
+		public void setLogObject(KernelLogZZZ objLog) {
 			this.objLog = objLog;
 		}
 		/**

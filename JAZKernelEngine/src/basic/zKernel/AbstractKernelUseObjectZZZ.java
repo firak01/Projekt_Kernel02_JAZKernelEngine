@@ -9,7 +9,7 @@ import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**
  * @author 0823
@@ -23,7 +23,7 @@ import custom.zKernel.LogZZZ;
 public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IKernelUserZZZ, IKernelContextUserZZZ {
 	private static final long serialVersionUID = 8229692064424314912L;
 	protected volatile IKernelZZZ objKernel=null;
-	protected volatile LogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
+	protected volatile KernelLogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
 	protected volatile IKernelContextZZZ objContext = null; //die Werte des aufrufenden Programms (bzw. sein Klassenname, etc.), Kann anders als beim Kernel selbst sein.
 		
 	/** This Constructor is used as 'implicit super constructor' 
@@ -203,20 +203,20 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 
 	//aus IKernelLogObjectUserZZZ, analog zu KernelKernelZZZ
 	@Override
-	public LogZZZ getLogObject() throws ExceptionZZZ {
+	public KernelLogZZZ getLogObject() throws ExceptionZZZ {
 		return this.objLog;
 	}
 
 	@Override
-	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
+	public void setLogObject(KernelLogZZZ objLog) throws ExceptionZZZ {
 		this.objLog = objLog;
 	}	
 	
 	@Override
 	public void logLineDate(String sLog) throws ExceptionZZZ {
-		LogZZZ objLog = this.getLogObject();
+		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
-			String sTemp = LogZZZ.computeLineDate(this, sLog);
+			String sTemp = KernelLogZZZ.computeLineDate(this, sLog);
 			System.out.println(sTemp);
 		}else {
 			objLog.writeLineDate(sLog);
@@ -226,9 +226,9 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 	
 	@Override
 	public void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
-		LogZZZ objLog = this.getLogObject();
+		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
-			String sTemp = LogZZZ.computeLineDateWithPosition(this, sLog);
+			String sTemp = KernelLogZZZ.computeLineDateWithPosition(this, sLog);
 			System.out.println(sTemp);
 		}else {
 			objLog.writeLineDate(sLog);

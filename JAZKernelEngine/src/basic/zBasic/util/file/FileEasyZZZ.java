@@ -37,7 +37,7 @@ import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 import basic.zBasic.util.file.jar.JarEasyZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 import basic.zKernel.IKernelConfigZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**Einfache Dateioperationen
  * @author lindhaueradmin
@@ -2191,7 +2191,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			}
 		
 		}//end main:
-		LogZZZ.logProtocolStringStatic(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
+		KernelLogZZZ.logProtocolStringStatic(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
 		return bReturn;	
 	}
 	

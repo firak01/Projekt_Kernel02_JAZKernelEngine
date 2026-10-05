@@ -20,7 +20,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.IKernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.FileTextImportCrackZZZ;
 
 /**
@@ -73,7 +73,7 @@ public class KernelFileTextJoinZZZ extends AbstractKernelUseObjectZZZ{
 		}
 	}
 	
-	private boolean KernelFileTextJoinNew_(IKernelZZZ objKernelIn, LogZZZ objLogIn, File objFileBaseIn, String sDirectoryIn, String sFileIn, String[] saFlagControlIn) throws ExceptionZZZ{
+	private boolean KernelFileTextJoinNew_(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn, File objFileBaseIn, String sDirectoryIn, String sFileIn, String[] saFlagControlIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 			
 		String stemp;  boolean btemp;
@@ -158,28 +158,28 @@ public class KernelFileTextJoinZZZ extends AbstractKernelUseObjectZZZ{
 	 */
 	public KernelFileTextJoinZZZ(
 	IKernelZZZ objKernelIn,
-	LogZZZ objLogIn,
+	KernelLogZZZ objLogIn,
 	String sBaseDirectoryIn, 
 	String sBaseFileIn, 
 	String[] saFlagControl ) throws ExceptionZZZ{
 	KernelFileTextJoinNew_(objKernelIn, objLogIn, null, sBaseDirectoryIn, sBaseFileIn, saFlagControl);
 	} //end constructor
 	
-	public KernelFileTextJoinZZZ(IKernelZZZ objKernel, LogZZZ objLog, File objFile, String[] saFlagControl) throws ExceptionZZZ{
+	public KernelFileTextJoinZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, File objFile, String[] saFlagControl) throws ExceptionZZZ{
 		KernelFileTextJoinNew_(objKernel, objLog, objFile, null, null, saFlagControl);
 	}
 
 	/* (non-Javadoc)
 	 * @see zzzKernel.basic.KernelAssetKernelZZZ#getLogObject()
 	 */
-	public LogZZZ getLogObject() {
+	public KernelLogZZZ getLogObject() {
 		return objLog;
 	}
 
 	/* (non-Javadoc)
 	 * @see zzzKernel.basic.KernelAssetKernelZZZ#setLogObject(zzzKernel.custom.LogZZZ)
 	 */
-	public void setLogObject(LogZZZ objLog) {
+	public void setLogObject(KernelLogZZZ objLog) {
 		this.objLog = objLog;		
 	}
 	

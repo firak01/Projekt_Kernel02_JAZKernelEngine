@@ -31,7 +31,7 @@ import basic.zUtil.io.IFileExpansionZZZ;
 import custom.zKernel.ConfigZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
 import custom.zKernel.ILogZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zUtil.io.FileZZZ;
 
 /**
@@ -910,7 +910,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 			}
 	
 			if(ArrayUtilZZZ.isNull(ienumaMappedLogString)){
-				LogZZZ.logProtocolStringStatic(classObj, sLogs);
+				KernelLogZZZ.logProtocolStringStatic(classObj, sLogs);
 				break main;
 			}
 			
@@ -951,19 +951,41 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		return this.objFileTextWriter;
 	}
 
+	
 	@Override
-	public synchronized boolean writeLine(String stemp){
+	public synchronized boolean writeLine(String sLog, LOGLEVEL enumLogLevel) throws ExceptionZZZ {
 		boolean bReturn = false;
-		FileTextWriterZZZ objFileWriter;
-		try {
+		main:{
+			FileTextWriterZZZ objFileWriter;
+			
+			if(enumLogLevel==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}			
+			SystemZZZ.getInstance().println(sLog, enumLogLevel);
+				
+			int iLogLevelAllowed = this.getLogLevelOverall(); //Analog zu dem Code in systezzz.println()
+			int iLogLevelUsed = enumLogLevel.ordinal();
+			if(iLogLevelUsed > iLogLevelAllowed) break main;
+						
+			objFileWriter = this.getFileTextWriterObject();
+			bReturn = objFileWriter.writeLine(sLog);						
+		}//end main:
+		return bReturn;		
+	}
+	
+	@Override
+	public synchronized boolean writeLine(String stemp)throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			FileTextWriterZZZ objFileWriter;
+			
 			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
 			SystemZZZ.getInstance().println(stemp, enumLogLevel);
-			
+				
 			objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);						
-		} catch (ExceptionZZZ e) {		
-			e.printStackTrace();
-		}	
+		}//end main:
 		return bReturn;
 	}
 	
@@ -984,7 +1006,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	synchronized private boolean WriteLine__(Class classObj, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;	
 		
-		String sLine = LogZZZ.computeLine(classObj, sLogs); //Darin wird die Zeile schon "bündig gemacht".		
+		String sLine = KernelLogZZZ.computeLine(classObj, sLogs); //Darin wird die Zeile schon "bündig gemacht".		
 		bReturn = writeLine(sLine);
 				
 		return bReturn;
@@ -1018,7 +1040,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	synchronized private boolean WriteLineDate_(Object obj, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;	
 		
-		String sLine = LogZZZ.computeLineDate(obj, sLogs); //Darin wird die Zeile schon "bündig gemacht".		
+		String sLine = KernelLogZZZ.computeLineDate(obj, sLogs); //Darin wird die Zeile schon "bündig gemacht".		
 		bReturn = writeLine(sLine);
 				
 		return bReturn;
@@ -1188,22 +1210,52 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		return this.sLogFilename;
 	}
 		
+	//++++++++++++++++++++++++++
+	
+	public boolean writeDebug(String sLog) throws ExceptionZZZ{
+		return this.writeLine(sLog, LOGLEVEL.DEBUG);
+	}
+	public boolean writeInfo(String sLog) throws ExceptionZZZ{
+		return this.writeLine(sLog, LOGLEVEL.INFO);
+	}
+	public boolean writeWarning(String sLog) throws ExceptionZZZ{
+		return this.writeLine(sLog, LOGLEVEL.WARNING);
+	}
+	
+	//++++++++++++++++++++++++++
 
-	/* (non-Javadoc)
-	 * @see basic.zKernel.IKernelLogZZZ#Write(java.lang.String)
-	 */
+	@Override
+	public synchronized boolean write(String sLog, LOGLEVEL enumLogLevel) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			FileTextWriterZZZ objFileWriter;
+			
+			if(enumLogLevel==null) {
+				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}			
+			SystemZZZ.getInstance().print(sLog, enumLogLevel);
+				
+			int iLogLevelAllowed = this.getLogLevelOverall(); //Analog zu dem Code in systezzz.println()
+			int iLogLevelUsed = enumLogLevel.ordinal();
+			if(iLogLevelUsed > iLogLevelAllowed) break main;
+						
+			objFileWriter = this.getFileTextWriterObject();
+			bReturn = objFileWriter.write(sLog);						
+		}//end main:
+		return bReturn;		
+	}
+	
 	@Override
 	public synchronized boolean write(String stemp) throws ExceptionZZZ{
 		boolean bReturn = false;
-		FileTextWriterZZZ objFileWriter;
-//		try {
-			objFileWriter = this.getFileTextWriterObject();
-			bReturn = objFileWriter.write(stemp); //Kein Zeilenumbruch.
-			
-			System.out.print(stemp); //Kein Zeilenumbruck
-//		} catch (ExceptionZZZ e) {			
-//			e.printStackTrace();
-//		}	
+		main:{	
+			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
+			SystemZZZ.getInstance().print(stemp, enumLogLevel); //Kein Zeilenumbruch
+				
+			FileTextWriterZZZ objFileWriter = this.getFileTextWriterObject();
+			bReturn = objFileWriter.writeLine(stemp);	
+		}//end main:
 		return bReturn;
 	}
 

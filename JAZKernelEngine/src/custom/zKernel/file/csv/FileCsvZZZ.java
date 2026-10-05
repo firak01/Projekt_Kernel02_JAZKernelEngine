@@ -6,7 +6,7 @@
  */
 package custom.zKernel.file.csv;
 
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelZZZ;
@@ -30,7 +30,7 @@ public class FileCsvZZZ extends KernelFileCsvZZZ {
 	 @param saFlagControl
 	 @throws ExceptionZZZ
 	 */
-	public FileCsvZZZ(IKernelZZZ objKernel, LogZZZ objLog, String sDirectory, String sFilename, String[] saFlagControl) throws ExceptionZZZ {
+	public FileCsvZZZ(IKernelZZZ objKernel, KernelLogZZZ objLog, String sDirectory, String sFilename, String[] saFlagControl) throws ExceptionZZZ {
 		super(objKernel, objLog, sDirectory, sFilename, saFlagControl);
 	}
 

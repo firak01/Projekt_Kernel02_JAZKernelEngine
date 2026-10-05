@@ -25,7 +25,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelZZZ;
 import basic.zKernel.config.KernelConfigSectionEntryUtilZZZ;
 import basic.zKernel.file.ini.KernelZFormulaIniSolverZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 public class KernelJsonIniSolverZZZTest extends TestCase {	

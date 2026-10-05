@@ -10,7 +10,7 @@ import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.KernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.FileTextImportCrackZZZ;
 import custom.zKernel.file.FileTextJoinZZZ;
 
@@ -24,7 +24,7 @@ public class DebugFileTextJoinZZZ {
 		System.out.println("Starte Debugging von 'FileTextJoinZZZ'");
 			main:
 			{	
-				LogZZZ objLog=null;
+				KernelLogZZZ objLog=null;
 			
 				try {
 				KernelZZZ objKernel = new KernelZZZ();

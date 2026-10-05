@@ -7,7 +7,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.KernelZZZ;
 import custom.zKernel.ConfigFGL;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zUtil.io.FileZZZ;
 import junit.framework.TestCase;
 
@@ -37,7 +37,7 @@ public class KernelZZZIsolatedTest extends TestCase {
 	private void removeLogFile(IKernelZZZ objKerneltemp) throws ExceptionZZZ{
 		//		Log-File entfernen
 		if(objKerneltemp != null){
-			LogZZZ objLog = objKerneltemp.getLogObject();
+			KernelLogZZZ objLog = objKerneltemp.getLogObject();
 			if(objLog != null){
 				FileZZZ objFile = objLog.getFileObject();
 				if(objFile!=null){

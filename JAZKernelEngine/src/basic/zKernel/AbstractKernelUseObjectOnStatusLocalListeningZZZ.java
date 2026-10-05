@@ -20,7 +20,7 @@ import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
 import basic.zKernel.status.IStatusLocalMapForStatusLocalUserZZZ;
 import basic.zKernel.status.StatusLocalAvailableHelperZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /**
  * @author 0823
@@ -35,7 +35,7 @@ public abstract class AbstractKernelUseObjectOnStatusLocalListeningZZZ extends A
 	
 	//Merke: Da es keine Mehrfachvererbung gibt, müssen die Objekte und Methoden aus AbstractKernelUseObjectZZZ hier auch vorkommen...
 	protected volatile IKernelZZZ objKernel=null;
-	protected volatile LogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
+	protected volatile KernelLogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
 	protected volatile IKernelContextZZZ objContext = null; //die Werte des aufrufenden Programms (bzw. sein Klassenname, etc.), Kann anders als beim Kernel selbst sein.
 		
 	/** This Constructor is used as 'implicit super constructor' 

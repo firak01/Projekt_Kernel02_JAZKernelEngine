@@ -10,7 +10,7 @@ import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.KernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.FileTextExportCrackZZZ;
 
 /**
@@ -20,7 +20,7 @@ import custom.zKernel.file.FileTextExportCrackZZZ;
 public class DebugFileTextExportCrackZZZ {
 
 	public static void main(String[] args) {
-				LogZZZ objLog=null;
+				KernelLogZZZ objLog=null;
 			main:{
 					try {
 					//Erst einmal das Kernel-Objekt richtig initialisieren

@@ -4,7 +4,7 @@ import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.KernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.*;
 
 
@@ -23,7 +23,7 @@ public class DebugFileTextCopyZZZ {
 		System.out.println("Starte Debugging von 'FileTextCopyZZZ'");
 	main:
 	{	
-		LogZZZ objLog=null;			
+		KernelLogZZZ objLog=null;			
 		try {
 		KernelZZZ objKernel = new KernelZZZ();
 		objLog = objKernel.getLogObject();
@@ -71,7 +71,7 @@ public class DebugFileTextCopyZZZ {
 		
 		} catch (ExceptionZZZ e) {
 			if(objLog==null){
-				objLog = new LogZZZ();
+				objLog = new KernelLogZZZ();
 			}
 			try {
 				objLog.writeLineDate(e.getDetailAllLast());

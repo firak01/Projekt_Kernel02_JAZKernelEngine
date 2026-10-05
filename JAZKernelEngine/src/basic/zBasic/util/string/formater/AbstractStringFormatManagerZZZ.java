@@ -20,7 +20,7 @@ import basic.zBasic.util.string.justifier.StringJustifierManagerZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IEventObjectFlagZsetZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 /** Abstrakte Klasse der FormatManager.
  *  
@@ -105,14 +105,14 @@ public abstract class AbstractStringFormatManagerZZZ extends AbstractObjectWithF
 	//++++++++++++++++++++++
 	@Override
 	public IEnumSetMappedStringFormatZZZ[] getStringFormatArrayDefault() throws ExceptionZZZ{
-		return LogZZZ.getFormatForComputeLineDefault();			
+		return KernelLogZZZ.getFormatForComputeLineDefault();			
 	}
 	
 	@Override
 	public IEnumSetMappedStringFormatZZZ[] getStringFormatArrayCurrent() throws ExceptionZZZ{
 		IEnumSetMappedStringFormatZZZ[] objaReturn=null;
 		if(this.ienumaFormatStringCurrent==null) {
-			objaReturn = LogZZZ.getFormatForComputeLineDefault();
+			objaReturn = KernelLogZZZ.getFormatForComputeLineDefault();
 			this.ienumaFormatStringCurrent = objaReturn;
 		}else {
 			objaReturn = this.ienumaFormatStringCurrent;

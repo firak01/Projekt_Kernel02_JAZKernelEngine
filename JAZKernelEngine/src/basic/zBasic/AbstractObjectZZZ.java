@@ -8,8 +8,8 @@ import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.StringFormaterZZZ;
 import custom.zKernel.ILogZZZ;
-import custom.zKernel.LogSingletonZZZ;
 import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, IObjectPositionLogZZZ{
 	private static final long serialVersionUID = 4785854649300281154L;
@@ -107,7 +107,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 			
 	//#########################################
 	//### log Protocol bedeutete, das dies (falls möglich) in einen Protokolldatei geschrieben wird.
-	//### Also sind alle System.outs zu ersetzten durch die Arbeit mit einme LogZZZ-Objekt
+	//### Also sind alle System.outs zu ersetzten durch die Arbeit mit einem LogZZZ-Objekt
 	//#########################################
 	@Override
 	public synchronized void logProtocol(String sLog) throws ExceptionZZZ {
@@ -122,7 +122,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 	@Override
 	public synchronized void logProtocol(Object obj, String sLog) throws ExceptionZZZ {
 		//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
-		ILogZZZ objLog = LogSingletonZZZ.getInstance();
+		ILogZZZ objLog = LogZZZ.getInstance();
 				
 		//wichtig: Wenn dies vor dem Holen der Log Instanz gemacht wird, arbeitet man mit einer weit links liegenden "justifier-Grenze".
 		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLog);						
@@ -134,7 +134,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 	@Override
 	public synchronized void logProtocol(Object obj, String... sLogs) throws ExceptionZZZ{
 		//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
-		ILogZZZ objLog = LogSingletonZZZ.getInstance();
+		ILogZZZ objLog = LogZZZ.getInstance();
 		
 		//wichtig: Wenn dies vor dem Holen der Log Instanz gemacht wird, arbeitet man mit einer weit links liegenden "justifier-Grenze".
 		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLogs);						
@@ -201,7 +201,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 			if(ArrayUtilZZZ.isNull(saLog)) break main;		
 			
 			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
-			ILogZZZ objLog = LogSingletonZZZ.getInstance();
+			ILogZZZ objLog = LogZZZ.getInstance();
 			
 			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(objIn, ienumaMappedLogString, saLog);
 			
@@ -256,7 +256,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 			if(ArrayUtilZZZ.isNull(saLog)) break main;		
 			
 			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
-			ILogZZZ objLog = LogSingletonZZZ.getInstance();
+			ILogZZZ objLog = LogZZZ.getInstance();
 			
 			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(ienumaMappedLogString, saLog);
 			
@@ -310,7 +310,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 	@Override
 	public synchronized void logProtocolWithPosition(String... sLogs) throws ExceptionZZZ{
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-		IEnumSetMappedStringFormatZZZ[]iaFormat = LogZZZ.getFormatForComputeLineWithPosition_withObject();
+		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 		
 		String[] saLog = sLogs;
 		logProtocolWithPosition__(1, iaFormat, saLog);
@@ -318,7 +318,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 	public synchronized void logProtocolWithPosition(String sLog) throws ExceptionZZZ{
 		
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-		IEnumSetMappedStringFormatZZZ[]iaFormat = LogZZZ.getFormatForComputeLineWithPosition_withObject();
+		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 		
 		String[] saLog = new String[1];
 		saLog[0] = sLog;
@@ -329,7 +329,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 	public synchronized void logProtocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
 	
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-		IEnumSetMappedStringFormatZZZ[]iaFormat = LogZZZ.getFormatForComputeLineWithPosition_withObject();
+		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 		
 		String[] saLog = sLogs;
 		logProtocolWithPosition__(this, 1, iaFormat, saLog);
@@ -339,7 +339,7 @@ public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, 
 	public synchronized void logProtocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
 		
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-		IEnumSetMappedStringFormatZZZ[]iaFormat = LogZZZ.getFormatForComputeLineWithPosition_withObject();
+		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 		
 		String[] saLog = new String[1];
 		saLog[0] = sLog;

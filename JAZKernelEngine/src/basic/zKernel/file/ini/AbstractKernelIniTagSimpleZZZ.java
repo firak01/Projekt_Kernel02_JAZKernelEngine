@@ -28,7 +28,7 @@ import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelConfigSectionEntryZZZ;
 import basic.zKernel.config.KernelConfigSectionEntryUtilZZZ;
 import basic.zKernel.flag.util.FlagZFassadeZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 //DIES IST DER FLAG - WEG: AbstractObjectWithFlagZZZ -> AbstractObjectWithExpression -> AbstractTagWithExpressionBasic
@@ -42,7 +42,7 @@ import custom.zKernel.file.ini.FileIniZZZ;
 public abstract class AbstractKernelIniTagSimpleZZZ<T> extends AbstractIniTagWithExpressionBasicZZZ<T> implements IKernelUserZZZ, IKernelFileIniUserZZZ, ISubstituteEnabledZZZ, IParseUserZZZ, IKernelEntryReferenceExpressionUserZZZ, IKernelEntryReferenceSubstituteUserZZZ{
 	private static final long serialVersionUID = -3319737210584524888L;
 	protected volatile IKernelZZZ objKernel=null;
-	protected volatile LogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
+	protected volatile KernelLogZZZ objLog = null; //Kann anders als beim Kernel selbst sein.
 	protected volatile FileIniZZZ<T> objFileIni = null; //Kann anders als beim Kernel selbst sein.
 	
 	//Für Interface IValueVariableUserZZZ
@@ -205,12 +205,12 @@ public abstract class AbstractKernelIniTagSimpleZZZ<T> extends AbstractIniTagWit
 	
 	//### aus IKernelLogUserZZZ
 	@Override
-	public LogZZZ getLogObject() throws ExceptionZZZ {
+	public KernelLogZZZ getLogObject() throws ExceptionZZZ {
 		return this.objLog;
 	}
 
 	@Override
-	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
+	public void setLogObject(KernelLogZZZ objLog) throws ExceptionZZZ {
 		this.objLog = objLog;
 	}	
 	

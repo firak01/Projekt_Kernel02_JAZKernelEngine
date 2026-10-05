@@ -46,7 +46,7 @@ public class KernelFileTextCopyZZZ   extends AbstractKernelUseObjectZZZ{
 	private String[] saFileSource;
 
 	//Constructor	
-	public KernelFileTextCopyZZZ(IKernelZZZ objKernelIn, LogZZZ objLogIn, String sDirectorySourceIn, String sDirectoryTargetIn,String[] saFileSourceIn, String[] saFileTargetIn, String[] saFlagControl) throws ExceptionZZZ{
+	public KernelFileTextCopyZZZ(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn, String sDirectorySourceIn, String sDirectoryTargetIn,String[] saFileSourceIn, String[] saFileTargetIn, String[] saFlagControl) throws ExceptionZZZ{
 		KernelFileTextCopyNew_(objKernelIn, objLogIn, sDirectorySourceIn, sDirectoryTargetIn,saFileSourceIn, saFileTargetIn, saFlagControl);
 	}
 	
@@ -62,7 +62,7 @@ public class KernelFileTextCopyZZZ   extends AbstractKernelUseObjectZZZ{
 	 @param saFlagControl
 	 @return
 	 */
-	private boolean KernelFileTextCopyNew_(IKernelZZZ objKernelIn, LogZZZ objLogIn, String sDirectorySourceIn, String sDirectoryTargetIn, String[] saFileSourceIn, String[] saFileTargetIn, String[] saFlagControl) throws ExceptionZZZ {
+	private boolean KernelFileTextCopyNew_(IKernelZZZ objKernelIn, KernelLogZZZ objLogIn, String sDirectorySourceIn, String sDirectoryTargetIn, String[] saFileSourceIn, String[] saFileTargetIn, String[] saFlagControl) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			String stemp;	boolean btemp;
@@ -273,7 +273,7 @@ public class KernelFileTextCopyZZZ   extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	 * @see zzzKernel.basic.KernelAssetKernelZZZ#getLogObject()
 	 */
-	public LogZZZ getLogObject() {
+	public KernelLogZZZ getLogObject() {
 		return objLog;
 	}
 
@@ -281,7 +281,7 @@ public class KernelFileTextCopyZZZ   extends AbstractKernelUseObjectZZZ{
 	/* (non-Javadoc)
 	 * @see zzzKernel.basic.KernelAssetKernelZZZ#setLogObject(zzzKernel.custom.LogZZZ)
 	 */
-	public void setLogObject(LogZZZ objLogIn) {
+	public void setLogObject(KernelLogZZZ objLogIn) {
 			objLog = objLogIn;
 	}// end function
 
@@ -294,7 +294,7 @@ public class KernelFileTextCopyZZZ   extends AbstractKernelUseObjectZZZ{
 		main:{
 			int iCode; String stemp; String sMethod;
 			File objFileTemp;File objDirTemp;
-			LogZZZ objLog;
+			KernelLogZZZ objLog;
 			boolean bFlagAnyFileProcessed = false;
 			check:{
 				if(saFileSource==null){
