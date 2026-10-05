@@ -10,9 +10,9 @@ import basic.zBasic.util.crypt.thread.ConsoleServiceEncryptZZZ;
 import basic.zBasic.util.crypt.thread.KeyPressThreadEncryptZZZ;
 import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
 import basic.zBasic.util.system.ISystemZZZ;
-import basic.zBasic.util.system.SystemZZZ;
+import basic.zBasic.util.system.SystemSingletonZZZ;
 import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.LogSingletonZZZ;
 
 public class ConsoleEncryptMainZZZ {
 
@@ -25,14 +25,14 @@ public class ConsoleEncryptMainZZZ {
 			//aber in dieser Applikation OHNE Kernel, also OHNE ini-Konfiguration auskommen!!!    this.objKernel = new KernelZZZ(objConfig, (String) null); //Damit kann man ueber die Startparameter ein anders konfiguriertes Kernel-Objekt erhalten.
 			//TODOGOON20230203: Daher das objConfig in .getInstance(objConfig) übergeben!!!
 			
-			ISystemZZZ objSystem = SystemZZZ.getInstance();
+			ISystemZZZ objSystem = SystemSingletonZZZ.getInstance();
 			//objSystem.setPrintLevel(0); //ne, dann würde ja nie etwas ausgedruck
 			objSystem.setPrintLevelOverall(PRINTLEVEL.DEBUG); //Oberste Anweisung. Gib nur aus was INFO oder noch wichtiger ist.
 			
-			LogZZZ.getInstance().setLogLevelOverall(LOGLEVEL.DEBUG); //d.h. alle Logs sind als Default nun wie angegeben 
+			LogSingletonZZZ.getInstance().setLogLevelOverall(LOGLEVEL.DEBUG); //d.h. alle Logs sind als Default nun wie angegeben 
 			//Wenn debugLevel > printLevelAllowed wird nix gedruckt.
 			//     debugLevel  <= printLevelAllowed wird gedruckt
-			int iLogLevel = LogZZZ.getInstance().getLogLevelOverall();
+			int iLogLevel = LogSingletonZZZ.getInstance().getLogLevelOverall();
 			
 			IConsoleControllerZZZ objConsoleController = ConsoleControllerZZZ.getInstance();
 			

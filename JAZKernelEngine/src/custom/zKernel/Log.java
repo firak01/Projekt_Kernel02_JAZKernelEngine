@@ -16,15 +16,15 @@ public class Log implements IConstantZZZ{
 	}
 	
 	public static boolean writeInfo(String sInput) throws ExceptionZZZ {
-		return LogZZZ.getInstance().writeInfo(sInput);
+		return LogSingletonZZZ.getInstance().writeInfo(sInput);
 	}
 	
 	public static boolean writeWarning(String sInput) throws ExceptionZZZ {
-		return LogZZZ.getInstance().writeWarning(sInput);
+		return LogSingletonZZZ.getInstance().writeWarning(sInput);
 	}
 	
 	public static boolean writeDebug(String sInput) throws ExceptionZZZ {
-		return LogZZZ.getInstance().writeDebug(sInput);
+		return LogSingletonZZZ.getInstance().writeDebug(sInput);
 	}
 	
 }

@@ -13,7 +13,7 @@ import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
 import custom.zKernel.Log;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.LogSingletonZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
@@ -261,7 +261,13 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        	Scanner inputReader = this.getInputReader();				      
 					        	sInput = inputReader.nextLine();				                
 				                Log.writeInfo("Pressed Menueselection: " + sInput);
-				                this.logProtocol("Pressed Menueselection: " + sInput);
+				                
+				                //this.logProtocol soll weg, wenn das nicht mehr in AbstractObjekt eine Methode ist.
+				                this.logProtocol("Pressed Menueselection: " + sInput);				                
+				                //statt dessen:
+				                Log.protocol("Pressed Menueselection: " + sInput);// für die formatierte Ausgabe.
+				                
+				                Log.println("Pressed Menueselection: " + sInput);// für die Ausgabe mit Syso.println(...).
 				                if(sInput==null) break main;
 				                
 				                boolean bGoon = this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.

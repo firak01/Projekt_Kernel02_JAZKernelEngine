@@ -11,7 +11,7 @@ import basic.zBasic.util.datatype.enums.EnumUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.IPrintLevelUserZZZ;
-import basic.zBasic.util.system.SystemZZZ;
+import basic.zBasic.util.system.SystemSingletonZZZ;
 import basic.zKernel.AbstractKernelConfigZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.IKernelConfigZZZ;
@@ -20,7 +20,7 @@ import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.LogSingletonZZZ;
 
 public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
 	private static final long serialVersionUID = 3005226115171469499L;
@@ -358,7 +358,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	
 	//### aus ILogLevelUserZZZ
 	public LOGLEVEL getLogLevelOverallEnumDefault() throws ExceptionZZZ{
-		return LogZZZ.getInstance().getLogLevelOverallEnumDefault();
+		return LogSingletonZZZ.getInstance().getLogLevelOverallEnumDefault();
 	}
 	
 	public LOGLEVEL getLogLevelOverallEnum() throws ExceptionZZZ{		
@@ -412,7 +412,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//### aus IPrintLevelUserZZZ
 	@Override
 	public PRINTLEVEL getPrintLevelOverallEnumDefault() throws ExceptionZZZ{
-		return SystemZZZ.getInstance().getPrintLevelOverallEnumDefault();
+		return SystemSingletonZZZ.getInstance().getPrintLevelOverallEnumDefault();
 	}
 	
 	@Override

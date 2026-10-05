@@ -4,10 +4,10 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 import basic.zKernel.IKernelConfigZZZ;
 
-public class LogZZZ extends AbstractKernelLogZZZ{
+public class LogSingletonZZZ extends AbstractKernelLogZZZ{
 	private static final long serialVersionUID = 1L;
 	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.
-	private static LogZZZ objLogSingleton; //muss als Singleton static sein	
+	private static LogSingletonZZZ objLogSingleton; //muss als Singleton static sein	
 	
 	//##########################################################
 	//Trick, um Mehrfachinstanzen zu verhindern (optional)
@@ -27,31 +27,31 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 	
   //########################################################################
   	//Die Konstruktoren nun verbergen, wg. Singleton
-  	private LogZZZ() throws ExceptionZZZ{
+  	private LogSingletonZZZ() throws ExceptionZZZ{
   		super();
   	}
   	
-  	private LogZZZ(String sDirectoryPath, String sLogFile) throws ExceptionZZZ {
+  	private LogSingletonZZZ(String sDirectoryPath, String sLogFile) throws ExceptionZZZ {
   		super(sDirectoryPath, sLogFile);
   	}
   	
-  	private LogZZZ(String sDirectoryPath, String sLogFile, String sFlagControl) throws ExceptionZZZ {
+  	private LogSingletonZZZ(String sDirectoryPath, String sLogFile, String sFlagControl) throws ExceptionZZZ {
   		super(sDirectoryPath, sFlagControl);
   	}
   	
-  	private LogZZZ(String sDirectoryPath, String sLogFile, String[] saFlagControl) throws ExceptionZZZ {
+  	private LogSingletonZZZ(String sDirectoryPath, String sLogFile, String[] saFlagControl) throws ExceptionZZZ {
   		super(sDirectoryPath, sLogFile, saFlagControl);
   	}	
   	
-  	private LogZZZ(IKernelConfigZZZ objConfig) throws ExceptionZZZ{
+  	private LogSingletonZZZ(IKernelConfigZZZ objConfig) throws ExceptionZZZ{
   		super(objConfig);
   	}
   	
   	//#############################################################################
-	public static LogZZZ getInstance() throws ExceptionZZZ{
+	public static LogSingletonZZZ getInstance() throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(LogZZZ.class) {
+		synchronized(LogSingletonZZZ.class) {
 			if(objLogSingleton == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -63,10 +63,10 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 		return objLogSingleton;	
 	}
 		
-	public static LogZZZ getInstance(String sFlagControl) throws ExceptionZZZ{
+	public static LogSingletonZZZ getInstance(String sFlagControl) throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(LogZZZ.class) {
+		synchronized(LogSingletonZZZ.class) {
 			if(objLogSingleton == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -81,10 +81,10 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 		return objLogSingleton;	
 	}
 	
-	public static LogZZZ getInstance(String... sFlags) throws ExceptionZZZ{
+	public static LogSingletonZZZ getInstance(String... sFlags) throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(LogZZZ.class) {
+		synchronized(LogSingletonZZZ.class) {
 			if(objLogSingleton == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -96,10 +96,10 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 		return objLogSingleton;	
 	}
 	
-	public static LogZZZ getInstance(String sDirectoryPath, String sLogFile) throws ExceptionZZZ{
+	public static LogSingletonZZZ getInstance(String sDirectoryPath, String sLogFile) throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(LogZZZ.class) {
+		synchronized(LogSingletonZZZ.class) {
 			if(objLogSingleton == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -111,10 +111,10 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 		return objLogSingleton;	
 	}
 	
-	public static LogZZZ getInstance(String sDirectoryPath, String sLogFile, String sFlag) throws ExceptionZZZ{
+	public static LogSingletonZZZ getInstance(String sDirectoryPath, String sLogFile, String sFlag) throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(LogZZZ.class) {
+		synchronized(LogSingletonZZZ.class) {
 			if(objLogSingleton == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -130,10 +130,10 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 	}
 	
 	
-	public static  LogZZZ getInstance(String sDirectoryPath, String sLogFile, String... sFlags) throws ExceptionZZZ{
+	public static  LogSingletonZZZ getInstance(String sDirectoryPath, String sLogFile, String... sFlags) throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(LogZZZ.class) {
+		synchronized(LogSingletonZZZ.class) {
 			if(objLogSingleton == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -146,12 +146,12 @@ public class LogZZZ extends AbstractKernelLogZZZ{
 	}
 	
 	//########################
-	public static LogZZZ getNewInstance(String sDirectoryPath, String sLogFile, String... sFlags) throws ExceptionZZZ{
+	public static LogSingletonZZZ getNewInstance(String sDirectoryPath, String sLogFile, String... sFlags) throws ExceptionZZZ{
 		//Das hier nur zu initialisieren ist falsch.
 		//String[] saFlagZ={"init"};
 		//objKernelSingelton = new KernelSingletonZZZ(saFlagZ);	
 
-		return new LogZZZ(sDirectoryPath, sLogFile, sFlags);
+		return new LogSingletonZZZ(sDirectoryPath, sLogFile, sFlags);
 	}
 	
 	

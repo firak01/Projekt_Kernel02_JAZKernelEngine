@@ -17,11 +17,11 @@ public class Syso implements IConstantZZZ{
 	}
 	
 	public static void println(String s) throws ExceptionZZZ{
-		SystemZZZ.getInstance().println(s,true);
+		SystemSingletonZZZ.getInstance().println(s,true);
 	}
 	
 	public static void println(String s, boolean bPrintOutput) throws ExceptionZZZ{
-		SystemZZZ.getInstance().println(s,bPrintOutput);
+		SystemSingletonZZZ.getInstance().println(s,bPrintOutput);
 	}
 	
 	//### Zur besseren Darstellung, besondere "Layoutelement"

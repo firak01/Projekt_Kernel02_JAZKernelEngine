@@ -21,7 +21,7 @@ import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerXmlZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.system.ISystemZZZ;
-import basic.zBasic.util.system.SystemZZZ;
+import basic.zBasic.util.system.SystemSingletonZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
 import basic.zUtil.io.FileExpansionZZZ;
@@ -962,7 +962,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}			
-			SystemZZZ.getInstance().println(sLog, enumLogLevel);
+			SystemSingletonZZZ.getInstance().println(sLog, enumLogLevel);
 				
 			int iLogLevelAllowed = this.getLogLevelOverall(); //Analog zu dem Code in systezzz.println()
 			int iLogLevelUsed = enumLogLevel.ordinal();
@@ -981,7 +981,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 			FileTextWriterZZZ objFileWriter;
 			
 			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
-			SystemZZZ.getInstance().println(stemp, enumLogLevel);
+			SystemSingletonZZZ.getInstance().println(stemp, enumLogLevel);
 				
 			objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);						
@@ -1234,7 +1234,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}			
-			SystemZZZ.getInstance().print(sLog, enumLogLevel);
+			SystemSingletonZZZ.getInstance().print(sLog, enumLogLevel);
 				
 			int iLogLevelAllowed = this.getLogLevelOverall(); //Analog zu dem Code in systezzz.println()
 			int iLogLevelUsed = enumLogLevel.ordinal();
@@ -1251,7 +1251,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		boolean bReturn = false;
 		main:{	
 			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
-			SystemZZZ.getInstance().print(stemp, enumLogLevel); //Kein Zeilenumbruch
+			SystemSingletonZZZ.getInstance().print(stemp, enumLogLevel); //Kein Zeilenumbruch
 				
 			FileTextWriterZZZ objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);	

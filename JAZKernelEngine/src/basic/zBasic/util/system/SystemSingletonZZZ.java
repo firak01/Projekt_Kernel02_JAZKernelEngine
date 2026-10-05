@@ -7,7 +7,7 @@ import basic.zBasic.ExceptionZZZ;
  * @author Fritz Lindhauer
  *
  */
-public class SystemZZZ<T> extends AbstractSystemZZZ<T>{
+public class SystemSingletonZZZ<T> extends AbstractSystemZZZ<T>{
 	private static final long serialVersionUID = 2524968434491371812L;
 
 	// --- Singleton Instanz ---
@@ -32,14 +32,14 @@ public class SystemZZZ<T> extends AbstractSystemZZZ<T>{
 	
 	
 	//als private deklariert, damit man es nicht so instanzieren kann, sonder die Methode .getInstance() verwenden muss
-	protected SystemZZZ() throws ExceptionZZZ{
+	protected SystemSingletonZZZ() throws ExceptionZZZ{
 		super();
 	}
 	
 	public static synchronized ISystemZZZ getInstance() throws ExceptionZZZ{
 		//siehe: https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples
 		//Threadsafe sicherstellen, dass nur 1 Instanz geholt wird. Hier doppelter Check mit synchronized, was performanter sein soll als die ganze Methode synchronized zu machen.
-		synchronized(SystemZZZ.class) {
+		synchronized(SystemSingletonZZZ.class) {
 			if(objSystemINSTANCE == null) {
 				if (INITIALIZED) {
 		            throw new ExceptionZZZ(new IllegalStateException("Singleton already initialized"));
@@ -54,7 +54,7 @@ public class SystemZZZ<T> extends AbstractSystemZZZ<T>{
 	public static ISystemZZZ getNewInstance() throws ExceptionZZZ{
 		//Damit wird garantiert einen neue, frische Instanz geholt.
 		//Z.B. bei JUnit Tests ist das notwendig, denn in Folgetests wird mit .getInstance() doch tatsächlich mit dem Objekt des vorherigen Tests gearbeitet.
-		objSystemINSTANCE = new SystemZZZ();
+		objSystemINSTANCE = new SystemSingletonZZZ();
 		return (ISystemZZZ)objSystemINSTANCE;
 	}
 	
