@@ -1,11 +1,12 @@
 package basic.zBasic;
 
 import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
+import basic.zBasic.util.system.Syso;
 import custom.zKernel.KernelLogZZZ;
 
-public class ObjectZZZ extends AbstractObjectWithExceptionZZZ{
-	private static final long serialVersionUID = 4554014899572425679L;
-	
+public class LogZZZ<T> extends AbstractLogZZZ<T> {
+	private static final long serialVersionUID = -4674809839183596083L;
+
 	//#####################
 	//### Methoden hier static zur Verfuegung stellen.
 	//### Damit koennen diese auch in static Methoden genutzt werden.
@@ -13,7 +14,7 @@ public class ObjectZZZ extends AbstractObjectWithExceptionZZZ{
 	
 	//#############################################
 	//### log... ohne Protocol sind für die Ausgabe auf der Konsole gedacht.
-	//###        Daher wird hier system.out verwendet.
+	//###        Daher wird hier über meine Syso-Klasse nur system.out verwendet.
     //##############################################
 
 	
@@ -22,35 +23,35 @@ public class ObjectZZZ extends AbstractObjectWithExceptionZZZ{
 	//  Die Position des Datums im String wird durch eine Formatanweisung definiert.
 	//  Das dann jeweils als Variante mit einer Klasse als Argument
 	//public static void logLine(String sLog) throws ExceptionZZZ{		
-	public void logLine(String sLog) throws ExceptionZZZ{
-		String sTemp = KernelLogZZZ.computeLine(this.getClass(), sLog);
-		System.out.println(sTemp);
-	}
-	
-	//public static void logLine(String[] saLog) throws ExceptionZZZ{		
-	public void logLine(String[] saLog) throws ExceptionZZZ{
-		String sTemp = KernelLogZZZ.computeLine(this.getClass(), saLog);
-		System.out.println(sTemp);
-	}
+//	public void logLine(String sLog) throws ExceptionZZZ{
+//		String sTemp = KernelLogZZZ.computeLine(this.getClass(), sLog);
+//		Syso.println(sTemp);
+//	}
+//	
+//	//public static void logLine(String[] saLog) throws ExceptionZZZ{		
+//	public void logLine(String[] saLog) throws ExceptionZZZ{
+//		String sTemp = KernelLogZZZ.computeLine(this.getClass(), saLog);
+//		Syso.println(sTemp);
+//	}
 	
 	public static void logLine(Object obj, String sLog) throws ExceptionZZZ{		
 		String sTemp = KernelLogZZZ.computeLine(obj, (IStringFormatManagerZZZ) null, sLog);
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLine(Object obj, String[] saLog) throws ExceptionZZZ{		
 		String sTemp = KernelLogZZZ.computeLine(obj, saLog);
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLine(Class classObj, String sLog) throws ExceptionZZZ{		
 		String sTemp = KernelLogZZZ.computeLine(classObj, sLog);
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLine(Class classObj, String[] saLog) throws ExceptionZZZ{		
 		String sTemp = KernelLogZZZ.computeLine(classObj, saLog);
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 		
@@ -59,21 +60,21 @@ public class ObjectZZZ extends AbstractObjectWithExceptionZZZ{
 	//      Das dann jeweils als Variante mit einer Klasse als Argument
 	public static void logLineDate(Object obj, String sLog) throws ExceptionZZZ{
 		String sTemp = KernelLogZZZ.computeLineDate(obj, sLog);				
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLineDate(Object obj, String[] saLog) throws ExceptionZZZ{
 		String sTemp = KernelLogZZZ.computeLineDate(obj, saLog);				
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLineDate(Class classObj, String sLog) throws ExceptionZZZ{
 		String sTemp = KernelLogZZZ.computeLineDate(classObj, sLog);				
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	public static void logLineDate(Class classObj, String[] saLog) throws ExceptionZZZ{
 		String sTemp = KernelLogZZZ.computeLineDate(classObj, saLog);				
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	//#### Gib die Codeposition aus.
@@ -81,22 +82,22 @@ public class ObjectZZZ extends AbstractObjectWithExceptionZZZ{
 	//     Das dann jeweils als Variante mit einer Klasse als Argument
 	public static void logLineDateWithPosition(Object obj, String sLog) throws ExceptionZZZ{		
 		String sTemp = KernelLogZZZ.computeLineDateWithPosition(obj, 1, sLog);
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLineDateWithPosition(Object obj, String[] saLog) throws ExceptionZZZ{		
 		String sTemp = KernelLogZZZ.computeLineDateWithPosition(obj, 1, saLog);
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLineDateWithPosition(Class classObj, String sLog) throws ExceptionZZZ{				
 		String sTemp = KernelLogZZZ.computeLineDateWithPosition(classObj, 1, sLog);				
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	public static void logLineDateWithPosition(Class classObj, String[] saLog) throws ExceptionZZZ{				
 		String sTemp = KernelLogZZZ.computeLineDateWithPosition(classObj, saLog);				
-		System.out.println(sTemp);
+		Syso.println(sTemp);
 	}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++

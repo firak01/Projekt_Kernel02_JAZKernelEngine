@@ -1,88 +1,17 @@
 package basic.zBasic;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import custom.zKernel.ILogZZZ;
-import custom.zKernel.LogSingletonZZZ;
 import custom.zKernel.KernelLogZZZ;
+import custom.zKernel.LogSingletonZZZ;
 
-public class AbstractObjectZZZ<T> implements IObjectZZZ, IOutputDebugNormedZZZ, IObjectPositionLogZZZ{
-	private static final long serialVersionUID = 4785854649300281154L;
-
-	//fuer IOutputDebugNormedZZZ
-	protected volatile String sDebugEntryDelimiterUsed = null; //zum Formatieren einer Debug Ausgabe
-	
-	//Default Konstruktor, wichtig um die Klasse per Reflection mit .newInstance() erzeugen zu können.
-	//Merke: Jede Unterklasse muss ihren eigenen Default Konstruktor haben.
-	public AbstractObjectZZZ() {		
-	}	
-	
-	/**Overwritten and using an object of jakarta.commons.lang
-	 * to create this string using reflection. 
-	 * Remark: this is not yet formated. A style class is available in jakarta.commons.lang. 
-	 */
-	@Override
-	public String toString(){
-		String sReturn = "";
-		sReturn = ReflectionToStringBuilder.toString(this);
-		return sReturn;
-	}
-	
-
-	//### aus Clonable
-	@Override
-	//https://www.geeksforgeeks.org/clone-method-in-java-2/
-	//Hier wird also "shallow clone" gemacht. Statt einem deep Clone.
-	//Beim Deep Clone müssten alle intern verwendeten Objekte ebenfalls neu erstellt werden.	
-	public Object clone() throws CloneNotSupportedException{
-		return super.clone();
-	}
+public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements IObjectProtocolLogZZZ{
+	private static final long serialVersionUID = 6495244810060327188L;
 
 	
-	//Meine Variante Objekte zu clonen, aber erzeugt nur einen "Shallow Clone".
-	@Override
-	public Object clonez() throws ExceptionZZZ {
-		try {
-			return this.clone();
-		}catch(CloneNotSupportedException e) {
-			ExceptionZZZ ez = new ExceptionZZZ(e);
-			throw ez;
-				
-		}
-	}
-		
-		
-	//### aus IOutputDebugNormedZZZ
-	@Override
-	public String computeDebugString() throws ExceptionZZZ{
-		return this.toString();
-	}
-	
-	@Override
-	public String computeDebugString(String sEntryDelimiter) throws ExceptionZZZ {
-		return this.computeDebugString() + sEntryDelimiter;
-	}
-	
-	@Override
-	public String getDebugEntryDelimiter() {
-		String sEntryDelimiter;			
-		if(this.sDebugEntryDelimiterUsed==null){
-			sEntryDelimiter = IOutputDebugNormedZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;
-		}else {
-			sEntryDelimiter = this.sDebugEntryDelimiterUsed;
-		}
-		return sEntryDelimiter;
-	}
-	
-	@Override
-	public void setDebugEntryDelimiter(String sEntryDelimiter) {
-		this.sDebugEntryDelimiterUsed = sEntryDelimiter;
-	}
-			
 	//### aus IObjectLogZZZ, Merke: Dazu gibt es jeweils auch eine static-Methode fuer die Klasse als Argument.	
 	@Override
 	public synchronized void logLineDate(String sLog) throws ExceptionZZZ {

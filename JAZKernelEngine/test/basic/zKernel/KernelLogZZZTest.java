@@ -15,7 +15,7 @@ import basic.zKernel.KernelZZZ;
 import custom.zKernel.KernelLogZZZ;
 import junit.framework.TestCase;
 
-public class LogZZZTest extends TestCase{
+public class KernelLogZZZTest extends TestCase{
 	private KernelZZZ objKernelTest;
 	private KernelLogZZZ objLogTest;
 	

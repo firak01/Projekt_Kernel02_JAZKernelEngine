@@ -262,6 +262,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					        	sInput = inputReader.nextLine();				                
 				                Log.writeInfo("Pressed Menueselection: " + sInput);
 				                
+				                //FGL20261006:
 				                //this.logProtocol soll weg, wenn das nicht mehr in AbstractObjekt eine Methode ist.
 				                this.logProtocol("Pressed Menueselection: " + sInput);				                
 				                //statt dessen:

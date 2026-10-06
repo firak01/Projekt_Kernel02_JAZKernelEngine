@@ -3,7 +3,7 @@ package custom.zKernel;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 
-/** Idee ist, das diese Klasse mit dem kurzen Namen verwendet wird statt LogZZZ.getInstance(). ...
+/** Idee ist, das diese Klasse mit dem kurzen Namen verwendet wird statt LogSingletonZZZ.getInstance(). ...
 *  Dann hat diese Klasse noch Komfortfunktionen.
 *  
 *  Intern wird dann eine Singleton Klasse verwendet, die zudem noch per FLAGZ gesteuert werden könnte. 

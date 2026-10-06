@@ -7,6 +7,7 @@ import java.io.File;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.LogZZZ;
 import basic.zBasic.ObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
@@ -1286,8 +1287,12 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		}	
 		String sDirectoryPathNormed = objDirectory.getAbsolutePath();
 		String sLog = "Errechneter existierender Pfad für das KernelLog='" + sDirectoryPathNormed +"'";
-		//System.out.println(ReflectCodeZZZ.getPositionCurrent()+": Errechneter existierender Pfad für das KernelLog='" + sDirectoryPathNormed +"'");
+		System.out.println(ReflectCodeZZZ.getPositionCurrent()+": " + sLog);
+		LogZZZ.logLineDateWithPosition(this, sLog);
+		
+		//FGL20261006: also FileEasyZZZ als Klasse ist hier wohl falsch...
 		ObjectZZZ.logLineDateWithPosition(FileEasyZZZ.class, sLog);
+		LogZZZ.logLineDateWithPosition(FileEasyZZZ.class, sLog);
 		this.sLogDirectorypath = sDirectoryPathNormed; 
 		
 		//File Objekte wieder zurücksetzen
