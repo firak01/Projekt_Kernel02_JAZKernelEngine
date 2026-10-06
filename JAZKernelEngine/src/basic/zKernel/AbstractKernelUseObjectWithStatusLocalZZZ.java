@@ -147,7 +147,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalZZZ extends Abstract
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = ReflectCodeZZZ.getPositionCurrent() + "The passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.logLineDate(sLog);
+									 this.printlnDate(sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 
@@ -215,18 +215,18 @@ public abstract class AbstractKernelUseObjectWithStatusLocalZZZ extends Abstract
 	 * @see basic.zBasic.AbstractObjectZZZ#logProtocolString(java.lang.String)
 	 */
 	@Override
-	public void logProtocol(String sLog) throws ExceptionZZZ{
+	public void protocol(String sLog) throws ExceptionZZZ{
 		if(sLog!=null){			
 			KernelLogZZZ objLog = this.getLogObject();
 			if(objLog==null) {
-				this.logLineDate(sLog);
+				this.printlnDate(sLog);
 			}else {
 				objLog.writeLineDate(sLog);
 			}
 		}else {
 			KernelLogZZZ objLog = this.getLogObject();
 			if(objLog==null) {
-				this.logLineDate("");
+				this.printlnDate("");
 			}else {
 				objLog.writeLineDate("");
 			}	

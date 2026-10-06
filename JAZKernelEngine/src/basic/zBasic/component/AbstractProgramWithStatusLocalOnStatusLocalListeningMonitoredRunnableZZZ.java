@@ -45,7 +45,7 @@ public abstract class AbstractProgramWithStatusLocalOnStatusLocalListeningMonito
 			this.startCustom();
 		} catch (ExceptionZZZ ez) {
 			try {
-				this.logProtocol(ez.getDetailAllLast());
+				this.protocol(ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {				
 				e.printStackTrace();
 			}

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.LogZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
@@ -264,16 +265,16 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                
 				                //FGL20261006:
 				                //this.logProtocol soll weg, wenn das nicht mehr in AbstractObjekt eine Methode ist.
-				                this.logProtocol("Pressed Menueselection: " + sInput);				                
+				                //this.protocol("Pressed Menueselection: " + sInput);				                
 				                //statt dessen:
-				                Log.protocol("Pressed Menueselection: " + sInput);// für die formatierte Ausgabe.
+				                Log.protocol(this, "Pressed Menueselection: " + sInput);// für die formatierte Ausgabe.
 				                
-				                Log.println("Pressed Menueselection: " + sInput);// für die Ausgabe mit Syso.println(...).
+				                Log.println(this, "Pressed Menueselection: " + sInput);// für die Ausgabe mit Syso.println(...).
 				                if(sInput==null) break main;
 				                
 				                boolean bGoon = this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.
 				                if(!bGoon) {
-				                	Log.writeDebug("Break after Menueselection: "  + sInput);
+				                	Log.writeDebug(this, "Break after Menueselection: "  + sInput);
 				                	break main;//Quit
 				                }
 				                

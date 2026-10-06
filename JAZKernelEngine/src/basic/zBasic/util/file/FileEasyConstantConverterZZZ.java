@@ -136,10 +136,10 @@ public class FileEasyConstantConverterZZZ implements IFileEasyConstantsZZZ {
 					}else {
 						sReturnRoot = FileEasyZZZ.getFileRootPath();
 						sLog="sReturnRoot='"+sReturnRoot+"'";
-						ObjectZZZ.logLineDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
+						ObjectZZZ.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
 						
 						sLog="sFilePath='"+sFilePath+"'";
-						ObjectZZZ.logLineDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
+						ObjectZZZ.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
 						
 						if(!StringZZZ.isEmpty(sReturnRoot)) {
 							sReturnFilePath=StringZZZ.rightback(sFilePath, sReturnRoot+sDirectorySeparator);

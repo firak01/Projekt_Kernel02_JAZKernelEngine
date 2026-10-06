@@ -95,7 +95,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing KernelConfigObject";
-			this.logLineDateWithPosition(sLog);
+			this.printlnDateWithPosition(sLog);
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

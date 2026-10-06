@@ -47,11 +47,11 @@ public class KernelUseObjectZZZTest extends TestCase {
 		try{
 			String sLog = null; String sLog2 = null; String[]saLog = null;
 			sLog = "Test01";
-			objKernelUserTest.logLineDateWithPosition(sLog);
+			objKernelUserTest.printlnDateWithPosition(sLog);
 			
 			sLog2 = "unter Test01";
 			saLog = StringArrayZZZ.append(sLog, sLog2);
-			objKernelUserTest.logLineDateWithPosition(saLog);
+			objKernelUserTest.printlnDateWithPosition(saLog);
 			
 			
 		}catch(ExceptionZZZ ez){
@@ -64,11 +64,11 @@ public class KernelUseObjectZZZTest extends TestCase {
 		try{
 			String sLog = null; String sLog2 = null; String[]saLog = null;
 			sLog = "Test01";
-			objKernelUserTest.logProtocolWithPosition(sLog);
+			objKernelUserTest.protocolWithPosition(sLog);
 			
 			sLog2 = "unter Test01";
 			saLog = StringArrayZZZ.append(sLog, sLog2);
-			objKernelUserTest.logProtocolWithPosition(saLog);
+			objKernelUserTest.protocolWithPosition(saLog);
 						
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();

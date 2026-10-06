@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IVectorLimitedZZZ;
+import basic.zBasic.LogZZZ;
 import basic.zBasic.NullObjectZZZ;
 import basic.zBasic.ObjectUtilZZZ;
 import basic.zBasic.ReflectCodeZZZ;
+import custom.zKernel.Log;
 
 /** Zu beachten, problematisch:
  *  - es werden sofort alle indexposition mit einem Defaultwert belegt.
@@ -172,7 +174,7 @@ public class VectorLimitedZZZ<T> extends VectorZZZ<T> implements IVectorLimitedZ
 			super.addElement(obj);
 		}catch(ExceptionZZZ ez) {
 			try {
-				this.logProtocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {
 				e.printStackTrace();
 			}
@@ -197,7 +199,7 @@ public class VectorLimitedZZZ<T> extends VectorZZZ<T> implements IVectorLimitedZ
 			
 		}catch(ExceptionZZZ ez) {
 			try {
-				this.logProtocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {
 				e.printStackTrace();
 			}
@@ -222,7 +224,7 @@ public class VectorLimitedZZZ<T> extends VectorZZZ<T> implements IVectorLimitedZ
 			
 		}catch(ExceptionZZZ ez) {
 			try {
-				this.logProtocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {
 				e.printStackTrace();
 			}
@@ -244,7 +246,7 @@ public class VectorLimitedZZZ<T> extends VectorZZZ<T> implements IVectorLimitedZ
 				
 			}catch(ExceptionZZZ ez) {
 				try {
-					this.logProtocol(ez.getDetailAllLast());
+					Log.protocol(this, ez.getDetailAllLast());
 				} catch (ExceptionZZZ e) {
 					e.printStackTrace();
 				}
@@ -267,7 +269,7 @@ public class VectorLimitedZZZ<T> extends VectorZZZ<T> implements IVectorLimitedZ
 				this.iIndexUsedLast = this.size()-1;
 			}catch(ExceptionZZZ ez) {
 				try {
-					this.logProtocol(ez.getDetailAllLast());
+					Log.protocol(this, ez.getDetailAllLast());
 				} catch (ExceptionZZZ e) {
 					e.printStackTrace();
 				}
@@ -294,7 +296,7 @@ public class VectorLimitedZZZ<T> extends VectorZZZ<T> implements IVectorLimitedZ
 			
 		}catch(ExceptionZZZ ez) {
 			try {
-				this.logProtocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {
 				e.printStackTrace();
 			}

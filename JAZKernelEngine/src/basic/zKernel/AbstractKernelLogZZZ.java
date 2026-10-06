@@ -1288,11 +1288,11 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		String sDirectoryPathNormed = objDirectory.getAbsolutePath();
 		String sLog = "Errechneter existierender Pfad für das KernelLog='" + sDirectoryPathNormed +"'";
 		System.out.println(ReflectCodeZZZ.getPositionCurrent()+": " + sLog);
-		LogZZZ.logLineDateWithPosition(this, sLog);
+		LogZZZ.printlnDateWithPosition(this, sLog);
 		
 		//FGL20261006: also FileEasyZZZ als Klasse ist hier wohl falsch...
-		ObjectZZZ.logLineDateWithPosition(FileEasyZZZ.class, sLog);
-		LogZZZ.logLineDateWithPosition(FileEasyZZZ.class, sLog);
+		ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+		LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
 		this.sLogDirectorypath = sDirectoryPathNormed; 
 		
 		//File Objekte wieder zurücksetzen

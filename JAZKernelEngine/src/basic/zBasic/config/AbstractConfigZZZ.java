@@ -57,7 +57,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing ConfigObject";
-			this.logLineDateWithPosition(sLog);
+			this.printlnDateWithPosition(sLog);
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

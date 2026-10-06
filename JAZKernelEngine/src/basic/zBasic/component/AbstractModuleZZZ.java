@@ -45,7 +45,7 @@ public abstract class AbstractModuleZZZ  extends AbstractObjectWithFlagZZZ imple
 		boolean bReturn = false;		
 		main:{			
 			String stemp=null; boolean btemp=false; String sLog = null;
-			this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": Initializing ModuleObject");
+			this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": Initializing ModuleObject");
 						
 			//Weitere Flags setzen
 			if(saFlagUsed!=null) {
@@ -56,7 +56,7 @@ public abstract class AbstractModuleZZZ  extends AbstractObjectWithFlagZZZ imple
 					  btemp = setFlag(stemp, true);
 					  if(btemp==false){
 						  sLog = "the flag '" + stemp + "' is not available.";
-						  this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						  this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 						  throw ez;		 
 					  }

@@ -529,35 +529,35 @@ public class VectorZZZ<T> extends Vector implements IVectorZZZ<T>{
 	}	
 	
 	//### aus ILogZZZ	
-	@Override
-	public void logProtocol(String sLog) throws ExceptionZZZ {
-		ObjectUtilZZZ.logProtocol(this, sLog);
-	}
-
-	@Override
-	public void logProtocol(Object obj, String sLog) throws ExceptionZZZ {
-		ObjectUtilZZZ.logProtocol(obj, sLog);
-	}
-	
-	@Override
-	public void logLineDate(String sLog) throws ExceptionZZZ {
-		ObjectZZZ.logLineDate(this, sLog);
-	}
-	
-	@Override
-	public synchronized void logLineDate(String... sLogs) throws ExceptionZZZ {
-		ObjectZZZ.logLineDate(this, sLogs);
-	}
-	
-	@Override
-	public void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
-		ObjectZZZ.logLineDateWithPosition(this, sLog);
-	}
-	
-	@Override
-	public synchronized void logLineDateWithPosition(String... sLogs) throws ExceptionZZZ {
-		ObjectZZZ.logLineDateWithPosition(this, sLogs);
-	}
+//	@Override
+//	public void protocol(String sLog) throws ExceptionZZZ {
+//		ObjectUtilZZZ.logProtocol(this, sLog);
+//	}
+//
+//	@Override
+//	public void protocol(Object obj, String sLog) throws ExceptionZZZ {
+//		ObjectUtilZZZ.logProtocol(obj, sLog);
+//	}
+//	
+//	@Override
+//	public void printlnDate(String sLog) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDate(this, sLog);
+//	}
+//	
+//	@Override
+//	public synchronized void printlnDate(String... sLogs) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDate(this, sLogs);
+//	}
+//	
+//	@Override
+//	public void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDateWithPosition(this, sLog);
+//	}
+//	
+//	@Override
+//	public synchronized void printlnDateWithPosition(String... sLogs) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDateWithPosition(this, sLogs);
+//	}
 	
 //	@Override
 //	public synchronized void logLineDateWithPosition(String[] saLog) throws ExceptionZZZ {
@@ -571,16 +571,16 @@ public class VectorZZZ<T> extends Vector implements IVectorZZZ<T>{
 //		this.logProtocol(this, saLog); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
 //	}
 	
-	@Override
-	public synchronized void logProtocol(String... sLogs) throws ExceptionZZZ{
-		this.logProtocol(this, sLogs); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
-	}
-	
-	@Override
-	public synchronized void logProtocol(Object obj, String... sLogs) throws ExceptionZZZ{
-		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLogs);						
-		System.out.println(sLogUsed);
-	}
+//	@Override
+//	public synchronized void protocol(String... sLogs) throws ExceptionZZZ{
+//		this.protocol(this, sLogs); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(Object obj, String... sLogs) throws ExceptionZZZ{
+//		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLogs);						
+//		System.out.println(sLogUsed);
+//	}
 	
 //	@Override
 //	public synchronized void logProtocol(Object obj, String[] saLog) throws ExceptionZZZ{
@@ -590,10 +590,10 @@ public class VectorZZZ<T> extends Vector implements IVectorZZZ<T>{
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-		this.logProtocol(this, ienumMappedLogString, sLog); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
-	}
+//	@Override
+//	public synchronized void protocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+//		this.protocol(this, ienumMappedLogString, sLog); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
+//	}
 	
 //	@Override
 //	public void logProtocol(IEnumSetMappedLogStringFormatZZZ ienumMappedLogString, String[] saLog) throws ExceptionZZZ {
@@ -609,15 +609,15 @@ public class VectorZZZ<T> extends Vector implements IVectorZZZ<T>{
 //		this.logProtocol(this, ienumaMappedLogString, saLog); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
 //	}
 	
-	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs)	throws ExceptionZZZ {
-		this.logProtocol(this, ienumMappedLogString, sLogs); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
-	}
-	
-	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
-		this.logProtocol(this, ienumaMappedLogString, sLogs); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
-	}
+//	@Override
+//	public synchronized void protocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs)	throws ExceptionZZZ {
+//		this.protocol(this, ienumMappedLogString, sLogs); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		this.protocol(this, ienumaMappedLogString, sLogs); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
+//	}
 	
 	
 	
@@ -628,12 +628,12 @@ public class VectorZZZ<T> extends Vector implements IVectorZZZ<T>{
 //		this.logProtocol(ienumaMappedLogString, saLog);
 //	}
 	
-	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
-		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-		ienumaMappedLogString[0] = ienumMappedLogString;
-		this.logProtocol(ienumaMappedLogString, sLogs);
-	}
+//	@Override
+//	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+//		ienumaMappedLogString[0] = ienumMappedLogString;
+//		this.protocol(ienumaMappedLogString, sLogs);
+//	}
 	
 //	@Override
 //	public synchronized void logProtocol(Object obj, IEnumSetMappedLogStringFormatZZZ[] ienumaMappedLogString, String[] saLog) throws ExceptionZZZ {
@@ -667,48 +667,48 @@ public class VectorZZZ<T> extends Vector implements IVectorZZZ<T>{
 //		}//end main:
 //	}
 	
-	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
-		main:{
-			if(ArrayUtilZZZ.isNull(sLogs)) break main;
-			if(ArrayUtilZZZ.isNull(ienumaMappedLogString)){
-				this.logProtocol(sLogs);
-				break main;
-			}
-			
-			int iIndex=0;
-			if(obj==null) {			
-				for(String sLog : sLogs) {
-					if(ienumaMappedLogString.length>iIndex) {
-						this.logProtocol(ienumaMappedLogString[iIndex],sLog);
-						iIndex++;
-					}else {
-						this.logProtocol(sLog);
-					}
-				}
-			}else {
-				for(String sLog : sLogs) {
-					if(ienumaMappedLogString.length>iIndex) {
-						this.logProtocol(obj, ienumaMappedLogString[iIndex],sLog);
-						iIndex++;
-					}else {
-						this.logProtocol(sLog);
-					}
-				}			
-			}
-		}//end main:
-	}
-	
-	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-		String sLogUsed;
-		if(obj==null) {
-			sLogUsed = StringFormatManagerZZZ.getInstance().compute(sLog, ienumMappedLogString);
-		}else {
-			sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, ienumMappedLogString, sLog);
-		}
-		System.out.println(sLogUsed);
-	}
+//	@Override
+//	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		main:{
+//			if(ArrayUtilZZZ.isNull(sLogs)) break main;
+//			if(ArrayUtilZZZ.isNull(ienumaMappedLogString)){
+//				this.protocol(sLogs);
+//				break main;
+//			}
+//			
+//			int iIndex=0;
+//			if(obj==null) {			
+//				for(String sLog : sLogs) {
+//					if(ienumaMappedLogString.length>iIndex) {
+//						this.protocol(ienumaMappedLogString[iIndex],sLog);
+//						iIndex++;
+//					}else {
+//						this.protocol(sLog);
+//					}
+//				}
+//			}else {
+//				for(String sLog : sLogs) {
+//					if(ienumaMappedLogString.length>iIndex) {
+//						this.protocol(obj, ienumaMappedLogString[iIndex],sLog);
+//						iIndex++;
+//					}else {
+//						this.protocol(sLog);
+//					}
+//				}			
+//			}
+//		}//end main:
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+//		String sLogUsed;
+//		if(obj==null) {
+//			sLogUsed = StringFormatManagerZZZ.getInstance().compute(sLog, ienumMappedLogString);
+//		}else {
+//			sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, ienumMappedLogString, sLog);
+//		}
+//		System.out.println(sLogUsed);
+//	}
 	
 	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE
 //	@Override

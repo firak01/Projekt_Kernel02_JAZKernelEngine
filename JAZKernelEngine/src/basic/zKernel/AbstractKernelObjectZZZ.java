@@ -1472,14 +1472,14 @@ KernelConfigFileImport=ZKernelConfigImport_default.ini
 			if(!bExists) {
 				String sDirectoryConfigDefault = AbstractKernelObjectZZZ.sDIRECTORY_CONFIG_DEFAULT;
 				sLog = "Default Filename for configuration does not exist here: '" + sFilePath + "'. Looking in default direcotry '" + sDirectoryConfigDefault + "'" ;
-				this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+				this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 
 				sFilePath = FileEasyZZZ.joinFilePathName(sDirectoryConfigDefault, sFileConfig);						
 				bExists = FileEasyZZZ.exists(sFilePath);
 				
 				if(!bExists) {
 					sLog = "Default file in default directory not found: '" + sFilePath + "'";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}else {
@@ -1487,7 +1487,7 @@ KernelConfigFileImport=ZKernelConfigImport_default.ini
 					//this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					//this.setFileConfigKernelDirectory(sDirectoryConfigDefault);
 					sLog = "Directory for other files still used '" + sDirectoryConfig + "'";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);	
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);	
 				}
 			}
 			File objFile = new File(sFilePath);
@@ -1544,7 +1544,7 @@ KernelConfigFileImport=ZKernelConfigImport_default.ini
 						String sLog = "FileIni missing for Alias in execution Project Path: " + sAlias;
 						sLog = ReflectCodeZZZ.getMethodCurrentNameLined() + sLog;
 						System.out.println(sLog);
-						this.logLineDate(sLog);
+						this.printlnDate(sLog);
 						
 						//ExceptionZZZ ez = new ExceptionZZZ(sLog,iERROR_PROPERTY_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName());
 						//throw ez;																		
@@ -2332,7 +2332,7 @@ public FileIniZZZ getFileConfigModuleIniInWorkspace(IKernelConfigZZZ objConfig, 
 			String stemp = "ENDE DIESER SUCHE NACH FileIniZZZ für das Modul im Project Excecution Pfad OHNE ERFOLG. Konfigurationsfile für das Modul nicht gefunden +++ Suchpfad: " + hmDebug.computeDebugString("\t|", ":");
 			System.out.println(ReflectCodeZZZ.getPositionCurrent() + stemp);
 			
-			this.logLineDateWithPosition(stemp);
+			this.printlnDateWithPosition(stemp);
 			
 //			ExceptionZZZ ez = new ExceptionZZZ(stemp, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName());
 //			throw ez;
@@ -3472,7 +3472,7 @@ MeinTestParameter=blablaErgebnis
 				String sLog = "'Inifile'";
 				sLog = ReflectCodeZZZ.getMethodCurrentNameLined() + sLog;
 				System.out.println(sLog);
-				this.logLineDate(sLog);
+				this.printlnDate(sLog);
 								
 				ExceptionZZZ ez = new ExceptionZZZ(sLog,iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
@@ -3481,7 +3481,7 @@ MeinTestParameter=blablaErgebnis
 				String sLog = "'ListAsModuleOrApplication Section'";
 				sLog = ReflectCodeZZZ.getMethodCurrentNameLined() + sLog;
 				System.out.println(sLog);
-				this.logLineDate(sLog);
+				this.printlnDate(sLog);
 				
 				ExceptionZZZ ez = new ExceptionZZZ(sLog,iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
@@ -3513,7 +3513,7 @@ MeinTestParameter=blablaErgebnis
 				String sPathTotalToUse = objFile.getAbsolutePath();
 				String sLog = "Trying to create new IniFile Object for path '" + sPathTotalToUse + "'.";
 				sLog = ReflectCodeZZZ.getMethodCurrentNameLined() + sLog;
-				this.logLineDate(sLog);
+				this.printlnDate(sLog);
 				if(FileEasyZZZ.exists(sPathTotalToUse)) {
 					objReturn = new IniFile(sPathTotalToUse);
 					
@@ -3522,14 +3522,14 @@ MeinTestParameter=blablaErgebnis
 				}else {
 					sLog = "File does not exist '" + sPathTotalToUse + "'. Will not create ini File (it would bei empty).";					
 					System.out.println(ReflectCodeZZZ.getMethodCurrentNameLined() + "XXXXTest BySyso " + sLog);
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentNameLined() + "XXXXTest ByLogLineDate " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentNameLined() + "XXXXTest ByLogLineDate " + sLog);
 
 				}								
 			} catch (IOException ioe) {
 				String sLog = "IOException: Configuration File. Not able to create ini-FileObject.";
 				sLog = ReflectCodeZZZ.getMethodCurrentNameLined() + sLog;
 				System.out.println(sLog);
-				this.logLineDate(sLog);
+				this.printlnDate(sLog);
 				
 				ExceptionZZZ ez = new ExceptionZZZ(sLog,iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName(), ioe );
 				throw ez;
@@ -3787,10 +3787,10 @@ MeinTestParameter=blablaErgebnis
 				if(sFilePathUsed==null) {				
 					sLog2 = "Null Value als Ergebnis des ExpressionIniConverter verändert nach Leerstring.";
 					saLog = StringArrayZZZ.append(sLog, sLog2);
-					this.logProtocolWithPosition(saLog);
+					this.protocolWithPosition(saLog);
 					sFilePathUsed="";
 				}else {
-					this.logProtocolWithPosition(sLog);
+					this.protocolWithPosition(sLog);
 				}
 			}
 			
@@ -6900,7 +6900,7 @@ MeinTestParameter=blablaErgebnis
 			String sLog = "XXXTEST Verwende als ini-Datei für die Prüfung '"+ objIni.getFileName() + "'.";
 			sLog = ReflectCodeZZZ.getMethodCurrentNameLined(0) + sLog;
 			//System.out.println(sLog);
-			this.logLineDate(sLog);
+			this.printlnDate(sLog);
 			
 			//PRÜFUNG: LIES EINEN .ini - DATEINAMEN AUS.
 			//Merke: Der Pfad darf leer sein. Dann wird "." als aktuelles Verzeichnis angenommen    String sFilePath = objIni.getValue(stemp,"KernelConfigPath" +sAlias );
@@ -6974,7 +6974,7 @@ MeinTestParameter=blablaErgebnis
 			String sLog = "XXXXTest Verwende als ini-Datei für die Prüfung '"+ objIni.getFileName() + "'.";
 			sLog = ReflectCodeZZZ.getMethodCurrentNameLined(0) + sLog;
 			//System.out.println(sLog);
-			this.logLineDate(sLog);
+			this.printlnDate(sLog);
 			
 			IniFile objFile = this.getFileConfigModuleAsIni(sModule, bIncludeSystemSectionInSearch); //false Schliesst die Suche über den SystemKey aus.
 			if(objFile!=null) {
@@ -7018,7 +7018,7 @@ MeinTestParameter=blablaErgebnis
 			String sLog = "xxxxTEST Verwende als ini-Datei für die Prüfung '"+ objFile.getAbsolutePath() + "'.";
 			sLog = ReflectCodeZZZ.getMethodCurrentNameLined(0) + sLog;
 			//System.out.println(sLog);
-			this.logLineDate(sLog);
+			this.printlnDate(sLog);
 		
 			bReturn = objIni.proofSectionExistsSearched(sAlias);						
 		}//end main:
@@ -7037,7 +7037,7 @@ MeinTestParameter=blablaErgebnis
 				//DAS PROBLEM IST, DASS DAS KONFIGURATIONSOBJEKT IM GRUNDE IMMER EHER DA SEIN MUSS ALS DER KERNEL, AUCH BEIM PROTOKOLLIEREN
 				sLog = "Initializing KernelObject";				
 				//this.logProtocolWithPosition(sLog); //20260213 WAR ZWAR ORIGINAL DIE CODE-ANWEISUNG, nun wird ein CONFIG OBJEKT ERSTELLT, etc. !!! MIT DEFAULT WERTEN !!!
-				this.logLineDateWithPosition(sLog);   //Nahezu identische LOG Ausgabe, ober ohne CONFIG OBJEKT ERSTELLUNG. Also ohne DEFAULT WERTE.
+				this.printlnDateWithPosition(sLog);   //Nahezu identische LOG Ausgabe, ober ohne CONFIG OBJEKT ERSTELLUNG. Also ohne DEFAULT WERTE.
 				
 				//20191204: Umstrukturierung:
 				//Zusätzlich zu übergebenen Flags müssen auch die Flags vom Config-Objekt übernommen werden, wenn sie vorhanden sind als Flags im KernelObjekt.
@@ -7114,7 +7114,7 @@ MeinTestParameter=blablaErgebnis
 								btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								if(btemp==false){						 
 									sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									this.logLineDate(sLog);
+									this.printlnDate(sLog);
 	//								Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 	//								ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 	//								throw ez;		 
@@ -7146,11 +7146,11 @@ MeinTestParameter=blablaErgebnis
 						//Fall: Das objConfig - Objekt existiert, aber es "lebt" von den dort vorhandenenen DEFAULT-Einträgen
 						//      und nicht von irgendwelchen übergebenen Startparametern, sei es per Batch Kommandozeile oder per INI-Datei.
 						sLog = "Config-Object not loaded, using DEFAULTS.";
-						this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						sApplicationKey = this.getConfigObject().getApplicationKeyDefault();
 						if(StringZZZ.isEmpty(sApplicationKey)){
 							sLog = "ApplicationKey DEFAULT not receivable from Config-Object, Config-Object  not loaded.";
-							this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+							this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 							ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 							throw ez;
 						}
@@ -7169,7 +7169,7 @@ MeinTestParameter=blablaErgebnis
 				}
 				if(StringZZZ.isEmpty(sApplicationKey)){
 					sLog = "ApplicationKey not passed and not receivable from Config-Object";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -7182,11 +7182,11 @@ MeinTestParameter=blablaErgebnis
 						//Fall: Das objConfig - Objekt existiert, aber es "lebt" von den dort vorhandenenen DEFAULT-Einträgen
 						//      und nicht von irgendwelchen übergebenen Startparametern, sei es per Batch Kommandozeile oder per INI-Datei.
 						sLog = "Config-Object not loaded, using DEFAULTS.";
-						this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						sSystemNumber = this.getConfigObject().getSystemNumberDefault();
 						if(StringZZZ.isEmpty(sSystemNumber)){
 							sLog = "sSystemNumber DEFAULT not receivable from Config-Object, Config-Object  not loaded.";
-							this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+							this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 							ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 							throw ez;
 						}
@@ -7205,7 +7205,7 @@ MeinTestParameter=blablaErgebnis
 				}
 				if(StringZZZ.isEmpty(sSystemNumber)){
 					sLog = "SystemNumber not passed and not receivable from Config-Object";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -7220,11 +7220,11 @@ MeinTestParameter=blablaErgebnis
 						//Fall: Das objConfig - Objekt existiert, aber es "lebt" von den dort vorhandenenen DEFAULT-Einträgen
 						//      und nicht von irgendwelchen übergebenen Startparametern, sei es per Batch Kommandozeile oder per INI-Datei.
 						sLog = "Config-Object not loaded, using DEFAULTS.";
-						this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						sDirectoryConfig = this.getConfigObject().getConfigDirectoryNameDefault();
 						if(StringZZZ.isEmpty(sDirectoryConfig)){
 							sLog = "DirectoryConfig DEFAULT not receivable from Config-Object, Config-Object  not loaded.";
-							this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+							this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 							ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 							throw ez;
 						}
@@ -7243,7 +7243,7 @@ MeinTestParameter=blablaErgebnis
 				}
 				if(StringZZZ.isEmpty(sDirectoryConfig)){
 					sLog = "Directory is empty and no Configuration-Object passed. Using ROOT - directory.";		
-					this.logProtocolWithPosition(sLog);
+					this.protocolWithPosition(sLog);
 					sDirectoryConfig = FileEasyZZZ.getFileRootPath();
 				}
 				
@@ -7251,7 +7251,7 @@ MeinTestParameter=blablaErgebnis
 				File objDirectoryProof = FileEasyZZZ.searchDirectory(sDirectoryConfig, true);
 				if(objDirectoryProof==null){					
 					sLog = "Directory does not exists (='"+sDirectoryConfig+"'). Using CURRENT - directory.";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					sDirectoryConfig = IFileEasyConstantsZZZ.sDIRECTORY_CURRENT;//Falls das Verzeichnis nicht existiert, verwende das aktuelle Verzeichnis.
 				}else{
 					sDirectoryConfig=objDirectoryProof.getAbsolutePath();						
@@ -7265,11 +7265,11 @@ MeinTestParameter=blablaErgebnis
 						//Fall: Das objConfig - Objekt existiert, aber es "lebt" von den dort vorhandenenen DEFAULT-Einträgen
 						//      und nicht von irgendwelchen übergebenen Startparametern, sei es per Batch Kommandozeile oder per INI-Datei.
 						sLog = "Config-Object not loaded, using DEFAULTS.";
-						this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						sFileConfig = this.getConfigObject().getConfigFileNameDefault();
 						if(StringZZZ.isEmpty(sFileConfig)){
 							sLog = "FileConfig DEFAULT not receivable from Config-Object, Config-Object  not loaded.";
-							this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+							this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 							ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 							throw ez;
 						}
@@ -7289,7 +7289,7 @@ MeinTestParameter=blablaErgebnis
 				if(StringZZZ.isEmpty(sFileConfig)){
 					sFileConfig = AbstractKernelObjectZZZ.sFILENAME_CONFIG_DEFAULT;
 					sLog = "Filename for configuration is empty. Not passed and not readable from Config-Object. Using default: '" + sFileConfig + "'";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);					
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);					
 				}
 				this.setFileConfigKernelName(sFileConfig);
 				
@@ -7323,14 +7323,14 @@ MeinTestParameter=blablaErgebnis
 						//Anderes Verzeichnis- DEFAULT, mit absolutem Pfad - probieren
 						String sDirectoryConfigDefault = AbstractKernelObjectZZZ.sDIRECTORY_CONFIG_DEFAULT;
 						sLog = "Default Filename for configuration does not exist here: '" + sFilePath + "'. Looking in default direcotry '" + sDirectoryConfigDefault + "'" ;
-						this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						
 						sFilePath = FileEasyZZZ.joinFilePathName(sDirectoryConfigDefault, sFileConfig);						
 						bExists = FileEasyZZZ.exists(sFilePath);
 			
 						if(!bExists) {
 							sLog = "Default file in default directory not found: '" + sFilePath + "'";
-							this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+							this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 							ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 							throw ez;
 						}else {
@@ -7338,15 +7338,15 @@ MeinTestParameter=blablaErgebnis
 							//this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 							//this.setFileConfigKernelDirectory(sDirectoryConfigDefault);
 							sLog = "Directory for other files still used '" + sDirectoryConfig + "'";
-							this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);	
+							this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);	
 						}
 					}
 				}
 		
 				if(this.getFlag("DEBUG")){
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + " - SystemNr: '" + sSystemNumber + "'");
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + " - Configurationfile: '" + sFileConfig + "'");
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + " - Configurationpath: '" + sDirectoryConfig + "'");
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + " - SystemNr: '" + sSystemNumber + "'");
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + " - Configurationfile: '" + sFileConfig + "'");
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + " - Configurationpath: '" + sDirectoryConfig + "'");
 				}							
 						
 				
@@ -7363,7 +7363,7 @@ MeinTestParameter=blablaErgebnis
 				if(!bProofConfigMain) {
 					sFilePath = FileEasyZZZ.joinFilePathName(this.getFileConfigKernelDirectory(), this.getFileConfigKernelName());
 					sLog = "In the configuration file '" + sFilePath + "' does the the section for the ApplicationKey '" + this.getApplicationKey() + "' and the section for the SystemKey '" + this.getSystemKey() + "' not exist or the section is empty.";
-					this.logLineDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_CONFIGURATION_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -7379,7 +7379,7 @@ MeinTestParameter=blablaErgebnis
 						  btemp = setFlag(stemp, true);
 						  if(btemp==false){
 							  sLog = "the flag '" + stemp + "' is not available.";
-							  this.logLineDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+							  this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 							  throw ez;		 
 						  }
@@ -7395,7 +7395,7 @@ MeinTestParameter=blablaErgebnis
 				if(objLogIn==null){				
 					//TODOGOON202603;//Trotz aller Bemuehungen wird die # Kommentarposition nicht vor der ^ Kommentarposition einsortiert. Daher haben wir einen unverhaeltnismaessig langen String aufgrund einer riesigen Luecke, und die Spaltengrenzen werden auch nach rechts verschoben.
 					sLog = "Erstelle neues Log Object";
-					this.logProtocolWithPosition(sLog);
+					this.protocolWithPosition(sLog);
 					
 //					1. Versuch: über die Programm-Konfiguration. 
 					//Merke: Dies geht nur, wenn ein Context-Objekt �bergeben worden ist. An dieser Stelle kommt man nicht anders an den Namen der Aufrufenden - Klasse (d.h. den Programnamen) dran.
@@ -7408,7 +7408,7 @@ MeinTestParameter=blablaErgebnis
 						}catch (ExceptionZZZ ez){
 							//nix tun, Ausgabe nur zum Test/Debug
 							sLog = ez.getDetailAllLast();
-							this.logProtocolWithPosition(sLog);
+							this.protocolWithPosition(sLog);
 						}
 					}	
 					
@@ -7548,7 +7548,7 @@ MeinTestParameter=blablaErgebnis
 	 * @see basic.zBasic.AbstractObjectZZZ#logLineDate(java.lang.String)
 	 */
 	@Override
-	public void logLineDate(String sLog) throws ExceptionZZZ {
+	public void printlnDate(String sLog) throws ExceptionZZZ {
 		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			String sTemp = AbstractKernelLogZZZ.computeLineDate(this);
@@ -7567,7 +7567,7 @@ MeinTestParameter=blablaErgebnis
 	 * @see basic.zBasic.AbstractObjectZZZ#logLineDateWithPosition(java.lang.String)
 	 */
 	@Override
-	public void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
+	public void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
 		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			//Hier nicht die Position hinzunehmen. Wg. des Leerstring kommt sie dann VOR den Kommentar

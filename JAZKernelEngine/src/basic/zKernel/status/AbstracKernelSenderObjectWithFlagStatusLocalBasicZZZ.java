@@ -75,7 +75,7 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 						lused.reactOnStatusLocalEvent(eventUsed);
 					}else {					
 						String sLog = ReflectCodeZZZ.getPositionCurrent() + "# type is not used yet: '" + l.getClass().getName() + "'";
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 					}
 				}
 			} catch (ExceptionZZZ ez) {
@@ -141,7 +141,7 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.logLineDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+									 this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 
@@ -207,7 +207,7 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 	}	
 	
 	@Override
-	public void logLineDate(String sLog) throws ExceptionZZZ {
+	public void printlnDate(String sLog) throws ExceptionZZZ {
 		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			String sTemp = AbstractKernelLogZZZ.computeLineDate(sLog);

@@ -8,29 +8,29 @@ import custom.zKernel.ILogZZZ;
 import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.LogSingletonZZZ;
 
-public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements IObjectProtocolLogZZZ{
+public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements ILogProtocolZZZ, ILogPrintZZZ{
 	private static final long serialVersionUID = 6495244810060327188L;
 
 	
 	//### aus IObjectLogZZZ, Merke: Dazu gibt es jeweils auch eine static-Methode fuer die Klasse als Argument.	
 	@Override
-	public synchronized void logLineDate(String sLog) throws ExceptionZZZ {
-		ObjectZZZ.logLineDate(this, sLog);
+	public synchronized void printlnDate(String sLog) throws ExceptionZZZ {
+		ObjectZZZ.printlnDate(this, sLog);
 	}
 
 	@Override
-	public synchronized void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
-		ObjectZZZ.logLineDateWithPosition(this, sLog);
+	public synchronized void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
+		ObjectZZZ.printlnDateWithPosition(this, sLog);
 	}
 	
 	@Override
-	public synchronized void logLineDate(String... sLogs) throws ExceptionZZZ {
-		ObjectZZZ.logLineDate(this, sLogs);
+	public synchronized void printlnDate(String... sLogs) throws ExceptionZZZ {
+		ObjectZZZ.printlnDate(this, sLogs);
 	}
 	
 	@Override
-	public synchronized void logLineDateWithPosition(String... sLogs) throws ExceptionZZZ {
-		ObjectZZZ.logLineDateWithPosition(this, sLogs);
+	public synchronized void printlnDateWithPosition(String... sLogs) throws ExceptionZZZ {
+		ObjectZZZ.printlnDateWithPosition(this, sLogs);
 	}
 			
 	//### aus IObjectProtocolLogZZZ
@@ -40,17 +40,17 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	//### Also sind alle System.outs zu ersetzten durch die Arbeit mit einem LogZZZ-Objekt
 	//#########################################
 		@Override
-	public synchronized void logProtocol(String sLog) throws ExceptionZZZ {
-		this.logProtocol(this, sLog); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
+	public synchronized void protocol(String sLog) throws ExceptionZZZ {
+		this.protocol(this, sLog); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
 	}
 	
 	@Override
-	public synchronized void logProtocol(String... sLogs) throws ExceptionZZZ{
-		this.logProtocol(this, sLogs); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
+	public synchronized void protocol(String... sLogs) throws ExceptionZZZ{
+		this.protocol(this, sLogs); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
 	}
 	
 	@Override
-	public synchronized void logProtocol(Object obj, String sLog) throws ExceptionZZZ {
+	public synchronized void protocol(Object obj, String sLog) throws ExceptionZZZ {
 		//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
 		ILogZZZ objLog = LogSingletonZZZ.getInstance();
 				
@@ -62,7 +62,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocol(Object obj, String... sLogs) throws ExceptionZZZ{
+	public synchronized void protocol(Object obj, String... sLogs) throws ExceptionZZZ{
 		//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
 		ILogZZZ objLog = LogSingletonZZZ.getInstance();
 		
@@ -76,7 +76,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+	public synchronized void protocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 		
@@ -86,7 +86,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public void logProtocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+	public void protocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 		
@@ -95,13 +95,13 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+	public synchronized void protocol(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		String[] saLog = sLogs;
 		logProtocol__(ienumaMappedLogString, saLog);
 	}
 	
 	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 		
@@ -110,13 +110,13 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		String[] saLog = sLogs;
 		logProtocol__(obj, ienumaMappedLogString, saLog);
 	}
 	
 	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 
@@ -158,7 +158,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	
 	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE
 	@Override
-	public synchronized void logProtocolWithPosition(String... sLogs) throws ExceptionZZZ{
+	public synchronized void protocolWithPosition(String... sLogs) throws ExceptionZZZ{
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 		
@@ -167,7 +167,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocolWithPosition(String sLog) throws ExceptionZZZ{
+	public synchronized void protocolWithPosition(String sLog) throws ExceptionZZZ{
 		
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
@@ -178,7 +178,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 			
 	@Override
-	public synchronized void logProtocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
+	public synchronized void protocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
 	
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
@@ -188,7 +188,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
+	public synchronized void protocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
 		
 		//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 		IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
@@ -201,7 +201,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	@Override
-	public void logProtocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+	public void protocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 		
@@ -210,13 +210,13 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocolWithPosition(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {		
+	public synchronized void protocolWithPosition(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {		
 		String[] saLog = sLogs;
 		logProtocolWithPosition__(this, 1, ienumaMappedLogString, saLog);
 	}
 	
 	@Override
-	public synchronized void logProtocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+	public synchronized void protocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 		
@@ -226,7 +226,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public void logProtocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+	public void protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 		
@@ -235,13 +235,13 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	}
 	
 	@Override
-	public synchronized void logProtocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {		
+	public synchronized void protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {		
 		String[] saLog = sLogs;
 		logProtocolWithPosition__(obj, 1, ienumaMappedLogString, saLog);
 	}
 	
 	@Override
-	public synchronized void logProtocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+	public synchronized void protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 		ienumaMappedLogString[0] = ienumMappedLogString;
 
@@ -254,13 +254,13 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		int iLevel = iLevelIn + 1;
 		String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
 		String[] saLog = StringArrayZZZ.prepend(saLogs, sPositionCalling);
-		this.logProtocol(obj, ienumaMappedLogString, saLog); 
+		this.protocol(obj, ienumaMappedLogString, saLog); 
 	}
 	
 	private void logProtocolWithPosition__(int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		int iLevel = iLevelIn + 1;
 		String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
 		String[] saLog = StringArrayZZZ.prepend(saLogs, sPositionCalling);
-		this.logProtocol(ienumaMappedLogString, saLog); 
+		this.protocol(ienumaMappedLogString, saLog); 
 	}
 }

@@ -153,7 +153,7 @@ public class ObjectZZZTest extends TestCase{
 	public void testLogProtocolWithPosition() {
 		try {			
 			DummyTestObjectWithFlagZZZ objObjectInit = new DummyTestObjectWithFlagZZZ();
-			objObjectInit.logProtocolWithPosition("TESTWERT logProtocolWithPosition");
+			objObjectInit.protocolWithPosition("TESTWERT logProtocolWithPosition");
 			
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();
@@ -165,7 +165,7 @@ public class ObjectZZZTest extends TestCase{
 	public void testLogLineDate() {
 		try {		
 			DummyTestObjectWithFlagZZZ objObjectInit = new DummyTestObjectWithFlagZZZ();
-			objObjectInit.logLineDate("TESTWERT logLineDate");
+			objObjectInit.printlnDate("TESTWERT logLineDate");
 			
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();
@@ -177,7 +177,7 @@ public class ObjectZZZTest extends TestCase{
 	
 	public void testLogLineDateWithPostion() {
 		try {		
-			ObjectZZZ.logLineDateWithPosition(FileEasyConstantConverterZZZ.class, "TESTWERT logLineDateWithPosition");
+			ObjectZZZ.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, "TESTWERT logLineDateWithPosition");
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();
 			fail("An exception happend testing: " + ez.getDetailAllLast());

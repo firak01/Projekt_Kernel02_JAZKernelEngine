@@ -71,7 +71,7 @@ public abstract class AbstractObjectWithStatusLocalMonitoringZZZ <T> extends Abs
 		//MERKE:   Da der Monitor sich immer an sich selbst registriert, kann man dann hier auch die neu geworfenen STATUS hinzufuegen.
 		
 		String sLog =  ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Ohne gemappten Status: Rufe CustomReaktionsmethode auf (reactOnStatusLocalEvent4Action)";
-		this.logProtocol(sLog);
+		this.protocol(sLog);
 			
 		//	2. Eigene Action... das hat das Ziel, das dadurch ja ggfs. wieder neue Events geworfen werden können
 		bReturn = this.reactOnStatusLocalEvent4Action(eventStatusLocal);
@@ -100,7 +100,7 @@ public abstract class AbstractObjectWithStatusLocalMonitoringZZZ <T> extends Abs
 			IEnumSetMappedStatusLocalZZZ enumStatusIn = eventStatusLocal.getStatusLocal();
 			if(enumStatusIn==null) {
 				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Keinen Status aus dem Event-Objekt erhalten. Breche ab";				
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main;
 			}
 			
@@ -108,11 +108,11 @@ public abstract class AbstractObjectWithStatusLocalMonitoringZZZ <T> extends Abs
 			IEnumSetMappedStatusLocalZZZ enumStatusOut = hmStatus.get(enumStatusIn); 
 			if(enumStatusOut==null) {
 				sLog =  ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> KEINEN Gemappten Status gefunden. Setze also keinen eigenen Status.";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main; //Wenn der Status nicht gemappt ist, wird auch nichts gesetzt.
 			}else {			
 				sLog =  ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> Gemappten Status gefunden... Setze dazu den passenden eigenen Status.";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 			}
 			
 			boolean bStatusValue = eventStatusLocal.getStatusValue();
@@ -136,7 +136,7 @@ public abstract class AbstractObjectWithStatusLocalMonitoringZZZ <T> extends Abs
 			IEnumSetMappedStatusLocalZZZ enumStatusIn = eventStatusLocal.getStatusLocal();
 			if(enumStatusIn==null) {
 				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Keinen Status aus dem Event-Objekt erhalten. Breche ab";				
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main;
 			}
 			
@@ -144,11 +144,11 @@ public abstract class AbstractObjectWithStatusLocalMonitoringZZZ <T> extends Abs
 			IEnumSetMappedStatusLocalZZZ enumStatusOut = hmStatus.get(enumStatusIn); 
 			if(enumStatusOut==null) {
 				sLog =  ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> KEINEN Gemappten Status gefunden. Also Event NICHT mit Monitor-Objekt weiter verarbeitbar.";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main; //Wenn der Status nicht gemappt ist, wird auch nichts gesetzt.
 			}else {			
 				sLog =  ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> Gemappten Status gefunden. Also Event mit Monitor-Objekt weiter verarbeitbar.";
-				this.logProtocol(sLog);				
+				this.protocol(sLog);				
 			}
 			
 			bReturn = true;

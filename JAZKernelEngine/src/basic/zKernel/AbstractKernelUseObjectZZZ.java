@@ -147,7 +147,7 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = ReflectCodeZZZ.getPositionCurrent() +"The passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.logLineDate(sLog);
+									 this.printlnDate(sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 
@@ -213,7 +213,7 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 	}	
 	
 	@Override
-	public void logLineDate(String sLog) throws ExceptionZZZ {
+	public void printlnDate(String sLog) throws ExceptionZZZ {
 		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			String sTemp = KernelLogZZZ.computeLineDate(this, sLog);
@@ -225,7 +225,7 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 	
 	
 	@Override
-	public void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
+	public void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
 		KernelLogZZZ objLog = this.getLogObject();
 		if(objLog==null) {
 			String sTemp = KernelLogZZZ.computeLineDateWithPosition(this, sLog);

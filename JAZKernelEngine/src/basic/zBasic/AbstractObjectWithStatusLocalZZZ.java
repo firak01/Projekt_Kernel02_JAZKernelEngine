@@ -299,7 +299,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 		}//end main:
 		if(bReturn) {
 			String sLog = ReflectCodeZZZ.getPositionCurrent()+ "ObjectWithStatus ("+this.getClass().getSimpleName()+ ") - Status changed to '"+sStatusString+"'";
-		    this.logProtocol(sLog);			
+		    this.protocol(sLog);			
 		}
 		return bReturn;
 	}
@@ -313,11 +313,11 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 		}//end main:
 		if(bReturn) {
 			String sLog = ReflectCodeZZZ.getPositionCurrent()+ "ObjectWithStatus ("+this.getClass().getSimpleName()+ ") - Status changed to '"+sStatusString+"', Value="+bStatusValue;
-			this.logProtocol(sLog);			
-		    this.logProtocol(sLog);			
+			this.protocol(sLog);			
+		    this.protocol(sLog);			
 		}else {
 			String sLog = ReflectCodeZZZ.getPositionCurrent()+ "ObjectWithStatus ("+this.getClass().getSimpleName()+ ") - Status remains '"+sStatusString+"', Value="+bStatusValue;			
-		    this.logProtocol(sLog);
+		    this.protocol(sLog);
 		}
 		return bReturn;
 	}
@@ -460,7 +460,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 				
 				if(sStatusMessageToSet!=null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "Setzt sStatusMessageToSet='" + sStatusMessageToSet + "'";
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 				}
 			}else {
 				sStatusMessageToSet = sStatusMessage;
@@ -686,19 +686,19 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			iStepsToSearchBackwardsTEST = iStepsToSearchBackwardsTEST + 1; 
 			int iIndex = this.getCircularBufferStatusLocal().computeIndexForStepPrevious(iStepsToSearchBackwardsTEST);
 			sLog = ReflectCodeZZZ.getPositionCurrent()+"TEST: Vorheriger Status= " + iStepsToSearchBackwardsTEST + " | Verwendeter Index= " + iIndex;							
-			this.logProtocol(sLog);
+			this.protocol(sLog);
 			
 			objStatusLocalPreviousTEST = (IEnumSetMappedStatusLocalZZZ) this.getStatusLocalEnumPrevious(iStepsToSearchBackwardsTEST);
 			if(objStatusLocalPreviousTEST==null) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()+"TEST: Kein weiterer entsprechend weit entfernter vorheriger Status vorhanden";									
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				bGoonTEST=true;
 			}else {				
 				sLog = ReflectCodeZZZ.getPositionCurrent()+"TEST : Der " + iStepsToSearchBackwardsTEST + " Schritte vorherige Status im Main ist. GroupId/Abbreviation: " + objStatusLocalPreviousTEST.getStatusGroupId() + "/'" + objStatusLocalPreviousTEST.getAbbreviation()+"'.";									
-				this.logProtocol(sLog);		
+				this.protocol(sLog);		
 				
 				sLog = ReflectCodeZZZ.getPositionCurrent()+"TEST : Message='" + this.getStatusLocalMessagePrevious(iStepsToSearchBackwardsTEST) + "'";									
-				this.logProtocol(sLog);	
+				this.protocol(sLog);	
 			}
 			if(iStepsToSearchBackwardsTEST>=iStepsMax) bGoonTEST=true;											
 		}while(!bGoonTEST);						
@@ -769,19 +769,19 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 				for(int iStepsPrevious = 0;iStepsPrevious<=iStepsToSearchBackwards;iStepsPrevious++) {
 					int iIndex = this.getCircularBufferStatusLocal().computeIndexForStepPrevious(iStepsPrevious);
 					sLog = ReflectCodeZZZ.getPositionCurrent()+"Vorheriger Status= " + iStepsPrevious + " | Verwendeter Index= " + iIndex;										
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 					
 					objStatusLocalPrevious = (IEnumSetMappedStatusLocalZZZ) this.getStatusLocalEnumPrevious(iStepsPrevious);
 					if(objStatusLocalPrevious==null) {
 						sLog = ReflectCodeZZZ.getPositionCurrent()+"Kein entsprechend weit entfernter vorheriger Status vorhanden";											
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 						break main;
 					}else {				
 						//Frage nach dem Status im Backend nach...
 						iReturnTemp = objStatusLocalPrevious.getStatusGroupId();
 						
 						sLog = ReflectCodeZZZ.getPositionCurrent()+"Der " + iStepsPrevious + " Schritte vorherige Status im Main ist. GroupId/Abbreviation: " + objStatusLocalPrevious.getStatusGroupId() + "/'" + objStatusLocalPrevious.getAbbreviation()+"'.";											
-						this.logProtocol(sLog);	
+						this.protocol(sLog);	
 						
 						if(iReturnTemp!=iGroupIdCurrent) {
 							iReturn = iReturnTemp;
@@ -844,23 +844,23 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 				for(int iStepsPrevious = 0;iStepsPrevious<=iStepsToSearchBackwards;iStepsPrevious++) {
 					int iIndex = this.getCircularBufferStatusLocal().computeIndexForStepPrevious(iStepsPrevious);
 					sLog = ReflectCodeZZZ.getPositionCurrent()+"Vorheriger Status= " + iStepsPrevious + " | Verwendeter Index= " + iIndex;										
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 					
 					objStatusLocalPrevious = (IStatusBooleanZZZ) this.getStatusLocalObjectPrevious(iStepsPrevious);					
 					if(objStatusLocalPrevious==null) {
 						sLog = ReflectCodeZZZ.getPositionCurrent()+"Kein entsprechend weit entfernter vorheriger Status vorhanden";											
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 						break main;
 					}else {				
 						//Frage nach dem Status im Backend nach...
 						iGroupIdTemp = objStatusLocalPrevious.getEnumObject().getStatusGroupId();
 						
 						sLog = ReflectCodeZZZ.getPositionCurrent()+"Der " + iStepsPrevious + " Schritt(e) vorherige Status im Main ist. GroupId/Abbreviation: " + iGroupIdTemp + "/'" + objStatusLocalPrevious.getEnumObject().getAbbreviation()+"'.";											
-						this.logProtocol(sLog);	
+						this.protocol(sLog);	
 						
 						if(iGroupIdTemp==iStatusLocalGroupId) {
 							sLog = ReflectCodeZZZ.getPositionCurrent()+"Event mit gemappten Status gefunden: " + objStatusLocalPrevious.getEnumObject().getAbbreviation();							
-							this.logProtocol(sLog);
+							this.protocol(sLog);
 							
 							
 //							//ggfs. nicht aufnehmen, also quasi weiter schrittweise zurück, wenn der Status ein Steuerevent ist...,d.h. ohne Icon
@@ -887,7 +887,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 								}
 							}else {
 								sLog = ReflectCodeZZZ.getPositionCurrent()+"Steuerevent als gemappten Status aus dem Event-Objekt erhalten. Gehe noch einen weitere " + iStepsToSearchBackwards + " Schritt(e) zurueck.";								
-								this.logProtocol(sLog);	
+								this.protocol(sLog);	
 							}
 						}else {
 							//Wurde im Fall: "Ohne Unterbrechung" dann wieder eine andere GroupId gefunden, ist ende
@@ -1094,21 +1094,21 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 //				this.logProtocolString(sLog);
 				break main;
 			}else {				
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 			}
 			
 			//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
 			//Dann erzeuge den Event und feuer ihn ab.	
 			if(this.getSenderStatusLocalUsed()==null) {
 				sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);		
+				this.protocol(sLog);		
 				break main;
 			}
 			
 			//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
 			if(bStatusValue) { //!!! nur im TRUE Fall wird eine Logausgabe erzeugt... sonst wird das Log zu voll.			
 				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 			}
 			IEventObjectStatusBasicZZZ event;
 			if(sStatusMessage==null) {
@@ -1118,7 +1118,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			}
 					
 			sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
-			this.logProtocol(sLog);
+			this.protocol(sLog);
 			this.getSenderStatusLocalUsed().fireEvent(event);
 						
 			//########################################################################################
@@ -1129,23 +1129,23 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			HashMap<String,IStatusBooleanMessageZZZ> hmStatus = StatusLocalAvailableHelperZZZ.searchHashMapBooleanMessage(this, true);
 			if(hmStatus==null) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> Es war keine HashMap mit Statusname erstellbar, fuer: '" + sStatusName + "' and value '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main;
 			}
 
 			if(hmStatus.isEmpty()) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> HashMap mit Statusnamen ist leer, fuer: '" + sStatusName + "' and value '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main;
 			}else {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> HashMap mit Statusnamen erstellt, fuer: '" + sStatusName + "' and value '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);				
+				this.protocol(sLog);				
 			}
 			
 			IStatusBooleanMessageZZZ objStatus = hmStatus.get(sStatusName);
 			if(objStatus==null) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> Der Status wurde nicht in der HashMap der Statusname gefunden, fuer: '" + sStatusName + "' and value '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main;
 			}
 			
@@ -1153,7 +1153,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			bReturn = this.getCircularBufferStatusLocal().offer(objStatus);
 			if(!bReturn) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> Der Status wurde nicht erfolgreich im CircularBuffer abgelegt, fuer: '" + sStatusName + "' and value '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);				
+				this.protocol(sLog);				
 				break main;
 			}
 		}//end main:
@@ -1452,7 +1452,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			bReturn = this.proofStatusLocalValueChanged(sStatusName, bStatusValue);
 			if(!bReturn) {
 				String sLog = ReflectCodeZZZ.getPositionCurrent() + "This status has not changed, for: '" + sStatusName + "' and value '" + bStatusValue + "'"; //, StatusMessage='\\\"+sStatusMessage+\\\"'\\\";);";					
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 				break main;
 			}
 			
@@ -1548,7 +1548,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			boolean bExists = this.proofStatusLocalExists(sStatusName);															
 			if(!bExists) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> queryOfferStatusLocal would like to fire event, but this status is not available. For: '" + sStatusName + "' and value '" + bStatusValue + "'"; //, StatusMessage='"+sStatusMessage+"'";
-				this.logProtocol(sLog);			
+				this.protocol(sLog);			
 				break main;
 			}
 			
@@ -1566,7 +1566,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 				}
 			}else {
 				//true fall. Jetzt kann man einen Breakpoint setzen
-				this.logProtocol(sLog);
+				this.protocol(sLog);
 			}
 			
 			
@@ -1575,7 +1575,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			boolean bQuery = this.queryOfferStatusLocalCustom();
 			if(!bQuery) { 			
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> queryOfferStatusLocal would like to fire event but custom query returned '" + bQuery + "', for: '" + sStatusName + "' and value '" + bStatusValue + "'"; //, StatusMessage='\\\"+sStatusMessage+\\\"'\\\";);
-				this.logProtocol(sLog);			
+				this.protocol(sLog);			
 				break main;
 			}else {
 				

@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IObjectPositionLogZZZ;
-import basic.zBasic.IObjectProtocolLogZZZ;
+import basic.zBasic.ILogProtocolPositionZZZ;
+import basic.zBasic.ILogProtocolZZZ;
 import basic.zBasic.ObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
@@ -18,6 +18,7 @@ import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.StringFormaterZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
+import custom.zKernel.Log;
 
 /** 
  * Merke: Der gleiche "Design Pattern" wird auch im UI - Bereich fuer Komponenten verwendet ( package basic.zKernelUI.component.model; )  
@@ -27,7 +28,7 @@ import basic.zKernel.AbstractKernelLogZZZ;
  *  
  * @author Fritz Lindhauer, 02.04.2023, 12:00:33  
  */
-public abstract class AbstractEventObjectStatusLocalZZZ extends EventObject implements IObjectPositionLogZZZ, IEventObjectStatusLocalZZZ, Comparable<IEventObjectStatusLocalZZZ>{
+public abstract class AbstractEventObjectStatusLocalZZZ extends EventObject implements IEventObjectStatusLocalZZZ, Comparable<IEventObjectStatusLocalZZZ>{
 	//Merke: Das Interface comparable kann nicht mehrmals eingebunden werden. Daher in der Ausgangsklasse comparable nutzen und dort die Methoden erstellen.
 	protected IEnumSetMappedStatusLocalZZZ objStatusEnum=null;
 	protected String sStatusMessage=null;
@@ -73,7 +74,7 @@ public abstract class AbstractEventObjectStatusLocalZZZ extends EventObject impl
 					//20240319: Wenn es ein Monitor-Objekt ist, dann kann der Status auch aus der cascadedHashMap stammen.
 					if(source instanceof IStatusLocalMapForMonitoringStatusLocalUserZZZ) {
 						sLog = ReflectCodeZZZ.getPositionCurrent() + "EventObject ("+this.getClass().getName()+") for SourceClass ("+source.getClass().getName() +"). Enum not found in normal Status: '" + sEnumName + "', this is a monitor Objekt therefore a search in the cascading Hashmap may will succeed. ";
-						this.logProtocol(sLog);
+						Log.protocol(this, sLog);
 						
 						IStatusLocalMapForMonitoringStatusLocalUserZZZ sourceAsMonitor = (IStatusLocalMapForMonitoringStatusLocalUserZZZ) source;
 						HashMap<IEnumSetMappedStatusLocalZZZ,IEnumSetMappedStatusLocalZZZ> hmFromMonitor = sourceAsMonitor.getHashMapEnumSetForCascadingStatusLocal();
@@ -85,7 +86,7 @@ public abstract class AbstractEventObjectStatusLocalZZZ extends EventObject impl
 							if(objKey.getName().equalsIgnoreCase(sEnumName)) {
 								objEnumMapped = objKey;
 								sLog = ReflectCodeZZZ.getPositionCurrent() + "EventObject ("+this.getClass().getName()+") for SourceClass ("+source.getClass().getName() +"). Enum '" + sEnumName + "' found in the cascading Hashmap as Key. ";
-								this.logProtocol(sLog);
+								Log.protocol(this, sLog);
 								break;
 							}
 							
@@ -93,7 +94,7 @@ public abstract class AbstractEventObjectStatusLocalZZZ extends EventObject impl
 							if(objValue.getName().equalsIgnoreCase(sEnumName)) {
 								objEnumMapped = objValue;
 								sLog = ReflectCodeZZZ.getPositionCurrent() + "EventObject ("+this.getClass().getName()+") for SourceClass ("+source.getClass().getName() +"). Enum '" + sEnumName + "'  found in the cascading Hashmap as Value. ";
-								this.logProtocol(sLog);
+								Log.protocol(this, sLog);
 								break;
 							}
 						}
@@ -249,206 +250,206 @@ public abstract class AbstractEventObjectStatusLocalZZZ extends EventObject impl
 	
 	//#################################################################
 	//### aus ILogZZZ
-	@Override
-	public synchronized void logLineDate(String sLog) throws ExceptionZZZ {
-		ObjectZZZ.logLineDate(this, sLog);
-	}
-	
-	@Override
-	public void logLineDate(String... sLogs) throws ExceptionZZZ {
-		ObjectZZZ.logLineDate(this, sLogs);
-	}
-	
-	@Override
-	public synchronized void logLineDateWithPosition(String sLog) throws ExceptionZZZ {
-		ObjectZZZ.logLineDateWithPosition(this, sLog);
-	}
-	
-	@Override
-	public synchronized void logLineDateWithPosition(String... sLogs) throws ExceptionZZZ {
-		ObjectZZZ.logLineDateWithPosition(this, sLogs);
-	}
-	
-	
-			
-	//++++++++++++++++++++++++++++++++++++++++++++++++
-	
-	@Override
-	public synchronized void logProtocol(String... sLogs) throws ExceptionZZZ{
-		this.logProtocol(this, sLogs); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
-	}
-	
-	@Override
-	public synchronized void logProtocol(String sLog) throws ExceptionZZZ{
-		this.logProtocol(this, sLog); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
-	}
-	
-	@Override
-	public synchronized void logProtocol(Object obj, String sLog) throws ExceptionZZZ{
-		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLog);						
-		System.out.println(sLogUsed);
-	}
-	
-	@Override
-	public synchronized void logProtocol(Object obj, String... sLogs) throws ExceptionZZZ{
-		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLogs);						
-		System.out.println(sLogUsed);
-	}
-
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
-	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-		this.logProtocol(this, ienumMappedLogString, sLog); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
-	}
-	
-	@Override
-	public void logProtocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
-		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-		ienumaMappedLogString[0] = ienumMappedLogString;
-		
-		this.logProtocol(this, ienumaMappedLogString, sLogs);
-	}
-	
-	@Override
-	public synchronized void logProtocol(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
-		this.logProtocol(this, ienumaMappedLogString, sLogs); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
-	}
-		
-	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
-		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-		ienumaMappedLogString[0] = ienumMappedLogString;
-		this.logProtocol(ienumaMappedLogString, sLogs);
-	}
-	
-	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
-		main:{
-			if(ArrayUtilZZZ.isNull(sLogs)) break main;
-			if(ArrayUtilZZZ.isNull(ienumaMappedLogString)){
-				this.logProtocol(sLogs);
-				break main;
-			}
-			
-			int iIndex=0;
-			if(obj==null) {			
-				for(String sLog : sLogs) {
-					if(ienumaMappedLogString.length>iIndex) {
-						this.logProtocol(ienumaMappedLogString[iIndex],sLog);
-						iIndex++;
-					}else {
-						this.logProtocol(sLog);
-					}
-				}
-			}else {
-				for(String sLog : sLogs) {
-					if(ienumaMappedLogString.length>iIndex) {
-						this.logProtocol(obj, ienumaMappedLogString[iIndex],sLog);
-						iIndex++;
-					}else {
-						this.logProtocol(sLog);
-					}
-				}			
-			}
-		}//end main:
-	}
-	
-	@Override
-	public synchronized void logProtocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-		String sLogUsed;
-		if(obj==null) {
-			sLogUsed = StringFormatManagerZZZ.getInstance().compute(sLog, ienumMappedLogString);
-		}else {
-			sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, ienumMappedLogString, sLog);
-		}
-		System.out.println(sLogUsed);
-	}
-	
-	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE
-	
-	@Override
-	public synchronized void logProtocolWithPosition(String... sLogs) throws ExceptionZZZ{
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
-		this.logProtocol(this, saLog);
-	}
-	
-	@Override
-	public synchronized void logProtocolWithPosition(String sLog) throws ExceptionZZZ{
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
-		this.logProtocol(this, saLog);
-	}
-		
-	@Override
-	public synchronized void logProtocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
-		this.logProtocol(obj, saLog); 
-	}
-	
-	@Override
-	public synchronized void logProtocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
-		this.logProtocol(obj, saLog); 
-	}
-	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		
-	@Override
-	public void logProtocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
-		
-		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-		ienumaMappedLogString[0] = ienumMappedLogString;
-		
-		this.logProtocol(this, ienumaMappedLogString, saLog);
-	}
-	
-	@Override
-	public synchronized void logProtocolWithPosition(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
-		this.logProtocol(this, ienumaMappedLogString, saLog); 
-	}
-	
-	@Override
-	public synchronized void logProtocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
-		
-		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-		ienumaMappedLogString[0] = ienumMappedLogString;
-		
-		this.logProtocol(this, ienumaMappedLogString, saLog); 
-	}
-	
-	@Override
-	public void logProtocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
-		
-		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-		ienumaMappedLogString[0] = ienumMappedLogString;
-		
-		this.logProtocol(this, ienumMappedLogString, saLog);
-	}
-	
-	@Override
-	public synchronized void logProtocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
-		this.logProtocol(this, ienumaMappedLogString, saLog); 
-	}
-	
-	@Override
-	public synchronized void logProtocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
-		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
-		this.logProtocol(this, ienumMappedLogString, saLog); 
-	}
+//	@Override
+//	public synchronized void printlnDate(String sLog) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDate(this, sLog);
+//	}
+//	
+//	@Override
+//	public void printlnDate(String... sLogs) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDate(this, sLogs);
+//	}
+//	
+//	@Override
+//	public synchronized void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDateWithPosition(this, sLog);
+//	}
+//	
+//	@Override
+//	public synchronized void printlnDateWithPosition(String... sLogs) throws ExceptionZZZ {
+//		ObjectZZZ.printlnDateWithPosition(this, sLogs);
+//	}
+//	
+//	
+//			
+//	//++++++++++++++++++++++++++++++++++++++++++++++++
+//	
+//	@Override
+//	public synchronized void protocol(String... sLogs) throws ExceptionZZZ{
+//		this.protocol(this, sLogs); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(String sLog) throws ExceptionZZZ{
+//		this.protocol(this, sLog); //Merke: In der aehnlichen Methode von KernelLogZZZ (also static) "null" statt this
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(Object obj, String sLog) throws ExceptionZZZ{
+//		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLog);						
+//		System.out.println(sLogUsed);
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(Object obj, String... sLogs) throws ExceptionZZZ{
+//		String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLogs);						
+//		System.out.println(sLogUsed);
+//	}
+//
+//	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//	
+//	@Override
+//	public synchronized void protocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+//		this.protocol(this, ienumMappedLogString, sLog); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
+//	}
+//	
+//	@Override
+//	public void protocol(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+//		ienumaMappedLogString[0] = ienumMappedLogString;
+//		
+//		this.protocol(this, ienumaMappedLogString, sLogs);
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		this.protocol(this, ienumaMappedLogString, sLogs); //Merke: In der aehnlichen Methode von KerneleLosgZZZ (also static) "null" statt this
+//	}
+//		
+//	@Override
+//	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+//		ienumaMappedLogString[0] = ienumMappedLogString;
+//		this.protocol(ienumaMappedLogString, sLogs);
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		main:{
+//			if(ArrayUtilZZZ.isNull(sLogs)) break main;
+//			if(ArrayUtilZZZ.isNull(ienumaMappedLogString)){
+//				this.protocol(sLogs);
+//				break main;
+//			}
+//			
+//			int iIndex=0;
+//			if(obj==null) {			
+//				for(String sLog : sLogs) {
+//					if(ienumaMappedLogString.length>iIndex) {
+//						this.protocol(ienumaMappedLogString[iIndex],sLog);
+//						iIndex++;
+//					}else {
+//						this.protocol(sLog);
+//					}
+//				}
+//			}else {
+//				for(String sLog : sLogs) {
+//					if(ienumaMappedLogString.length>iIndex) {
+//						this.protocol(obj, ienumaMappedLogString[iIndex],sLog);
+//						iIndex++;
+//					}else {
+//						this.protocol(sLog);
+//					}
+//				}			
+//			}
+//		}//end main:
+//	}
+//	
+//	@Override
+//	public synchronized void protocol(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+//		String sLogUsed;
+//		if(obj==null) {
+//			sLogUsed = StringFormatManagerZZZ.getInstance().compute(sLog, ienumMappedLogString);
+//		}else {
+//			sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, ienumMappedLogString, sLog);
+//		}
+//		System.out.println(sLogUsed);
+//	}
+//	
+//	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(String... sLogs) throws ExceptionZZZ{
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
+//		this.protocol(this, saLog);
+//	}
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(String sLog) throws ExceptionZZZ{
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
+//		this.protocol(this, saLog);
+//	}
+//		
+//	@Override
+//	public synchronized void protocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
+//		this.protocol(obj, saLog); 
+//	}
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
+//		this.protocol(obj, saLog); 
+//	}
+//	
+//	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//		
+//	@Override
+//	public void protocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
+//		
+//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+//		ienumaMappedLogString[0] = ienumMappedLogString;
+//		
+//		this.protocol(this, ienumaMappedLogString, saLog);
+//	}
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
+//		this.protocol(this, ienumaMappedLogString, saLog); 
+//	}
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
+//		
+//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+//		ienumaMappedLogString[0] = ienumMappedLogString;
+//		
+//		this.protocol(this, ienumaMappedLogString, saLog); 
+//	}
+//	
+//	@Override
+//	public void protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
+//		
+//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+//		ienumaMappedLogString[0] = ienumMappedLogString;
+//		
+//		this.protocol(this, ienumMappedLogString, saLog);
+//	}
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLogs, sPositionCalling);
+//		this.protocol(this, ienumaMappedLogString, saLog); 
+//	}
+//	
+//	@Override
+//	public synchronized void protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
+//		String sPositionCalling = ReflectCodeZZZ.getPositionCalling();
+//		String[] saLog = StringArrayZZZ.prepend(sLog, sPositionCalling);
+//		this.protocol(this, ienumMappedLogString, saLog); 
+//	}
 }
 

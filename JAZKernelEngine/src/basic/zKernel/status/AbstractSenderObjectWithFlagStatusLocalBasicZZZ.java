@@ -73,18 +73,18 @@ public abstract class AbstractSenderObjectWithFlagStatusLocalBasicZZZ extends Ab
 					if(l instanceof IListenerObjectStatusLocalZZZ) {
 						IEventObjectStatusLocalZZZ eventUsed = (IEventObjectStatusLocalZZZ) event;
 						sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object '"+ this.getClass().getName() +"' called: listener.reactOnStatusLocalEvent(event) # " + i + ". IListenerObjectStatusLocalSetZZZ ("+l.getClass().getName()+")";
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 						IListenerObjectStatusLocalZZZ lused = (IListenerObjectStatusLocalZZZ) l;
 						lused.reactOnStatusLocalEvent(eventUsed);
 					}else {					
 						sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object '"+ this.getClass().getName() +"' instanceof type is not used yet # " + i + ". IListenerObjectStatusLocalSetZZZ ("+l.getClass().getName()+")";
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 					}
 				}
 			} catch (ExceptionZZZ ez) {
 				try {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object '"+ this.getClass().getName() +"' # throws Exception " + ez.getDetailAllLast();
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
 				}

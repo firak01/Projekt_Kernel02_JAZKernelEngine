@@ -65,7 +65,7 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 				ArrayListUniqueZZZ listaListenerRegistered = this.getListenerRegisteredAll();
 				if(ArrayListUtilZZZ.isEmpty(listaListenerRegistered)) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Keine Listener Registriert !!!!!!!!!!!!!";
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 					break main;
 				}
 				
@@ -83,15 +83,15 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 						String4SenderZZZ objFormater = new String4SenderZZZ();
 						String sLogUsedAdditional = StringFormatManagerZZZ.getInstance().compute(objFormater, l, "");											
 						sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Called for IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 						IListenerObjectStatusBasicZZZ lused = (IListenerObjectStatusBasicZZZ) l;
 						bReacted = lused.reactOnStatusLocalEvent(eventUsed);
 						if(!bReacted) {
 							sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> NICHT reagiert hat IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
-							this.logProtocol(sLog);
+							this.protocol(sLog);
 						}else{
 							sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Reagiert hat IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
-							this.logProtocol(sLog);
+							this.protocol(sLog);
 						}
 						
 						
@@ -101,13 +101,13 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 						String4SenderZZZ objFormater = new String4SenderZZZ();
 						String sLogUsedAdditional = StringFormatManagerZZZ.getInstance().compute(objFormater, l, " - nothing will be executed.");
 						sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Instanceof type is not used yet: " + sLogUsedAdditional;
-						this.logProtocol(sLog);
+						this.protocol(sLog);
 					}
 				}
 			} catch (ExceptionZZZ ez) {
 				try {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws ExceptionZZZ: " + ez.getDetailAllLast();
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
 				}
@@ -115,7 +115,7 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 				e.printStackTrace();
 				try {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws Exception: " + e.getMessage();
-					this.logProtocol(sLog);
+					this.protocol(sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
 				}
