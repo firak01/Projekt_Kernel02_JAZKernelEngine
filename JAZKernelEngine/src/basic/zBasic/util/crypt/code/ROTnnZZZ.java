@@ -10,6 +10,7 @@ import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ.CipherTypeZZZ;
 import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import custom.zKernel.Log;
 
 /**Definiere eine Liste von Zeichen.
  * Diese wird dann (auch als Großbuchstaben) durch das ROT (also Zeichenverschiebung) verschlüsselt.
@@ -78,7 +79,7 @@ public class ROTnnZZZ extends AbstractROTnnZZZ{
 				if(btemp==false){
 					 String sKey = stemp;
 					 sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-					 this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+					 Log.printlnDate(this, ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 					 
 					// Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!							
 					// ExceptionZZZ ez = new ExceptionZZZ(stemp, IFlagUserZZZ.iERROR_FLAG_UNAVAILABLE, this, ReflectCodeZZZ.getMethodCurrentName()); 							

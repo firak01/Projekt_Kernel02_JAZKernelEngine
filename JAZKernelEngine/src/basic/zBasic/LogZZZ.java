@@ -4,6 +4,13 @@ import basic.zBasic.util.string.formater.IStringFormatManagerZZZ;
 import basic.zBasic.util.system.Syso;
 import custom.zKernel.KernelLogZZZ;
 
+/** Wichtige Klasse ohne das Singleton-Log Objekt.
+ *  So kann man beim Initialisieren des Singleton-Log Objekts auch LogAusgaben machen.
+ *  
+ * @author Fritz Lindhauer
+ *
+ * @param <T>
+ */
 public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	private static final long serialVersionUID = -4674809839183596083L;
 

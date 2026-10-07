@@ -4,6 +4,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmMappedValueZZZ.CipherTypeZZZ;
 import basic.zBasic.util.datatype.character.AsciiZZZ;
+import custom.zKernel.Log;
 
 /**
  * Returns a list with Strings which are rotated ROT-n. n = 26 - listIndex
@@ -59,7 +60,7 @@ public class ROTnumericZZZ extends AbstractROTZZZ implements ICharacterPoolEnabl
 				if(btemp==false){
 					 String sKey = stemp;
 					 sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-					 this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+					 Log.printlnDate(this, ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 					 
 					// Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!							
 					// ExceptionZZZ ez = new ExceptionZZZ(stemp, IFlagUserZZZ.iERROR_FLAG_UNAVAILABLE, this, ReflectCodeZZZ.getMethodCurrentName()); 							

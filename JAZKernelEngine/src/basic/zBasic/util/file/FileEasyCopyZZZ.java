@@ -14,6 +14,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zKernel.KernelZZZ;
+import custom.zKernel.Log;
 
 public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements IFileEasyConstantsZZZ{
 	public static File copyFile(String sDirectorySourceIn, String sFilenameSourceIn, String sDirectoryTargetIn, String sFilenameTargetIn, boolean bOverwrite) throws ExceptionZZZ{
@@ -24,7 +25,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				sFileDirectorySourceUsed = FileEasyZZZ.getFileUsedPath(sFileDirectorySourceUsed);
 				if(!FileEasyZZZ.exists(sFileDirectorySourceUsed)){
 					String sLog = "Directory does not exists sFileDirectorySourceUsed='"+ sFileDirectorySourceUsed +"'";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -32,7 +33,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				String sFileNameSourceUsed = null;
 				if(StringZZZ.isEmpty(sFilenameSourceIn)){
 					String sLog = "Missing sFilenameSourceIn";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}else {
@@ -43,7 +44,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				String sFileDirectoryTargetUsed = null;
 				if(StringZZZ.isEmpty(sDirectoryTargetIn)){
 					String sLog = "Missing sDirectoryTargetIn, using sourcedirectory as targetdirectory.";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					
 					bSameDirectory = true;
 					sFileDirectoryTargetUsed = sFileDirectorySourceUsed;
@@ -58,7 +59,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 					}
 					if(!bDirectoryAvailable){
 						String sLog = "Directory does not exists and unable to create directory sFileDirectoryTargetUsed='"+ sFileDirectoryTargetUsed +"'";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}
@@ -68,12 +69,12 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				if(StringZZZ.isEmpty(sFilenameTargetIn)){
 					if(bSameDirectory) {
 						String sLog = "Missing sFilenameTargetIn, using same directory.";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}else {
 						String sLog = "Missing sFilenameTargetIn, using same filename like in source.";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						
 						sFileNameTargetUsed = sFileNameSourceUsed;
 					}
@@ -108,7 +109,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				
 				if(sFilePathTotalSource.equals(sFilePathTotalTarget)) {				
 					String sLog = "Ziel und Quellpfad identisch:'" + sFilePathTotalSource + "'";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -121,7 +122,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 					boolean bExists = FileEasyZZZ.exists(sFilePathTotalTarget);
 					if(bExists) {
 						String sLog = "Zieldatei existiert bereits:'" + sFilePathTotalSource + "'";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						break main;
 					}
 				}
@@ -133,7 +134,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 					objStreamFileSource = new StreamZZZ(sFilePathTotalSource, 0); //0 = read the file			
 				} catch (FileNotFoundException e) {				
 					String sLog = "Quelldatei nicht gefunden:'" + sFilePathTotalSource + "'";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				} catch (Exception e) {
@@ -146,7 +147,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 					objStreamFileTarget = new StreamZZZ(sFilePathTotalTarget, 1);  // 1 = write to the file		
 				} catch (FileNotFoundException e) {
 					String sLog = "Zieldatei nicht gefunden:'" + sFilePathTotalTarget + "'";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				} catch (Exception e) {
@@ -193,7 +194,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				sFileDirectorySourceUsed = FileEasyZZZ.getFileUsedPath(sFileDirectorySourceUsed);
 				if(!FileEasyZZZ.exists(sFileDirectorySourceUsed)){
 					String sLog = "Directory does not exists sFileDirectorySourceUsed='"+ sFileDirectorySourceUsed +"'";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -201,7 +202,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				String sFileNameSourceUsed = null;
 				if(StringZZZ.isEmpty(sFilenameSourceIn)){
 					String sLog = "Missing sFilenameSourceIn";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}else {
@@ -212,7 +213,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				String sFileDirectoryTargetUsed = null;
 				if(StringZZZ.isEmpty(sDirectoryTargetIn)){
 					String sLog = "Missing sDirectoryTargetIn, using sourcedirectory as targetdirectory.";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					
 					bSameDirectory = true;
 					sFileDirectoryTargetUsed = sFileDirectorySourceUsed;
@@ -227,7 +228,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 					}
 					if(!bDirectoryAvailable){
 						String sLog = "Directory does not exists and unable to create directory sFileDirectoryTargetUsed='"+ sFileDirectoryTargetUsed +"'";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}
@@ -237,12 +238,12 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				if(StringZZZ.isEmpty(sFilenameTargetIn)){
 					if(bSameDirectory) {
 						String sLog = "Missing sFilenameTargetIn, using same directory.";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 						throw ez;
 					}else {
 						String sLog = "Missing sFilenameTargetIn, using same filename like in source.";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						
 						sFileNameTargetUsed = sFileNameSourceUsed;
 					}
@@ -277,7 +278,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 				
 				if(sFilePathTotalSource.equals(sFilePathTotalTarget)) {				
 					String sLog = "Ziel und Quellpfad identisch:'" + sFilePathTotalSource + "'";
-					ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+					Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_EMPTY, FileEasyCopyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
@@ -290,7 +291,7 @@ public class FileEasyCopyZZZ extends AbstractObjectWithExceptionZZZ implements I
 					boolean bExists = FileEasyZZZ.exists(sFilePathTotalTarget);
 					if(bExists) {
 						String sLog = "Zieldatei existiert bereits:'" + sFilePathTotalSource + "'";
-						ObjectZZZ.printLineDate(FileEasyCopyZZZ.class, sLog);
+						Log.printlnDate(FileEasyCopyZZZ.class, sLog);
 						break main;
 					}
 				}

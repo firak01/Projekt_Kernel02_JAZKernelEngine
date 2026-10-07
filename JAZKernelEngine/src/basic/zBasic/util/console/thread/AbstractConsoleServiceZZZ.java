@@ -10,6 +10,7 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.abstractList.MapUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
@@ -57,7 +58,7 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 					if(btemp==false){
 						 String sKey = stemp;
 						 sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-						 this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+						 Log.printlnDate(this, ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 						//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!							
 						// ExceptionZZZ ez = new ExceptionZZZ(stemp, IFlagUserZZZ.iERROR_FLAG_UNAVAILABLE, this, ReflectCodeZZZ.getMethodCurrentName()); 							
 						// throw ez;		 

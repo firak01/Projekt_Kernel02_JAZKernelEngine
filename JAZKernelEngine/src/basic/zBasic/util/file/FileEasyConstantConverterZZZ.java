@@ -7,6 +7,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.datatype.xml.XmlUtilZZZ;
 import basic.zKernel.file.ini.KernelZFormulaIni_EmptyZZZ;
 import basic.zKernel.file.ini.ZTagFormulaIni_NullZZZ;
+import custom.zKernel.Log;
 
 public class FileEasyConstantConverterZZZ implements IFileEasyConstantsZZZ {
 	public static IFileEasyPathObjectZZZ convertFilePath(String sFilePathIn) throws ExceptionZZZ {
@@ -136,10 +137,10 @@ public class FileEasyConstantConverterZZZ implements IFileEasyConstantsZZZ {
 					}else {
 						sReturnRoot = FileEasyZZZ.getFileRootPath();
 						sLog="sReturnRoot='"+sReturnRoot+"'";
-						ObjectZZZ.printLineDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
+						Log.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
 						
 						sLog="sFilePath='"+sFilePath+"'";
-						ObjectZZZ.printLineDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
+						Log.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, sLog);
 						
 						if(!StringZZZ.isEmpty(sReturnRoot)) {
 							sReturnFilePath=StringZZZ.rightback(sFilePath, sReturnRoot+sDirectorySeparator);

@@ -6,6 +6,7 @@ import java.util.List;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.LogZZZ;
 import basic.zBasic.ReflectLaunchArgumentZZZ;
 import basic.zBasic.util.datatype.enums.EnumUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
@@ -58,7 +59,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing ConfigObject";
-			Log.printlnDateWithPosition(this, sLog);
+			LogZZZ.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehmen, da es ggfs. noch nicht erstellt ist. Endlosschleife
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

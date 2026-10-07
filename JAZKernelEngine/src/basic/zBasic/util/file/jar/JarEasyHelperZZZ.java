@@ -10,6 +10,7 @@ import basic.zBasic.ObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.machine.PlatformZZZ;
+import custom.zKernel.Log;
 
 /**siehe
  *  https://stackoverflow.com/questions/320542/how-to-get-the-path-of-a-running-jar-file
@@ -128,7 +129,7 @@ public class JarEasyHelperZZZ {
 		main:{
 		if(url==null)break main;
 	    String path = url;
-	    ObjectZZZ.printLineDate(JarEasyHelperZZZ.class, "(D0) url= '"+url.toString()+"'");
+	    Log.printlnDate(JarEasyHelperZZZ.class, "(D0) url= '"+url.toString()+"'");
 	    if (path.startsWith("jar:")) {
 	        // remove "jar:" prefix and "!/" suffix
 	        final int index = path.indexOf("!/");

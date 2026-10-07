@@ -11,6 +11,7 @@ import basic.zBasic.util.datatype.character.CharacterExtendedZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.datatype.string.UnicodeZZZ;
 import basic.zBasic.util.file.IFileEasyConstantsZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractVigenereZZZ extends AbstractObjectWithFlagZZZ implements IVigenereZZZ{
 
@@ -51,7 +52,7 @@ public abstract class AbstractVigenereZZZ extends AbstractObjectWithFlagZZZ impl
 				if(btemp==false){
 					 String sKey = stemp;
 					 sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-					 this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+					 Log.printlnDate(this, ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 					 
 					// Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!							
 					// ExceptionZZZ ez = new ExceptionZZZ(stemp, IFlagUserZZZ.iERROR_FLAG_UNAVAILABLE, this, ReflectCodeZZZ.getMethodCurrentName()); 							

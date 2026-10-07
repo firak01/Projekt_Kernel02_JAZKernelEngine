@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IObjectWithExpressionZZZ;
+import basic.zBasic.LogZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.ReflectWorkspaceZZZ;
 import basic.zBasic.config.AbstractConfigZZZ;
@@ -96,7 +97,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing KernelConfigObject";
-			Log.printlnDateWithPosition(this, sLog);
+			LogZZZ.printlnDateWithPosition(this, sLog); //Hier ncht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 
