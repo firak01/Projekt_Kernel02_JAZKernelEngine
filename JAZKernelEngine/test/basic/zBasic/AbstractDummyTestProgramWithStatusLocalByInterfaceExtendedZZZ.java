@@ -9,6 +9,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.status.EventObjectStatusLocalZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractDummyTestProgramWithStatusLocalByInterfaceExtendedZZZ extends AbstractProgramWithStatusLocalRunnableZZZ implements IDummyTestObjectWithStatusLocalByInterfaceExtendedZZZ{
 	private static final long serialVersionUID = 2211658342508385648L;
@@ -183,14 +184,14 @@ public abstract class AbstractDummyTestProgramWithStatusLocalByInterfaceExtended
 					bFunction = this.proofStatusLocalExists(sStatusName);															
 					if(!bFunction) {
 						String sLog = ReflectCodeZZZ.getPositionCurrent() + "Would like to fire event, but this status is not available: '" + sStatusName + "'";
-						this.protocol(sLog);			
+						Log.protocol(this, sLog);			
 						break main;
 					}
 					
 				bFunction = this.proofStatusLocalValueChanged(sStatusName, bStatusValue);
 				if(!bFunction) {
 					String sLog = ReflectCodeZZZ.getPositionCurrent() + "Would like to fire event, but this status has not changed: '" + sStatusName + "'";
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 					break main;
 				}	
 				
@@ -214,12 +215,12 @@ public abstract class AbstractDummyTestProgramWithStatusLocalByInterfaceExtended
 				}
 				
 				String sLog = ReflectCodeZZZ.getPositionCurrent() + "Verarbeite sStatusMessageToSet='" + sStatusMessageToSet + "'";
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 
 				//Falls eine Message extra uebergeben worden ist, ueberschreibe...
 				if(sStatusMessageToSet!=null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "Setze sStatusMessageToSet='" + sStatusMessageToSet + "'";
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 				}
 				//Merke: Dabei wird die uebergebene Message in den speziellen "Ringspeicher" geschrieben, auch NULL Werte...
 				this.offerStatusLocalEnum(enumStatus, bStatusValue, sStatusMessageToSet);
@@ -230,13 +231,13 @@ public abstract class AbstractDummyTestProgramWithStatusLocalByInterfaceExtended
 				//Dann erzeuge den Event und feuer ihn ab.	
 				if(this.getSenderStatusLocalUsed()==null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "Would like to fire event '" + enumStatus.getAbbreviation() + "', but no objEventStatusLocalBroker available, any registered?";
-					this.protocol(sLog);		
+					Log.protocol(this, sLog);		
 					break main;
 				}
 				
 				//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
 				sLog = ReflectCodeZZZ.getPositionCurrent() + "Erzeuge Event fuer '" + sStatusName + "'";		
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 				IEventObjectStatusLocalZZZ event = new EventObjectStatusLocalZZZ(this,enumStatus, bStatusValue);			
 				
 				//### GGFS. noch weitere benoetigte Objekte hinzufuegen............
@@ -245,7 +246,7 @@ public abstract class AbstractDummyTestProgramWithStatusLocalByInterfaceExtended
 						
 				//Feuere den Event ueber den Broker ab.
 				sLog = ReflectCodeZZZ.getPositionCurrent() + "Fires event '" + enumStatus.getAbbreviation() + "'";
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 				this.getSenderStatusLocalUsed().fireEvent(event);
 						
 				bFunction = true;				

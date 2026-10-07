@@ -129,7 +129,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 1x Logstring
 			sLog1 = "XXXTESTLAENGERXXX";			
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.			
-			sValue = objLogTest.computeLine(this,iaFormat, sLog1);
+			sValue = objLogTest.computeln(this,iaFormat, sLog1);
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Nur 1x den MessageSeparator
@@ -158,7 +158,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 2x Logstring
 			sLog2 = "ZZZTESTZZZ";
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLine(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
+			sValue = objLogTest.computeln(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Aber, wg. unterschiedlicher Kommentare zweizeilige Ausgabe
@@ -201,7 +201,7 @@ public class KernelLogZZZTest extends TestCase{
 			//### Nun wirkt sich auch aus, das der PositionSeparator ~ verwendet wird, und dies bleibt bündig.
 			sLog3 = "YTESTY";
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLine(this, iaFormat, sLog3); //auch wenn log3 kuerzer ist als alles zuvor, erwarte ich dass die Ausgabe buendig ist. Auch in der Spalte vor der CodePosition 
+			sValue = objLogTest.computeln(this, iaFormat, sLog3); //auch wenn log3 kuerzer ist als alles zuvor, erwarte ich dass die Ausgabe buendig ist. Auch in der Spalte vor der CodePosition 
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Nur 1x den LogString1
@@ -286,7 +286,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 2x Logstring
 			sLog2 = "ZZZTESTZZZ";
 			
-			sValue = objLogTest.computeLine(this, sLog1, sLog2);
+			sValue = objLogTest.computeln(this, sLog1, sLog2);
 			//sValue = objLogTest.computeLine(this, sLog1, sLog2);
 			
 			//Da man die Anzahl der zum Buendigmachen verwendeten Leerzeichen nicht kennt: Anfang und Ende vergleichen.
@@ -376,7 +376,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 2x Logstring
 			sLog2 = "ZZZTESTZZZ";
 			
-			sValue = objLogTest.computeLine(this, sLog1, sLog2);
+			sValue = objLogTest.computeln(this, sLog1, sLog2);
 			//sValue = objLogTest.computeLine(this, sLog1, sLog2);
 			
 			//Da man die Anzahl der zum Buendigmachen verwendeten Leerzeichen nicht kennt: Anfang und Ende vergleichen.
@@ -465,7 +465,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 1x Logstring
 			sLog1 = "XXXTESTLAENGERXXX";			
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.			
-			sValue = objLogTest.computeLine(this,iaFormat, sLog1);
+			sValue = objLogTest.computeln(this,iaFormat, sLog1);
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Nur 1x den MessageSeparator
@@ -494,7 +494,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 2x Logstring
 			sLog2 = "ZZZTESTZZZ";
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLine(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
+			sValue = objLogTest.computeln(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
 			System.out.println("LogZZZTest.testComputeLine_CUSTOM(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Zweizeilige Ausgabe
@@ -533,7 +533,7 @@ public class KernelLogZZZTest extends TestCase{
 			//### Nun wirkt sich auch aus, das der PositionSeparator ~ verwendet wird, und dies bleibt bündig.
 			sLog3 = "YTESTY";
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLine(this, iaFormat, sLog3); //auch wenn log3 kuerzer ist als alles zuvor, erwarte ich dass die Ausgabe buendig ist. Auch in der Spalte vor der CodePosition 
+			sValue = objLogTest.computeln(this, iaFormat, sLog3); //auch wenn log3 kuerzer ist als alles zuvor, erwarte ich dass die Ausgabe buendig ist. Auch in der Spalte vor der CodePosition 
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Nur 1x den LogString1
@@ -646,7 +646,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 1x Logstring
 			sLog1 = "XXXTESTLAENGERXXX";			
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.			
-			sValue = objLogTest.computeLine(this,iaFormat, sLog1);
+			sValue = objLogTest.computeln(this,iaFormat, sLog1);
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 						
 			//Nur 1x den LogString
@@ -674,7 +674,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Zeile mit 2x Logstring
 			sLog2 = "ZZZTESTZZZ";
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLine(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
+			sValue = objLogTest.computeln(this, iaFormat, sLog2, sLog1); //auch wenn log2 kuerzer als log1 ist, erwarte ich dass die Ausgabe buendig ist 
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Nur 1x den LogString1
@@ -707,7 +707,7 @@ public class KernelLogZZZTest extends TestCase{
 			//### Nun wirkt sich auch aus, das der PositionSeparator ~ verwendet wird, und dies bleibt bündig.
 			sLog3 = "YTESTY";
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLine(this, iaFormat, sLog3); //auch wenn log3 kuerzer ist als alles zuvor, erwarte ich dass die Ausgabe buendig ist. Auch in der Spalte vor der CodePosition 
+			sValue = objLogTest.computeln(this, iaFormat, sLog3); //auch wenn log3 kuerzer ist als alles zuvor, erwarte ich dass die Ausgabe buendig ist. Auch in der Spalte vor der CodePosition 
 			System.out.println("LogZZZTest."+sLogPosition+"(): Logausgabe in nächster Zeile.\n" + sValue);
 			
 			//Nur 1x den LogString1
@@ -783,7 +783,7 @@ public class KernelLogZZZTest extends TestCase{
 			sLog2 = strTEST_ENTRY02_DEFAULT;
 			
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLineDate(this);
+			sValue = objLogTest.computelnDate(this);
 			assertNotNull(sValue);
 			System.out.println("LogZZZTest.testComputeLineDate(): (1) In der nächsten Zeile steht der Testergebnis-String\n" + sValue);
 			
@@ -801,7 +801,7 @@ public class KernelLogZZZTest extends TestCase{
 			
 			//################################################
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLineDate(this, sLog1); //Darin wird die Zeile schon "bündig gemacht".
+			sValue = objLogTest.computelnDate(this, sLog1); //Darin wird die Zeile schon "bündig gemacht".
 			assertNotNull(sValue);
 			System.out.println("LogZZZTest.testComputeLineDate(): (2) In der nächsten Zeile steht der Testergebnis-String\n" + sValue);
 			
@@ -821,7 +821,7 @@ public class KernelLogZZZTest extends TestCase{
 			
 			
 			//################################################
-			sValue = objLogTest.computeLineDate(this, sLog1, sLog2); //Darin wird die Zeile schon "bündig gemacht".
+			sValue = objLogTest.computelnDate(this, sLog1, sLog2); //Darin wird die Zeile schon "bündig gemacht".
 			assertNotNull(sValue);
 			System.out.println("LogZZZTest.testComputeLineDate(): (3) In der nächsten Zeile steht der Testergebnis-String\n" + sValue);
 			
@@ -877,7 +877,7 @@ public class KernelLogZZZTest extends TestCase{
 			sLog2 = strTEST_ENTRY02_DEFAULT;
 			
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLineDateWithPosition(this);
+			sValue = objLogTest.computelnDateWithPosition(this);
 			assertNotNull(sValue);
 			System.out.println("LogZZZTest.testComputeLineDateWithPosition(): (1) In der nächsten Zeile steht der Testergebnis-String\n" + sValue);
 			
@@ -894,7 +894,7 @@ public class KernelLogZZZTest extends TestCase{
 			
 			//########################################
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLineDateWithPosition(this, sLog1); //Darin wird die Zeile schon "bündig gemacht".
+			sValue = objLogTest.computelnDateWithPosition(this, sLog1); //Darin wird die Zeile schon "bündig gemacht".
 			assertNotNull(sValue);
 			System.out.println("LogZZZTest.testComputeLineDateWithPosition(): (1) In der nächsten Zeile steht der Testergebnis-String\n" + sValue);
 			
@@ -915,7 +915,7 @@ public class KernelLogZZZTest extends TestCase{
 			//#########################################
 			
 			iLine = ReflectCodeZZZ.getMethodCurrentLine()+1;//+1, weil halt die naechste Zeile im Code.
-			sValue = objLogTest.computeLineDateWithPosition(this, sLog1, sLog2); //Darin wird die Zeile schon "bündig gemacht".
+			sValue = objLogTest.computelnDateWithPosition(this, sLog1, sLog2); //Darin wird die Zeile schon "bündig gemacht".
 			assertNotNull(sValue);
 			System.out.println("LogZZZTest.testComputeLineDateWithPosition(): (1) In der nächsten Zeile steht der Testergebnis-String\n" + sValue);
 			

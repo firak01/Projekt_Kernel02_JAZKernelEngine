@@ -21,6 +21,7 @@ import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
 import basic.zKernel.flag.event.ISenderObjectFlagZsetZZZ;
 import basic.zKernel.flag.event.KernelSenderObjectFlagZsetZZZ;
 import basic.zKernel.flag.util.FlagZFassadeZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractObjectWithFlagZZZ<T> extends AbstractObjectWithExceptionZZZ<Object> implements IFlagZEnabledZZZ, IEventBrokerFlagZsetUserZZZ, IFlagZCustomEnabledZZZ, IFlagZLocalEnabledZZZ{
 	private static final long serialVersionUID = 1L;
@@ -62,7 +63,7 @@ public abstract class AbstractObjectWithFlagZZZ<T> extends AbstractObjectWithExc
 						boolean bFound = this.setFlag(saFlag[icount], true);
 						if(!bFound) {
 							sLog = ReflectCodeZZZ.getPositionCurrent()+"Flag not available: '" + saFlag[icount] +"'";
-							this.protocol(sLog);							
+							Log.protocol(this, sLog);							
 						}
 					}
 				}

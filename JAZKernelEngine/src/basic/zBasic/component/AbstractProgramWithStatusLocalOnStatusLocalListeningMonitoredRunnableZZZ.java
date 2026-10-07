@@ -8,6 +8,7 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.status.IStatusLocalMapForMonitoringStatusLocalUserZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractProgramWithStatusLocalOnStatusLocalListeningMonitoredRunnableZZZ extends AbstractProgramWithStatusLocalOnStatusLocalListeningRunnableZZZ implements IStatusLocalMapForMonitoringStatusLocalUserZZZ {
 	private static final long serialVersionUID = -1445384815158662362L;
@@ -45,7 +46,7 @@ public abstract class AbstractProgramWithStatusLocalOnStatusLocalListeningMonito
 			this.startCustom();
 		} catch (ExceptionZZZ ez) {
 			try {
-				this.protocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {				
 				e.printStackTrace();
 			}

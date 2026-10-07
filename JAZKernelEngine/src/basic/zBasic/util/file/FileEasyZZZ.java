@@ -685,7 +685,7 @@ public static File searchDirectory(String sDirectoryPathIn) throws ExceptionZZZ{
 	File objReturn = null;
 	main:{
 		String sLog = "Directory to search for= '" + sDirectoryPathIn + "'";
-		ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+		ObjectZZZ.printLineDateWithPosition(FileEasyZZZ.class, sLog);
 		objReturn = FileEasyZZZ.searchDirectory(sDirectoryPathIn, false);
 	}//end main:
 	return objReturn;
@@ -718,7 +718,7 @@ public static File searchDirectory(String sDirectoryIn, boolean bSearchInJar)thr
 			}
 		}else {
 			sLog = "sDirectory=null.";
-			ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);			
+			ObjectZZZ.printLineDateWithPosition(FileEasyZZZ.class, sLog);			
 		}
 		
 		sDirectory = FileEasyZZZ.getFileUsedPath(sDirectoryIn);		
@@ -727,11 +727,11 @@ public static File searchDirectory(String sDirectoryIn, boolean bSearchInJar)thr
 			//ACHTUNG ENDLOSSCHLEIFE WENN MAN HIER NICHT IN DEN ABSOLUTEN PFAD UMSCHWENKT...				
 			String sDirectoryRoot = FileEasyZZZ.getDirectoryOfExecutionAsString();
 			sLog = "(2) sDirectoryRoot='" + sDirectoryRoot + "'";
-			ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+			ObjectZZZ.printLineDateWithPosition(FileEasyZZZ.class, sLog);
 			
 			String sDirectoryAbsolute = FileEasyZZZ.joinFilePathName(sDirectoryRoot, sDirectory);
 			sLog = "(2) GEBAUTER ABSOLUTER PFAD sDirectoryAbsolute='" + sDirectoryAbsolute + "'";
-			ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+			ObjectZZZ.printLineDateWithPosition(FileEasyZZZ.class, sLog);
 			
 			objReturn = FileEasyZZZ.searchDirectory(sDirectoryAbsolute, bSearchInJar); //Diesmal aber als absoluten Pfad...
 			if(objReturn!=null){
@@ -753,7 +753,7 @@ public static File searchDirectory(String sDirectoryIn, boolean bSearchInJar)thr
 			//Suche nach dem Verzeichnis in der gleichen JAR DAtei:
 			//Merke: Verzeichnisse können nur zurückgegeben  werden, wenn Sie als Kopie irgendwo erstellt werden.
 			sLog = "() SUCHE IN JAR mit searchResourceDirectoryFirst mit '" + sDirectory + "' und sTargetDirectoryPathRootIn=ZZZ";
-			ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+			ObjectZZZ.printLineDateWithPosition(FileEasyZZZ.class, sLog);
 			objReturn = JarEasyInCurrentJarZZZ.searchResourceDirectoryFirst(sDirectory, "ZZZ");
 			if(objReturn!=null){
 				if(objReturn.exists()) {
@@ -2166,7 +2166,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 		
 			bReturn = !file2proof.isFile();
 		}//end main:
-		ObjectZZZ.printlnDate(FileEasyZZZ.class, "isDirectory=" + bReturn );
+		ObjectZZZ.printLineDate(FileEasyZZZ.class, "isDirectory=" + bReturn );
 		return bReturn;	
 	}
 	
@@ -2191,7 +2191,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			}
 		
 		}//end main:
-		KernelLogZZZ.logProtocolStringStatic(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
+		KernelLogZZZ.protocolStringStatic(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
 		return bReturn;	
 	}
 	
@@ -2219,7 +2219,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				bReturn = FileEasyZZZ.isDirectoryExisting(file2proof);				
 			}						
 		}//end main:
-		ObjectZZZ.printlnDate(FileEasyZZZ.class, "isDirectoryExistingInTemp=" + bReturn) ;
+		ObjectZZZ.printLineDate(FileEasyZZZ.class, "isDirectoryExistingInTemp=" + bReturn) ;
 		return bReturn;	
 	}
 	
@@ -2247,7 +2247,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				bReturn = !FileEasyZZZ.isDirectory(file2proof);
 			}						
 		}//end main;
-		ObjectZZZ.printlnDate(FileEasyZZZ.class, "isFileExisting=" + bReturn + " (File: '" + file2proof.getAbsolutePath() + "')") ;
+		ObjectZZZ.printLineDate(FileEasyZZZ.class, "isFileExisting=" + bReturn + " (File: '" + file2proof.getAbsolutePath() + "')") ;
 		return bReturn;	
 	}
 	
@@ -2267,12 +2267,12 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			}
 			
 			if(FileEasyZZZ.isDirectory(file2proof)==false) break main;
-			ObjectZZZ.printlnDate(FileEasyZZZ.class, "#isDirectory=false' (File: '" + file2proof.getAbsolutePath() + "')") ;
+			ObjectZZZ.printLineDate(FileEasyZZZ.class, "#isDirectory=false' (File: '" + file2proof.getAbsolutePath() + "')") ;
 			
 			File fileParent = file2proof.getParentFile();
 			if(fileParent == null) bReturn = true;
 		}
-		ObjectZZZ.printlnDate(FileEasyZZZ.class, "isRoot=" + bReturn) ;
+		ObjectZZZ.printLineDate(FileEasyZZZ.class, "isRoot=" + bReturn) ;
 		return bReturn;
 	}
 	
@@ -2433,7 +2433,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					//ExceptionZZZ ez = new ExceptionZZZ("Fileobject existiert nicht: '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					//throw ez;
 					
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "Provided File Objekt does not exist = '" + objFile.getAbsolutePath() +"'");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "Provided File Objekt does not exist = '" + objFile.getAbsolutePath() +"'");
 					break main;
 				}
 				if(!objFile.isFile()) {
@@ -2441,7 +2441,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					//ExceptionZZZ ez = new ExceptionZZZ("Fileobject ist keine Datei: '" + objFile.getAbsolutePath() + "'", iERROR_PARAMETER_MISSING, FileEasyZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 					//throw ez;
 					
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "Provided File Objekt is no file = '" + objFile.getAbsolutePath() +"'");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "Provided File Objekt is no file = '" + objFile.getAbsolutePath() +"'");
 					break main;
 				}
 				
@@ -2450,7 +2450,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				try {
 					//Merke: Wenn es kein ZipFile ist, so wird ein Fehler (IOException) geworfen. Dieses vorher prüfen und so die Exception vermeiden. 
 					if(!FileEasyZZZ.isZip(objFile)) {
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "Provided File Objekt is no zip-file-Type = '" + objFile.getAbsolutePath() +"'");
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "Provided File Objekt is no zip-file-Type = '" + objFile.getAbsolutePath() +"'");
 						break main;
 					}
 					
@@ -2519,7 +2519,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					fileDirectory = fileDirectoryIn;
 				}else {
 					fileDirectory = fileDirectoryIn.getParentFile();
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "Verwende Parent '" + fileDirectory.getAbsolutePath() +"'");					
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "Verwende Parent '" + fileDirectory.getAbsolutePath() +"'");					
 				}
 				
 				FileFilter directoryFilter = new FileFilter() {
@@ -2550,7 +2550,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					fileDirectory = fileDirectoryIn;
 				}else {					
 					fileDirectory = fileDirectoryIn.getParentFile();
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "Verwende Parent '" + fileDirectory.getAbsolutePath() +"'");					
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "Verwende Parent '" + fileDirectory.getAbsolutePath() +"'");					
 				}
 				
 				FileFilter fileFilter = new FileFilter() {
@@ -2610,7 +2610,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 	public static File searchFileObjectInWorkspace(IKernelConfigZZZ objConfig, String sFile) throws ExceptionZZZ{
 		File objReturn = null;
 		main:{
-			ObjectZZZ.printlnDate(FileEasyZZZ.class, "Suche auf Projektebene im Workspace.");
+			ObjectZZZ.printLineDate(FileEasyZZZ.class, "Suche auf Projektebene im Workspace.");
 		    		    
 		    if(objConfig==null) {
 		    	ExceptionZZZ ez = new ExceptionZZZ("IKernelConfig - Object", iERROR_PARAMETER_MISSING,   FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
@@ -2643,7 +2643,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			//Lösungsidee 3: Merke: "." holt doch tatsächlich den Ordner des aktuell ausgefuehrten Projekts!!!
 			if(sFile==null) {//Merke: NULL führt in der searchFileObjectByClassloader_ Methode zu einer Exception.				
 				sFile=FileEasyZZZ.getFileRootPath();
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, "NULL in '" + sFile +"' umgeändert.");
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, "NULL in '" + sFile +"' umgeändert.");
 			}
 			objReturn = searchFileObjectByClassloader_(sFile, true);
 								
@@ -2782,12 +2782,12 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				//1. Versuch mit Classloader
 				workspaceURL = new File(sPath).toURI().toURL();
 				if(workspaceURL!=null){
-					ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, "(B) Searching for file by classloader.getResource '" + sPath +"'");
+					ObjectZZZ.printLineDateWithPosition(FileEasyZZZ.class, "(B) Searching for file by classloader.getResource '" + sPath +"'");
 					String sPathInWorkspace = workspaceURL.getPath();
 					String[] saStringsToBeStripped ={File.separator};
 					String sPathNormed = StringZZZ.stripRight(sPathInWorkspace, saStringsToBeStripped);					
 					
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(B) URL is not null'");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(B) URL is not null'");
 					try {			
 						objReturn = new File(workspaceURL.toURI());
 						if(FileEasyZZZ.exists(objReturn)) break main;
@@ -2796,19 +2796,19 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 						if(FileEasyZZZ.exists(objReturn)) break main;
 					}
 				}else{
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(B) URL is null'");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(B) URL is null'");
 				}
 				
 				
 				//2. Versuch (beim "." wird ggfs. das bin - - Verzeichnis zurükgegeben. Dies entfernen.
 				if(workspaceURL!=null){
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(C) Searching for file by classloader.getResource '" + sPath +"', stripping bin - Directory");		
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(C) Searching for file by classloader.getResource '" + sPath +"', stripping bin - Directory");		
 					String sPathInWorkspace = workspaceURL.getPath();
 					String[] saStringsToBeStripped2 ={"bin",File.separator};
 					String sParthNormed = StringZZZ.stripRight(sPathInWorkspace, saStringsToBeStripped2);
 					workspaceURL = classLoader.getResource(sParthNormed);
 					if(workspaceURL!=null){
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "(C) URL is not null'");
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "(C) URL is not null'");
 						try {			
 							objReturn = new File(workspaceURL.toURI());
 							if(FileEasyZZZ.exists(objReturn)) break main;
@@ -2817,7 +2817,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 							if(FileEasyZZZ.exists(objReturn)) break main;
 						}
 					}else{
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "(C) URL is null'");						
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "(C) URL is null'");						
 					}
 				}				
 			} catch (MalformedURLException e) {	
@@ -2912,19 +2912,19 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			try {		
 				workspaceURL = new File(sPath).toURI().toURL();
 				if(workspaceURL!=null){	
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(A) Searching for file by URI '" + sPath +"'");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(A) Searching for file by URI '" + sPath +"'");
 				    				    
 					String sWorkspaceURL = workspaceURL.getPath();					
 					sWorkspaceURL = StringZZZ.stripFileSeparators(sWorkspaceURL);
 					objReturn = new File(sWorkspaceURL);	
 					if(FileEasyZZZ.exists(objReturn)) {
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "(A1) FileObjekt gefunden '" + sPath + "'");
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "(A1) FileObjekt gefunden '" + sPath + "'");
 						break main;
 					}else{
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "(A1) FileObjekt nicht gefunden '" + sPath + "'");
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "(A1) FileObjekt nicht gefunden '" + sPath + "'");
 					}
 				}else{
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(A1) URL is null'");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(A1) URL is null'");
 				}
 				
 			} catch (MalformedURLException e) {	
@@ -3093,11 +3093,11 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			URL url= ClassLoader.getSystemResource(".");
 			if(url==null) {
 				String sLog = "unable to receive url object";
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, sLog);
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}else {
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, "URL = '"+url.toExternalForm() + "'");				
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, "URL = '"+url.toExternalForm() + "'");				
 			}
 			sReturn = url.toExternalForm();
 		}//end main:
@@ -3110,11 +3110,11 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			URL url= ClassLoader.getSystemResource(".");
 			if(url==null) {
 				String sLog = "unable to receive url object";
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, sLog);
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, sLog);
 				ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_RUNTIME, FileEasyZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}else {
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, "URL = '"+url.toString() + "'");				
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, "URL = '"+url.toString() + "'");				
 			}
 			sReturn = url.toString();
 		}//end main:
@@ -3235,7 +3235,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				//Falls ein Verzeichnispfad übergeben wird, wird dieser "flach" gemacht. Man kann als temp-Datei keine Verzeichnisse bauen.
 				String sFilePathNormedForTempFile = FileEasyZZZ.flattenFilePathToFileName(sFilePath);
 				
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, "(F) To FileName flattended Path: '" + sFilePathNormedForTempFile + "'");				
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, "(F) To FileName flattended Path: '" + sFilePathNormedForTempFile + "'");				
 				objReturn = File.createTempFile(sFilePathNormedForTempFile, null);
 			} catch (IOException ioe) {
 				ExceptionZZZ ez = new ExceptionZZZ("IOException: '" + ioe.getMessage() + "'", iERROR_RUNTIME,  ReflectCodeZZZ.getMethodCurrentName(), "",ioe);
@@ -3302,7 +3302,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					ExceptionZZZ ez  = new ExceptionZZZ("File Object for DirectoryPath ", iERROR_PARAMETER_MISSING, null, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}				
-				ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KA) XXXXXXXXXXXXXX.");
+				ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KA) XXXXXXXXXXXXXX.");
 				
 				//Merke: Wenn kein Verzeichnis übergeben wurde, dann wird das Verzeichnis eben geholt.
 				File objFileDirectory;
@@ -3311,55 +3311,55 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 					bFileStart = true;
 					objFileDirectory = objFileIn.getParentFile();
 					
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KA->X) XXXXXXXXXXXXXX.");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KA->X) XXXXXXXXXXXXXX.");
 					if(objFileDirectory==null) break main;			
 				}else {
 					objFileDirectory = objFileIn;
 				}
 				if(objFileDirectory.exists()==false){
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KA->Y) XXXXXXXXXXXXXX.");				   	
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KA->Y) XXXXXXXXXXXXXX.");				   	
 					bReturn = true;
 					break main;
 				}
 				if(FileEasyZZZ.isRoot(objFileDirectory)) {
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KA->Z) XXXXXXXXXXXXXX.");				   	
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KA->Z) XXXXXXXXXXXXXX.");				   	
 					break main;
 				}
 				
 				//REKURSION: Wenn Unterverzeichnisse gelöscht werden sollen. Diese hier holen.
 				if(bEmptyDirectoryBefore || bFileStart){
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KAA) XXXXXXXXXXXXXX.");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KAA) XXXXXXXXXXXXXX.");
 				   	
 					//Hole alle Dateien und Verzeichniss			
 					File[] objaFile =  objFileDirectory.listFiles();
 					if(objaFile.length==0) {
 						if(bRemoveSubDirectories) {
-							ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KAAA) XXXXXXXXXXXXXX.");						   							   
+							ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KAAA) XXXXXXXXXXXXXX.");						   							   
 							bReturn = objFileDirectory.delete();//Lösche das aktuelle Verzeichnis, es sollte nun leer sein.
 						}else {
 							//Dann ist es halt ohne Löschen des Verzeichnisses erfolgreich zuende
 							bReturn = true;
 						}
 					}else {
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KAAB) XXXXXXXXXXXXXX.");
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KAAB) XXXXXXXXXXXXXX.");
 					   	
 						//Nur löschen, wenn explizit gesagt worden ist "alle Dateien" löschen
 						if(bEmptyDirectoryBefore) {
 							for(int icount = 0; icount <= objaFile.length - 1; icount++){
 								File objFileTemp = objaFile[icount];
 								if(objFileTemp.isFile()) {
-									ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KAABA) XXXXXXXXXXXXXX.");								   									   	
+									ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KAABA) XXXXXXXXXXXXXX.");								   									   	
 									bReturn = objFileTemp.delete();
 								}else {
 									if(bRemoveSubDirectories) {
-										ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KAABB) XXXXXXXXXXXXXX.");									   										   	
+										ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KAABB) XXXXXXXXXXXXXX.");									   										   	
 										bReturn = FileEasyZZZ.removeDirectory(objFileTemp, bEmptyDirectoryBefore, bRemoveSubDirectories);
 									}else {
 								}	
 							}//if(!bReturn).....
 						}		
 							
-						ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KAABC) XXXXXXXXXXXXXX.");						
+						ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KAABC) XXXXXXXXXXXXXX.");						
 						bReturn = objFileDirectory.delete(); //Das Verzeichnis sollte nun leer sein und kann dadurch gel�scht werden
 					}else {
 							//Das Verzeichnis wird nicht geleert, darf also nicht gelöscht werden.
@@ -3370,12 +3370,12 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 						}
 					}
 				}else{			
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KA->ZZ) XXXXXXXXXXXXXX.");
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KA->ZZ) XXXXXXXXXXXXXX.");
 				   						
 					//Gibt false zurück, wenn z.B. das Directory nicht leer ist.
 					bReturn = objFileDirectory.delete();
 					
-					ObjectZZZ.printlnDate(FileEasyZZZ.class, "(KA->ZZ) bReturn = " + bReturn);
+					ObjectZZZ.printLineDate(FileEasyZZZ.class, "(KA->ZZ) bReturn = " + bReturn);
 				}
 			}
 			return bReturn;

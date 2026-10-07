@@ -22,6 +22,7 @@ import basic.zKernel.status.IStatusLocalUserZZZ;
 import basic.zKernel.status.StatusBooleanMessageZZZ;
 import basic.zKernel.status.StatusBooleanZZZ;
 import basic.zKernel.status.StatusLocalAvailableHelperZZZ;
+import custom.zKernel.Log;
 
 /** Merke: Abstrakte Klasse, welche die Methoden aus AbstractObjectWithStatusZZZ
  *  extra implementieren muss (IStatusLocalUserMessageZZZ), da hier aus dem "Program"-Zweig geerbt wird und Mehrfach-Erben nicht moeglich ist.
@@ -59,7 +60,7 @@ public abstract class AbstractProgramWithStatusLocalRunnableZZZ extends Abstract
 			this.startCustom();
 		} catch (ExceptionZZZ ez) {
 			try {
-				this.protocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {				
 				e.printStackTrace();
 			}

@@ -4,6 +4,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
+import custom.zKernel.Log;
 import junit.framework.TestCase;
 
 public class KernelUseObjectZZZTest extends TestCase {
@@ -47,11 +48,13 @@ public class KernelUseObjectZZZTest extends TestCase {
 		try{
 			String sLog = null; String sLog2 = null; String[]saLog = null;
 			sLog = "Test01";
-			objKernelUserTest.printlnDateWithPosition(sLog);
+			//objKernelUserTest.printlnDateWithPosition(sLog);
+			Log.printlnDateWithPosition(objKernelUserTest, sLog);
 			
 			sLog2 = "unter Test01";
 			saLog = StringArrayZZZ.append(sLog, sLog2);
-			objKernelUserTest.printlnDateWithPosition(saLog);
+			//objKernelUserTest.printlnDateWithPosition(saLog);
+			Log.printlnDateWithPosition(objKernelUserTest, saLog);
 			
 			
 		}catch(ExceptionZZZ ez){
@@ -64,11 +67,13 @@ public class KernelUseObjectZZZTest extends TestCase {
 		try{
 			String sLog = null; String sLog2 = null; String[]saLog = null;
 			sLog = "Test01";
-			objKernelUserTest.protocolWithPosition(sLog);
+			//objKernelUserTest.protocolWithPosition(sLog);
+			Log.protocolWithPosition(objKernelUserTest, sLog);
 			
 			sLog2 = "unter Test01";
 			saLog = StringArrayZZZ.append(sLog, sLog2);
-			objKernelUserTest.protocolWithPosition(saLog);
+			//objKernelUserTest.protocolWithPosition(saLog);
+			Log.protocolWithPosition(objKernelUserTest, saLog);
 						
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();

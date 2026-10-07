@@ -21,6 +21,7 @@ import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
 import basic.zKernel.status.IStatusLocalMapForStatusLocalUserZZZ;
 import basic.zKernel.status.StatusLocalAvailableHelperZZZ;
 import custom.zKernel.KernelLogZZZ;
+import custom.zKernel.Log;
 
 /**
  * @author 0823
@@ -148,7 +149,7 @@ public abstract class AbstractKernelUseObjectOnStatusLocalListeningZZZ extends A
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = ReflectCodeZZZ.getPositionCurrent() + "The passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.printlnDate(sLog);
+									 Log.printlnDate(this, sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 

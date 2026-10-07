@@ -42,18 +42,22 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//### aus ISystemZZZ
 	//++++++++++++++ Ohne Zeilenumbruch
 	@Override
-	public void print(String s, boolean bPrintOutput) throws ExceptionZZZ{
+	public boolean print(String s, boolean bPrintOutput) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			if(!bPrintOutput) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.print(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	
 	@Override
-	public void print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+	public boolean print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			if(enumLogLevel==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
@@ -66,11 +70,14 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.print(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	@Override
-	public void print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+	public boolean print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			if(enumPrintLevel==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("enumPrintLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
@@ -83,35 +90,44 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.print(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	@Override
-	public void print(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+	public boolean print(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			int iPrintLevelAllowed = this.getPrintLevelOverall();
 			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.print(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	
 	//++++++++++++++ Mit Zeilenumbruch
 	@Override
-	public void println(String s, boolean bPrintOutput) throws ExceptionZZZ{
+	public boolean println(String s, boolean bPrintOutput) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			if(!bPrintOutput) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.println(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	
 	@Override
-	public void println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+	public boolean println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			if(enumLogLevel==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
@@ -124,11 +140,14 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.println(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	@Override
-	public void println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+	public boolean println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			if(enumPrintLevel==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("enumPrintLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
@@ -141,18 +160,23 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.println(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	@Override
-	public void println(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+	public boolean println(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+		boolean bReturn = false;
 		main:{
 			int iPrintLevelAllowed = this.getPrintLevelOverall();
 			if(iPrintLevelUsed > iPrintLevelAllowed) break main;		
 			if(StringZZZ.isEmptyTrimmed(s)) break main;
 			
 			System.out.println(s);
+			bReturn = true;
 		}//end main:
+		return bReturn;
 	}
 	
 	

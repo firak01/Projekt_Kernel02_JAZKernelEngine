@@ -12,6 +12,7 @@ import basic.zBasic.util.abstractList.ArrayListUniqueZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.string.formater.StringFormaterZZZ;
+import custom.zKernel.Log;
 
 /** Diese Klasse implementiert alles, was benoetigt wird, damit die eigenen Events "Flag hat sich geaendert" abgefeuert werden kann
  *  und auch von den Objekten, die hier registriert sind empfangen wird. Damit fungieren Objekte dieser Klasse als "EventBroker".
@@ -65,7 +66,7 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 				ArrayListUniqueZZZ listaListenerRegistered = this.getListenerRegisteredAll();
 				if(ArrayListUtilZZZ.isEmpty(listaListenerRegistered)) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Keine Listener Registriert !!!!!!!!!!!!!";
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 					break main;
 				}
 				
@@ -83,15 +84,15 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 						String4SenderZZZ objFormater = new String4SenderZZZ();
 						String sLogUsedAdditional = StringFormatManagerZZZ.getInstance().compute(objFormater, l, "");											
 						sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Called for IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
-						this.protocol(sLog);
+						Log.protocol(this, sLog);
 						IListenerObjectStatusBasicZZZ lused = (IListenerObjectStatusBasicZZZ) l;
 						bReacted = lused.reactOnStatusLocalEvent(eventUsed);
 						if(!bReacted) {
 							sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> NICHT reagiert hat IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
-							this.protocol(sLog);
+							Log.protocol(this, sLog);
 						}else{
 							sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Reagiert hat IListenerObjectStatusLocalSetZZZ implementing Object: " + sLogUsedAdditional;
-							this.protocol(sLog);
+							Log.protocol(this, sLog);
 						}
 						
 						
@@ -101,13 +102,13 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 						String4SenderZZZ objFormater = new String4SenderZZZ();
 						String sLogUsedAdditional = StringFormatManagerZZZ.getInstance().compute(objFormater, l, " - nothing will be executed.");
 						sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName() + "=> Instanceof type is not used yet: " + sLogUsedAdditional;
-						this.protocol(sLog);
+						Log.protocol(this, sLog);
 					}
 				}
 			} catch (ExceptionZZZ ez) {
 				try {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws ExceptionZZZ: " + ez.getDetailAllLast();
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
 				}
@@ -115,7 +116,7 @@ public abstract class AbstractSenderObjectStatusLocalBasicZZZ extends AbstractOb
 				e.printStackTrace();
 				try {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "throws Exception: " + e.getMessage();
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
 				}

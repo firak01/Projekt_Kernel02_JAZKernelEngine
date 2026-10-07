@@ -14,15 +14,15 @@ public interface ISystemZZZ extends IListenerObjectFlagZsetZZZ, ISystemEnabledZZ
 	//############################################################
 	//### Methoden
 	//############################################################
-	public void print(String s, boolean bPrintOutput) throws ExceptionZZZ;
-	public void print(String s, int iPrintLevel) throws ExceptionZZZ;
-	public void print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
-	public void print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
+	public boolean print(String s, boolean bPrintOutput) throws ExceptionZZZ;
+	public boolean print(String s, int iPrintLevel) throws ExceptionZZZ;
+	public boolean print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
+	public boolean print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
 	
-	public void println(String s, boolean bPrintOutput) throws ExceptionZZZ;
-	public void println(String s, int iPrintLevel) throws ExceptionZZZ;
-	public void println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
-	public void println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
+	public boolean println(String s, boolean bPrintOutput) throws ExceptionZZZ;
+	public boolean println(String s, int iPrintLevel) throws ExceptionZZZ;
+	public boolean println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
+	public boolean println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
 	
 	
 	//#############################################################

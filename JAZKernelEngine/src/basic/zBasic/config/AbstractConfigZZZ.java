@@ -20,6 +20,7 @@ import basic.zKernel.config.help.IKernelConfigHelpLineZZZ;
 import basic.zKernel.config.help.KernelConfigHeaderLineZZZ;
 import basic.zKernel.config.help.KernelConfigHelpLineZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
+import custom.zKernel.Log;
 import custom.zKernel.LogSingletonZZZ;
 
 public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements IConfigZZZ, IConfigConstantZZZ{
@@ -57,7 +58,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing ConfigObject";
-			this.printlnDateWithPosition(sLog);
+			Log.printlnDateWithPosition(this, sLog);
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

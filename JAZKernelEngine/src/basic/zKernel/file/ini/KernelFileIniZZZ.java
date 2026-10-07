@@ -46,6 +46,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.flag.event.IEventObjectFlagZsetZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
 import basic.zKernel.flag.util.FlagZFassadeZZZ;
+import custom.zKernel.Log;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 
@@ -223,12 +224,12 @@ public class KernelFileIniZZZ<T> extends AbstractKernelUseObjectZZZ<T> implement
 				
 				if(objFile==null){
 					sLog = "Configuration File does not exist (=null, für Directory='" + sDirectoryIn +"', File='" + sFileIn +"')'.";
-					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					Log.printlnDate(this, ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}else if(!FileEasyZZZ.exists(objFile)){
 					sLog = "Configuration File does not exist '" + objFile.getAbsolutePath() + "'.";
-					this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+					Log.printlnDate(this, ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 					ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PROPERTY_MISSING, this, ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}

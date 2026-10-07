@@ -153,6 +153,8 @@ public class LogSingletonZZZ extends AbstractKernelLogZZZ{
 
 		return new LogSingletonZZZ(sDirectoryPath, sLogFile, sFlags);
 	}
+
+	
 	
 	
 	//########################

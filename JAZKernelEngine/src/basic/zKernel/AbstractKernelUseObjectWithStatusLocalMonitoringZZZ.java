@@ -13,6 +13,7 @@ import basic.zKernel.status.IListenerObjectStatusLocalReactZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
 import basic.zKernel.status.ISenderObjectStatusLocalUserZZZ;
 import basic.zKernel.status.IStatusLocalMapForMonitoringStatusLocalUserZZZ;
+import custom.zKernel.Log;
 
 /**
  * @author 0823
@@ -123,7 +124,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalMonitoringZZZ extend
 				if(enumStatus==null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent()+ "ObjectWithStatusMonitoring ("+ this.getClass().getName()+" - Keinen Status aus dem Event-Objekt erhalten. Breche ab";
 					System.out.println(sLog);
-					this.printlnDate(sLog);
+					Log.printlnDate(this, sLog);
 					break main;
 				}
 				
@@ -137,7 +138,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalMonitoringZZZ extend
 				if(hmEnum==null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent()+ "ObjectWithStatusMonitoring ("+ this.getClass().getName()+" - Keine Mapping Hashmap fuer das StatusMapping vorhanden. Breche ab";
 					System.out.println(sLog);
-					this.printlnDate(sLog);
+					Log.printlnDate(this, sLog);
 					break main;
 				}
 				
@@ -146,7 +147,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalMonitoringZZZ extend
 				IEnumSetMappedStatusLocalZZZ objEnum = hmEnum.get(enumStatus);							
 				if(objEnum==null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent()+"ObjectWithStatusMonitoring ("+ this.getClass().getName()+" - Keinen gemappten Status für en Status aus dem Event-Objekt erhalten. Breche ab";					
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 					break main;
 				}
 				
@@ -161,7 +162,7 @@ public abstract class AbstractKernelUseObjectWithStatusLocalMonitoringZZZ extend
 					System.out.println(ReflectCodeZZZ.getPositionCurrent() + "ObjectWithStatusMonitoring ("+ this.getClass().getName()+" - sStatus='"+sStatus+"'");
 				}else {
 					sLog = ReflectCodeZZZ.getPositionCurrent()+"ObjectWithStatusMonitoring ("+ this.getClass().getName()+" - Event ist kein instanceof IEventObjectStatusLocalZZZ. Breche ab.";					
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 				}
 				
 			}//end main:

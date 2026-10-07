@@ -10,6 +10,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import custom.zKernel.KernelLogZZZ;
+import custom.zKernel.Log;
 
 /**
  * @author 0823
@@ -147,7 +148,7 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = ReflectCodeZZZ.getPositionCurrent() +"The passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.printlnDate(sLog);
+									 Log.printlnDate(this, sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 
@@ -212,27 +213,27 @@ public abstract class AbstractKernelUseObjectZZZ<T> extends AbstractObjectWithFl
 		this.objLog = objLog;
 	}	
 	
-	@Override
-	public void printlnDate(String sLog) throws ExceptionZZZ {
-		KernelLogZZZ objLog = this.getLogObject();
-		if(objLog==null) {
-			String sTemp = KernelLogZZZ.computeLineDate(this, sLog);
-			System.out.println(sTemp);
-		}else {
-			objLog.writeLineDate(sLog);
-		}		
-	}
-	
-	
-	@Override
-	public void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
-		KernelLogZZZ objLog = this.getLogObject();
-		if(objLog==null) {
-			String sTemp = KernelLogZZZ.computeLineDateWithPosition(this, sLog);
-			System.out.println(sTemp);
-		}else {
-			objLog.writeLineDate(sLog);
-		}	
-	}
+//	@Override
+//	public void printlnDate(String sLog) throws ExceptionZZZ {
+//		KernelLogZZZ objLog = this.getLogObject();
+//		if(objLog==null) {
+//			String sTemp = KernelLogZZZ.computelnDate(this, sLog);
+//			System.out.println(sTemp);
+//		}else {
+//			objLog.writeLineDate(sLog);
+//		}		
+//	}
+//	
+//	
+//	@Override
+//	public void printlnDateWithPosition(String sLog) throws ExceptionZZZ {
+//		KernelLogZZZ objLog = this.getLogObject();
+//		if(objLog==null) {
+//			String sTemp = KernelLogZZZ.computelnDateWithPosition(this, sLog);
+//			System.out.println(sTemp);
+//		}else {
+//			objLog.writeLineDate(sLog);
+//		}	
+//	}
 }//end class
 

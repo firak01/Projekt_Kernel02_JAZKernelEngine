@@ -1,12 +1,14 @@
 package custom.zKernel;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.ILogProtocolPositionZZZ;
+import basic.zBasic.ILogProtocolZZZ;
 import basic.zBasic.util.file.txt.stream.FileTextWriterZZZ;
 import basic.zBasic.util.string.formater.IStringFormatManagerUserZZZ;
 import basic.zKernel.IKernelConfigUserZZZ;
 import custom.zUtil.io.FileZZZ;
 
-public interface ILogZZZ extends IKernelConfigUserZZZ, IStringFormatManagerUserZZZ, ILogStringComputerZZZ, ILogLevelUserZZZ{
+public interface ILogZZZ extends IKernelConfigUserZZZ, IStringFormatManagerUserZZZ, ILogStringComputerZZZ, ILogLevelUserZZZ, ILogProtocolPositionZZZ{
 //	public enum FLAGZ{
 //		USE_FILE_EXPANSION; //Merke: DEBUG und INIT aus ObjectZZZ sollen über IObjectZZZ eingebunden werden, weil von ObjectkZZZ kann man ja nicht erben. Es wird schon von File geerbt.
 //	}

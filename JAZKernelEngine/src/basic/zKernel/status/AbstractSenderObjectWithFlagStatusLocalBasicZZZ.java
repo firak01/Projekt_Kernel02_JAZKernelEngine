@@ -10,6 +10,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.ArrayListUniqueZZZ;
 import basic.zKernel.flag.event.IEventObjectFlagZsetZZZ;
+import custom.zKernel.Log;
 
 /** Diese Klasse implementiert alles, was benoetigt wird, damit die eigenen Events "Flag hat sich geaendert" abgefeuert werden kann
  *  und auch von den Objekten, die hier registriert sind empfangen wird. Damit fungieren Objekte dieser Klasse als "EventBroker".
@@ -73,18 +74,18 @@ public abstract class AbstractSenderObjectWithFlagStatusLocalBasicZZZ extends Ab
 					if(l instanceof IListenerObjectStatusLocalZZZ) {
 						IEventObjectStatusLocalZZZ eventUsed = (IEventObjectStatusLocalZZZ) event;
 						sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object '"+ this.getClass().getName() +"' called: listener.reactOnStatusLocalEvent(event) # " + i + ". IListenerObjectStatusLocalSetZZZ ("+l.getClass().getName()+")";
-						this.protocol(sLog);
+						Log.protocol(this, sLog);
 						IListenerObjectStatusLocalZZZ lused = (IListenerObjectStatusLocalZZZ) l;
 						lused.reactOnStatusLocalEvent(eventUsed);
 					}else {					
 						sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object '"+ this.getClass().getName() +"' instanceof type is not used yet # " + i + ". IListenerObjectStatusLocalSetZZZ ("+l.getClass().getName()+")";
-						this.protocol(sLog);
+						Log.protocol(this, sLog);
 					}
 				}
 			} catch (ExceptionZZZ ez) {
 				try {
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object '"+ this.getClass().getName() +"' # throws Exception " + ez.getDetailAllLast();
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 				} catch (ExceptionZZZ ez2) {				
 					ez2.printStackTrace();
 				}

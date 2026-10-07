@@ -269,7 +269,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                //statt dessen:
 				                Log.protocol(this, "Pressed Menueselection: " + sInput);// für die formatierte Ausgabe.
 				                
-				                Log.println(this, "Pressed Menueselection: " + sInput);// für die Ausgabe mit Syso.println(...).
+				                Log.printLine(this, "Pressed Menueselection: " + sInput);// für die Ausgabe mit Syso.println(...).
 				                if(sInput==null) break main;
 				                
 				                boolean bGoon = this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.

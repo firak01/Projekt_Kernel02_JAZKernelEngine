@@ -29,6 +29,7 @@ import basic.zKernel.KernelConfigSectionEntryZZZ;
 import basic.zKernel.config.KernelConfigSectionEntryUtilZZZ;
 import basic.zKernel.flag.util.FlagZFassadeZZZ;
 import custom.zKernel.KernelLogZZZ;
+import custom.zKernel.Log;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 //DIES IST DER FLAG - WEG: AbstractObjectWithFlagZZZ -> AbstractObjectWithExpression -> AbstractTagWithExpressionBasic
@@ -155,7 +156,7 @@ public abstract class AbstractKernelIniTagSimpleZZZ<T> extends AbstractIniTagWit
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = ReflectCodeZZZ.getPositionCurrent() +"The passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.printlnDate(sLog);
+									 Log.printlnDate(this, sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 

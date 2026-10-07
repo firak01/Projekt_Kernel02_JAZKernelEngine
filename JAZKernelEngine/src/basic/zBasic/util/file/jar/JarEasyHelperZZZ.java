@@ -128,7 +128,7 @@ public class JarEasyHelperZZZ {
 		main:{
 		if(url==null)break main;
 	    String path = url;
-	    ObjectZZZ.printlnDate(JarEasyHelperZZZ.class, "(D0) url= '"+url.toString()+"'");
+	    ObjectZZZ.printLineDate(JarEasyHelperZZZ.class, "(D0) url= '"+url.toString()+"'");
 	    if (path.startsWith("jar:")) {
 	        // remove "jar:" prefix and "!/" suffix
 	        final int index = path.indexOf("!/");

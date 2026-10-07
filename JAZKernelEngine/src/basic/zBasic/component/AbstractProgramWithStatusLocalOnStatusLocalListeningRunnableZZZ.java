@@ -4,6 +4,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractProgramWithStatusLocalOnStatusLocalListeningRunnableZZZ extends AbstractProgramWithStatusLocalOnStatusLocalListeningZZZ implements IProgramRunnableZZZ{
 	private static final long serialVersionUID = 6586079955658760005L;		
@@ -39,7 +40,7 @@ public abstract class AbstractProgramWithStatusLocalOnStatusLocalListeningRunnab
 			this.startCustom();
 		} catch (ExceptionZZZ ez) {
 			try {
-				this.protocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {				
 				e.printStackTrace();
 			}
@@ -81,7 +82,7 @@ public abstract class AbstractProgramWithStatusLocalOnStatusLocalListeningRunnab
 			//Falls das REQUEST_STOP Flag gesetzt ist, nicht weiter reagieren...
 			if(this.getFlag(IProgramRunnableZZZ.FLAGZ.REQUEST_STOP)) {
 				sLog = ReflectCodeZZZ.getPositionCurrent() + "Flag '" + IProgramRunnableZZZ.FLAGZ.REQUEST_STOP.name() + "' gesetzt. Keine weitere Verarbeitung von Events. Breche ab.";
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 				break main;
 			}
 			

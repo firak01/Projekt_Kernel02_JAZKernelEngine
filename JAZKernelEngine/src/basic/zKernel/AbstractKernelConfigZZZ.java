@@ -36,6 +36,7 @@ import basic.zKernel.file.ini.IKernelJsonMapIniSolverZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIniZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIni_PathZZZ;
 import custom.zKernel.ILogZZZ;
+import custom.zKernel.Log;
 import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 import custom.zKernel.file.ini.FileIniZZZ;
 
@@ -95,7 +96,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing KernelConfigObject";
-			this.printlnDateWithPosition(sLog);
+			Log.printlnDateWithPosition(this, sLog);
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

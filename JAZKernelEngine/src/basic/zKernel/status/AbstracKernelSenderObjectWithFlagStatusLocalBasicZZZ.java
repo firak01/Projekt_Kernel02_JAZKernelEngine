@@ -18,6 +18,7 @@ import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 import custom.zKernel.KernelLogZZZ;
+import custom.zKernel.Log;
 
 /** Diese Klasse implementiert alles, was benoetigt wird, damit die eigenen Events "Flag hat sich geaendert" abgefeuert werden kann
  *  und auch von den Objekten, die hier registriert sind empfangen wird. Damit fungieren Objekte dieser Klasse als "EventBroker".
@@ -75,7 +76,7 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 						lused.reactOnStatusLocalEvent(eventUsed);
 					}else {					
 						String sLog = ReflectCodeZZZ.getPositionCurrent() + "# type is not used yet: '" + l.getClass().getName() + "'";
-						this.protocol(sLog);
+						Log.protocol(this, sLog);
 					}
 				}
 			} catch (ExceptionZZZ ez) {
@@ -141,7 +142,7 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 								 btemp = setFlag(sKey, booValue.booleanValue());//setzen der "auf Verdacht" indirekt übergebenen Flags
 								 if(btemp==false){						 
 									 sLog = "the passed flag '" + sKey + "' is not available for class '" + this.getClass() + "'.";
-									 this.printlnDate(ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
+									 Log.printlnDate(this, ReflectCodeZZZ.getPositionCurrent() + ": " + sLog);
 		//							  Bei der "Übergabe auf Verdacht" keinen Fehler werfen!!!
 		//							  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 		//							  throw ez;		 
@@ -206,15 +207,15 @@ public abstract class AbstracKernelSenderObjectWithFlagStatusLocalBasicZZZ exten
 		this.objLog = objLog;
 	}	
 	
-	@Override
-	public void printlnDate(String sLog) throws ExceptionZZZ {
-		KernelLogZZZ objLog = this.getLogObject();
-		if(objLog==null) {
-			String sTemp = AbstractKernelLogZZZ.computeLineDate(sLog);
-			System.out.println(sTemp);
-		}else {
-			objLog.writeLineDate(sLog);
-		}		
-	}
+//	@Override
+//	public void printlnDate(String sLog) throws ExceptionZZZ {
+//		KernelLogZZZ objLog = this.getLogObject();
+//		if(objLog==null) {
+//			String sTemp = AbstractKernelLogZZZ.computelnDate(sLog);
+//			System.out.println(sTemp);
+//		}else {
+//			objLog.writeLineDate(sLog);
+//		}		
+//	}
 }
 

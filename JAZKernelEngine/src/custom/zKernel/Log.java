@@ -27,4 +27,48 @@ public class Log implements IConstantZZZ{
 		return LogSingletonZZZ.getInstance().writeDebug(sInput);
 	}
 	
+	//+++++++++++++++++
+	
+	public static boolean println(Object obj, String sInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().printLine(obj, sInput);
+	}
+	
+	public static boolean println(Object obj, String[] saInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().printLine(obj, saInput);
+	}
+	
+	public static boolean printlnDate(Object obj, String sInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().printLineDate(obj, sInput);
+	}
+	
+	public static boolean printlnDateWithPosition(Object obj, String sInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().printLineDateWithPosition(obj, sInput);
+	}
+	
+	public static boolean printlnDateWithPosition(Object obj, String[] saInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().printLineDateWithPosition(obj, saInput);
+	}
+	
+	//+++++++++++++++++
+	
+	public static boolean protocol(Object obj, String sInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().protocol(obj, sInput);
+	}
+	 
+	public static boolean protocol(Object obj, String[] saInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().protocol(obj, saInput);
+	}
+	
+	public static boolean protocolWithPosition(Object obj, String sInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().protocolWithPosition(obj, sInput);
+	}
+	
+	public static boolean protocolWithPosition(Object obj, String[] saInput) throws ExceptionZZZ {
+		return LogSingletonZZZ.getInstance().protocolWithPosition(obj, saInput);
+	}
+	
+	
+	//++++++++++++++++++
+	
+	
 }

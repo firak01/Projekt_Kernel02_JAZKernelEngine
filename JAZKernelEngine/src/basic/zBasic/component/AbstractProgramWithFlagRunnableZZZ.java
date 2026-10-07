@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractProgramWithFlagRunnableZZZ extends AbstractProgramWithFlagZZZ implements IProgramRunnableZZZ {	
 	private static final long serialVersionUID = 1185996372719861922L;
@@ -27,7 +28,7 @@ public abstract class AbstractProgramWithFlagRunnableZZZ extends AbstractProgram
 			this.startCustom();
 		} catch (ExceptionZZZ ez) {
 			try {
-				this.protocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {				
 				e.printStackTrace();
 			}

@@ -10,14 +10,25 @@ public interface ILogPrintZZZ {
 	//### A) Die Idee ist, das hier ein einfaches System.out gemacht wird. (siehe IObjectLogZZZ)
 	//##################################
 	
-	public void println(String sLog) throws ExceptionZZZ;
-	public void println(String[] saLog) throws ExceptionZZZ;
+	public boolean printLine(Object obj, String sLog) throws ExceptionZZZ;
+	public boolean printLine(Class objClass, String sLog) throws ExceptionZZZ;
+	
+	public boolean printLine(Object obj, String[] saLog) throws ExceptionZZZ;
+	public boolean printLine(Class objClass, String[] saLog) throws ExceptionZZZ;
+	
 	
 	//!!! Merke 20240512: Mache in den (abstrakten) Klassen, die diese Methoden implementieren die Methoden "synchronized"
-	public void printlnDate(String sLog) throws ExceptionZZZ;
-	public void printlnDate(String... sLogs) throws ExceptionZZZ; //Nutzt intern KernelLogZZZ-statische Methode;
-	public void printlnDateWithPosition(String sLog) throws ExceptionZZZ;
-	public void printlnDateWithPosition(String... sLogs) throws ExceptionZZZ; //Nutzt intern KernelLogZZZ-statische Methode;
+	public boolean printLineDate(Object obj, String sLog) throws ExceptionZZZ;
+	public boolean printLineDate(Class objClass, String sLog) throws ExceptionZZZ;
+	
+	public boolean printLineDate(Object obj, String... sLogs) throws ExceptionZZZ; //Nutzt intern KernelLogZZZ-statische Methode;
+	public boolean printLineDate(Class objClass, String... sLogs) throws ExceptionZZZ; //Nutzt intern KernelLogZZZ-statische Methode;
+	
+	public boolean printLineDateWithPosition(Object obj, String sLog) throws ExceptionZZZ;
+	public boolean printLineDateWithPosition(Class objClass, String sLog) throws ExceptionZZZ;
+	
+	public boolean printLineDateWithPosition(Object obj, String... sLogs) throws ExceptionZZZ; //Nutzt intern KernelLogZZZ-statische Methode;
+	public boolean printLineDateWithPosition(Class objClass, String... sLogs) throws ExceptionZZZ; //Nutzt intern KernelLogZZZ-statische Methode;
 	
 	
 	//##################################

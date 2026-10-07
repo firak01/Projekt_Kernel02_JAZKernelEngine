@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import basic.zKernel.status.IListenerObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
@@ -87,11 +88,11 @@ public class KernelSenderObjectFlagZsetZZZ extends AbstractObjectWithExceptionZZ
 					} catch (ExceptionZZZ ez) {
 						//Z.B. falls es das Flag hier nicht gibt, wird die ggfs. die Exception weitergeworfen.
 						sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object ("+ this.getClass().getName() + ")# IListenerObjectFlagZsetZZZ by " + this.getClass().getName() + " throws Exception " + ez.getDetailAllLast(); 
-						this.protocol(sLog);
+						Log.protocol(this, sLog);
 					}
 				}else {					
 					sLog = ReflectCodeZZZ.getPositionCurrent() + "Sender Broker Object ("+ this.getClass().getName() +") # " + i + ". IListenerObjectStatusLocalSetZZZ ("+l.getClass().getName()+") - instanceof type is not used yet";
-					this.protocol(sLog);
+					Log.protocol(this, sLog);
 				}
 			}
 			

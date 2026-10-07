@@ -11,6 +11,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.status.EventObjectStatusLocalZZZ;
 import basic.zKernel.status.IEventObjectStatusBasicZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 
 public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramMonitorZZZ implements IProgramMonitorRunnableZZZ{
 	private static final long serialVersionUID = 6586079955658760005L;
@@ -47,7 +48,7 @@ public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramM
 			this.startCustom();
 		} catch (ExceptionZZZ ez) {
 			try {
-				this.protocol(ez.getDetailAllLast());
+				Log.protocol(this, ez.getDetailAllLast());
 			} catch (ExceptionZZZ e) {				
 				e.printStackTrace();
 			}
@@ -85,7 +86,7 @@ public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramM
 			//Falls das REQUEST_STOP Flag gesetzt ist, nicht weiter reagieren...
 			if(this.getFlag(IProgramRunnableZZZ.FLAGZ.REQUEST_STOP)) {
 				sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getName()+"=> Flag '" + IProgramRunnableZZZ.FLAGZ.REQUEST_STOP.name() + "' gesetzt. Keine weitere Verarbeitung von Events. Breche ab.";
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 				break main;
 			}
 			
@@ -213,14 +214,14 @@ public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramM
 		bFunction = this.proofStatusLocalExists(sStatusName);															
 		if(!bFunction) {
 			String sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getName()+"=> ServerThreadProcessWatchMonitor for Process would like to fire event, but this status is not available: '" + sStatusName + "'";
-			this.protocol(sLog);			
+			Log.protocol(this, sLog);			
 			break main;
 		}
 			
 		bFunction = this.proofStatusLocalValueChanged(sStatusName, bStatusValue);
 		if(!bFunction) {
 			String sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getName()+"=> ServerThreadProcessWatchMonitor would like to fire event, but this status has not changed: '" + sStatusName + "'";
-			this.protocol(sLog);
+			Log.protocol(this, sLog);
 			break main;
 		}	
 		
@@ -244,12 +245,12 @@ public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramM
 		}
 		
 		String sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getName()+"=> ServerMain verarbeite sStatusMessageToSet='" + sStatusMessageToSet + "'";
-		this.protocol(sLog);
+		Log.protocol(this, sLog);
 
 		//Falls eine Message extra uebergeben worden ist, ueberschreibe...
 		if(sStatusMessageToSet!=null) {
 			sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getName()+"=> ServerMain setze sStatusMessageToSet='" + sStatusMessageToSet + "'";
-			this.protocol(sLog);
+			Log.protocol(this, sLog);
 		}
 		//Merke: Dabei wird die uebergebene Message in den speziellen "Ringspeicher" geschrieben, auch NULL Werte...
 		this.offerStatusLocalEnum(enumStatus, bStatusValue, sStatusMessageToSet);
@@ -260,13 +261,13 @@ public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramM
 		//Dann erzeuge den Event und feuer ihn ab.	
 		if(this.getSenderStatusLocalUsed()==null) {
 			sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getName()+"=> ServerThreadProcessWatchMonitor for Process would like to fire event '" + enumStatus.getAbbreviation() + "', but no objEventStatusLocalBroker available, any registered?";
-			this.protocol(sLog);		
+			Log.protocol(this, sLog);		
 			break main;
 		}
 		
 		//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
 		sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getName()+"=> Erzeuge Event fuer '" + sStatusName + "', bValue='"+ bStatusValue + "', sMessage='"+sStatusMessage+"'";
-		this.protocol(sLog);
+		Log.protocol(this, sLog);
 		IEventObjectStatusBasicZZZ event = new EventObjectStatusLocalZZZ(this, enumStatus, bStatusValue);			
 //		event.setApplicationObjectUsed(this.getMainObject().getApplicationObject());
 					
@@ -279,7 +280,7 @@ public abstract class AbstractProgramMonitorRunnableZZZ extends AbstractProgramM
 //		}		
 		
 		sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getName()+"=> ServerThreadProcessWatchMonitor for Process fires event '" + enumStatus.getAbbreviation() + "'";
-		this.protocol(sLog);
+		Log.protocol(this, sLog);
 		this.getSenderStatusLocalUsed().fireEvent(event);
 				
 		bFunction = true;				

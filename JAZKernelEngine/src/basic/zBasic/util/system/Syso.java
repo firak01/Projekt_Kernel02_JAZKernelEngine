@@ -16,28 +16,30 @@ public class Syso implements IConstantZZZ{
 		//Zum Verstecken des Konstruktors, sind halt nur static Methoden
 	}
 	
-	public static void println(String s) throws ExceptionZZZ{
-		SystemSingletonZZZ.getInstance().println(s,true);
+	public static boolean println(String s) throws ExceptionZZZ{
+		return SystemSingletonZZZ.getInstance().println(s,true);
 	}
 	
-	public static void println(String s, boolean bPrintOutput) throws ExceptionZZZ{
-		SystemSingletonZZZ.getInstance().println(s,bPrintOutput);
+	public static boolean println(String s, boolean bPrintOutput) throws ExceptionZZZ{
+		return SystemSingletonZZZ.getInstance().println(s,bPrintOutput);
 	}
 	
 	//### Zur besseren Darstellung, besondere "Layoutelement"
-	public static void printSection(String sTitle) throws ExceptionZZZ {
+	public static boolean printSection(String sTitle) throws ExceptionZZZ {
 	    System.out.println();
 	    printSeparator('=');
 	    System.out.println(" " + sTitle);
 	    printSeparator('=');
+	    return true;
 	}
 	
-	public static void printSeparator() throws ExceptionZZZ {
-		printSeparator('#');
+	public static boolean printSeparator() throws ExceptionZZZ {
+		return printSeparator('#');
 	}
 	
-	public static void printSeparator(char cSeparator) throws ExceptionZZZ {
+	public static boolean printSeparator(char cSeparator) throws ExceptionZZZ {
 		String sLine = StringZZZ.repeatChar(cSeparator, 20);
 		System.out.println(sLine);
+		return true;
 	}
 }

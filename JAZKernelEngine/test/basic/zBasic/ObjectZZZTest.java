@@ -4,6 +4,7 @@ import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.file.FileEasyConstantConverterZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zKernel.flag.event.IListenerObjectFlagZsetZZZ;
+import custom.zKernel.Log;
 import junit.framework.TestCase;
 
 public class ObjectZZZTest extends TestCase{
@@ -153,8 +154,8 @@ public class ObjectZZZTest extends TestCase{
 	public void testLogProtocolWithPosition() {
 		try {			
 			DummyTestObjectWithFlagZZZ objObjectInit = new DummyTestObjectWithFlagZZZ();
-			objObjectInit.protocolWithPosition("TESTWERT logProtocolWithPosition");
-			
+			//objObjectInit.protocolWithPosition("TESTWERT logProtocolWithPosition");
+			Log.protocolWithPosition(objObjectInit, "TESTWERT logProtocolWithPosition");
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();
 			fail("An exception happend testing: " + ez.getDetailAllLast());
@@ -165,7 +166,8 @@ public class ObjectZZZTest extends TestCase{
 	public void testLogLineDate() {
 		try {		
 			DummyTestObjectWithFlagZZZ objObjectInit = new DummyTestObjectWithFlagZZZ();
-			objObjectInit.printlnDate("TESTWERT logLineDate");
+			//objObjectInit.printlnDate("TESTWERT logLineDate");
+			Log.printlnDate(objObjectInit, "TESTWERT logLineDate");
 			
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();
@@ -177,7 +179,8 @@ public class ObjectZZZTest extends TestCase{
 	
 	public void testLogLineDateWithPostion() {
 		try {		
-			ObjectZZZ.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, "TESTWERT logLineDateWithPosition");
+			//ObjectZZZ.printLineDateWithPosition(FileEasyConstantConverterZZZ.class, "TESTWERT logLineDateWithPosition");
+			Log.printlnDateWithPosition(FileEasyConstantConverterZZZ.class, "TESTWERT logLineDateWithPosition");
 		}catch(ExceptionZZZ ez){
 			ez.printStackTrace();
 			fail("An exception happend testing: " + ez.getDetailAllLast());

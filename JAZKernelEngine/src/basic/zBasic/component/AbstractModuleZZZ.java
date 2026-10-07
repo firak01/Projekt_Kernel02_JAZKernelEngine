@@ -15,6 +15,7 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.cache.IKernelCacheZZZ;
+import custom.zKernel.Log;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 public abstract class AbstractModuleZZZ  extends AbstractObjectWithFlagZZZ implements IModuleZZZ {	
@@ -45,7 +46,7 @@ public abstract class AbstractModuleZZZ  extends AbstractObjectWithFlagZZZ imple
 		boolean bReturn = false;		
 		main:{			
 			String stemp=null; boolean btemp=false; String sLog = null;
-			this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": Initializing ModuleObject");
+			Log.printlnDate(this, ReflectCodeZZZ.getMethodCurrentName() + ": Initializing ModuleObject");
 						
 			//Weitere Flags setzen
 			if(saFlagUsed!=null) {
@@ -56,7 +57,7 @@ public abstract class AbstractModuleZZZ  extends AbstractObjectWithFlagZZZ imple
 					  btemp = setFlag(stemp, true);
 					  if(btemp==false){
 						  sLog = "the flag '" + stemp + "' is not available.";
-						  this.printlnDate(ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
+						  Log.printlnDate(this, ReflectCodeZZZ.getMethodCurrentName() + ": " + sLog);
 						  ExceptionZZZ ez = new ExceptionZZZ(sLog, iERROR_PARAMETER_VALUE, this,  ReflectCodeZZZ.getMethodCurrentName()); 
 						  throw ez;		 
 					  }
