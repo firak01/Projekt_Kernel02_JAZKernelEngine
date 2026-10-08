@@ -55,14 +55,6 @@ import basic.zKernel.file.ini.KernelZFormulaIniSolverZZZ;
 
 @author 0823 ,date 24.10.2004
 */
-/**
- * @author lindhauer
- *
- */
-/**
- * @author lindhauer
- *
- */
 public class StringZZZ implements IConstantZZZ{
 	public static final String  sREPLACE_FAR_FROM_MARK = "<NOREPLACE>";             //Dies wird tempor�r in einen String gesetzt, damit der Wert nicht ersetzt wird.
 	

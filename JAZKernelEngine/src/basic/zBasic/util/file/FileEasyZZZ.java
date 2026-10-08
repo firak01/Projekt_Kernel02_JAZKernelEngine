@@ -25,8 +25,6 @@ import org.apache.commons.io.FileUtils;
 
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.LogZZZ;
-import basic.zBasic.ObjectZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.ReflectWorkspaceZZZ;
 import basic.zBasic.util.datatype.calling.ReferenceZZZ;
@@ -38,7 +36,6 @@ import basic.zBasic.util.file.jar.JarEasyUtilZZZ;
 import basic.zBasic.util.file.jar.JarEasyZZZ;
 import basic.zBasic.util.machine.EnvironmentZZZ;
 import basic.zKernel.IKernelConfigZZZ;
-import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.Log;
 
 /**Einfache Dateioperationen
@@ -686,8 +683,9 @@ private static File splitFilePathName_(String sFilePathIn, ReferenceZZZ<String> 
 public static File searchDirectory(String sDirectoryPathIn) throws ExceptionZZZ{
 	File objReturn = null;
 	main:{
-		String sLog = "Directory to search for= '" + sDirectoryPathIn + "'";
-		LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+		String sLog = "Directory to search for= '" + sDirectoryPathIn + "'";		
+		Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+		
 		objReturn = FileEasyZZZ.searchDirectory(sDirectoryPathIn, false);
 	}//end main:
 	return objReturn;
@@ -720,7 +718,7 @@ public static File searchDirectory(String sDirectoryIn, boolean bSearchInJar)thr
 			}
 		}else {
 			sLog = "sDirectory=null.";
-			LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);			
+			Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);			
 		}
 		
 		sDirectory = FileEasyZZZ.getFileUsedPath(sDirectoryIn);		
@@ -729,11 +727,11 @@ public static File searchDirectory(String sDirectoryIn, boolean bSearchInJar)thr
 			//ACHTUNG ENDLOSSCHLEIFE WENN MAN HIER NICHT IN DEN ABSOLUTEN PFAD UMSCHWENKT...				
 			String sDirectoryRoot = FileEasyZZZ.getDirectoryOfExecutionAsString();
 			sLog = "(2) sDirectoryRoot='" + sDirectoryRoot + "'";
-			LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+			Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);
 			
 			String sDirectoryAbsolute = FileEasyZZZ.joinFilePathName(sDirectoryRoot, sDirectory);
 			sLog = "(2) GEBAUTER ABSOLUTER PFAD sDirectoryAbsolute='" + sDirectoryAbsolute + "'";
-			LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+			Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);
 			
 			objReturn = FileEasyZZZ.searchDirectory(sDirectoryAbsolute, bSearchInJar); //Diesmal aber als absoluten Pfad...
 			if(objReturn!=null){
@@ -755,7 +753,7 @@ public static File searchDirectory(String sDirectoryIn, boolean bSearchInJar)thr
 			//Suche nach dem Verzeichnis in der gleichen JAR DAtei:
 			//Merke: Verzeichnisse können nur zurückgegeben  werden, wenn Sie als Kopie irgendwo erstellt werden.
 			sLog = "() SUCHE IN JAR mit searchResourceDirectoryFirst mit '" + sDirectory + "' und sTargetDirectoryPathRootIn=ZZZ";
-			LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+			Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);
 			objReturn = JarEasyInCurrentJarZZZ.searchResourceDirectoryFirst(sDirectory, "ZZZ");
 			if(objReturn!=null){
 				if(objReturn.exists()) {
@@ -2193,7 +2191,8 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 			}
 		
 		}//end main:
-		KernelLogZZZ.protocolStringStatic(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
+		//KernelLogZZZ.protocolStringStatic(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
+		Log.protocol(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn);//.writeLine(FileEasyZZZ.class, "isDirectoryExisting=" + bReturn) ;
 		return bReturn;	
 	}
 	
@@ -2784,7 +2783,7 @@ public static String getNameWithChangedSuffixKeptEnd(String sFileName, String sS
 				//1. Versuch mit Classloader
 				workspaceURL = new File(sPath).toURI().toURL();
 				if(workspaceURL!=null){
-					LogZZZ.printlnDateWithPosition(FileEasyZZZ.class, "(B) Searching for file by classloader.getResource '" + sPath +"'");
+					Log.printlnDateWithPosition(FileEasyZZZ.class, "(B) Searching for file by classloader.getResource '" + sPath +"'");
 					String sPathInWorkspace = workspaceURL.getPath();
 					String[] saStringsToBeStripped ={File.separator};
 					String sPathNormed = StringZZZ.stripRight(sPathInWorkspace, saStringsToBeStripped);					

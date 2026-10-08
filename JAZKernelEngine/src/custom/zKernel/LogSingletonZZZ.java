@@ -1,6 +1,7 @@
 package custom.zKernel;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
 import basic.zKernel.IKernelConfigZZZ;
 
@@ -154,8 +155,10 @@ public class LogSingletonZZZ extends AbstractKernelLogZZZ{
 		return new LogSingletonZZZ(sDirectoryPath, sLogFile, sFlags);
 	}
 
-	
-	
-	
 	//########################
+	//Damit können andere Objekte prüfen, ob dieses Log initialisiert ist. 
+	//Falls es noch nicht initialisiert ist, können sie dann ggfs. einen anderen Logging-Weg nutzen.
+	public static boolean isInitialized() throws ExceptionZZZ{
+		return INITIALIZED;
+	}
 }

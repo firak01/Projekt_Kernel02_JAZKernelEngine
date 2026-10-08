@@ -14,6 +14,7 @@ import basic.zKernel.flag.IFlagZEnabledZZZ;
 import basic.zKernel.status.EventObjectStatusLocalZZZ;
 import basic.zKernel.status.IEventObjectStatusBasicZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalOnStatusLocalListeningZZZ;
 import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
@@ -325,7 +326,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				//Dann erzeuge den Event und feuer ihn ab.	
 				if(this.getSenderStatusLocalUsed()==null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-					this.protocol(sLog);		
+					Log.protocol(this, sLog);		
 					break main;
 				}
 				
@@ -341,7 +342,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 					//Dann erzeuge den Event und feuer ihn ab.	
 					if(this.getSenderStatusLocalUsed()==null) {
 						sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-						this.protocol(sLog);		
+						Log.protocol(this, sLog);		
 						break main;
 					}
 			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADSTOPPED.getName())){
@@ -354,7 +355,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				//Dann erzeuge den Event und feuer ihn ab.	
 				if(this.getSenderStatusLocalUsed()==null) {
 					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-					this.protocol(sLog);		
+					Log.protocol(this, sLog);		
 					break main;
 				}
 				
@@ -362,14 +363,14 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			
 			if(StringZZZ.isEmpty(sStatusName)){
 				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Status with name '" + objStatus.getName() + "' is not handled yet.";
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 				break main;
 			}
 					
 			//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
 			if(bStatusValue) { //!!! nur im TRUE Fall wird eine Logausgabe erzeugt... sonst wird das Log zu voll.			
 				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				this.protocol(sLog);
+				Log.protocol(this, sLog);
 			}
 			IEventObjectStatusBasicZZZ event;
 			if(sStatusMessage==null) {
@@ -379,7 +380,7 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			}
 					
 			sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
-			this.protocol(sLog);
+			Log.protocol(this, sLog);
 			this.getSenderStatusLocalUsed().fireEvent(event);
 		
 			bReturn = true;
