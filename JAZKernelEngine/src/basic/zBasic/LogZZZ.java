@@ -37,20 +37,6 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	
 
 	//##### Gib den String aus.
-	//  Die Position des Datums im String wird durch eine Formatanweisung definiert.
-	//  Das dann jeweils als Variante mit einer Klasse als Argument
-	//public static void logLine(String sLog) throws ExceptionZZZ{		
-//	public void logLine(String sLog) throws ExceptionZZZ{
-//		String sTemp = KernelLogZZZ.computeLine(this.getClass(), sLog);
-//		Syso.println(sTemp);
-//	}
-//	
-//	//public static void logLine(String[] saLog) throws ExceptionZZZ{		
-//	public void logLine(String[] saLog) throws ExceptionZZZ{
-//		String sTemp = KernelLogZZZ.computeLine(this.getClass(), saLog);
-//		Syso.println(sTemp);
-//	}
-	
 	public static boolean println(Object obj, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
@@ -231,8 +217,7 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 			}				
 		}//end main:
 		return bReturn;
-	}
-		
+	}	
 	public synchronized static boolean protocol(Object obj, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
@@ -244,6 +229,281 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 
+	public synchronized static boolean protocol(Class classObj, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			if(classObj==null) {			
+				ExceptionZZZ ez = new ExceptionZZZ("Class-Object", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+	
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(classObj, sLogs);
+			bReturn = Syso.println(sLogUsed);				
+		}//end main:
+		return bReturn;
+	}	
+	public synchronized static boolean protocol(Class classObj, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			if(classObj==null) {			
+				ExceptionZZZ ez = new ExceptionZZZ("Class-Object", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
+				throw ez;
+			}
+	
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(classObj, sLog);
+			bReturn = Syso.println(sLogUsed);
+		}//end main:
+		return bReturn;
+	}
+
+	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE		
+	//### Merke: Wg. Positionsangabe immer auch die Methode mit dem iLevel für die Stacktraceposition zur Verfügung stellen.
+	public synchronized static boolean protocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolWithPosition(Object obj, int iLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	public synchronized static boolean protocolWithPosition(Class objClass, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolWithPosition(Class objClass, int iLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	//+++++++++++++++++++++++++
+	
+	public synchronized static boolean protocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn  = protocolWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	public synchronized static boolean protocolWithPosition(Object obj, int iLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+		
+	}
+	
+	public synchronized static boolean protocolWithPosition(Class objClass, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolWithPosition(Class objClass, int iLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	//############ ALLE METHODEN NUN AUCH NOCH MIT DATUM UND MIT POSITIONSANGABE
+	//++++ Merke: wg. Postionsangabe auch eine Methode mit dem iLevel für den Stacktrace zur Verfügung stellen
+	public synchronized static boolean protocolDateWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	public synchronized static boolean protocolDateWithPosition(Class objClass, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	//+++++++++++++++++++++++++
+	
+	public synchronized static boolean protocolDateWithPosition(Object obj, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn  = protocolWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+		
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Class objClass, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++ Mit StringFormat
+	//++++ Merke: Dann gibt es hier keine Methode mit Datum drin. Will man das Datum haben, muss es im StringFormat enthalten sein.
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
 	public synchronized static boolean protocol(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
@@ -293,37 +553,6 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		}//end main:
 		return bReturn;
 	}
-	
-	//++++++++++++++++++++++++
-	public synchronized static boolean protocol(Class classObj, String... sLogs) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			if(!canProtocol()) break main;
-			if(classObj==null) {			
-				ExceptionZZZ ez = new ExceptionZZZ("Class-Object", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
-				throw ez;
-			}
-	
-			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(classObj, sLogs);
-			bReturn = Syso.println(sLogUsed);				
-		}//end main:
-		return bReturn;
-	}
-		
-	public synchronized static boolean protocol(Class classObj, String sLog) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			if(!canProtocol()) break main;
-			if(classObj==null) {			
-				ExceptionZZZ ez = new ExceptionZZZ("Class-Object", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class, ReflectCodeZZZ.getMethodCurrentName());
-				throw ez;
-			}
-	
-			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(classObj, sLog);
-			bReturn = Syso.println(sLogUsed);
-		}//end main:
-		return bReturn;
-	}
 
 	public synchronized static boolean protocol(Class classObj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -359,142 +588,11 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		}//end main:
 		return bReturn;
 	}
-
-	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE			
-	public synchronized static boolean protocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-	
-	public synchronized static boolean protocolWithPosition(Object obj, int iLevel, String... sLogs) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-
-	public synchronized static boolean protocolWithPosition(Class objClass, String... sLogs) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-	
-	public synchronized static boolean protocolWithPosition(Class objClass, int iLevel, String... sLogs) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-	
-	//+++++++++++++++++++++++++
-	
-	public synchronized static boolean protocolWithPosition(Object obj, String sLog) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = new String[1];
-			saLog[0] = sLog;
-			bReturn  = protocolWithPosition__(obj, 1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-	
-	public synchronized static boolean protocolWithPosition(Object obj, int iLevel, String sLog) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = new String[1];
-			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-		
-	}
-	
-	public synchronized static boolean protocolWithPosition(Class objClass, String sLog) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = new String[1];
-			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-	
-	public synchronized static boolean protocolWithPosition(Class objClass, int iLevel, String sLog) throws ExceptionZZZ{
-		boolean bReturn = false;
-		main:{
-			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
-			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
-			
-			String[] saLog = new String[1];
-			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
-		}//end main:
-		return bReturn;
-	}
-	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
-//	@Override
-//	public boolean protocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
-//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-//		ienumaMappedLogString[0] = ienumMappedLogString;
-//		
-//		String[] saLog = sLogs;
-//		return logProtocolWithPosition__(this, 1, ienumaMappedLogString, saLog);
-//	}
-//	
-//	@Override
-//	public synchronized boolean protocolWithPosition(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {		
-//		String[] saLog = sLogs;
-//		return logProtocolWithPosition__(this, 1, ienumaMappedLogString, saLog);
-//	}
-//	
-//	@Override
-//	public synchronized boolean protocolWithPosition(IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
-//		IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
-//		ienumaMappedLogString[0] = ienumMappedLogString;
-//		
-//		String[] saLog = new String[1];
-//		saLog[0] = sLog;
-//		return logProtocolWithPosition__(this, 1, ienumaMappedLogString, saLog);
-//	}
-	
-	
 	public static boolean protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
@@ -507,6 +605,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static boolean protocolWithPosition(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
@@ -519,6 +619,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static boolean protocolWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
@@ -531,6 +633,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static boolean protocolWithPosition(Class objClass, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
@@ -546,6 +650,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			String[] saLog = sLogs;
 			bReturn = protocolWithPosition__(obj, 1, ienumaMappedLogString, saLog);
 		}//end main:
@@ -555,6 +661,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			String[] saLog = sLogs;
 			bReturn = protocolWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
@@ -564,6 +672,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {		
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			String[] saLog = sLogs;
 			bReturn = protocolWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
 		}//end main:
@@ -573,6 +683,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Class objClass, int iLevel, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			String[] saLog = sLogs;
 			bReturn = protocolWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
@@ -584,6 +696,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static  synchronized boolean protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 	
@@ -597,6 +711,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 	
@@ -610,6 +726,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 	
@@ -623,6 +741,8 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	public static synchronized boolean protocolWithPosition(Class objClass, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString, String sLog) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
+			if(!canProtocol()) break main;
+			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
 	
@@ -633,7 +753,11 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
+
 	//+++++++++++++++++++++++++++++++++++
+	//
+	//+++++++++++++++++++++++++++++++++++	
+	
 	private static boolean protocolWithPosition__(Object obj, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
@@ -645,9 +769,7 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	}
 	private static boolean protocolWithPosition__(Class objClass, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
-		main:{
-			if(!canProtocol()) break main;
-			
+		main:{			
 			int iLevel = iLevelIn + 1;
 			String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
 			String[] saLog = StringArrayZZZ.prepend(saLogs, sPositionCalling);
@@ -662,7 +784,6 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		boolean bReturn = false;
 		main:{
 			if(ArrayUtilZZZ.isNull(saLog)) break main;		
-			if(!canProtocol()) break main;
 			
 			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(objIn, ienumaMappedLogString, saLog);
 			
@@ -678,7 +799,6 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		boolean bReturn = false;
 		main:{
 			if(ArrayUtilZZZ.isNull(saLog)) break main;		
-			if(!canProtocol()) break main;
 			
 			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(objClassIn, ienumaMappedLogString, saLog);
 			
@@ -691,5 +811,7 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		}//end main:
 		return bReturn;
 	}
+
+
 	
 }

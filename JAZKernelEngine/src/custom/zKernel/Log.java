@@ -70,6 +70,8 @@ public class Log implements IConstantZZZ{
 		}
 	}
 	
+	//++++++++++++++++++
+	//  protocol
 	//+++++++++++++++++	
 	public static boolean protocol(Object obj, String sInput) throws ExceptionZZZ {
 		if(LogSingletonZZZ.isInitialized()) {
@@ -86,6 +88,8 @@ public class Log implements IConstantZZZ{
 			return LogZZZ.protocol(obj, saInput);
 		}
 	}
+	
+	//+++++++++++++++++++++++++++++++++
 	
 	public static boolean protocolWithPosition(Object obj, String sInput) throws ExceptionZZZ {
 		if(LogSingletonZZZ.isInitialized()) {
@@ -105,5 +109,19 @@ public class Log implements IConstantZZZ{
 
 	//++++++++++++++++++
 	
+	public static boolean protocolDateWithPosition(Object obj, String sInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, 1, sInput);
+		}else {
+			return LogZZZ.protocolDateWithPosition(obj, 1, sInput);
+		}
+	}
 	
+	public static boolean protocolDateWithPosition(Object obj, String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, 1, saInput);
+		}else {
+			return LogZZZ.protocolDateWithPosition(obj, 1, saInput);
+		}
+	}
 }
