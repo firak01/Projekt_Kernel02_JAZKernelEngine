@@ -17,12 +17,13 @@ import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> implements ISystemZZZ{
 	private static final long serialVersionUID = -41535753990842671L;
 	
-	// --- Singleton Instanz ---
-	//muss als Singleton static sein. //Muss in der Konkreten Manager Klasse definiert sein, da ja unterschiedlich
-	//protected static ILogStringFormatManagerZZZ objLogStringManagerINSTANCE; //muss als Singleton static sein
-	private static final boolean INITIALIZED = true;// Trick, um Mehrfachinstanzen zu verhindern (optional)
-	
-	
+	//Als public Konstante, damit kann der Wert auch ohne Initialisierung abgefragt werden
+	//z.B. um ihm mit dem SystemSingleton.PRINTLEVEL_DEFAULT zu vergleichen.
+	//
+	//Beispiel: Per default sind alle Ausgaben "DEBUG".
+	//Ist dann auf dem SystemSingletonZZZ maximal "INFO" eingestellt wird nix ausgegeben.
+	public static PRINTLEVEL PRINTLEVEL_DEFAULT = PRINTLEVEL.INFO;
+
 	// --- Globale Objekte ---	
 	//Die Liste der Spaltenseparatoren, das aktuelle Format kann sich ja ggfs. aendern (je nachdem welche Log-Funktion verwendet wird),
 	//die Reihenfolge der Spalten (markiert durch die Separatoren) sollte nicht veraendert werden. Sonst bekommt man in den buendig gemachten Zeilen grosse Luecken.
@@ -183,7 +184,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//### aus IPrintLevelUserZZZ
 	@Override
 	public PRINTLEVEL getPrintLevelOverallEnumDefault() throws ExceptionZZZ{
-		return PRINTLEVEL.INFO;
+		return PRINTLEVEL_DEFAULT;
 	}
 	
 	@Override

@@ -4,12 +4,20 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
+import basic.zBasic.util.system.SystemSingletonZZZ;
+import custom.zKernel.LogSingletonZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 import debug.zBasic.util.console.thread.single.menu.ExampleConsoleServiceZZZ;
 
 public class DebugConsoleThreadMultiMenu03_MainZZZ {
 
 	public static void main(String[] args) {
-		try {		
+		try {
+			SystemSingletonZZZ.getInstance().setPrintLevelOverall(PRINTLEVEL.DEBUG); //Wenn höher als LogLevel ==> Keine Ausgaben mit dieser Stufe auf die Konsole.			
+			LogSingletonZZZ.getInstance().setLogLevelOverall(LOGLEVEL.DEBUG);       //Wenn nicht anders angegben, ist das Level der Ausgabe entsprechend
+			
+			
 			//Wenn dieser Thread gestartet wird, wartet er, bis die Konsole beendet ist.
 			ExampleComposition_ConsoleAsThreadZZZ objConsoleThread = new ExampleComposition_ConsoleAsThreadZZZ(args);
 			

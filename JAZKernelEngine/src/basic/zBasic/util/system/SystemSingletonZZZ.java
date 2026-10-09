@@ -10,6 +10,8 @@ import basic.zBasic.ExceptionZZZ;
 public class SystemSingletonZZZ<T> extends AbstractSystemZZZ<T>{
 	private static final long serialVersionUID = 2524968434491371812L;
 
+	
+	
 	// --- Singleton Instanz ---
 	//muss als Singleton static sein. //Muss in der Konkreten Manager Klasse definiert sein, da ja unterschiedlich
 	protected static ISystemZZZ objSystemINSTANCE=null;
@@ -21,6 +23,15 @@ public class SystemSingletonZZZ<T> extends AbstractSystemZZZ<T>{
 	//Wird beim ersten Konstruktoraufruf gesetzt
 	//Jeder weitere Versuch (Reflection!) schlägt fehl
     private static boolean INITIALIZED = false;
+    
+    
+ // --- Singleton Instanz ---
+ 	//muss als Singleton static sein. //Muss in der Konkreten Manager Klasse definiert sein, da ja unterschiedlich
+ 	//protected static ILogStringFormatManagerZZZ objLogStringManagerINSTANCE; //muss als Singleton static sein
+ 	//private static final boolean INITIALIZED = true;// Trick, um Mehrfachinstanzen zu verhindern (optional)
+ 	
+ 	
+    
     
     //Reflection-Schutz ist eine Hürde, kein Sicherheitsmechanismus.
     //Denn:
@@ -62,6 +73,12 @@ public class SystemSingletonZZZ<T> extends AbstractSystemZZZ<T>{
 		objSystemINSTANCE = null;
 	}
 
+	//########################
+	//Damit können andere Objekte prüfen, ob dieses System initialisiert ist. 
+	//Falls es noch nicht initialisiert ist, können sie dann ggfs. einen anderen Ausgebe-Weg nutzen.
+	public static boolean isInitialized() throws ExceptionZZZ{
+		return INITIALIZED;
+	}
 	
 	//#################################################################
 	//### ...... METHODEN ............

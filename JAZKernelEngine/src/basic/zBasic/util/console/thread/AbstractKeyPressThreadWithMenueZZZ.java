@@ -92,48 +92,58 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	this.bMakeMenueWhenFinished = bMakeMenueWhenFinished;
     }
     
+    
+    public void cancelToMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ {    	
+		this.cancelToMenue(hmVariable);
+		System.out.println(sConsoleText);		
+	}
     public void cancelToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
     	//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, false);//wieder so als würde das Menü nicht übersprungen.
 		this.cancelToMenue();
 	}
 	public void cancelToMenue() throws ExceptionZZZ {			
-		System.out.println("Abbruch. Zurueck zum Menue");
 		//this.isCurrentInputValid(false);					
 		this.isCurrentMenue(true); //wieder zurück zum Menue
 		this.isCurrentInputFinished(true);
 	}
 	
 	//Nach dem Beenden des Menüpunkts zurück zum Menü
-	public void validToMenueLater(HashMapZZZ hmVariable) throws ExceptionZZZ {
+	public void validToMenueLater(HashMapZZZ hmVariable, String sConsoleText) throws ExceptionZZZ {
 		this.validSkipMenue(hmVariable);
 		this.validToMenueLater();
+		System.out.println(sConsoleText);	
 	}
-	public void validToMenueLater() throws ExceptionZZZ {			
-		System.out.println("Spaeter zurueck zum Menue");			
+	public void validToMenueLater() throws ExceptionZZZ {						
 		this.isMenueWhenFinished(true);		
 	}
 	
+    public void validToMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ {    	
+		this.validToMenue(hmVariable);
+		System.out.println(sConsoleText);
+	}
     public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
-    	//Merke: Das wit nur intern wichtig, darum hier keinen Status sondern nur die HashMap direkt setzen
+    	//Merke: Das ist nur intern wichtig, darum hier keinen Status sondern nur die HashMap direkt setzen
 		if(hmVariable!=null) {
 			hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, false);//so, damit die Eingabe der Menue-Argumente NICHT MEHR übersprungen.
 			this.validEnableRepeatQuestion(hmVariable);
 		}
-		this.validToMenue();
+		this.validToMenue();		
 	}
-	public void validToMenue() throws ExceptionZZZ {			
-		System.out.println("Zurueck zum Menue");			
+	public void validToMenue() throws ExceptionZZZ {							
 		this.validMenue(true);	
 	}
 	
+	public void validSkipMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ {
+		this.validSkipMenue(hmVariable); 		
+		System.out.println(sConsoleText);
+	}
 	public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 		//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
-		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, true); //so, damit die Eingabe der Menue-Argumente uebersprungen wird 
-		this.validSkipMenue();
+		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, true); //so, damit die Eingabe der Menue-Argumente uebersprungen wird
+		validSkipMenue();
 	}
-	public void validSkipMenue() throws ExceptionZZZ {			
-		System.out.println("Menue ueberspringen");
+	public void validSkipMenue() throws ExceptionZZZ {					
 		this.validMenue(false);	
 	}
 	public void validMenue(boolean bCurrentMenue) throws ExceptionZZZ {
@@ -291,7 +301,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 						    IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
 						        			        		 
 	                		if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED)) {
-	                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
+	                			this.validToMenue(hmVariable, "Zurueck zum Menue (" + IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.getDescription() + ")");//Zurueck zum Menü vorbereiten
 	                		}else {
 					        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 					        	if(objMenuPoint==null) {
@@ -321,7 +331,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			                		}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
 			                			this.stop();
 				                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMenue)) {			                				                				                    
-				                    	this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten	
+				                    	this.validToMenue(hmVariable, "Zurueck zum Menue (direkt 1)");//Zurueck zum Menü vorbereiten	
 				                    	//Aber sofort und nicht erst noch eine Eingabe abwarten
 				                    					                    	
 				    	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
@@ -338,9 +348,9 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
 				                		boolean bMenue = bYes && !bDefault;
 				                		if(bMenue) { //Merke: Hier wird die Logik nun vertauscht Y=nicht skippen, da zurück zum Menü
-				                			this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten
+				                			this.validToMenue(hmVariable, "Zurueck zum Menue (direkt 2)");//Zurueck zum Menü vorbereiten
 				                		}else {			                		
-				                			this.validSkipMenue(hmVariable);			                			
+				                			this.validSkipMenue(hmVariable, "Menue ueberspringen (1)");			                			
 				                		}	
 				                		
 				                		//Nach dem ersten Schritt schon wieder stoppen
@@ -363,8 +373,8 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 						        			if(objMenuPoint.getServiceThread()==null) {
 						        			
 						        			}else {
-						        				//sInput = KeyPressUtilZZZ.makeWaitForInputAny(this.getInputReader(), "Nach dem Ende irgendeine Eingabe machen.");						        				
-						        				sInput = KeyPressUtilZZZ.makeWaitForInputMinusPlusMenuStopQuit(this.getInputReader(), "Nach dem Ende irgendeine Eingabe machen, bzw. während des Laufs einen Menüpunkt eingeben");
+						        				sInput = KeyPressUtilZZZ.makeWaitForInputAny(this.getInputReader(), "Nach dem Ende irgendeine Eingabe machen.");						        				
+						        				//sInput = KeyPressUtilZZZ.makeWaitForInputMinusPlusMenuStopQuit(this.getInputReader(), "Nach dem Ende irgendeine Eingabe machen, bzw. während des Laufs einen Menüpunkt eingeben");
 						        			}
 						        		}else {					        			
 						        			
@@ -398,7 +408,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                		}else if(StringZZZ.equalsIgnoreCase(sInput, IKeyPressConstantZZZ.cKeyStop)) {
 				                			this.stop();
 					                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMenue)) {			                				                				                    
-					                    	this.validToMenue(hmVariable);//Zurueck zum Menü vorbereiten	
+					                    	this.validToMenue(hmVariable, "Zurueck zum Menue (im laufenden Thread)");//Zurueck zum Menü vorbereiten	
 					                    	//Aber sofort und nicht erst noch eine Eingabe abwarten
 					                    					                    	
 					    	            	//Nein, damit beendet man sich selbst this.getKeyPressThread().requestStop();
@@ -415,9 +425,9 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					                		boolean bDefault = sInput.length()==0; //Die Scanner Klasse liefert bei ENTER einen Leerstring
 					                		boolean bMenue = bYes && !bDefault;
 					                		if(bMenue) { //Merke: Hier wird die Logik nun vertauscht Y=nicht skippen, da zurück zum Menü					                		
-					                			this.validToMenueLater(hmVariable);//Zurueck zum Menü nach dem Ende vorbereiten
+					                			this.validToMenueLater(hmVariable, "Spaeter zurueck zum Menue");//Zurueck zum Menü nach dem Ende vorbereiten
 					                		}else {			                		
-					                			this.validSkipMenue(hmVariable);			                			
+					                			this.validSkipMenue(hmVariable, "Menue ueberspringen");			                			
 					                		}
 					                	}else if(StringZZZ.equalsIgnoreCase(sInput,  IKeyPressConstantZZZ.cKeyMinus)) {
 					                		this.setSleepTime(this.getSleepTime() - 1000);
@@ -451,7 +461,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 						                		//if(!this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)){
 							        			if(objMenuPoint.getServiceThread().isStopped()) {
 							        				if(this.isMenueWhenFinished()){
-						                				this.validToMenue(hmVariable);	//zurück zum Menü vorbereiten				                			
+						                				this.validToMenue(hmVariable, "Zurueck zum Menue (Service-Thread gestoppt)");	//zurück zum Menü vorbereiten				                			
 							                			//this.stop();
 							                		}
 						                		}else {

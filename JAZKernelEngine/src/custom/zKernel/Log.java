@@ -64,31 +64,45 @@ public class Log implements IConstantZZZ{
 	
 	public static boolean printlnDateWithPosition(Object obj, String[] saInput) throws ExceptionZZZ {
 		if(LogSingletonZZZ.isInitialized()) {	
-			return LogSingletonZZZ.getInstance().printLineDateWithPosition(obj, saInput);
+			return LogSingletonZZZ.getInstance().printLineDateWithPosition(obj, 1, saInput);
 		}else {
-			return LogZZZ.printlnDateWithPosition(obj,  saInput);
+			return LogZZZ.printlnDateWithPosition(obj, 1, saInput);
 		}
 	}
 	
-	//+++++++++++++++++
-	
+	//+++++++++++++++++	
 	public static boolean protocol(Object obj, String sInput) throws ExceptionZZZ {
-		return LogSingletonZZZ.getInstance().protocolLine(obj, sInput);
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLine(obj, sInput);
+		}else {
+			return LogZZZ.protocol(obj, sInput);
+		}
 	}
 	 
 	public static boolean protocol(Object obj, String[] saInput) throws ExceptionZZZ {
-		return LogSingletonZZZ.getInstance().protocolLine(obj, saInput);
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLine(obj, saInput);
+		}else {
+			return LogZZZ.protocol(obj, saInput);
+		}
 	}
 	
 	public static boolean protocolWithPosition(Object obj, String sInput) throws ExceptionZZZ {
-		return LogSingletonZZZ.getInstance().protocolLineWithPosition(obj, sInput);
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(obj, 1, sInput);
+		}else {
+			return LogZZZ.protocolWithPosition(obj, 1, sInput);
+		}
 	}
 	
 	public static boolean protocolWithPosition(Object obj, String[] saInput) throws ExceptionZZZ {
-		return LogSingletonZZZ.getInstance().protocolLineWithPosition(obj, saInput);
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(obj, 1, saInput);
+		}else {
+			return LogZZZ.protocolWithPosition(obj, 1, saInput);
+		}
 	}
-	
-	
+
 	//++++++++++++++++++
 	
 	

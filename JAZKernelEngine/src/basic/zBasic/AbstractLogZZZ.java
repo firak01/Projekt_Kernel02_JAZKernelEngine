@@ -5,9 +5,11 @@ import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.system.Syso;
+import basic.zBasic.util.system.SystemSingletonZZZ;
 import custom.zKernel.ILogZZZ;
 import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.LogSingletonZZZ;
+import custom.zKernel.LogUtilZZZ;
 
 public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements ILogProtocolZZZ, ILogProtocolPositionZZZ, ILogPrintZZZ{
 	private static final long serialVersionUID = 6495244810060327188L;
@@ -33,6 +35,16 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 //	public synchronized void printlnDateWithPosition(String... sLogs) throws ExceptionZZZ {
 //		ObjectZZZ.printlnDateWithPosition(this, sLogs);
 //	}
+	
+	
+	//### Wichtige static Methoden
+	public static boolean canPrint() throws ExceptionZZZ{
+		return LogUtilZZZ.canPrint();
+	}
+	
+	public static boolean canProtocol() throws ExceptionZZZ{
+		return LogUtilZZZ.canProtocol();
+	}
 	
 	
 	//### aus ILogPrintZZZ
