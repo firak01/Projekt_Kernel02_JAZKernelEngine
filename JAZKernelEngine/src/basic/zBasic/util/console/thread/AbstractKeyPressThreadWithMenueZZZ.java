@@ -229,7 +229,10 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			HashMapZZZ<String,Object> hmVariable = this.getVariableHashMap();
             while(!this.getConsoleController().isStopped()) {	
             	iDebugCounterLoop++;
-            	System.out.println("Loop: " + iDebugCounterLoop);
+            	Log.printlnDateWithPosition(this, "TEST01");
+            	Log.protocolDateWithPosition(this, "TEST01");
+            	
+            	Log.writeDebug("Loop: " + iDebugCounterLoop);//System.out.println("Loop: " + iDebugCounterLoop);
             	long lSleepTime = this.getSleepTime();
             	//synchronized(this) {
             	input:{	            		

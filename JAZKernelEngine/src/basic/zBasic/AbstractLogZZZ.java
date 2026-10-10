@@ -389,7 +389,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, iaFormat, saLog);
 			
 		}//end main:
 		return bReturn;
@@ -406,7 +406,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);			
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, iaFormat, saLog);			
 		}//end main:
 		return bReturn;
 	}
@@ -420,7 +420,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			//Wir wollen hier zwar mit Datum, aber ohne Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
 			
-			bReturn = protocolWithPosition__(obj, 1, iaFormat, sLogs);			
+			bReturn = protocolLineWithPosition__(obj, 1, iaFormat, sLogs);			
 		}//end main:
 		return bReturn;
 	}
@@ -434,7 +434,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			//Wir wollen hier zwar mit Datum, aber ohne Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
 			
-			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, sLogs);			
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, iaFormat, sLogs);			
 		}//end main:
 		return bReturn;
 	}
@@ -450,7 +450,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);			
+			bReturn = protocolLineWithPosition__(objClass, 1, iaFormat, saLog);			
 		}//end main:
 		return bReturn;
 	}
@@ -466,7 +466,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);			
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, iaFormat, saLog);			
 		}//end main:
 		return bReturn;
 	}
@@ -480,7 +480,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			//Wir wollen hier zwar mit Datum, aber ohne Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
 			
-			bReturn = protocolWithPosition__(objClass, 1, iaFormat, sLogs);			
+			bReturn = protocolLineWithPosition__(objClass, 1, iaFormat, sLogs);			
 		}//end main:
 		return bReturn;
 	}
@@ -494,15 +494,12 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			//Wir wollen hier zwar mit Datum, aber ohne Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
 			
-			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, sLogs);			
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, iaFormat, sLogs);			
 		}//end main:
 		return bReturn;
 	}
 	
-	
-	
-	
-	
+
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//+++ Mit StringFormat
 	//+++ Merke: Hier keine extra ...Date-Methode. Will man das Datum haben, muss es im StringFormat enthalten sein.
@@ -586,15 +583,6 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		return bReturn;
 	}
 	
-	//+++++++++++++++++++++++++++++++++++++++
-	private boolean protocol__(Object objIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLog) throws ExceptionZZZ {
-		boolean bReturn = false;
-		main:{
-			if(!canProtocol()) break main;
-			bReturn = protocol__(objIn.getClass(), ienumaMappedLogString, saLog);
-		}//end main:
-		return bReturn;
-	}
 	
 	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE
     // Dann nicht vergessen iLevel als Methode zur Verfügung stellen, für die Position im Stacktrace			
@@ -607,7 +595,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -620,7 +608,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -633,7 +621,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 			
 			String[] saLog = sLogs;
-			return protocolWithPosition__(objClass, 1, iaFormat, saLog);
+			return protocolLineWithPosition__(objClass, 1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -646,7 +634,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -662,7 +650,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -676,7 +664,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -690,7 +678,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(objClass, 1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -704,7 +692,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, iaFormat, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -723,7 +711,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, 1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -736,7 +724,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -749,7 +737,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -762,7 +750,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 			ienumaMappedLogString[0] = ienumMappedLogString;
 			
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -775,7 +763,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		main:{			
 			if(!canProtocol()) break main;
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, 1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -785,7 +773,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		main:{			
 			if(!canProtocol()) break main;
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -795,7 +783,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		main:{			
 			if(!canProtocol()) break main;
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -805,7 +793,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		main:{			
 			if(!canProtocol()) break main;
 			String[] saLog = sLogs;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
@@ -821,7 +809,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, 1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}	
@@ -835,7 +823,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}	
@@ -849,7 +837,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}	
@@ -863,24 +851,33 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}	
 	
 	//++++++++++++++++++++++++
 	//++++++++++++++++++++++++
-	private boolean protocolWithPosition__(Object obj, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
+	private boolean protocolLineWithPosition__(Object obj, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		int iLevel = iLevelIn + 1;
-		return protocolWithPosition__(obj.getClass(), iLevel, ienumaMappedLogString, saLogs);
+		return protocolLineWithPosition__(obj.getClass(), iLevel, ienumaMappedLogString, saLogs);
 	}
 	
-	private boolean protocolWithPosition__(Class objClass, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
+	private boolean protocolLineWithPosition__(Class objClass, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		int iLevel = iLevelIn + 1;
 		String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
 		String[] saLog = StringArrayZZZ.prepend(saLogs, sPositionCalling);
 		//return this.protocolLine(objClass, ienumaMappedLogString, saLog);
 		return protocol__(objClass, ienumaMappedLogString, saLog);
+	}
+	
+	private boolean protocol__(Object objIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol()) break main;
+			bReturn = protocol__(objIn.getClass(), ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
 	}
 	
 	private boolean protocol__(Class objClassIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLog) throws ExceptionZZZ {
@@ -899,4 +896,6 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		}//end main:
 		return bReturn;
 	}
+	
+	
 }

@@ -877,13 +877,13 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 	}
 	
 	//wie getPositionCallingXmlPlus(iLevelPlus)
-	public static String  getPositionCallingXml(int iLevelPlus) throws ExceptionZZZ {
-		return ReflectCodeZZZ.getPositionCurrentXml_(null, 2+iLevelPlus);
+	public static String  getPositionCallingXml(int iLevel) throws ExceptionZZZ {
+		return ReflectCodeZZZ.getPositionCurrentXml_(null, 1+iLevel);
 	}
 	
 	//wie getPositionCallingXml(iLevelPlus)
-	public static String  getPositionCallingXmlPlus(int iLevelPlus) throws ExceptionZZZ {
-		return ReflectCodeZZZ.getPositionCurrentXml_(null, 2+iLevelPlus);
+	public static String  getPositionCallingXmlPlus(int iLevel) throws ExceptionZZZ {
+		return ReflectCodeZZZ.getPositionCurrentXml_(null, 1+iLevel);
 	}
 	
 	public static String getPositionXml(int iLevel) throws ExceptionZZZ {
@@ -911,7 +911,6 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 			//Rufe die Methoden zur "Positionsbestimmung" hier in der obersten Funktion auf.
 			//in den Funtionen darunter muesste ja alles wieder um 2 Ebene tiefer definiert werden.
 			//Das gilt sowohl für die Zeile als auch für den Dateinamen oder die Methode.
-			int iLevelUsed = iLevel+1;
 			
 			//FGL20251118: 
 			//Formatanweisungen hier zu verwenden ist uebertrieben. (Extra Code zur Ansicht in getPositionCurrentXmlFormated() )
@@ -920,21 +919,21 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 			//Also, einfach nur die Tags ausrechnen und zusammenpacken:
 						
 			//++++++++++++++++++++++++++++++++++++++++++++++++++
-			String sClassname = ReflectCodeZZZ.getClassCallingName(iLevelUsed);
+			String sClassname = ReflectCodeZZZ.getClassCallingName(iLevel+1);
 			ITagByTypeZZZ objTagClassname = TagByTypeFactoryZZZ.createTagByName(TagByTypeFactoryZZZ.TAGTYPE.CLASSNAME, sClassname);
 			String sClassnameTag = objTagClassname.getElementString();
 			
 			//Merke: Das reine, aktuelle Objekt kann man auch ueber die Formatierungsanweisung irgendwann in den String einbauen.
 			//       Nur die Zeilennummer, etc. muss AN DIESER STELLE (!) so errechnet werden.			
-			int iLine = ReflectCodeZZZ.getMethodCallingLine(iLevelUsed);
+			int iLine = ReflectCodeZZZ.getMethodCallingLine(iLevel+1);
 			ITagByTypeZZZ objTagLine = TagByTypeFactoryZZZ.createTagByName(TagByTypeFactoryZZZ.TAGTYPE.LINENUMBER, iLine);
 			String sLineTag = objTagLine.getElementString();
 			
-			String sFile = ReflectCodeZZZ.getMethodCallingFileName(iLevelUsed);
+			String sFile = ReflectCodeZZZ.getMethodCallingFileName(iLevel+1);
 			ITagByTypeZZZ objTagFile = TagByTypeFactoryZZZ.createTagByName(TagByTypeFactoryZZZ.TAGTYPE.FILENAME, sFile);
 			String sFileTag = objTagFile.getElementString();
 			
-			String sMethod = ReflectCodeZZZ.getMethodCallingName(iLevelUsed);
+			String sMethod = ReflectCodeZZZ.getMethodCallingName(iLevel+1);
 			ITagByTypeZZZ objTagMethod = TagByTypeFactoryZZZ.createTagByName(TagByTypeFactoryZZZ.TAGTYPE.METHOD, sMethod);
 			String sMethodTag = objTagMethod.getElementString();
 			

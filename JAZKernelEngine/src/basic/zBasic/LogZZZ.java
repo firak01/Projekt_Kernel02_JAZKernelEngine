@@ -758,23 +758,20 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	//
 	//+++++++++++++++++++++++++++++++++++	
 	
-	private static boolean protocolWithPosition__(Object obj, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
+	private static boolean protocolWithPosition__(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			int iLevel = iLevelIn + 1;
-			bReturn = protocolWithPosition(obj.getClass(), iLevel, ienumaMappedLogString, saLogs);
+			bReturn = protocolWithPosition(obj.getClass(), iLevel+1, ienumaMappedLogString, saLogs);
 		}//end main:
 		return bReturn;
 		
 	}
-	private static boolean protocolWithPosition__(Class objClass, int iLevelIn, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
+	private static boolean protocolWithPosition__(Class objClass, int iLevel, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
 		boolean bReturn = false;
-		main:{			
-			int iLevel = iLevelIn + 1;
-			String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
+		main:{						
+			String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel+1); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
 			String[] saLog = StringArrayZZZ.prepend(saLogs, sPositionCalling);
-			//return this.protocolLine(objClass, iLevelIn, ienumaMappedLogString, saLog); 
-	
+			
 			bReturn = protocol__(objClass, ienumaMappedLogString, saLog);
 		}
 		return bReturn;

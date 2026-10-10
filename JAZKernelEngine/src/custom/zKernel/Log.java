@@ -56,7 +56,7 @@ public class Log implements IConstantZZZ{
 	
 	public static boolean printlnDateWithPosition(Object obj, String sInput) throws ExceptionZZZ {
 		if(LogSingletonZZZ.isInitialized()) {
-			return LogSingletonZZZ.getInstance().printLineDateWithPosition(obj, sInput);
+			return LogSingletonZZZ.getInstance().printLineDateWithPosition(obj, 1, sInput);
 		}else {
 			return LogZZZ.printlnDateWithPosition(obj, 1, sInput);
 		}

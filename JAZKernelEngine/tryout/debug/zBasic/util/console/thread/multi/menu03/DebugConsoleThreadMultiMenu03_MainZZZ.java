@@ -14,7 +14,7 @@ public class DebugConsoleThreadMultiMenu03_MainZZZ {
 
 	public static void main(String[] args) {
 		try {
-			SystemSingletonZZZ.getInstance().setPrintLevelOverall(PRINTLEVEL.INFO); //Wenn höher als LogLevel ==> Keine Ausgaben mit dieser Stufe auf die Konsole.			
+			SystemSingletonZZZ.getInstance().setPrintLevelOverall(PRINTLEVEL.DEBUG); //Wenn höher als LogLevel ==> Keine Ausgaben mit dieser Stufe auf die Konsole.	Z.B. PRINTLEVEL.INFO > LOGLEVEL.DEBUG ==> Keine Ausgabe		
 			LogSingletonZZZ.getInstance().setLogLevelOverall(LOGLEVEL.DEBUG);       //Wenn nicht anders angegben, ist das Level der Ausgabe entsprechend
 			
 			
