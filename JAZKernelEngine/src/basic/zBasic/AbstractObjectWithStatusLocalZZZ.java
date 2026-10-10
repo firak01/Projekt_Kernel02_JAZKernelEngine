@@ -1089,12 +1089,12 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			}
 			
 			boolean bQuery = this.queryOfferStatusLocal(sStatusName, bStatusValue);			
-			sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> queryOffer returns '" + bQuery + "' for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+			sLog = this.getClass().getSimpleName()+"=> queryOffer returns '" + bQuery + "' for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
 			if(!bQuery) {
 //				this.logProtocolString(sLog);
 				break main;
 			}else {				
-				Log.protocol(this, sLog);
+				Log.protocolDateWithPosition(this, sLog);
 			}
 			
 			//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
@@ -1556,7 +1556,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 			//Aus iSenderObjectStatusLocalUserZZZ
 			//Es ist nur die Frage, ob Status - Werte mit false versendet werden sollen
 			
-			sLog = ReflectCodeZZZ.getPositionCurrent()  + this.getClass().getSimpleName()+"=> queryOfferStatusLocal for: '" + sStatusName + "' and value '" + bStatusValue + "'"; //, StatusMessage='\"+sStatusMessage+\"'\";);
+			sLog = this.getClass().getSimpleName()+"=> queryOfferStatusLocal for: '" + sStatusName + "' and value '" + bStatusValue + "'"; //, StatusMessage='\"+sStatusMessage+\"'\";);
 			if(!bStatusValue) {
 				if(!this.getFlag(ISenderObjectStatusLocalUserZZZ.FLAGZ.STATUSLOCAL_SEND_VALUEFALSE)) {
 					//Diese Ausgabe blaeht das Log unnoetig auf.
@@ -1566,7 +1566,7 @@ public abstract class AbstractObjectWithStatusLocalZZZ <T> extends AbstractObjec
 				}
 			}else {
 				//true fall. Jetzt kann man einen Breakpoint setzen
-				Log.protocol(this, sLog);
+				Log.protocolDateWithPosition(this, sLog);
 			}
 			
 			

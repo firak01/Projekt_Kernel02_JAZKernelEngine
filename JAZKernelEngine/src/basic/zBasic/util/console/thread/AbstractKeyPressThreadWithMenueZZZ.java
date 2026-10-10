@@ -219,6 +219,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	public boolean start() throws ExceptionZZZ {
 		boolean bReturn = true;
     	main:{
+			String sLog=null;
 			int iDebugCounterServiceThread=0;
 			int iDebugCounterLoop=0;
 			
@@ -229,10 +230,11 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			HashMapZZZ<String,Object> hmVariable = this.getVariableHashMap();
             while(!this.getConsoleController().isStopped()) {	
             	iDebugCounterLoop++;
-            	Log.printlnDateWithPosition(this, "TEST01");
-            	Log.protocolDateWithPosition(this, "TEST01");
+//            	Log.printlnDateWithPosition(this, "TEST01");
+//            	Log.protocolDateWithPosition(this, "TEST01");
             	
-            	Log.writeDebug("Loop: " + iDebugCounterLoop);//System.out.println("Loop: " + iDebugCounterLoop);
+            	sLog = "Loop: " + iDebugCounterLoop;
+            	Log.writeDebug(sLog);//System.out.println("Loop: " + iDebugCounterLoop);
             	long lSleepTime = this.getSleepTime();
             	//synchronized(this) {
             	input:{	            		
@@ -264,7 +266,8 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 		        	    //#### Eingabe der Argumente
 		        	    //Das wird nur im Menue wieder auf false gesetzt !!! this.isCurrentInputFinished(false);
 			        	if(bSkipArguments01) {
-			        		System.out.println("KeyPressThread: bSkipArguments01=true");
+			        		sLog = "KeyPressThread: bSkipArguments01=true";
+			        		Log.writeDebug(sLog);
 			        	}else {				        		
 			        		do {					        			
 					        	if(this.isCurrentMenue()) {				        			
@@ -448,7 +451,9 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 							        		if(objMenuPoint.getServiceThread()==null) {
 							        			
 							        			iDebugCounterServiceThread++;
-									        	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
+									        	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
+									        	sLog = ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!";
+									        	Log.writeDebug(sLog);
 									        	//objMenuPoint.initit(hmVariable);
 									        		 
 									        	IConsoleControllerZZZ objConsoleController = this.getConsoleController();

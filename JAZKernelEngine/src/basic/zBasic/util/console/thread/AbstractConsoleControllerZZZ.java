@@ -284,14 +284,15 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 		main:{
 			if(eventStatusLocal==null)break main;
 			
-			String sLog;
+			String sLog=null;
 			String sStatusName = null; boolean bStatusValue = true; String sStatusMessage = null;
 			boolean bValue = eventStatusLocal.getStatusValue();
 			
 			
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
 			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
-				System.out.println(ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED");
+				sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED";
+				Log.writeDebug(sLog);
 				this.isKeyPressThreadFinished(bValue);
 				
 				System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
@@ -300,7 +301,8 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			}
 						
 			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED.getName())){
-				System.out.println(ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED");
+				sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED";
+				Log.writeDebug(sLog);
 				this.isKeyPressThreadStopped(bValue);
 			}
 			
@@ -325,8 +327,10 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
 				//Dann erzeuge den Event und feuer ihn ab.	
 				if(this.getSenderStatusLocalUsed()==null) {
-					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-					Log.protocol(this, sLog);		
+					//sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+					//Log.protocol(this, sLog);
+					sLog = this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+					Log.protocolDateWithPosition(this, sLog);
 					break main;
 				}
 				
@@ -341,8 +345,10 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 					//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
 					//Dann erzeuge den Event und feuer ihn ab.	
 					if(this.getSenderStatusLocalUsed()==null) {
-						sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-						Log.protocol(this, sLog);		
+//						sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+//						Log.protocol(this, sLog);	
+						sLog = this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+						Log.protocolDateWithPosition(this, sLog);
 						break main;
 					}
 			}else if(objStatus.getName().equalsIgnoreCase(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISCONSOLEUSERTHREADSTOPPED.getName())){
@@ -354,23 +360,29 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				//Falls irgendwann ein Objekt sich fuer die Eventbenachrichtigung registriert hat, gibt es den EventBroker.
 				//Dann erzeuge den Event und feuer ihn ab.	
 				if(this.getSenderStatusLocalUsed()==null) {
-					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-					Log.protocol(this, sLog);		
+//					sLog = ReflectCodeZZZ.getPositionCurrent() +  this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+//					Log.protocol(this, sLog);
+					sLog = this.getClass().getSimpleName()+"=> Would like to fire event but no objEventStatusLocalBroker available, any registered? For '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+					Log.protocolDateWithPosition(this, sLog);
 					break main;
 				}
 				
 			}
 			
 			if(StringZZZ.isEmpty(sStatusName)){
-				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Status with name '" + objStatus.getName() + "' is not handled yet.";
-				Log.protocol(this, sLog);
+//				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Status with name '" + objStatus.getName() + "' is not handled yet.";
+//				Log.protocol(this, sLog);
+				sLog = this.getClass().getSimpleName()+"=> Status with name '" + objStatus.getName() + "' is not handled yet.";
+				Log.protocolDateWithPosition(this, sLog);
 				break main;
 			}
 					
 			//Erzeuge fuer das Enum einen eigenen Event. Die daran registrierten Klassen koennen in einer HashMap definieren, ob der Event fuer sie interessant ist.		
 			if(bStatusValue) { //!!! nur im TRUE Fall wird eine Logausgabe erzeugt... sonst wird das Log zu voll.			
-				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
-				Log.protocol(this, sLog);
+//				sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+//				Log.protocol(this, sLog);
+				sLog = this.getClass().getSimpleName()+"=> Creates event for '" + sStatusName + "' and StatusValue '" + bStatusValue + "', StatusMessage='"+sStatusMessage+"'";
+				Log.protocolDateWithPosition(this, sLog);				
 			}
 			IEventObjectStatusBasicZZZ event;
 			if(sStatusMessage==null) {
@@ -379,8 +391,10 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				event = new EventObjectStatusLocalZZZ(this, sStatusName, bStatusValue, sStatusMessage);			
 			}
 					
-			sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
-			Log.protocol(this, sLog);
+//			sLog = ReflectCodeZZZ.getPositionCurrent() + this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
+//			Log.protocol(this, sLog);
+			sLog = this.getClass().getSimpleName()+"=> Fires event for '" + sStatusName + "' and value '" + bStatusValue + "'";
+			Log.protocolDateWithPosition(this, sLog);	
 			this.getSenderStatusLocalUsed().fireEvent(event);
 		
 			bReturn = true;

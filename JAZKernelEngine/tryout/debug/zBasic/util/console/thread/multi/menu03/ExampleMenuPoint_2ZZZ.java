@@ -14,6 +14,7 @@ import basic.zBasic.util.console.thread.KeyPressUtilZZZ;
 import basic.zBasic.util.counter.ICounterByCharacterAsciiFactoryZZZ;
 import basic.zBasic.util.counter.ICounterStringZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import custom.zKernel.Log;
 
 public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 	public ExampleMenuPoint_2ZZZ() throws ExceptionZZZ {
@@ -28,16 +29,19 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 	public boolean initit(HashMapZZZ<String, Object>hmVariableExternal) throws ExceptionZZZ {		
 		boolean bReturn = false;
 		main:{
-			String sCounterValueCurrent = null;
+			String sCounterValueCurrent = null; String sLog = null;
 			if(hmVariableExternal!=null) {
 				
 				//Hole aus der externen HashMap nur die Werte, die interessieren
 				String sTemp = HashMapUtilZZZ.computeDebugString(hmVariableExternal);
-				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal \n" + sTemp);
-				
+				sLog = ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal \n" + sTemp;
+				//System.out.println(sLog);
+				Log.writeDebug(sLog);
 				sCounterValueCurrent = (String) hmVariableExternal.get("OUTPUT_COUNTER_VALUE_CURRENT");							
 			}else {
-				System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal ist NULL");				
+				sLog = ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal ist NULL";
+				//System.out.println(sLog);
+				Log.writeDebug(sLog);
 			}
 			
 			//Plus alle anderen INPUT - Variablen.			
