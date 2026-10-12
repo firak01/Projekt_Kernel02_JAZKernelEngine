@@ -229,6 +229,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		boolean bReturn = false;
 		main:{
 			if(!canProtocol()) break main;
+			
 			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
 			ILogZZZ objLog = LogSingletonZZZ.getInstance();
 					
@@ -244,7 +245,8 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 	public synchronized boolean protocolLine(Class objClass, String sLog) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;			
+			if(!canProtocol()) break main;	
+			
 			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
 			ILogZZZ objLog = LogSingletonZZZ.getInstance();
 					
@@ -281,6 +283,7 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		boolean bReturn = false;
 		main:{
 			if(!canProtocol()) break main;	
+			
 			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
 			ILogZZZ objLog = LogSingletonZZZ.getInstance();
 			
@@ -292,6 +295,80 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		}//end main:
 		return bReturn;
 	}
+	
+	//+++++++ LogLevel
+	@Override
+	public synchronized boolean protocolLine(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
+			ILogZZZ objLog = LogSingletonZZZ.getInstance();
+					
+			//wichtig: Wenn dies vor dem Holen der Log Instanz gemacht wird, arbeitet man mit einer weit links liegenden "justifier-Grenze".
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLog);						
+			//wird in WriteLine schon gemacht... System.out.println(sLogUsed);
+			
+			bReturn = objLog.writeLine(sLogUsed);
+		}//end main:
+		return bReturn;
+	}
+	@Override
+	public synchronized boolean protocolLine(Class objClass, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
+			ILogZZZ objLog = LogSingletonZZZ.getInstance();
+					
+			//wichtig: Wenn dies vor dem Holen der Log Instanz gemacht wird, arbeitet man mit einer weit links liegenden "justifier-Grenze".
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(objClass, sLog);						
+			//wird in WriteLine schon gemacht... System.out.println(sLogUsed);
+			
+			bReturn = objLog.writeLine(sLogUsed);
+		}//end main:
+		return bReturn;
+	}
+	
+	//++++++++++++++++++++++++++++
+	
+	@Override
+	public synchronized boolean protocolLine(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;			
+	
+			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
+			ILogZZZ objLog = LogSingletonZZZ.getInstance();
+			
+			//wichtig: Wenn dies vor dem Holen der Log Instanz gemacht wird, arbeitet man mit einer weit links liegenden "justifier-Grenze".
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(obj, sLogs);						
+			
+			//wird in WriteLine schon gemacht... System.out.println(sLogUsed);		
+			bReturn = objLog.writeLine(sLogUsed);
+		}//end main:
+		return bReturn;
+	}	
+	@Override
+	public synchronized boolean protocolLine(Class objClass, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wichtig: Hole erst die Log Instanz. Darin wird schon jede menge Protokolliert und die "justifier-Grenze" verschoben.
+			ILogZZZ objLog = LogSingletonZZZ.getInstance();
+			
+			//wichtig: Wenn dies vor dem Holen der Log Instanz gemacht wird, arbeitet man mit einer weit links liegenden "justifier-Grenze".
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(objClass, sLogs);						
+			
+			//wird in WriteLine schon gemacht... System.out.println(sLogUsed);		
+			bReturn = objLog.writeLine(sLogUsed);
+		}//end main:
+		return bReturn;
+	}
+	
 	
 	
 	//++++++++++++++++++++
@@ -996,6 +1073,8 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 		return bReturn;
 	}	
 	
+	
+	
 	//+++++++++++++++++++++
 	//### Mit Position UND expliziter Angabe des LogLevels
 	//### Dann immer auch eine Methode für iLevel, der Position im Stacktrace, zur Verfügung stellen.
@@ -1018,56 +1097,289 @@ public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements 
 
 	@Override
 	public boolean protocolLineWithPosition(Object obj, int iLevel, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
-		TODOGOON Auto-generated method stub
-		return false;
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(obj, iLevel + 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
 	}
 
 	@Override
 	public boolean protocolLineWithPosition(Object obj, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
 	}
 
 	@Override
 	public boolean protocolLineWithPosition(Object obj, int iLevel, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(obj, iLevel + 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
 	}
 
 	@Override
 	public boolean protocolLineWithPosition(Class objClass, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
 	}
 
 	@Override
 	public boolean protocolLineWithPosition(Class objClass, int iLevel, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(objClass, iLevel + 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
 	}
 
 	@Override
 	public boolean protocolLineWithPosition(Class objClass, LOGLEVEL enumLogLevel, String... sLogs)	throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
 	}
 
 	@Override
 	public boolean protocolLineWithPosition(Class objClass, int iLevel, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
-		TODOGOON20261012;// Auto-generated method stub
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineWithPosition_withObject();
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(objClass, iLevel + 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	//#################
+	//### Übergibt sowohl das LogLevel, als auch das Format
+	@Override
+	public boolean protocolLineWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString,	LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{			
 			if(!canProtocol(enumLogLevel)) break main;
 			
 			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
 			ienumaMappedLogString[0] = ienumMappedLogString;
-	
+			
 			String[] saLog = new String[1];
 			saLog[0] = sLog;
-			bReturn = protocolLineWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
+			bReturn = protocolLineWithPosition__(obj, 1, ienumaMappedLogString, saLog);
 		}//end main:
 		return bReturn;
 	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString,	LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(obj, iLevel + 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString,	LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(obj, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(obj, iLevel + 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString,	LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+						
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(obj, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, int iLevel,	IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, LOGLEVEL enumLogLevel, String... sLogs)	throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+						
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(obj, iLevel + 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ ienumMappedLogString,	LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+						
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;			
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, int iLevel,	IEnumSetMappedStringFormatZZZ ienumMappedLogString, LOGLEVEL enumLogLevel, String sLog)	throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+						
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;			
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(objClass, iLevel + 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ ienumMappedLogString,	LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+						
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;			
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+						
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;			
+			
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(objClass, iLevel + 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+									
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, int iLevel,	IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			if(!canProtocol(enumLogLevel)) break main;
+									
+			String[] saLog = sLogs;
+			bReturn = protocolLineWithPosition__(objClass, iLevel + 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	
 	
 	//++++++++++++++++++++++++
 	//++++++++++++++++++++++++

@@ -1409,6 +1409,133 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	}
 	
 	
+	//++++++++++++++++++++++
+	//++++ POSITION UND EXPLIZITER ANGABE DES LOGLEVELS (Merke: Der String muss wg. String... als Parameter immer hinten der letzte Parameter sein.
+	//### Dann immer auch eine Methode für iLevel, der Position im Stacktrace, zur Verfügung stellen.
+	//########################
+	
+	
+	@Override
+	public boolean protocolLineWithPosition(Object obj, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(obj, 1, sLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, int iLevel, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(obj, iLevel + 1, sLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(obj, 1, sLogs);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Object obj, int iLevel, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(obj, iLevel + 1, sLogs);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(objClass, 1, sLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, int iLevel, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(objClass, iLevel + 1, sLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(objClass, 1, sLogs);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLineWithPosition(Class objClass, int iLevel, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(objClass, iLevel + 1, sLogs);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLine(Object obj, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(obj, 1, sLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLine(Object obj, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(obj, 1, sLogs);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLine(Class objClass, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(objClass, 1, sLog);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean protocolLine(Class objClass, LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			bReturn = protocolLineWithPosition(objClass, 1, sLogs);
+		}//end main:
+		return bReturn;
+	}
+	
+	
 	//+++++++++++++++++++++++++++++
 	//+++ mit String Format, dann ist darin ggfs. das Datum drin und muss nicht als extra Methode existieren.
 	//+++++++++++++++++++++++++++++	
@@ -1578,10 +1705,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		return bReturn;
 	}
 	
-	//++++++++++++++++++++++
-	//++++ POSITION UND EXPLIZITER ANGABE DES LOGLEVELS (Merke: Der String muss wg. String... als Parameter immer hinten der letzte Parameter sein.
-	//### Dann immer auch eine Methode für iLevel, der Position im Stacktrace, zur Verfügung stellen.
-	//########################
+	//+++++++++++++++++++++++++++++++++
 	@Override
 	public boolean protocolLineWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString,  ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ {
 		boolean bReturn = false;

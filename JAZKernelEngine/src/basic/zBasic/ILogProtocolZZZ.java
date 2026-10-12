@@ -1,6 +1,7 @@
 package basic.zBasic;
 
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
+import custom.zKernel.ILogLevelUserZZZ;
 
 public interface ILogProtocolZZZ extends ILogPrintZZZ{
 	//#################################
@@ -24,6 +25,13 @@ public interface ILogProtocolZZZ extends ILogPrintZZZ{
 	
 	public boolean protocolLine(Class objClass, String sLog) throws ExceptionZZZ; //Intention dahinter: Anders als logLineDate wird ggfs. noch woanders als im System.out protokolliert. In einfachen Klassen normalerweise wie logLineDate.	
 	public boolean protocolLine(Class objClass, String... sLogs) throws ExceptionZZZ; //Intention dahinter: Anders als logLineDate wird ggfs. noch woanders als im System.out protokolliert. In einfachen Klassen normalerweise wie logLineDate.
+	
+	//... und expliziter Angabe des LogLevels (Merke: Der String muss wg. String... immer hinten als letzer Parameter stehen.
+	public boolean protocolLine(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ; 
+	public boolean protocolLine(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ; 
+	
+	public boolean protocolLine(Class objClass, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ; 	
+	public boolean protocolLine(Class objClass, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ; 
 	
 	
 	//+++++++++++++++++++++++++++++++++++++++++++

@@ -291,8 +291,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			
 			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
 			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
-				sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED";
-				Log.writeDebug(sLog);
+				//sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED";
+				sLog = "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED";
+				Log.writeDebug(this, sLog);
 				this.isKeyPressThreadFinished(bValue);
 				
 				System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
@@ -301,8 +302,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			}
 						
 			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED.getName())){
-				sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED";
-				Log.writeDebug(sLog);
+				//sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED";
+				sLog = "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED";
+				Log.writeDebug(this, sLog);
 				this.isKeyPressThreadStopped(bValue);
 			}
 			

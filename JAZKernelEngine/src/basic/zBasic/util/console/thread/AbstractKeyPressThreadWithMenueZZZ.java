@@ -199,7 +199,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	public boolean requestStop(boolean bStop) throws ExceptionZZZ {
     	String sLog = "NEU STATT QUIT";
     	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
-    	Log.writeDebug(sLog);
+    	Log.writeDebug(this, sLog);
     		
     	//DAS IST FALSCH, STATT DESSEN MUSS DER CONTROLLER EINEN EVENT AN ALLE REGISTRIERTEN SCHICHEN
     	//DER KEYPRESSTHREAD SELBST WIRD NICHT GESTOPPT!!!
@@ -236,7 +236,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 //            	Log.protocolDateWithPosition(this, "TEST01");
             	
             	sLog = "Loop: " + iDebugCounterLoop;
-            	Log.writeDebug(sLog);//System.out.println("Loop: " + iDebugCounterLoop);
+            	Log.writeDebug(this, sLog);//System.out.println("Loop: " + iDebugCounterLoop);
             	long lSleepTime = this.getSleepTime();
             	//synchronized(this) {
             	input:{	            		
@@ -269,7 +269,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 		        	    //Das wird nur im Menue wieder auf false gesetzt !!! this.isCurrentInputFinished(false);
 			        	if(bSkipArguments01) {
 			        		sLog = "KeyPressThread: bSkipArguments01=true";
-			        		Log.writeDebug(sLog);
+			        		Log.writeDebug(this, sLog);
 			        	}else {				        		
 			        		do {					        			
 					        	if(this.isCurrentMenue()) {				        			
@@ -279,7 +279,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                //das holt wohl wort fuer wort von der Konsole: String sInput = inputReader.next();
 					        	Scanner inputReader = this.getInputReader();				      
 					        	sInput = inputReader.nextLine();				                
-				                Log.writeInfo("Pressed Menueselection: " + sInput);
+				                Log.writeInfo(this, "Pressed Menueselection: " + sInput);
 				                
 				                //FGL20261006:
 				                //this.logProtocol soll weg, wenn das nicht mehr in AbstractObjekt eine Methode ist.
@@ -292,7 +292,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 				                
 				                boolean bGoon = this.processMenuPoint(sInput,hmVariable); //bereite alles vor, gemäß dem ausgewählten Menüpunkt.
 				                if(!bGoon) {
-				                	Log.writeDebug("Break after Menueselection: "  + sInput);
+				                	Log.writeDebug(this, "Break after Menueselection: "  + sInput);
 				                	break main;//Quit
 				                }
 				                
@@ -455,7 +455,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 							        			iDebugCounterServiceThread++;
 									        	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!");
 									        	sLog = ReflectCodeZZZ.getPositionCurrent() + ": START DES SERVICE NR " + iDebugCounterServiceThread + " !!!!!!!!!!!!!!!!!!";
-									        	Log.writeDebug(sLog);
+									        	Log.writeDebug(this, sLog);
 									        	//objMenuPoint.initit(hmVariable);
 									        		 
 									        	IConsoleControllerZZZ objConsoleController = this.getConsoleController();

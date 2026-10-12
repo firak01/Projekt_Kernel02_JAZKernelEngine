@@ -34,14 +34,16 @@ public class ExampleMenuPoint_2ZZZ extends AbstractMenuPointZZZ {
 				
 				//Hole aus der externen HashMap nur die Werte, die interessieren
 				String sTemp = HashMapUtilZZZ.computeDebugString(hmVariableExternal);
-				sLog = ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal \n" + sTemp;
+				//sLog = ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal \n" + sTemp;
 				//System.out.println(sLog);
-				Log.writeDebug(sLog);
+				sLog = "hmVariableExternal \n" + sTemp;
+				Log.writeDebug(this, sLog);
 				sCounterValueCurrent = (String) hmVariableExternal.get("OUTPUT_COUNTER_VALUE_CURRENT");							
 			}else {
-				sLog = ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal ist NULL";
+				//sLog = ReflectCodeZZZ.getPositionCurrent() + ": hmVariableExternal ist NULL";
 				//System.out.println(sLog);
-				Log.writeDebug(sLog);
+				sLog = "hmVariableExternal ist NULL";
+				Log.writeDebug(this, sLog);
 			}
 			
 			//Plus alle anderen INPUT - Variablen.			

@@ -164,4 +164,7 @@ public class LogSingletonZZZ extends AbstractKernelLogZZZ{
 	public static boolean isInitialized() throws ExceptionZZZ{
 		return INITIALIZED;
 	}
+
+
+
 }
