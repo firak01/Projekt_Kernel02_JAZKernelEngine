@@ -34,4 +34,34 @@ public class LogUtilZZZ {
 	public static boolean canProtocol() throws ExceptionZZZ {
 		return canPrint();
 	}
+	
+	//++++ Mit Angabe eines LogLevels 
+	public static boolean canPrint(ILogLevelUserZZZ.LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+//			int iLogLevel=-1;
+//			if(LogSingletonZZZ.isInitialized()) {
+//				iLogLevel = LogSingletonZZZ.getInstance().getLogLevelOverall();
+//			}else {
+//				iLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT.ordinal();
+//			}
+			
+			int iLogLevel = enumLogLevel.ordinal();
+
+			int iPrintLevel=-1;
+			if(SystemSingletonZZZ.isInitialized()) {
+				iPrintLevel = SystemSingletonZZZ.getInstance().getPrintLevelOverall();
+			}else {
+				iPrintLevel = SystemSingletonZZZ.PRINTLEVEL_DEFAULT.ordinal();
+			}
+			if(iLogLevel>iPrintLevel) break main;
+			
+			bReturn = true;
+		}
+		return bReturn;
+	}
+	
+	public static boolean canProtocol(ILogLevelUserZZZ.LOGLEVEL enumLogLevel) throws ExceptionZZZ {
+		return canPrint(enumLogLevel);
+	}
 }

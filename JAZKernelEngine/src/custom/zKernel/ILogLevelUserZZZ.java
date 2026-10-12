@@ -11,7 +11,8 @@ public interface ILogLevelUserZZZ {
 		NONE,
 		WARNING,
 		INFO,
-		DEBUG
+		DEBUG,
+		VERBOSE
 	}
 	
 	public LOGLEVEL getLogLevelOverallEnum() throws ExceptionZZZ;

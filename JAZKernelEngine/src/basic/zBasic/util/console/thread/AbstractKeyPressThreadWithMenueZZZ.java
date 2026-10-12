@@ -197,8 +197,10 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	       
     @Override
 	public boolean requestStop(boolean bStop) throws ExceptionZZZ {
-    	System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
-    	
+    	String sLog = "NEU STATT QUIT";
+    	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
+    	Log.writeDebug(sLog);
+    		
     	//DAS IST FALSCH, STATT DESSEN MUSS DER CONTROLLER EINEN EVENT AN ALLE REGISTRIERTEN SCHICHEN
     	//DER KEYPRESSTHREAD SELBST WIRD NICHT GESTOPPT!!!
     	//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);	        	

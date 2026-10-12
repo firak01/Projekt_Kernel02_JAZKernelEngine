@@ -106,6 +106,22 @@ public class Log implements IConstantZZZ{
 			return LogZZZ.protocolWithPosition(obj, 1, saInput);
 		}
 	}
+	
+	public static boolean protocolWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(obj, 1, enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocolWithPosition(obj, 1, enumLogLevel, sLog);
+		}
+	}
+	
+	public static boolean protocolWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(obj, 1, saInput);
+		}else {
+			return LogZZZ.protocolWithPosition(obj, 1, saInput);
+		}
+	}
 
 	//++++++++++++++++++
 	
@@ -124,4 +140,25 @@ public class Log implements IConstantZZZ{
 			return LogZZZ.protocolDateWithPosition(obj, 1, saLog);
 		}
 	}
+	
+	
+	public static boolean protocolDateWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, 1, enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(obj, 1, enumLogLevel, sLog);
+		}
+	}
+	
+	public static boolean protocolDateWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, 1, enumLogLevel, saLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(obj, 1, enumLogLevel, saLog);
+		}
+	}
+	
+	
+	
+	
 }

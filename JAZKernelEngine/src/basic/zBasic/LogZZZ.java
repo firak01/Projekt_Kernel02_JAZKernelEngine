@@ -8,6 +8,8 @@ import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
 import basic.zBasic.util.system.Syso;
 import basic.zBasic.util.system.SystemSingletonZZZ;
 import basic.zKernel.AbstractKernelLogZZZ;
+import custom.zKernel.ILogLevelUserZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.LogSingletonZZZ;
 
@@ -378,12 +380,224 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
+	//### Mit gezielter Angabe des LogLevels
+	//### Merke: Hier wird das übergebene DEBUGLEVEL mit dem eingestellten PRINTLEVEL verglichen. 
+	public static  synchronized boolean protocolWithPosition(Object obj, IEnumSetMappedStringFormatZZZ ienumMappedLogString, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+	
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(obj, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}	
+	
+	public static synchronized boolean protocolWithPosition(Object obj, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString,  ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+	
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(obj, iLevel+1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public static synchronized boolean protocolWithPosition(Class objClass, IEnumSetMappedStringFormatZZZ ienumMappedLogString,  ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+	
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(objClass, 1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}	
+	
+	public static synchronized boolean protocolWithPosition(Class objClass, int iLevel, IEnumSetMappedStringFormatZZZ ienumMappedLogString,  ILogLevelUserZZZ.LOGLEVEL enumLogLevel,String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString = new IEnumSetMappedStringFormatZZZ[1];
+			ienumaMappedLogString[0] = ienumMappedLogString;
+	
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolWithPosition__(objClass, iLevel+1, ienumaMappedLogString, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	//############################################################################
 	//############ ALLE METHODEN NUN AUCH NOCH MIT DATUM UND MIT POSITIONSANGABE
 	//++++ Merke: wg. Postionsangabe auch eine Methode mit dem iLevel für den Stacktrace zur Verfügung stellen
 	public synchronized static boolean protocolDateWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(obj, 1, enumLogLevel, sLogs);
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = sLogs;
+//			bReturn = protocolWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(obj, iLevel+1, enumLogLevel, sLogs);
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = sLogs;
+//			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	public synchronized static boolean protocolDateWithPosition(Class objClass, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(objClass, 1, enumLogLevel, sLogs);
+			
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = sLogs;
+//			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(objClass, iLevel+1, enumLogLevel, sLogs);
+			
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = sLogs;
+//			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	//+++++++++++++++++++++++++
+	
+	public synchronized static boolean protocolDateWithPosition(Object obj, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(obj, 1, enumLogLevel, sLog);
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = new String[1];
+//			saLog[0] = sLog;
+//			bReturn  = protocolWithPosition__(obj, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(obj, iLevel+1, enumLogLevel, sLog);
+			
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = new String[1];
+//			saLog[0] = sLog;
+//			bReturn = protocolWithPosition__(obj, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+		
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Class objClass, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(objClass, 1, enumLogLevel, sLog);
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = new String[1];
+//			saLog[0] = sLog;
+//			bReturn = protocolWithPosition__(objClass, 1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			ILogLevelUserZZZ.LOGLEVEL enumLogLevel = LogSingletonZZZ.LOGLEVEL_DEFAULT;
+			bReturn = protocolDateWithPosition(objClass, iLevel+1, enumLogLevel, sLog);
+			
+			
+//			if(!canProtocol()) break main;
+//			
+//			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+//			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+//			
+//			String[] saLog = new String[1];
+//			saLog[0] = sLog;
+//			bReturn = protocolWithPosition__(objClass, iLevel+1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	//++++ ALLE METHODEN NUN AUCH NOCH MIT DATUM UND MIT POSITIONSANGABE UND DEM LOGLEVEL
+	//++++ Merke: wg. Postionsangabe auch eine Methode mit dem iLevel für den Stacktrace zur Verfügung stellen
+	public synchronized static boolean protocolDateWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{						
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -394,10 +608,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
-	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, String... sLogs) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -408,10 +622,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 
-	public synchronized static boolean protocolDateWithPosition(Class objClass, String... sLogs) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Class objClass, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -422,10 +636,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
-	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, String... sLogs) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -438,10 +652,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	
 	//+++++++++++++++++++++++++
 	
-	public synchronized static boolean protocolDateWithPosition(Object obj, String sLog) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -452,10 +666,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		}//end main:
 		return bReturn;
 	}
-	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, String sLog) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Object obj, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -468,10 +682,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		
 	}
 	
-	public synchronized static boolean protocolDateWithPosition(Class objClass, String sLog) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Class objClass, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -483,10 +697,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
-	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, String sLog) throws ExceptionZZZ{
+	public synchronized static boolean protocolDateWithPosition(Class objClass, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
-			if(!canProtocol()) break main;
+			if(!canProtocol(enumLogLevel)) break main;
 			
 			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
 			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
@@ -753,6 +967,11 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
+	
+	//###################################
+	
+
+	
 
 	//+++++++++++++++++++++++++++++++++++
 	//
@@ -810,5 +1029,4 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	}
 
 
-	
 }

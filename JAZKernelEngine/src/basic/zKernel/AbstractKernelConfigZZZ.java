@@ -38,6 +38,7 @@ import basic.zKernel.file.ini.IKernelZFormulaIniZZZ;
 import basic.zKernel.file.ini.IKernelZFormulaIni_PathZZZ;
 import custom.zKernel.ILogZZZ;
 import custom.zKernel.Log;
+import custom.zKernel.ILogLevelUserZZZ;
 import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 import custom.zKernel.file.ini.FileIniZZZ;
 
@@ -99,7 +100,7 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 			String sLog = "Initializing KernelConfigObject";
 			//Log.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
 			
-			Log.protocolWithPosition(this, sLog); //Hier ncht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
+			Log.protocolWithPosition(this, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog); //Hier ncht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

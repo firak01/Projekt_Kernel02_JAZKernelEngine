@@ -11,7 +11,8 @@ public interface IPrintLevelUserZZZ {
 		NONE,
 		WARNING,
 		INFO,
-		DEBUG
+		DEBUG,
+		VERBOSE
 	}
 
 	public PRINTLEVEL getPrintLevelOverallEnum() throws ExceptionZZZ;

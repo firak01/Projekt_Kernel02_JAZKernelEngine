@@ -61,7 +61,7 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			String sLog = "Initializing ConfigObject";
 			//Log.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehmen, da es ggfs. noch nicht erstellt ist. Endlosschleife
 					
-			Log.protocolDateWithPosition(this, sLog);
+			Log.protocolDateWithPosition(this, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 
