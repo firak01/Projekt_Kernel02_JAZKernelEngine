@@ -4,15 +4,13 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.StringFormatManagerZZZ;
-import basic.zBasic.util.system.IPrintLevelUserZZZ;
 import basic.zBasic.util.system.Syso;
-import basic.zBasic.util.system.SystemSingletonZZZ;
 import custom.zKernel.ILogLevelUserZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 import custom.zKernel.ILogZZZ;
 import custom.zKernel.KernelLogZZZ;
 import custom.zKernel.LogSingletonZZZ;
 import custom.zKernel.LogUtilZZZ;
-import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
 public abstract class AbstractLogZZZ<T> extends AbstractObjectZZZ<T> implements ILogProtocolZZZ, ILogProtocolPositionZZZ, ILogPrintZZZ{
 	private static final long serialVersionUID = 6495244810060327188L;

@@ -98,9 +98,10 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 		boolean bReturn = false;
 		main:{				
 			String sLog = "Initializing KernelConfigObject";
-			//Log.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
+			//Log.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.			
+			//Log.protocolWithPosition(this, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog); //Hier ncht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
+			Log.writeDebug(this, sLog);
 			
-			Log.protocolWithPosition(this, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog); //Hier ncht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 

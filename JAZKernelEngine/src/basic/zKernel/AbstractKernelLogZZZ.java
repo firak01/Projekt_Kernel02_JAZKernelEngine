@@ -2276,7 +2276,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}			
-			SystemSingletonZZZ.getInstance().println(sLog, enumLogLevel);
+			SystemSingletonZZZ.getInstance().println(enumLogLevel, sLog);
 				
 			int iLogLevelAllowed = this.getLogLevelOverall(); //Analog zu dem Code in systezzz.println()
 			int iLogLevelUsed = enumLogLevel.ordinal();
@@ -2295,7 +2295,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 			FileTextWriterZZZ objFileWriter;
 			
 			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
-			SystemSingletonZZZ.getInstance().println(stemp, enumLogLevel);
+			SystemSingletonZZZ.getInstance().println(enumLogLevel, stemp);
 				
 			objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);						
@@ -2548,7 +2548,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 				ExceptionZZZ ez = new ExceptionZZZ("enumLogLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
 			}			
-			SystemSingletonZZZ.getInstance().print(sLog, enumLogLevel);
+			SystemSingletonZZZ.getInstance().print(enumLogLevel, sLog);
 				
 			int iLogLevelAllowed = this.getLogLevelOverall(); //Analog zu dem Code in systezzz.println()
 			int iLogLevelUsed = enumLogLevel.ordinal();
@@ -2565,7 +2565,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		boolean bReturn = false;
 		main:{	
 			LOGLEVEL enumLogLevel = this.getLogLevelOverallEnum();
-			SystemSingletonZZZ.getInstance().print(stemp, enumLogLevel); //Kein Zeilenumbruch
+			SystemSingletonZZZ.getInstance().print(enumLogLevel, stemp); //Kein Zeilenumbruch
 				
 			FileTextWriterZZZ objFileWriter = this.getFileTextWriterObject();
 			bReturn = objFileWriter.writeLine(stemp);	
@@ -2601,7 +2601,8 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		String sDirectoryPathNormed = objDirectory.getAbsolutePath();
 		String sLog = "Errechneter existierender Pfad für das KernelLog='" + sDirectoryPathNormed +"'";
 		//System.out.println(ReflectCodeZZZ.getPositionCurrent()+": " + sLog);
-		Log.printlnDateWithPosition(this, sLog);
+		//Log.printlnDateWithPosition(this, sLog);
+		Log.writeInfo(this, sLog);
 		
 		//FGL20261006: also FileEasyZZZ als Klasse ist hier wohl falsch...
 		//ObjectZZZ.printlnDateWithPosition(FileEasyZZZ.class, sLog);

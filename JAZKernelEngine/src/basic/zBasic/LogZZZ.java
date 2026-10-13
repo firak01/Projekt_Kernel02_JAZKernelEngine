@@ -36,8 +36,10 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	//### Daher wird hier über die Syso-Klasse nur system.out verwendet.
     //##############################################
 
-	
-
+	//+++++++++++++++++++++++++++++++++++++++++++++++
+	//+++ Biete die Log-Methoden auch static an, siehe ILogZZZ, bzw. AbstractObjectZZZ fuer den Code
+	//+++++++++++++++++++++++++++++++++++++++++++++++
+		
 	//##### Gib den String aus.
 	public static boolean println(Object obj, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
@@ -199,10 +201,7 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	}
 
 	
-	//+++++++++++++++++++++++++++++++++++++++++++++++
-	//+++ Biete die Log-Methoden auch static an, siehe ILogZZZ, bzw. AbstractObjectZZZ fuer den Code
-	//+++++++++++++++++++++++++++++++++++++++++++++++
-	
+	//+++++++ Protocol
 	public synchronized static boolean protocol(Object obj, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
@@ -260,7 +259,180 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
-	//+++ mit LogLevel
+	
+	//#####################################################################
+	//############ ALLE METHODEN NUN AUCH NOCH MIT DEM LOGLEVEL
+	public static boolean println(Object obj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computeln(obj, (IStringFormatManagerZZZ) null, sLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;				
+	}
+	
+	public static boolean println(Object obj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computeln(obj, saLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+
+	}
+	
+	public static boolean println(Class classObj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computeln(classObj, sLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	public static boolean println(Class classObj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computeln(classObj, saLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+		
+	//##### Gib das Datum aus. 
+	//      Die Position des Datums im String wird durch eine Formatanweisung definiert.
+	//      Das dann jeweils als Variante mit einer Klasse als Argument
+	public static boolean printlnDate(Object obj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computelnDate(obj, sLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	public static boolean printlnDate(Object obj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computelnDate(obj, saLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	public static boolean printlnDate(Class classObj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computelnDate(classObj, sLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	public static boolean printlnDate(Class classObj,ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;		
+			String sTemp = KernelLogZZZ.computelnDate(classObj, saLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	//#### Gib die Codeposition aus.
+	//     Die Position der Codepostion im String wird durch eine Formatanweisung definiert.
+	//     Das dann jeweils als Variante mit einer Klasse als Argument
+	//
+	//     Wichtig: Jede Methode gibt es auch als Variante mit iLevel, für das Level des Stacktrace.
+	//              Das ist aber nur für die Positionsermittlung wichtig.
+	
+	public static boolean printlnDateWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint(enumLogLevel)) break main;
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(obj, 1, sLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	public static boolean printlnDateWithPosition(Object obj, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint()) break main;			
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(obj, iLevel+1, sLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	public static boolean printlnDateWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel,String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint()) break main;
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(obj, 1, saLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	public static boolean printlnDateWithPosition(Object obj, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint()) break main;
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(obj, iLevel+1, saLog);
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	public static boolean printlnDateWithPosition(Class classObj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint()) break main;
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(classObj, 1, sLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	public static boolean printlnDateWithPosition(Class classObj, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!canPrint()) break main;
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(classObj, iLevel+1, sLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	public static boolean printlnDateWithPosition(Class classObj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{			
+			if(!canPrint(enumLogLevel)) break main;				
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(classObj, saLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	public static boolean printlnDateWithPosition(Class classObj, int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{			
+			if(!canPrint(enumLogLevel)) break main;			
+			String sTemp = KernelLogZZZ.computelnDateWithPosition(classObj, iLevel, saLog);				
+			bReturn = Syso.println(sTemp);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	//+++ protocol
 	public synchronized static boolean protocol(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
@@ -322,8 +494,9 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		return bReturn;
 	}
 	
-	
 
+	
+	//#########################################################################################
 	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE		
 	//### Merke: Wg. Positionsangabe immer auch die Methode mit dem iLevel für die Stacktraceposition zur Verfügung stellen.
 	public synchronized static boolean protocolWithPosition(Object obj, String... sLogs) throws ExceptionZZZ{
@@ -445,7 +618,7 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	}
 	
 	//#####################################################################
-	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE UND DEM LOGLEVEL		
+	//############ ALLE METHODEN NUN AUCH NOCH MIT POSITIONSANGABE UND DEM LOGLEVEL				
 	//### Merke: Wg. Positionsangabe immer auch die Methode mit dem iLevel für die Stacktraceposition zur Verfügung stellen.
 	public synchronized static boolean protocolWithPosition(Object obj, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String... sLogs) throws ExceptionZZZ{
 		boolean bReturn = false;

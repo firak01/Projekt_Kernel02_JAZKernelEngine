@@ -3,6 +3,7 @@ package basic.zBasic.util.system;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
 
 /** Idee ist, das diese Klasse mit dem kurzen Namen verwendet wird statt System.out ...
  *  Dann hat diese Klasse noch Komfortfunktionen.
@@ -17,13 +18,24 @@ public class Syso implements IConstantZZZ{
 	}
 	
 	public static boolean println(String s) throws ExceptionZZZ{
-		return SystemSingletonZZZ.getInstance().println(s,true);
+		return SystemSingletonZZZ.getInstance().println(true,s);
 	}
 	
 	public static boolean println(String s, boolean bPrintOutput) throws ExceptionZZZ{
-		return SystemSingletonZZZ.getInstance().println(s,bPrintOutput);
+		return SystemSingletonZZZ.getInstance().println(bPrintOutput,s);
 	}
 	
+	//+++ Mit Angabe des PRINTLEVELS
+	public static boolean println(PRINTLEVEL enumPrintLevel, String s) throws ExceptionZZZ{
+		return SystemSingletonZZZ.getInstance().println(enumPrintLevel, true, s);
+	}
+	
+	public static boolean println(PRINTLEVEL enumPrintLevel, String s, boolean bPrintOutput) throws ExceptionZZZ{
+		return SystemSingletonZZZ.getInstance().println(enumPrintLevel, bPrintOutput, s);
+	}
+	
+	
+	//#################################################################
 	//### Zur besseren Darstellung, besondere "Layoutelement"
 	public static boolean printSection(String sTitle) throws ExceptionZZZ {
 	    System.out.println();

@@ -1,6 +1,7 @@
 package basic.zBasic.util.system;
 
 import basic.zBasic.ExceptionZZZ;
+import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
 /** Singleton Klasse, für alles was mit System. ... gemacht werden kann.
  *  Kann durch FLAGZ ggfs. gesteuert werden.
@@ -79,6 +80,8 @@ public class SystemSingletonZZZ<T> extends AbstractSystemZZZ<T>{
 	public static boolean isInitialized() throws ExceptionZZZ{
 		return INITIALIZED;
 	}
+
+	
 	
 	//#################################################################
 	//### ...... METHODEN ............

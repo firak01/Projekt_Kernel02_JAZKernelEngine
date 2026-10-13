@@ -5,6 +5,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
 import basic.zKernel.AbstractKernelLogZZZ;
 import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
@@ -43,7 +44,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//### aus ISystemZZZ
 	//++++++++++++++ Ohne Zeilenumbruch
 	@Override
-	public boolean print(String s, boolean bPrintOutput) throws ExceptionZZZ{
+	public boolean print(boolean bPrintOutput, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			if(!bPrintOutput) break main;		
@@ -55,9 +56,8 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		return bReturn;
 	}
 	
-	
 	@Override
-	public boolean print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+	public boolean print(LOGLEVEL enumLogLevel, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			if(enumLogLevel==null) {
@@ -77,7 +77,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	}
 	
 	@Override
-	public boolean print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+	public boolean print(PRINTLEVEL enumPrintLevel, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			if(enumPrintLevel==null) {
@@ -97,7 +97,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	}
 	
 	@Override
-	public boolean print(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+	public boolean print(int iPrintLevelUsed, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			int iPrintLevelAllowed = this.getPrintLevelOverall();
@@ -106,6 +106,38 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			
 			System.out.print(s);
 			bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public boolean print(int iPrintLevelUsed, boolean bPrintOutput, String s) throws ExceptionZZZ{
+		boolean bReturn = false;		
+		main:{
+			if(!bPrintOutput) break main;	
+			print(iPrintLevelUsed, s);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	
+	@Override
+	public boolean print(PRINTLEVEL enumPrintLevel, boolean bPrintOutput, String s) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!bPrintOutput) break main;	
+			print(enumPrintLevel, s);
+		}//end main:
+		return bReturn;
+	}
+
+	@Override
+	public boolean print(LOGLEVEL enumLogLevel, boolean bPrintOutput, String s) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!bPrintOutput) break main;	
+			print(enumLogLevel, s);
 		}//end main:
 		return bReturn;
 	}
@@ -113,7 +145,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	
 	//++++++++++++++ Mit Zeilenumbruch
 	@Override
-	public boolean println(String s, boolean bPrintOutput) throws ExceptionZZZ{
+	public boolean println(boolean bPrintOutput, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			if(!bPrintOutput) break main;		
@@ -127,7 +159,7 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	
 	
 	@Override
-	public boolean println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ{
+	public boolean println(LOGLEVEL enumLogLevel, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			if(enumLogLevel==null) {
@@ -147,9 +179,19 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	}
 	
 	@Override
-	public boolean println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ{
+	public boolean println(LOGLEVEL enumLogLevel, boolean bPrintOutput, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
+			if(!bPrintOutput) break main;
+			return println(enumLogLevel, s);
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public boolean println(PRINTLEVEL enumPrintLevel, String s) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{			
 			if(enumPrintLevel==null) {
 				ExceptionZZZ ez = new ExceptionZZZ("enumPrintLevel", iERROR_PARAMETER_MISSING, AbstractKernelLogZZZ.class.getName(), ReflectCodeZZZ.getMethodCurrentName());
 				throw ez;
@@ -167,7 +209,17 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	}
 	
 	@Override
-	public boolean println(String s, int iPrintLevelUsed) throws ExceptionZZZ{
+	public boolean println(PRINTLEVEL enumPrintLevel, boolean bPrintOutput, String s) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!bPrintOutput) break main;
+			return println(enumPrintLevel, s);
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public boolean println(int iPrintLevelUsed, String s) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{
 			int iPrintLevelAllowed = this.getPrintLevelOverall();
@@ -176,6 +228,16 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			
 			System.out.println(s);
 			bReturn = true;
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public boolean println(int iPrintLevelUsed, boolean bPrintOutput, String s) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			if(!bPrintOutput) break main;
+			return println(iPrintLevelUsed, s);
 		}//end main:
 		return bReturn;
 	}

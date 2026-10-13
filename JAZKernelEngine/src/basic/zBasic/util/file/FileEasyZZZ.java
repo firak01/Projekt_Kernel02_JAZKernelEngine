@@ -684,7 +684,9 @@ public static File searchDirectory(String sDirectoryPathIn) throws ExceptionZZZ{
 	File objReturn = null;
 	main:{
 		String sLog = "Directory to search for= '" + sDirectoryPathIn + "'";		
-		Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+		//Log.printlnDateWithPosition(FileEasyZZZ.class, sLog);
+		//Log.writeInfo(FileEasyZZZ.class, sLog);
+		Log.protocol(FileEasyZZZ.class, sLog);
 		
 		objReturn = FileEasyZZZ.searchDirectory(sDirectoryPathIn, false);
 	}//end main:

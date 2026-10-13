@@ -27,7 +27,7 @@ public class ConsoleEncryptMainZZZ {
 			
 			ISystemZZZ objSystem = SystemSingletonZZZ.getInstance();
 			//objSystem.setPrintLevel(0); //ne, dann würde ja nie etwas ausgedruck
-			objSystem.setPrintLevelOverall(PRINTLEVEL.DEBUG); //Oberste Anweisung. Gib nur aus was INFO oder noch wichtiger ist.
+			objSystem.setPrintLevelOverall(PRINTLEVEL.VERBOSE); //Oberste Anweisung. Z.B. bei INFO: Gib nur aus was INFO oder noch wichtiger ist, z.B. WARNING.
 			
 			LogSingletonZZZ.getInstance().setLogLevelOverall(LOGLEVEL.DEBUG); //d.h. alle Logs sind als Default nun wie angegeben 
 			//Wenn debugLevel > printLevelAllowed wird nix gedruckt.

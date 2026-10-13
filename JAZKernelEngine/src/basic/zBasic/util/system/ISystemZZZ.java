@@ -13,16 +13,29 @@ public interface ISystemZZZ extends IListenerObjectFlagZsetZZZ, ISystemEnabledZZ
 	
 	//############################################################
 	//### Methoden
+	//... wg. möglichem String... ss, der immer hinten stehen muss, muss die Reihenfolge so sein, das String immer hinten steht.
 	//############################################################
-	public boolean print(String s, boolean bPrintOutput) throws ExceptionZZZ;
-	public boolean print(String s, int iPrintLevel) throws ExceptionZZZ;
-	public boolean print(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
-	public boolean print(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
+	public boolean print(boolean bPrintOutput, String s) throws ExceptionZZZ;
+	public boolean print(int iPrintLevel, String s) throws ExceptionZZZ;
+	public boolean print(int iPrintLevel, boolean bPrintOutput, String s) throws ExceptionZZZ;
 	
-	public boolean println(String s, boolean bPrintOutput) throws ExceptionZZZ;
-	public boolean println(String s, int iPrintLevel) throws ExceptionZZZ;
-	public boolean println(String s, PRINTLEVEL enumPrintLevel) throws ExceptionZZZ;
-	public boolean println(String s, LOGLEVEL enumLogLevel) throws ExceptionZZZ;
+	
+	public boolean print(PRINTLEVEL enumPrintLevel, String s) throws ExceptionZZZ;
+	public boolean print(LOGLEVEL enumLogLevel, String s) throws ExceptionZZZ;
+	
+	public boolean print(PRINTLEVEL enumPrintLevel, boolean bPrintOutput, String s) throws ExceptionZZZ;
+	public boolean print(LOGLEVEL enumLogLevel, boolean bPrintOutput, String s) throws ExceptionZZZ;
+	
+	
+	public boolean println(boolean bPrintOutput, String s) throws ExceptionZZZ;
+	public boolean println(int iPrintLevel, String s) throws ExceptionZZZ;
+	public boolean println(int iPrintLevel, boolean bPrintOutput, String s) throws ExceptionZZZ;
+		
+	public boolean println(PRINTLEVEL enumPrintLevel, String s) throws ExceptionZZZ;
+	public boolean println(LOGLEVEL enumLogLevel, String s) throws ExceptionZZZ;
+	
+	public boolean println(PRINTLEVEL enumPrintLevel, boolean bPrintOutput, String s) throws ExceptionZZZ;
+	public boolean println(LOGLEVEL enumLogLevel, boolean bPrintOutput, String s) throws ExceptionZZZ;
 	
 	
 	//#############################################################
