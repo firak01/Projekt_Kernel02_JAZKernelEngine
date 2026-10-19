@@ -17,6 +17,8 @@ import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabl
  *  
  *  Ausgelegt als Singleton.
  *  
+ *  Weiterentwicklung von debug.zBasic.util.console.thread.multi.menuless02...
+ *  
  *  Als Weiterentwicklung nutzt sie hier 
  *  -- Einen ConsoleController
  *  -- AbstractKeyPressThreadZZZ, d.h. die run() Methode wird nicht vom Key-Press Thread komplett überschrieben.
