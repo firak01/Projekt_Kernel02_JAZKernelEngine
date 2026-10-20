@@ -7,6 +7,7 @@ import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
+import basic.zBasic.util.console.thread.IThreadableZZZ;
 
 
 	 
@@ -199,5 +200,7 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 }
 

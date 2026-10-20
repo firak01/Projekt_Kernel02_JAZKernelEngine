@@ -8,6 +8,7 @@ import basic.zBasic.util.console.thread.AbstractKeyPressThreadWithMenueZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadConstantZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 	 
@@ -205,6 +206,8 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
 			HashMapZZZ<String, Object> hmVariable = HashMapUtilZZZ.mergeMapsZZZ_LastKeyRemains(hmVariableInternal, hmVariableExternal);
 
 			String sCallingMethod= (String) hmVariable.get(IKeyPressThreadConstantZZZ.sINPUT_STRING_METHOD_USED);
+			if(StringZZZ.isEmpty(sCallingMethod)) break main;
+			
 			switch(sCallingMethod){
 //				case "ascii":
 //					bReturn = initAscii_(hmVariable);

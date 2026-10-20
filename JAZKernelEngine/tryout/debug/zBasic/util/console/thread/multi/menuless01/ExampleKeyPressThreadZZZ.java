@@ -26,6 +26,11 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadZZZ<T> {
     	setSleepTime(lSleepTime);
     }
    
+    
+    @Override
+	public void makeMenuMain() throws ExceptionZZZ {
+		//hier menuless und noch nicht dahingend weiterentwickelt...
+	}
 
     public void run() 
     {
@@ -82,6 +87,7 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadZZZ<T> {
 	public boolean queryOfferStatusLocalCustom() throws ExceptionZZZ {
 		return true;
 	}
+	
 	
 	
 }

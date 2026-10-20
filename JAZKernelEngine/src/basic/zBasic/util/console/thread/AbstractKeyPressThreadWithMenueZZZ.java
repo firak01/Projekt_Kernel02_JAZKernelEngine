@@ -60,6 +60,16 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	
 	
 	//### GETTER / SETTER	
+    @Override
+	public IThreadableZZZ getServiceThread() throws ExceptionZZZ {
+		//Wird im MenuPoint geholt
+		return null;
+	}
+
+	@Override
+	public void setServiceThread(IThreadableZZZ objServiceThread) throws ExceptionZZZ {
+		//Wird im MenuPoint geholt
+	}
     
     
     //### aus IKeyPressThreadMenueableZZZ
@@ -197,32 +207,32 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	
   
     //### aus IThreadEnabledZZZ
-    @Override
-    public boolean isStopped() throws ExceptionZZZ {
-    	return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);	    		
-	}
-    
-    @Override
-	public void isStopped(boolean bStop) throws ExceptionZZZ {
-    	this.requestStop(bStop);
-	}
-    	       
-    @Override
-	public boolean requestStop(boolean bStop) throws ExceptionZZZ {
-    	String sLog = "NEU STATT QUIT";
-    	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
-    	Log.writeDebug(this, sLog);
-    		
-    	//DAS IST FALSCH, STATT DESSEN MUSS DER CONTROLLER EINEN EVENT AN ALLE REGISTRIERTEN SCHICHEN
-    	//DER KEYPRESSTHREAD SELBST WIRD NICHT GESTOPPT!!!
-    	//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);	        	
-
-//      //Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
-    	//this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
-    	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED, bStop);
-    	
-    	return true;
-	}
+//    @Override
+//    public boolean isStopped() throws ExceptionZZZ {
+//    	return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED);	    		
+//	}
+//    
+//    @Override
+//	public void isStopped(boolean bStop) throws ExceptionZZZ {
+//    	this.requestStop(bStop);
+//	}
+//    	       
+//    @Override
+//	public boolean requestStop(boolean bStop) throws ExceptionZZZ {
+//    	String sLog = "NEU STATT QUIT";
+//    	//System.out.println(ReflectCodeZZZ.getPositionCurrent() + ": NEU STATT QUIT");
+//    	Log.writeDebug(this, sLog);
+//    		
+//    	//DAS IST FALSCH, STATT DESSEN MUSS DER CONTROLLER EINEN EVENT AN ALLE REGISTRIERTEN SCHICHEN
+//    	//DER KEYPRESSTHREAD SELBST WIRD NICHT GESTOPPT!!!
+//    	//this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);	        	
+//
+////      //Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+//    	//this.getConsoleController().setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED, true);
+//    	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED, bStop);
+//    	
+//    	return true;
+//	}
     
 
     /** Abstrakte Methode, die so angelegt ist, das sie von anderen Consolen genutzt werden kann.

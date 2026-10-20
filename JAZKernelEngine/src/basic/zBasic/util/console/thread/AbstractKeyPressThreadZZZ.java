@@ -7,7 +7,10 @@ import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.datatype.booleans.BooleanZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.Syso;
+import custom.zKernel.Log;
 import debug.zBasic.util.console.thread.multi.menu02.AbstractThreadWithStatusLocalZZZ;
+import debug.zBasic.util.console.thread.multi.menu02.IThreadWithStatusLocalEnabledZZZ;
+import debug.zBasic.util.console.thread.multi.menu03.IConsoleControllerEnabledZZZ;
 
 
 	 
@@ -56,7 +59,8 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
     	return bReturn;
     }
 
-	
+	@Override
+	public abstract void makeMenuMain() throws ExceptionZZZ; 
 	
 	//### GETTER / SETTER
 	@Override
@@ -126,6 +130,17 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
     public synchronized void isInputAllFinished(boolean bInputAllFinished) throws ExceptionZZZ {
     	this.getConsoleController().isInputAllFinished(bInputAllFinished);
     }
+
+    @Override
+	public Scanner getInputReader() {
+		return this.inputReader;
+	}
+	
+	@Override
+	public void setInputReader(Scanner inputReader) {
+		this.inputReader = inputReader;
+	}
+	
     //########################################
     
     //### aus IThreadableZZZ
@@ -137,10 +152,7 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
         return this.requestStop(true); //stop KeyPressThread über die gesetzte STOP Variable
 	}
 	
-	
-	
-	
-   
+    //### aus IConsoleControllerUserZZZ
     @Override
 	public synchronized IConsoleControllerZZZ getConsoleController() {
 		return this.objConsoleController;
@@ -150,15 +162,6 @@ public abstract class AbstractKeyPressThreadZZZ<T> extends AbstractThreadWithSta
 		this.objConsoleController = objConsole;
 	}
 	
-	@Override
-	public Scanner getInputReader() {
-		return this.inputReader;
-	}
-	
-	@Override
-	public void setInputReader(Scanner inputReader) {
-		this.inputReader = inputReader;
-	}
 	
 
     /** Abstrakte Methode, die so angelegt ist, das sie von anderen Consolen genutzt werden kann.

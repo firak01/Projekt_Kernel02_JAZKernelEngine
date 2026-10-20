@@ -16,8 +16,26 @@ public class ExampleConsoleServiceZZZ extends AbstractConsoleServiceZZZ implemen
 
 	private int iCounter = 0;
 	
+	
+	
+	public int getcounter() {
+		return this.iCounter;
+	}
+
+
 	@Override
-	public boolean startit() throws ExceptionZZZ{		
+	public IConsoleControllerZZZ getConsoleController() {
+		//Das wird erst in der Erweiterung menuless02 gebraucht
+		return null;
+	}
+
+	@Override
+	public void setConsoleController(IConsoleControllerZZZ objConsole) {
+		//Das wird erst in der Erweiterung menuless02 gebraucht
+	}
+
+	@Override
+	public boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
 			try {					
@@ -33,28 +51,5 @@ public class ExampleConsoleServiceZZZ extends AbstractConsoleServiceZZZ implemen
 			bReturn = true;
 		}//end main:
 		return bReturn;
-	}
-	
-	public int getcounter() {
-		return this.iCounter;
-	}
-
-
-	@Override
-	public IConsoleControllerZZZ getConsoleController() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setConsoleController(IConsoleControllerZZZ objConsole) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean startit(HashMapZZZ hmVariable) throws ExceptionZZZ {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

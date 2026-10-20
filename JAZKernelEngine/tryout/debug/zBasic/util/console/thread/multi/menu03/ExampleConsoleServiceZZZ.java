@@ -13,6 +13,7 @@ public class ExampleConsoleServiceZZZ<T> extends AbstractConsoleServiceZZZ<T> im
 	
 	protected volatile int iCounter = 0;
 	
+	
 	//### Konstruktor
 	public ExampleConsoleServiceZZZ() throws ExceptionZZZ {
 		super();

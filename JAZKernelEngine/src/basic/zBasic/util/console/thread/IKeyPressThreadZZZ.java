@@ -4,15 +4,20 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 
-public interface IKeyPressThreadZZZ extends IThreadableZZZ, IKeyPressThreadUserZZZ{
+public interface IKeyPressThreadZZZ extends IThreadableZZZ, IConsoleControllerUserZZZ, IKeyPressThreadUserZZZ{
+	
+	//### Trotz aller Listener auf den ConsoleController zugreifen müssen
+	//    Daher: implements IConsoleControllerUserZZZ
 	
 	//### Für den ConsoleService
 	public String getMethodForConsoleService() throws ExceptionZZZ;
 	public void setMethodForConsoleService(String sMethodName) throws ExceptionZZZ;
-	   
+	 
+	
 	
 	//###########################################################
-
+	public void makeMenuMain() throws ExceptionZZZ; //Das Menü, egal ob einmalig oder richtig zur Steuerung
+	
 	public Scanner getInputReader()throws ExceptionZZZ;//Das Scanner Objekt
 	public void setInputReader(Scanner objScanner)throws ExceptionZZZ;
 	

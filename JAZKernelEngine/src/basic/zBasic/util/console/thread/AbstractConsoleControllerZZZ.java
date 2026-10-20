@@ -297,7 +297,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				this.isKeyPressThreadFinished(bValue);
 				
 				System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
-				IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+				TODOGOON20261019;//Bei Q hier TypecastExcepton
+				//IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
+				IKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
 				objKeyPressThread.isCurrentMenue(true);
 			}
 						

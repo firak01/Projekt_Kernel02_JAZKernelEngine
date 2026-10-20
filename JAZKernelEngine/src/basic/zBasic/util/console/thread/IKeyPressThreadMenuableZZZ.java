@@ -7,7 +7,8 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
 
 public interface IKeyPressThreadMenuableZZZ extends IKeyPressThreadMenulessZZZ, IMenuPointUserZZZ {
-    public void makeMenuMain() throws InterruptedException,ExceptionZZZ;//zu überschreiben...Das Hauptmenue ausgeben
+    //wird immer gemacht bei IKeyPressThreadZZZ
+	//darum hier nicht       public void makeMenuMain() throws InterruptedException,ExceptionZZZ;//zu überschreiben...Das Hauptmenue ausgeben
           
     public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; //zu überschreiben, false=quit
     public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; //zu überschreiben, false=quit, Also die Eingabe nach der Eingabe der Argumente

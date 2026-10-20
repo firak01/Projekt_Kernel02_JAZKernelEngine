@@ -13,6 +13,7 @@ import basic.zBasic.util.console.thread.ConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
+import basic.zBasic.util.console.thread.IKeyPressThreadMenulessZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 
 
@@ -41,7 +42,7 @@ import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
  * @author Fritz Lindhauer, 03.10.2026, 08:01:04
  * 
  */
-TODOGOON20261003;//Baue das so auf wie:
+//Baue das so auf wie:
 //package debug.zBasic.util.console.thread.multi.menu03;
 //                   ExampleComposition_ConsoleAsThreadZZZ
 /**
@@ -115,6 +116,8 @@ public class ExampleComposition_ConsoleAsThreadZZZ<T> implements Runnable, ICons
 		}
 	}
 	
+	
+	
 	//@Override
 	public boolean start() throws ExceptionZZZ {
 		boolean bReturn = false;
@@ -128,7 +131,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ<T> implements Runnable, ICons
 					 Thread.sleep(200);
 					 //System.out.println("ExampleComposition_ConsoleAsThreadZZZ wartet auf fertige Konsoleneingabe");
 				} catch (InterruptedException e) {
-					System.out.println("03 ExampleComposition_ConsoleAsThreadZZZ: Wait Error");
+					System.out.println("02 Menuless ExampleComposition_ConsoleAsThreadZZZ: Wait Error");
 					e.printStackTrace();
 					ExceptionZZZ ez = new ExceptionZZZ(e);
 					throw ez;
@@ -152,12 +155,13 @@ public class ExampleComposition_ConsoleAsThreadZZZ<T> implements Runnable, ICons
 		//IKeyPressThreadMenuableZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ(objConsoleController, 100);
 		
 		//Hier haben wir aber Menuless, darum Weiternutzen analog zu ...Menuless01...
-		ExampleKeyPressThreadZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ();
-		
-		
+		IKeyPressThreadMenulessZZZ objKeyPressThread = new ExampleKeyPressThreadZZZ();
 		//Der Key-Thread hat keinen Status, also nicht: objKeyPressThread.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		objConsoleController.setKeyPressThread(objKeyPressThread);
 		//Nein, keypressthread ist selber kein Listener: objConsoleController.registerForStatusLocalEvent(objKeyPressThread);
+		//Der KeyPressThread muss aber den ConsoleController kennen und der ConsoleController muss darauf hören
+		objKeyPressThread.setConsoleController(objConsoleController);
+		
 		
 		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsoleController);	
 		//objConsoleService.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);

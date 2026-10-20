@@ -125,6 +125,7 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 		return this.startit();
 	}
 	
+
 	@Override
 	public boolean startit() throws ExceptionZZZ{
 		//Für Klassen, die Methoden ohne Variablenübergabe machen wollen.
@@ -141,8 +142,8 @@ public abstract class AbstractConsoleServiceZZZ<T> extends AbstractThreadWithSta
 		return bReturn;
 	}
 	
-	@Override
-	public abstract boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
+//	@Override
+//	public abstract boolean startit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ;
 	
 	//Startit wird dann von einem anderen Thread aus aufgerufen.
 	//Das MenuPoint-Objekt hat seinen eigenen Code, bzw. weiss welches ServiceObject er nutzt.
