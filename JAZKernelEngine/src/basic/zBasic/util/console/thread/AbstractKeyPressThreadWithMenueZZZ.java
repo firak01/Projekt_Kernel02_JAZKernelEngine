@@ -92,16 +92,18 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	this.bMakeMenueWhenFinished = bMakeMenueWhenFinished;
     }
     
-    
+    @Override
     public void cancelToMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ {    	
 		this.cancelToMenue(hmVariable);
 		System.out.println(sConsoleText);		
 	}
+    @Override
     public void cancelToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
     	//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, false);//wieder so als würde das Menü nicht übersprungen.
 		this.cancelToMenue();
 	}
+    @Override
 	public void cancelToMenue() throws ExceptionZZZ {			
 		//this.isCurrentInputValid(false);					
 		this.isCurrentMenue(true); //wieder zurück zum Menue
@@ -109,19 +111,23 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	}
 	
 	//Nach dem Beenden des Menüpunkts zurück zum Menü
+    @Override
 	public void validToMenueLater(HashMapZZZ hmVariable, String sConsoleText) throws ExceptionZZZ {
 		this.validSkipMenue(hmVariable);
 		this.validToMenueLater();
 		System.out.println(sConsoleText);	
 	}
+    @Override
 	public void validToMenueLater() throws ExceptionZZZ {						
 		this.isMenueWhenFinished(true);		
 	}
 	
+    @Override
     public void validToMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ {    	
 		this.validToMenue(hmVariable);
 		System.out.println(sConsoleText);
 	}
+    @Override
     public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
     	//Merke: Das ist nur intern wichtig, darum hier keinen Status sondern nur die HashMap direkt setzen
 		if(hmVariable!=null) {
@@ -130,22 +136,27 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 		}
 		this.validToMenue();		
 	}
+    @Override
 	public void validToMenue() throws ExceptionZZZ {							
 		this.validMenue(true);	
 	}
 	
+    @Override
 	public void validSkipMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ {
 		this.validSkipMenue(hmVariable); 		
 		System.out.println(sConsoleText);
 	}
+    @Override
 	public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 		//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS01, true); //so, damit die Eingabe der Menue-Argumente uebersprungen wird
 		validSkipMenue();
 	}
+    @Override
 	public void validSkipMenue() throws ExceptionZZZ {					
 		this.validMenue(false);	
 	}
+    @Override
 	public void validMenue(boolean bCurrentMenue) throws ExceptionZZZ {
 		this.isCurrentInputValid(true);						                			
 		this.isCurrentMenue(bCurrentMenue);		
@@ -153,11 +164,12 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 	
 	
 	//+++++++++++++++++++++++++
-	
+	@Override
 	public void validSkipRepeatQuestion(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 		//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS02, true); //so, damit die Eingabe der Mehrfacheingabe-Argumente uebersprungen wird 		
 	}
+	@Override
 	public void validEnableRepeatQuestion(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ {
 		//Merke: Das wit nur intern wichtig, darum hier keinen Status setzen
 		if(hmVariable!=null) hmVariable.put(IKeyPressThreadConstantZZZ.sINPUT_BOOLEAN_SKIP_ARGUMENTS02, false); //so, damit die Eingabe der Mehrfacheingabe-Argumente ermöglicht wird

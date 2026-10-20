@@ -7,7 +7,7 @@ import basic.zBasic.util.console.thread.IConsoleControllerZZZ;
 import basic.zBasic.util.console.thread.IConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IKeyPressThreadMenuableZZZ;
 
-public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
+public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable, IConsoleControllerUserZZZ{
 	protected IConsoleControllerZZZ objConsoleController = null;
 	
 	public ExampleComposition_ConsoleAsThreadZZZ() throws ExceptionZZZ{		
@@ -16,9 +16,12 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 	public ExampleComposition_ConsoleAsThreadZZZ(String[] args) throws ExceptionZZZ{		
 	}
 	
-	public IConsoleControllerZZZ getConsole() throws ExceptionZZZ {
+	@Override
+	public IConsoleControllerZZZ getConsoleController() throws ExceptionZZZ {
 		return this.objConsoleController;
 	}
+	
+	@Override
 	public void setConsoleController(IConsoleControllerZZZ objConsoleController) throws ExceptionZZZ {
 		this.objConsoleController = objConsoleController;
 	}
@@ -40,7 +43,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 		main:{
 			this.startit();
 			
-			this.getConsole().isConsoleUserThreadRunning(true);							
+			this.getConsoleController().isConsoleUserThreadRunning(true);							
 			do {
 				 try {				 
 					 Thread.sleep(200);
@@ -51,12 +54,12 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable{
 					ExceptionZZZ ez = new ExceptionZZZ(e);
 					throw ez;
 				}
-			}while(!this.getConsole().isStopped());
+			}while(!this.getConsoleController().isStopped());
 		}//end main:
 		}catch(ExceptionZZZ ez) {
 			ez.printStackTrace();
 		}
-		this.getConsole().isConsoleUserThreadFinished(true);
+		this.getConsoleController().isConsoleUserThreadFinished(true);
 		return bReturn;
 	}
 	

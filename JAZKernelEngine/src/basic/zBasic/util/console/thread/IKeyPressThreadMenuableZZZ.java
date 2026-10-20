@@ -6,11 +6,9 @@ import debug.zBasic.util.console.thread.multi.menu03.IMenuPointUserZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IMenuPointZZZ;
 import debug.zBasic.util.console.thread.multi.menu03.IVariableHashMapUserZZZ;
 
-public interface IKeyPressThreadMenuableZZZ extends IKeyPressThreadZZZ, IMenuPointUserZZZ, IVariableHashMapUserZZZ {
+public interface IKeyPressThreadMenuableZZZ extends IKeyPressThreadMenulessZZZ, IMenuPointUserZZZ {
     public void makeMenuMain() throws InterruptedException,ExceptionZZZ;//zu überschreiben...Das Hauptmenue ausgeben
-    
-    public boolean initit(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; //Die Methode des Threads aufrufen. Hier wird die 
-	    
+          
     public boolean processMenuPoint(String sInput, HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; //zu überschreiben, false=quit
     public boolean processMenuePostArgumentInput(HashMapZZZ<String,Object> hmVariable) throws ExceptionZZZ; //zu überschreiben, false=quit, Also die Eingabe nach der Eingabe der Argumente
     
@@ -23,4 +21,30 @@ public interface IKeyPressThreadMenuableZZZ extends IKeyPressThreadZZZ, IMenuPoi
     
     public boolean isMenueWhenFinished() throws ExceptionZZZ;
     public void isMenueWhenFinished(boolean bMakeMenueWhenFinished) throws ExceptionZZZ;
+    
+    
+    //######################
+    public void cancelToMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ;
+    public void cancelToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ;
+	public void cancelToMenue() throws ExceptionZZZ;
+	
+	//Nach dem Beenden des Menüpunkts zurück zum Menü
+	public void validToMenueLater(HashMapZZZ hmVariable, String sConsoleText) throws ExceptionZZZ; 
+	public void validToMenueLater() throws ExceptionZZZ;
+	
+    public void validToMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ;
+    public void validToMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ;
+	public void validToMenue() throws ExceptionZZZ;
+	
+	public void validSkipMenue(HashMapZZZ hmVariable, String sConsoleText) throws IllegalArgumentException, ExceptionZZZ;
+	public void validSkipMenue(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ;
+	public void validSkipMenue() throws ExceptionZZZ;
+	
+	public void validMenue(boolean bCurrentMenue) throws ExceptionZZZ;
+	
+	
+	//+++++++++++++++++++++++++
+	
+	public void validSkipRepeatQuestion(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ;
+	public void validEnableRepeatQuestion(HashMapZZZ hmVariable) throws IllegalArgumentException, ExceptionZZZ;	
 }

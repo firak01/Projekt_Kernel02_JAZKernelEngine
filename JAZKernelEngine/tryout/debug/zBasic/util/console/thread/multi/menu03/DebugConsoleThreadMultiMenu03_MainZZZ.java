@@ -28,7 +28,7 @@ public class DebugConsoleThreadMultiMenu03_MainZZZ {
 			//###########################################
 			//Für die Schlussausgabe
 			//Hole die notwendigen Objekte, um den abschliessenden Wert auszulesen
-			IConsoleControllerZZZ objConsole = objConsoleThread.getConsole();			
+			IConsoleControllerZZZ objConsole = objConsoleThread.getConsoleController();			
 			IExampleConsoleServiceZZZ objStartable = (IExampleConsoleServiceZZZ) objConsole.getConsoleServiceObject();
 			
 			//(ExampleConsolServiceZZZ) 
