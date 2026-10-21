@@ -128,8 +128,31 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	
 	@Override
 	public void isFinished(boolean bFinish) throws ExceptionZZZ {		
-		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED,true);		
 		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED, bFinish);
+	}
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean quit() throws ExceptionZZZ {
+        return this.requestQuit(true); //stop KeyPressThread über die gesetzte STOP Variable        
+	}
+	
+	@Override
+	public boolean requestQuit(boolean bQuit) throws ExceptionZZZ {				
+		this.isFinished(bQuit);
+		return true;
+	}
+	
+	@Override
+	public boolean isQuitted() throws ExceptionZZZ {		
+		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISQUITTED);
+	}
+	
+	@Override
+	public void isQuitted(boolean bQuit) throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISQUITTED,true);		
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISQUITTED, bQuit);
 	}
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

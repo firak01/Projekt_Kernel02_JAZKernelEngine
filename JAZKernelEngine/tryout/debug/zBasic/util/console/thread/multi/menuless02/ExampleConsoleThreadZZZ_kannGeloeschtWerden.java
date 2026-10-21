@@ -8,7 +8,7 @@ import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.IThreadableZZZ;
 
 	 
-public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampleConsoleZZZ {
+public class ExampleConsoleThreadZZZ_kannGeloeschtWerden implements Runnable,IThreadableZZZ, IExampleConsoleZZZ {
 	private IConsoleServiceZZZ objConsoleService = null;
 	private ExampleKeyPressThreadZZZ objKeyPressThread = null;
 	
@@ -71,7 +71,7 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 	
     
     //Method that gets called when the object is instantiated
-    public ExampleConsoleThreadZZZ(long lSleepTime, ExampleKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
+    public ExampleConsoleThreadZZZ_kannGeloeschtWerden(long lSleepTime, ExampleKeyPressThreadZZZ objKeyPressThread) throws ExceptionZZZ {
     	this.setSleepTime(lSleepTime);
     	this.setKeyPressThread(objKeyPressThread);
     }
@@ -183,5 +183,27 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public boolean quit() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean requestQuit(boolean bFinish) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isQuitted() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void isQuitted(boolean bFinish) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++
 }
 

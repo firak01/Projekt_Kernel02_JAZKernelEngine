@@ -288,25 +288,74 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 			String sStatusName = null; boolean bStatusValue = true; String sStatusMessage = null;
 			boolean bValue = eventStatusLocal.getStatusValue();
 			
+			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();	
 			
-			IEnumSetMappedStatusLocalZZZ objStatus = eventStatusLocal.getStatusLocal();			
-			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {
-				//sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED";
+			
+			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_QUITTED.getName())) {				
 				sLog = "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES FINISHED";
 				Log.writeDebug(this, sLog);
-				this.isKeyPressThreadFinished(bValue);
 				
-				System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
-				TODOGOON20261019;//Bei Q hier TypecastExcepton
-				//IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
-				IKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
-				objKeyPressThread.isCurrentMenue(true);
+				HashMap<String,Boolean>hmStatusLocal = this.getHashMapStatusLocal();
+				String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
+				//System.out.println(ReflectCodeZZZ.getPositionCurrent() + "\n" + sDebug);
+				Log.writeDebug(this, sDebug);
+								
+				//Ohne instanceof gibt es eine typcast Exception
+				if(this.getKeyPressThread() instanceof IKeyPressThreadMenuableZZZ) {					
+					System.out.println("Beendet, zurück zum Menü (1).");
+					
+					IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();					
+					objKeyPressThread.isCurrentMenue(true);
+				}else {
+					//Das ist also für: IKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
+					System.out.println("Beendet ohne Menü.");
+					
+				}							
+				
+				this.isKeyPressThreadFinished(bValue);				
+			}
+											
+			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_FINISHED.getName())) {				
+				sLog = "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES QUITTED";
+				Log.writeDebug(this, sLog);
+				
+				HashMap<String,Boolean>hmStatusLocal = this.getHashMapStatusLocal();
+				String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
+				//System.out.println(ReflectCodeZZZ.getPositionCurrent() + "\n" + sDebug);
+				Log.writeDebug(this, sDebug);
+								
+				//Ohne instanceof gibt es eine typcast Exception
+				if(this.getKeyPressThread() instanceof IKeyPressThreadMenuableZZZ) {
+					
+					//Stopped auch abfragen: Die Ausgabe kommt sonst irgendwie zu spät, erst wenn das Menü schon wieder aufgebaut ist
+					if(!this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED) & this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADRUNNING)) {						
+						System.out.println("Beendet, zurück zum Menü (2).");
+					}
+					
+					IKeyPressThreadMenuableZZZ objKeyPressThread = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();					
+					objKeyPressThread.isCurrentMenue(true);
+				}else {
+					//Das ist also für: IKeyPressThreadZZZ objKeyPressThread = this.getKeyPressThread();
+					System.out.println("Beendet ohne Menü.");
+					
+				}							
+				
+				this.isKeyPressThreadFinished(bValue);				
 			}
 						
-			if(objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED.getName())){
-				//sLog = ReflectCodeZZZ.getPositionCurrent() + "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED";
+			if(!objStatus.getName().equalsIgnoreCase(IConsoleServiceThreadEnabledZZZ.STATUSLOCAL.ISCONSOLESERVICETHREAD_STOPPED.getName())){				
 				sLog = "!!!!!!!!!!!!!!!!!!!!! CONSOLE SERVICES STOPPED";
 				Log.writeDebug(this, sLog);
+				
+				HashMap<String,Boolean>hmStatusLocal = this.getHashMapStatusLocal();
+				String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
+				//System.out.println(ReflectCodeZZZ.getPositionCurrent() + "\n" + sDebug);
+				Log.writeDebug(this, sDebug);
+				if(!(this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED)|this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED))) {
+					System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
+				}
+								
+				
 				this.isKeyPressThreadStopped(bValue);
 			}
 			

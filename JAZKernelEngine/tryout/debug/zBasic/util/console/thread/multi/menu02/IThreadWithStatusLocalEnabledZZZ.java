@@ -42,6 +42,8 @@ public interface IThreadWithStatusLocalEnabledZZZ{
 
 		ISFINISHED(iSTATUSLOCAL_GROUPID,"isfinished","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ beendet",""),
 		
+		ISQUITTED(iSTATUSLOCAL_GROUPID,"isquitted","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ abgebrochen",""),
+		
 		HASERROR(iSTATUSLOCAL_GROUPID,"haserror","ZZZ: AbstractThreadWithStatusLocalEnabledZZZ meldet Fehler","");		
 		
 		private int iStatusGroupId;

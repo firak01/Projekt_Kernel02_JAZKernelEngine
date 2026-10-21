@@ -14,6 +14,9 @@ import debug.zBasic.util.console.thread.multi.menuless02.ExampleComposition_Cons
  *  Unterschiede zu ...Menueless01_MainZZZ
  *  ExampleComposition_ConsoleAsThreadZZZ wird verwendet.
  *       D.h. darin liegt auch schon der Thread. 
+ *       
+ *  ExampleConsoleThreadZZZ 
+ *      wird deshalb nicht mehr benötigt
  *            
  *  
  * @author Fritz Lindhauer

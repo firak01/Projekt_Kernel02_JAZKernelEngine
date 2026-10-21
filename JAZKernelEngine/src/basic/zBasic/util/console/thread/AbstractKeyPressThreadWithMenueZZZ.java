@@ -252,7 +252,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			this.getConsoleController().isKeyPressThreadRunning(true);
 										
 			HashMapZZZ<String,Object> hmVariable = this.getVariableHashMap();
-            while(!this.getConsoleController().isStopped()) {	
+            while(!(this.getConsoleController().isStopped()||this.getConsoleController().isQuitted())) {	
             	iDebugCounterLoop++;
 //            	Log.printlnDateWithPosition(this, "TEST01");
 //            	Log.protocolDateWithPosition(this, "TEST01");
@@ -329,9 +329,12 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 			        		 
 			        		//FALLS im Menü eine ANDERE THREAD KLASSE gewählt worden ist, oder this falls nicht...
 						    IKeyPressThreadMenuableZZZ objKeyPressThreadUsed = (IKeyPressThreadMenuableZZZ) this.getKeyPressThread();
-						        			        		 
-	                		if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED)) {
-	                			this.validToMenue(hmVariable, "Zurueck zum Menue (" + IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.getDescription() + ")");//Zurueck zum Menü vorbereiten
+						     
+						    if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED)) {
+						    	//Kommt das überhaupt noch???
+						    	this.validToMenue(hmVariable, "Zurueck zum Menue (" + IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED.getDescription() + ")");//Zurueck zum Menü vorbereiten
+						    }else if(this.getConsoleController().getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED)) {
+	                			this.validToMenue(hmVariable, "Zurueck zum Menue (" + IConsoleControllerEnabledZZZ.STATUSLOCAL.ISTHREAD_STOPPED.getDescription() + ")");//Zurueck zum Menü vorbereiten	                		
 	                		}else {
 					        	IMenuPointZZZ objMenuPoint = this.getMenuPoint();
 					        	if(objMenuPoint==null) {
@@ -491,11 +494,13 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
 					                			
 					                			//++ Falls gestoppt wurde, nicht doch noch neu starten, das wird durch die obige "wait" Methode sichergestellt. Zum Überprüfen die Anzahl der Threads ausgeben.
 						                		//if(!this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED)){
-							        			if(objMenuPoint.getServiceThread().isStopped()) {
+							        			if(objMenuPoint.getServiceThread().isStopped() && !objMenuPoint.getServiceThread().isQuitted()) {
 							        				if(this.isMenueWhenFinished()){
 						                				this.validToMenue(hmVariable, "Zurueck zum Menue (Service-Thread gestoppt)");	//zurück zum Menü vorbereiten				                			
 							                			//this.stop();
 							                		}
+							        			}else if(objMenuPoint.getServiceThread().isQuitted()) {
+							        				//haben wir schon gemacht... nicht noch einmal machen this.quit();
 						                		}else {
 						                			
 						                		}									        
@@ -569,7 +574,7 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     
 	@Override 
 	public boolean quit() throws ExceptionZZZ {
-		System.out.println("Konsole Beenden");		                					                    
+		System.out.println("Konsole Abbrechen");		                					                    
         this.isCurrentInputValid(true);
         this.isCurrentInputFinished(true);
         this.isKeyPressThreadFinished(true);
@@ -582,10 +587,11 @@ public abstract class AbstractKeyPressThreadWithMenueZZZ<T> extends AbstractKeyP
     	    	
     	//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
     	this.getConsoleController().setStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED, true);
+    	this.getConsoleController().isQuitted(bQuit);
     	
     	//Setze also den ConsoleController... Alternativ dazu müsste er ggfs. auch hieran registriert werden.
     	//D.h. er müsste andere Interfaces noch implementieren.
-		this.getConsoleController().isStopped(bQuit);
+//		this.getConsoleController().isStopped(bQuit);
 		return true;
 	}
 

@@ -101,7 +101,7 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 
 	@Override
 	public boolean requestFinish(boolean bFinish) throws ExceptionZZZ {		
-		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISSTOPPED,true);
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED,true);
 		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISFINISHED, bFinish);
 		return true;
 	}
@@ -114,6 +114,25 @@ public abstract class AbstractThreadWithStatusLocalZZZ<T> extends AbstractObject
 	@Override
 	public void isFinished(boolean bFinish) throws ExceptionZZZ {		
 		this.requestFinish(bFinish);
+	}
+	
+	//+++++++++++++++++++
+	
+	@Override
+	public boolean requestQuit(boolean bQuit) throws ExceptionZZZ {		
+		//Das wirft an registrierte Objekte einen Event: .offerStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISQUITTED,true);
+		this.setStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISQUITTED, bQuit);
+		return true;
+	}
+	
+	@Override
+	public boolean isQuitted() throws ExceptionZZZ {		
+		return this.getStatusLocal(IThreadWithStatusLocalEnabledZZZ.STATUSLOCAL.ISQUITTED);
+	}
+	
+	@Override
+	public void isQuitted(boolean bQuit) throws ExceptionZZZ {		
+		this.requestFinish(bQuit);
 	}
 	
 	

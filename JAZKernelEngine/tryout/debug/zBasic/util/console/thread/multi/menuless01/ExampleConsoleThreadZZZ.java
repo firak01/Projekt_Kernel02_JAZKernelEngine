@@ -8,6 +8,10 @@ import basic.zBasic.util.console.thread.IKeyPressThreadZZZ;
 import basic.zBasic.util.console.thread.IThreadableZZZ;
 
 	 
+/**Merke: Entsprechende Klasse Wird dann in menuless02 nicht mehr benötigt...
+ * @author Fritz Lindhauer
+ *
+ */
 public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampleConsoleZZZ {
 	private IConsoleServiceZZZ objConsoleService = null;
 	private ExampleKeyPressThreadZZZ objKeyPressThread = null;
@@ -180,6 +184,28 @@ public class ExampleConsoleThreadZZZ implements Runnable,IThreadableZZZ, IExampl
 	}
 	@Override
 	public void isFinished(boolean bFinish) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++
+	@Override
+	public boolean quit() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean requestQuit(boolean bFinish) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isQuitted() throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void isQuitted(boolean bFinish) throws ExceptionZZZ {
 		// TODO Auto-generated method stub
 		
 	}

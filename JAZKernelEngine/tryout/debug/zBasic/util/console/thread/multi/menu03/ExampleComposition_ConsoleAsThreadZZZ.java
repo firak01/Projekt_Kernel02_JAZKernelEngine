@@ -54,7 +54,7 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable, IConsole
 					ExceptionZZZ ez = new ExceptionZZZ(e);
 					throw ez;
 				}
-			}while(!this.getConsoleController().isStopped());
+			}while(!this.getConsoleController().isQuitted());
 		}//end main:
 		}catch(ExceptionZZZ ez) {
 			ez.printStackTrace();
@@ -74,6 +74,10 @@ public class ExampleComposition_ConsoleAsThreadZZZ implements Runnable, IConsole
 		//Der Key-Thread hat keinen Status, also nicht: objKeyPressThread.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);
 		objConsoleController.setKeyPressThread(objKeyPressThread);
 		//Nein, keypressthread ist selber kein Listener: objConsoleController.registerForStatusLocalEvent(objKeyPressThread);
+		//Der KeyPressThread muss aber den ConsoleController kennen und der ConsoleController muss darauf hören
+		objKeyPressThread.setConsoleController(objConsoleController);
+				
+		
 		
 		IConsoleServiceZZZ objConsoleService = new ExampleConsoleServiceZZZ(objConsoleController);	
 		//objConsoleService.setFlag(IObjectWithStatusEnabledZZZ.FLAGZ.STATUSLOCAL_PROOF_VALUECHANGED, true);

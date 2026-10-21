@@ -96,8 +96,9 @@ public class ExampleKeyPressThreadZZZ<T> extends AbstractKeyPressThreadWithMenue
 //	            	if(objMenuOld!=null) {
 //	            		objMenuOld.onStopit();
 //	            	}
+            	this.setMenuPoint(null); //den alten Menüpunkt löschen
             	this.stop();
-            	this.isCurrentMenue(true);            		            	
+            	this.isCurrentMenue(true);            	
             	break main; //Das Menü ist ja schon da...
             case "a":
             	//Einen bestehenden Thread stoppen

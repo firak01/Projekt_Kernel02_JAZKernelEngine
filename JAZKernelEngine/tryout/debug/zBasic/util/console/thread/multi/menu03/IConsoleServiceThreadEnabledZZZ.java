@@ -33,6 +33,7 @@ public interface IConsoleServiceThreadEnabledZZZ{
 	public enum STATUSLOCAL implements IEnumSetMappedStatusLocalZZZ{//Folgendes geht nicht, da alle Enums schon von einer Java BasisKlasse erben... extends EnumSetMappedBaseZZZ{
 		ISCONSOLESERVICETHREAD_FINISHED(iSTATUSLOCAL_GROUPID,"isconsoleservicethread_finished","ZZZ: AbstractConsoleServiceThreadZZZ ConsoleServiceThread ist beendet",""),
 		ISCONSOLESERVICETHREAD_STOPPED(iSTATUSLOCAL_GROUPID,"isconsoleservicethread_stopped","ZZZ: AbstractConsoleServiceThreadZZZ ConsoleServiceThread ist gestoppt",""),
+		ISCONSOLESERVICETHREAD_QUITTED(iSTATUSLOCAL_GROUPID,"isconsoleservicethread_quitted","ZZZ: AbstractConsoleServiceThreadZZZ ConsoleServiceThread ist abgebrochen",""),
 		;
 		
 		private int iStatusGroupId;

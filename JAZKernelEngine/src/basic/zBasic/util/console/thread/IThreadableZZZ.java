@@ -20,6 +20,11 @@ public interface IThreadableZZZ {
 	public boolean requestFinish(boolean bFinish) throws ExceptionZZZ;
 	public boolean isFinished() throws ExceptionZZZ;
 	public void isFinished(boolean bFinish) throws ExceptionZZZ;
+	
+	public boolean quit() throws ExceptionZZZ;
+	public boolean requestQuit(boolean bFinish) throws ExceptionZZZ;
+	public boolean isQuitted() throws ExceptionZZZ;
+	public void isQuitted(boolean bFinish) throws ExceptionZZZ;
 			
 	public long getSleepTime() throws ExceptionZZZ;
 	public void setSleepTime(long lSleepTime) throws ExceptionZZZ;	

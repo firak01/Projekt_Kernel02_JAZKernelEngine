@@ -224,7 +224,7 @@ public abstract class AbstractKeyPressThreadMenulessZZZ<T> extends AbstractKeyPr
     
 	@Override 
 	public boolean quit() throws ExceptionZZZ {
-		System.out.println("Konsole Beenden");		                					                    
+		System.out.println("Konsole Abbrechen");		                					                    
         this.isCurrentInputValid(true);
         this.isCurrentInputFinished(true);
         this.isKeyPressThreadFinished(true);
