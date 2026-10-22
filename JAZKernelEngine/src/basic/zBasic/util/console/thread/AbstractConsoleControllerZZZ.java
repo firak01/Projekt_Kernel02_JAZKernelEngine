@@ -320,9 +320,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				Log.writeDebug(this, sLog);
 				
 				HashMap<String,Boolean>hmStatusLocal = this.getHashMapStatusLocal();
-				String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
+				//String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
 				//System.out.println(ReflectCodeZZZ.getPositionCurrent() + "\n" + sDebug);
-				Log.writeDebug(this, sDebug);
+				Log.writeDebug(this, hmStatusLocal,"<BR>","|");
 								
 				//Ohne instanceof gibt es eine typcast Exception
 				if(this.getKeyPressThread() instanceof IKeyPressThreadMenuableZZZ) {
@@ -348,9 +348,9 @@ public abstract class AbstractConsoleControllerZZZ<T> extends AbstractThreadWith
 				Log.writeDebug(this, sLog);
 				
 				HashMap<String,Boolean>hmStatusLocal = this.getHashMapStatusLocal();
-				String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
+				//String sDebug = HashMapUtilZZZ.computeDebugString(hmStatusLocal);
 				//System.out.println(ReflectCodeZZZ.getPositionCurrent() + "\n" + sDebug);
-				Log.writeDebug(this, sDebug);
+				Log.writeDebug(this, hmStatusLocal);
 				if(!(this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISQUITTED)|this.getStatusLocal(IConsoleControllerEnabledZZZ.STATUSLOCAL.ISKEYPRESSTHREADFINISHED))) {
 					System.out.println("Ein beliebige Eingabe um zum Menü zurückzugehen.");
 				}

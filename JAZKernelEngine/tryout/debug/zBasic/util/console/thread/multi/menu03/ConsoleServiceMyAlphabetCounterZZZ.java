@@ -19,6 +19,7 @@ import basic.zBasic.util.crypt.code.CryptAlgorithmFactoryZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
+import custom.zKernel.Log;
 
 public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServiceMyCounterZZZ<T> {
 	private static final long serialVersionUID = -2911808778962336187L;
@@ -92,8 +93,9 @@ public class ConsoleServiceMyAlphabetCounterZZZ<T> extends AbstractConsoleServic
 			
 			
 				//Debugausgabe, ob auch alles leer ist			
-				String sDebug = HashMapUtilZZZ.computeDebugString(hmVariable, "<BR>","|");
-				System.out.println(sDebug);
+				//String sDebug = HashMapUtilZZZ.computeDebugString(hmVariable, "<BR>","|");
+				//System.out.println(sDebug);
+				Log.writeDebug(this, hmVariable, "<BR>","|");
 			
 					
 			

@@ -1,9 +1,12 @@
 package custom.zKernel;
 
+import java.util.HashMap;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.LogZZZ;
 import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
+import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.system.Syso;
 import custom.zKernel.ILogLevelUserZZZ.LOGLEVEL;
 
@@ -24,41 +27,126 @@ public class Log implements IConstantZZZ{
 	//MERKE: NICHT die CLASS - Methode mit obj.getClass() aufrufen,
 	//       da sonst wieder Methoden mit iLevel für die mögliche Position im Stacktrace genutzt werden müsssen.
 	public static boolean writeInfo(Object obj, String sLog) throws ExceptionZZZ {
-		//return Log.protocol(obj, ILogLevelUserZZZ.LOGLEVEL.INFO, sLog);
+		return writeInfo_(obj, 1, sLog);
+	}	
+	public static boolean writeInfo(Object obj, HashMap hmToDebug) throws ExceptionZZZ {
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug);
+		}
+		return writeInfo_(obj, 1, "\n"+sLog);
+	}
+	public static boolean writeInfo(Object obj, HashMap hmToDebug, String sEntryDelimiter, String sKeyDelimiter) throws ExceptionZZZ {
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug, sEntryDelimiter, sKeyDelimiter);
+		}
+		return writeInfo_(obj, 1, "\n"+sLog);
+	}
+	private static boolean writeInfo_(Object obj, int iLevel, String sLog) throws ExceptionZZZ {
 		
 		//Vor der Info - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
 		if(LogSingletonZZZ.isInitialized()) {
-			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, 1, LOGLEVEL.DEBUG, sLog);
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, iLevel+1, LOGLEVEL.DEBUG, sLog);
 			return Syso.println(PRINTLEVEL.INFO, sLog);			
 		}else {			
-			LogZZZ.printlnDateWithPosition(obj, 1, LOGLEVEL.DEBUG, sLog); 
+			LogZZZ.printlnDateWithPosition(obj, iLevel+1, LOGLEVEL.DEBUG, sLog); 
 			return Syso.println(PRINTLEVEL.INFO, sLog);
 		}
 	}
 	
 	public static boolean writeWarning(Object obj, String sLog) throws ExceptionZZZ {
-		//return Log.protocol(obj, ILogLevelUserZZZ.LOGLEVEL.WARNING, sLog);
-		
+		return writeWarning_(obj, 1, sLog);
+	}
+	public static boolean writeWarning(Object obj, HashMap hmToDebug) throws ExceptionZZZ {
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug);
+		}
+		return writeWarning_(obj, 1, "\n"+sLog);
+	}
+	public static boolean writeWarning(Object obj, HashMap hmToDebug, String sEntryDelimiter, String sKeyDelimiter) throws ExceptionZZZ {
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug, sEntryDelimiter, sKeyDelimiter);
+		}
+		return writeWarning_(obj, 1, "\n"+sLog);
+	}
+	private static boolean writeWarning_(Object obj, int iLevel, String sLog) throws ExceptionZZZ {		
 		//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
 		if(LogSingletonZZZ.isInitialized()) {
-			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, 1, LOGLEVEL.DEBUG, sLog);
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(obj, iLevel+1, LOGLEVEL.DEBUG, sLog);
 			return Syso.println(PRINTLEVEL.WARNING, sLog);	
 		}else {
-			LogZZZ.printlnDateWithPosition(obj, 1, LOGLEVEL.DEBUG, sLog);
+			LogZZZ.printlnDateWithPosition(obj, iLevel+1, LOGLEVEL.DEBUG, sLog);
 			return Syso.println(PRINTLEVEL.WARNING, sLog);			
 		}
 	}
 	
+	
 	public static boolean writeDebug(Object obj, String sLog) throws ExceptionZZZ {
-		return Log.protocolDateWithPosition(obj, 1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
+		//return Log.protocolDateWithPosition(obj, 1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
+		return writeDebug_(obj, 1, sLog);
 	}
+	public static boolean writeDebug(Object obj, HashMap hmToDebug) throws ExceptionZZZ {		
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug);
+		}
+		return writeDebug_(obj, 1, "\n"+sLog);		
+	}
+	public static boolean writeDebug(Object obj, HashMap hmToDebug, String sEntryDelimiter, String sKeyDelimiter) throws ExceptionZZZ {		
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug, sEntryDelimiter, sKeyDelimiter);
+		}
+		return writeDebug_(obj, 1, "\n"+sLog);		
+	}
+	private static boolean writeDebug_(Object obj, int iLevel, String sLog) throws ExceptionZZZ {
+		return Log.protocolDateWithPosition(obj, iLevel+1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
+	}
+	
 	
 	public static boolean writeVerbose(Object obj, String sLog) throws ExceptionZZZ {		
-		return Log.protocolDateWithPosition(obj, 1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);
-		
+		return writeVerbose_(obj, 1, sLog);		
+	}
+	public static boolean writeVerbose(Object obj, HashMap hmToDebug) throws ExceptionZZZ {
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug);
+		}
+		return writeVerbose_(obj, 1, sLog);	
+	}
+	public static boolean writeVerbose(Object obj, HashMap hmToDebug, String sEntryDelimiter, String sKeyDelimiter) throws ExceptionZZZ {
+		String sLog=null;
+		if(hmToDebug==null) {
+			sLog = "HashMap is null";
+		}else{
+			sLog = HashMapUtilZZZ.computeDebugString(hmToDebug, sEntryDelimiter, sKeyDelimiter);
+		}
+		return writeVerbose_(obj, 1, sLog);	
+	}
+	private static boolean writeVerbose_(Object obj, int iLevel, String sLog) throws ExceptionZZZ {		
+		return Log.protocolDateWithPosition(obj, iLevel+1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);		
 	}
 	
-	//+++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	public static boolean println(Object obj, String sLog) throws ExceptionZZZ {
 		if(LogSingletonZZZ.isInitialized()) {
