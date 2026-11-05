@@ -44,7 +44,11 @@
            Wie startet man das:
            Rechtsclick auf das Projekt in Eclipse.
            "Run as..."   
-           Maven Build.  In dem Dialog eingeben als goal: build-classpath
+           Maven Build.  In dem Dialog eingeben als goal: generate-resources   
+           
+           Merke: build-classpath ist kein gültiger lifycycle. Gibt man das an, gibt es den Fehler
+           "Unknown lifecycle phase "build-classpath". You must specify a valid lifecycle phase or a goal in the format <plugin-prefix>:<goal> or <plugin-group-id>:<plugin-artifact-id>[:<plugin-version>]:<goal>. Available lifecycle phases are: validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-clean, clean, post-clean, pre-site, site, post-site, site-deploy. -> [Help 1]"
+           
            
            Merke: Diese Startkonfiguration kann man dann auch als shared in launchZZZ speichern.
            
