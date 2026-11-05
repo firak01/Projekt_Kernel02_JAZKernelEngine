@@ -36,7 +36,96 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+      
+      <!-- FGL 20261105: 
+           Die Idee ist, mit dem maven-dependency-plugin immer eine Textdatei aller .jar Dateien zu erzeugen.
+           Diese Textdatei kann dann aus anderen Stellen heraus genutzt werden, konkret: Jython-Scripte binden ZKernel-Klassen ein
+           
+           Wie startet man das:
+           Rechtsclick auf das Projekt in Eclipse.
+           "Run as..."   
+           Maven Build.  In dem Dialog eingeben als goal: build-classpath
+           
+           Merke: Diese Startkonfiguration kann man dann auch als shared in launchZZZ speichern.
+           
+           Das Ergebnis ist eine Textdatei an der angegbenen Stelle, die den Classpath als String in einer Zeile enthält.
+           Z.B.:
+           C:\Dokumente und Einstellungen\lindhaueradmin\.m2\repository\com\google\guava\guava\20.0\guava-20.0.jar;
+           
+           und viel mehr.
+            -->
+      
+      <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-dependency-plugin</artifactId>
+	    <version>3.6.0</version>
+	
+	    <executions>
+	        <!-- FGL20261105:
+	             Unter Eclipse Oxygen wird der execution-Tag als Fehler angemerkt:
+	             "Plugin execution not covered by lifecycle configuration"
+	             
+	             Die Eclipse-Erweiterung m2e (Maven Integration für Eclipse) kenn diese nicht.
+	             Für das Bauen ist dieser Fehler nicht wichtig. Man kann ihn daher ignorieren.
+	             Dies passiert im Abschnitt pluginManagement.... genau für dieses Plugin und den im goal-Tag angegebenen Wert.	             	             	            
+			-->	             	        
+	        <execution>
+	            <id>create-maven-classpathzzz</id>
+	            <phase>generate-resources</phase>
+	            <goals>
+	                <goal>build-classpath</goal>
+	            </goals>
+	            <configuration>
+	                <outputFile>
+	                    ${project.build.directory}/classpathZZZ/classpathByMavenZZZ.txt
+	                </outputFile>
+	                <outputAbsoluteArtifactFilename>
+	                    true
+	                </outputAbsoluteArtifactFilename>
+	                <includeScope>runtime</includeScope>
+	            </configuration>
+	        </execution>
+	    </executions>
+	</plugin>
     </plugins>
+    
+    
+    <pluginManagement>
+        <plugins>
+            <!-- FGL20261105:
+                 Diese Konfiguration sagt Eclipse, dass es den Fehler ignorieren soll, hervorgerufend durch execution-Tag (s.o.):
+                 "Plugin execution not covered by lifecycle configuration"                 
+                  -->
+            <plugin>
+                <groupId>org.eclipse.m2e</groupId>
+                <artifactId>lifecycle-mapping</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <lifecycleMappingMetadata>
+                        <pluginExecutions>
+                            <pluginExecution>
+                                <pluginExecutionFilter>
+                                    <groupId>org.apache.maven.plugins</groupId>
+                                    <artifactId>maven-dependency-plugin</artifactId>
+                                    <versionRange>[0,)</versionRange>
+                                    <goals>
+                                        <!-- Tragen Sie hier das Goal ein, das den Fehler wirft, z.B. copy-dependencies -->
+                                        <!-- <goal>copy-dependencies</goal> --> 
+                                        <!-- <goal>unpack</goal> -->
+                                        <goal>build-classpath</goal>
+                                    </goals>
+                                </pluginExecutionFilter>
+                                <action>
+                                    <ignore />
+                                </action>
+                            </pluginExecution>
+                        </pluginExecutions>
+                    </lifecycleMappingMetadata>
+                </configuration>
+            </plugin>
+        </plugins>
+    </pluginManagement>
+    
   </build>
   
   <dependencies>
