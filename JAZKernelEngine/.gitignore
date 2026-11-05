@@ -1,5 +1,10 @@
 /bin/
-/target/
+/target/*
+
+!/target/classpathZZZ/
+!/target/classpathZZZ/1readmeFGL.txt
+!/target/classpathZZZ/classpathByMavenZZZ_example.txt
+!/target/classpathZZZ/classpathOfLibrariesExternalZZZ_example.txt
 
 /ZKernelLog_default.txt
 /JUnitTest.ini
