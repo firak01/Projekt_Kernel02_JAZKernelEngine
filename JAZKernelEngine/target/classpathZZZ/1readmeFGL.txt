@@ -9,13 +9,27 @@ generate-resources
 
 
 Merke:
-Anders als diese readme-Datei, gilt für Dateien unterhalb des target - Verzeichnisses gehören nicht in git eingecheckt.
+Es gilt für Dateien unterhalb des target - Verzeichnisses: 
+Sie gehören nicht in git eingecheckt.
 Die Pfade können auf jeder Maschine anders sein.
+
+Ausnahmen:
+Diese readme-Datei 
+und die Datei classpathOfLibrariesWorkspaceZZZ.txt, diese gibt die Pfade relativ zum Workspace an.
+Man findet den Pfad unter: 
+Projekteigenschaften/Java Build Path. Reiter Libraries.
+Hier die Library als Kategorie aufklappen. 
+Leider kann man da nichts Rauskopieren.
 
 #########################################################
 Mit den Angaben in diesen classpath...ZZZ Dateien können die notwendigen .jar Dateien 
 in anderen Tools geladen werden. Z.B. Meine Jython Lösung.
 
+Dabei gilt: 
+Normalerweise immer absolute Pfadangaben, nur beim classpathOfLibrariesWorkspaceZZZ.txt
+bezieht sich die Angabe auf den Workspace, d.h. hier relative Pfadangaben
+ 
+             
 
 #########################################################
 Hier die wichtigen Angaben der pom.xml
