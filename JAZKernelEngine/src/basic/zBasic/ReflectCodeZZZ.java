@@ -1449,7 +1449,14 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 			  if(!StringZZZ.isEmpty(sClassNameFilterRegEx)){ //einmal den RegEx Ausdruck erzeugen und nicht jedesmal in der Schleife.
 				  //objReFilter = new org.apache.regexp.RE(sClassnameFilterRegEx);
 				  try{
-					  pattern = Pattern.compile(sClassNameFilterRegEx);
+					  /*    RegEx:    	
+					    Zwei kleine Tipps für deine Methode
+					    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+					    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+					     */
+						//alt: pattern = Pattern.compile(sClassNameFilterRegEx);
+					  //neu: 				  
+					  pattern = Pattern.compile(Pattern.quote(sClassNameFilterRegEx));
 				  }catch(Exception e){
 					  System.out.println("Error for RegEx: '" + sClassNameFilterRegEx + "'");
 					  e.printStackTrace();
@@ -1682,7 +1689,14 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 			 //Negative Lookahead: Filtere vorher alle Klassen mit ReflectCode im Namen aus. 			  
 			 if(!StringZZZ.isEmpty(sClassNameFilterRegEx)){ //einmal den RegEx Ausdruck erzeugen und nicht jedesmal in der Schleife.
 				  try{
-					  pattern = Pattern.compile(sClassNameFilterRegEx);
+					  /*    RegEx:    	
+					    Zwei kleine Tipps für deine Methode
+					    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+					    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+					     */
+						//alt: pattern = Pattern.compile(sClassNameFilterRegEx);
+					  //neu:
+					  pattern = Pattern.compile(Pattern.quote(sClassNameFilterRegEx));
 				  }catch(Exception e){
 					  System.out.println("Error for RegEx: '" + sClassNameFilterRegEx + "'");
 					  e.printStackTrace();

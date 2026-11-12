@@ -8,7 +8,7 @@ import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.txt.stream.FileTextSplitterZZZ;
+import basic.zBasic.util.file.txt.stream.FileTextLineSplitterZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;
@@ -24,7 +24,7 @@ public class FileTextSplitterZZZTest extends TestCase{
 	private final static String strFILE_NAME_DEFAULT_RESULT_B = new String("JUnitKernelFileSplitResultB.txt");
 
 	
-	private FileTextSplitterZZZ objSplitterTest = null;
+	private FileTextLineSplitterZZZ objSplitterTest = null;
 	
 	//+++ Test setup
 	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
@@ -89,7 +89,7 @@ public class FileTextSplitterZZZTest extends TestCase{
 			
 			
 			//The main object used for testing
-			objSplitterTest = new FileTextSplitterZZZ(objFileSource);
+			objSplitterTest = new FileTextLineSplitterZZZ(objFileSource);
 			
 			//für´s Aufräumen
 			listFilePathUsed = new ArrayList<String>();
@@ -134,7 +134,7 @@ public class FileTextSplitterZZZTest extends TestCase{
 	public void testConstructor(){
 		try{
 			//Init - Object
-			FileTextSplitterZZZ objSplitterInit = new FileTextSplitterZZZ(objFileSource);
+			FileTextLineSplitterZZZ objSplitterInit = new FileTextLineSplitterZZZ(objFileSource);
 						
 			//TestKonfiguration pr�fen
 			assertNotNull(objSplitterInit);
@@ -145,7 +145,7 @@ public class FileTextSplitterZZZTest extends TestCase{
 	
 	public void testSplitByLinenumber(){		
 		try {
-			FileTextSplitterZZZ objSplitterInit = new FileTextSplitterZZZ(objFileSource);					
+			FileTextLineSplitterZZZ objSplitterInit = new FileTextLineSplitterZZZ(objFileSource);					
 			objSplitterInit.split(3);
 			objSplitterInit.setFilePathPre(objFileTargetPre.getAbsolutePath());
 			objSplitterInit.setFilePathPost(objFileTargetPost.getAbsolutePath());

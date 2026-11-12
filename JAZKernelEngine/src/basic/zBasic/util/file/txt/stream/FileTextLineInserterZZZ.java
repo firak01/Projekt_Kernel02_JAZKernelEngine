@@ -6,19 +6,19 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextInserterZZZ  extends  AbstractFileTextReaderSaverZZZ{
+public class FileTextLineInserterZZZ  extends  AbstractFileTextReaderSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
-	public FileTextInserterZZZ() throws ExceptionZZZ {		
+	public FileTextLineInserterZZZ() throws ExceptionZZZ {		
 	}
-	public FileTextInserterZZZ(String sFilePath) throws ExceptionZZZ{
+	public FileTextLineInserterZZZ(String sFilePath) throws ExceptionZZZ{
 		super(sFilePath);
 	}
-	public FileTextInserterZZZ(File objFile) throws ExceptionZZZ {
+	public FileTextLineInserterZZZ(File objFile) throws ExceptionZZZ {
 		super(objFile);
 	}
 	
-	public FileTextInserterZZZ(List<String> listaLine) throws ExceptionZZZ {
+	public FileTextLineInserterZZZ(List<String> listaLine) throws ExceptionZZZ {
 		super(listaLine);
 	}
 	
@@ -52,7 +52,7 @@ public class FileTextInserterZZZ  extends  AbstractFileTextReaderSaverZZZ{
 			if(listaString==null) break main;
 			
 			
-			FileTextSplitterZZZ objFileTextSplitter = new FileTextSplitterZZZ(listaString);
+			FileTextLineSplitterZZZ objFileTextSplitter = new FileTextLineSplitterZZZ(listaString);
 			objFileTextSplitter.splitKeepBefore(iLineNumber);
 			
 			List<String> listaStringPre = objFileTextSplitter.getLinesPre();
@@ -87,7 +87,7 @@ public class FileTextInserterZZZ  extends  AbstractFileTextReaderSaverZZZ{
 			if(listaString==null) break main;
 			
 			
-			FileTextSplitterZZZ objFileTextSplitter = new FileTextSplitterZZZ(listaString);
+			FileTextLineSplitterZZZ objFileTextSplitter = new FileTextLineSplitterZZZ(listaString);
 			objFileTextSplitter.splitKeepBehind(iLineNumber);
 			
 			List<String> listaStringPre = objFileTextSplitter.getLinesPre();

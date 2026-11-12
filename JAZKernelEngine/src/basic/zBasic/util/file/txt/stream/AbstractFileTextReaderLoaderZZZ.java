@@ -3,6 +3,7 @@ package basic.zBasic.util.file.txt.stream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,10 @@ public abstract class AbstractFileTextReaderLoaderZZZ extends AbstractFileTextZZ
 	
 	public AbstractFileTextReaderLoaderZZZ(String sFilePath) throws ExceptionZZZ {
 		super(sFilePath);		
+	}
+	
+	public AbstractFileTextReaderLoaderZZZ(Path objPath) throws ExceptionZZZ {
+		super(objPath);		
 	}
 	
 	public AbstractFileTextReaderLoaderZZZ(File objFile) throws ExceptionZZZ {

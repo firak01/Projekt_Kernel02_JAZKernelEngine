@@ -55,6 +55,13 @@ public class XmlTagMatcherZZZ {
 			 
 			//##################################
 			String regex = "<(.*?)>";
+			
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//es bleibt aber: 
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(sXml);	 	
 			while (matcher.find()) {
@@ -117,7 +124,15 @@ public class XmlTagMatcherZZZ {
 			  
 			//ACHTUNG: Damit werden alle Werte des gleich benannten Tags gefunden.
 			//         Es wird nicht beruecksichtigt, ob sie in unterschiedlichen Zweigen sind.
-			Pattern regex2 = Pattern.compile("<"+sTag +">(.*?)</"+sTag+">", Pattern.DOTALL);     
+			
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//alt: Pattern regex2 = Pattern.compile("<"+sTag +">(.*?)</"+sTag+">", Pattern.DOTALL); 
+			//neu:
+			Pattern regex2 = Pattern.compile(Pattern.quote("<"+sTag +">(.*?)</"+sTag+">"), Pattern.DOTALL);
 		    Matcher matcher2 = regex2.matcher(sXmlRemain);
 		    while (matcher2.find()) {
 		    	String stemp = matcher2.group(1);
@@ -127,7 +142,13 @@ public class XmlTagMatcherZZZ {
 		    }
 		    
 		    //LEERTAGS
-		    Pattern regex3 = Pattern.compile("<"+sTag +"/>");     
+		    /*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//alt: Pattern regex3 = Pattern.compile("<"+sTag +"/>");
+		    Pattern regex3 = Pattern.compile(Pattern.quote("<"+sTag +"/>"));     
 		    Matcher matcher3 = regex3.matcher(sXmlRemain);
 		    while (matcher3.find()) {
 		    	String stemp = matcher3.group(1);
@@ -231,6 +252,13 @@ public class XmlTagMatcherZZZ {
 			 
 			//##################################
 			String regex = "<(.*?)>";
+			
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//es bleibt aber: 
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(sXml);	 	
 			while (matcher.find()) {
@@ -386,6 +414,13 @@ public class XmlTagMatcherZZZ {
 			 
 			//##################################
 			String regex = "<(.*?)>";
+			
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//es bleibt aber: 
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(sXml);	 	
 			while (matcher.find()) {
@@ -530,6 +565,13 @@ public class XmlTagMatcherZZZ {
 			
 			//##################################
 			String regex = "<(.*?)>";
+			
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//es bleibt aber: 
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(sXml);	 							
 			while (matcher.find()) {

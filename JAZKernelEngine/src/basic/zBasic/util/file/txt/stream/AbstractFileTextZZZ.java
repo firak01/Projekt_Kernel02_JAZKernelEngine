@@ -3,6 +3,11 @@ package basic.zBasic.util.file.txt.stream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,20 @@ public abstract class AbstractFileTextZZZ<T> extends AbstractObjectWithException
 	public AbstractFileTextZZZ(String sFilePath) throws ExceptionZZZ {
 		super();		
 		this.setFilePath(sFilePath);
+	}
+	
+	public AbstractFileTextZZZ(Path objPath) throws ExceptionZZZ {
+		super();
+		
+		if (Files.isDirectory(objPath)) {
+        	ExceptionZZZ ez = new ExceptionZZZ("Ist ein Verzeichnis, keine Datei: " + objPath.getFileName());
+        	throw ez;
+        } else if (!Files.isRegularFile(objPath)) {
+        	ExceptionZZZ ez = new ExceptionZZZ("Ist keine reguläre Datei: " + objPath.getFileName());
+        	throw ez;
+        }
+		File objFile = objPath.toFile();
+		this.setFile(objFile);
 	}
 	
 	public AbstractFileTextZZZ(File objFile) throws ExceptionZZZ {

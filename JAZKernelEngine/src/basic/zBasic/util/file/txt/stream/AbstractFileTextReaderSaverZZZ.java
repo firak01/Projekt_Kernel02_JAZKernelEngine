@@ -2,6 +2,7 @@ package basic.zBasic.util.file.txt.stream;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
@@ -29,6 +30,10 @@ public abstract class AbstractFileTextReaderSaverZZZ extends AbstractFileTextRea
 	}
 	public AbstractFileTextReaderSaverZZZ(String sFilePath) throws ExceptionZZZ{
 		super(sFilePath);
+	}
+	
+	public AbstractFileTextReaderSaverZZZ(Path objPath) throws ExceptionZZZ{
+		super(objPath);
 	}
 	
 	public AbstractFileTextReaderSaverZZZ(File objFile) throws ExceptionZZZ{

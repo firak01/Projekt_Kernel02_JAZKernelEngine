@@ -7,6 +7,8 @@ import java.util.List;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
+import basic.zBasic.util.datatype.string.StringArrayZZZ;
+import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class ListUtilZZZ implements IConstantZZZ{
 
@@ -18,6 +20,54 @@ public class ListUtilZZZ implements IConstantZZZ{
 	
 	protected ListUtilZZZ() {}
 	
+	public static List<String> explode(String sStringContentTotal, String sDelimiterIn) throws ExceptionZZZ{
+		List<String>listReturn = null;
+		main:{
+			if(StringZZZ.isEmpty(sStringContentTotal)) break main;
+			
+			listReturn = new ArrayList<String>();			
+			if(StringZZZ.isEmpty(sDelimiterIn)) {
+				listReturn.add(sStringContentTotal);
+				break main;
+			}
+			
+			String sDelimiter;
+			if(sDelimiterIn==null){
+				sDelimiter=StringZZZ.crlf();
+			}else{
+				sDelimiter=sDelimiterIn;
+			}
+			
+			String[] saContent = StringZZZ.explode(sStringContentTotal, sDelimiter);
+			listReturn = StringArrayZZZ.toArrayList(saContent);			
+		}
+		return listReturn;
+	}
+	
+	public static <T> String implode(List<T>lista, String sDelimiterIn) throws ExceptionZZZ{
+		String sReturn = null;
+		main:{
+			if(lista==null)break main;
+			if(lista.size()==0)break main;
+			
+			String sDelimiter;
+			if(sDelimiterIn==null){
+				sDelimiter=StringZZZ.crlf();
+			}else{
+				sDelimiter=sDelimiterIn;
+			}
+			
+			for(int icount=0; icount <= lista.size()-1; icount++){
+				String sPosition = (String) lista.get(icount);
+				if(sReturn==null){
+					sReturn=sPosition;
+				}else{
+					sReturn+=sDelimiter+sPosition;
+				}
+			}
+		}
+		return sReturn;
+	}
 	
 	/**
 	 * @param list

@@ -31,6 +31,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_BURNPeer;
 
+import base.xml.XMLUtil;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.NullObjectZZZ;
@@ -3434,7 +3435,13 @@ null will return false. An empty CharSequence (length()=0) will return false.
 	 * @author Fritz Lindhauer, 17.11.2020, 11:30:57
 	 */
 	public static boolean hasConsecutiveDuplicateCharacter(String str) throws ExceptionZZZ {
-	    Pattern p = Pattern.compile("(.)\\1");
+		 /*    RegEx:    	
+	    Zwei kleine Tipps für deine Methode
+	    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+	    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+	     */
+	    //es bleibt bei alt:
+		Pattern p = Pattern.compile("(.)\\1");
 	    Matcher m = p.matcher(str);
 	    return m.find();
 	}
@@ -3446,8 +3453,15 @@ null will return false. An empty CharSequence (length()=0) will return false.
 			
 			String sToFind = CharZZZ.toString(cToFind);
 			if(StringZZZ.isEmpty(sToFind)) break main;
-						
-			Pattern p = Pattern.compile("("+sToFind+")\\1");
+					
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//alt: Pattern p = Pattern.compile("("+sToFind+")\\1");
+			//neu:
+			Pattern p = Pattern.compile(Pattern.quote("("+sToFind+")\\1"));
 		    Matcher m = p.matcher(str);
 		    bReturn = m.find();
 		}//end main:
@@ -3459,6 +3473,12 @@ null will return false. An empty CharSequence (length()=0) will return false.
 	 * @author Fritz Lindhauer, 17.11.2020, 11:30:57
 	 */
 	public static boolean endsWithConsecutiveDuplicateCharacter(String str) throws ExceptionZZZ {
+		/*    RegEx:    	
+	    Zwei kleine Tipps für deine Methode
+	    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+	    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+	     */
+		//aber es bleibt beim alten:
 	    Pattern p = Pattern.compile("(.)\\1$");
 	    Matcher m = p.matcher(str);
 	    return m.find();

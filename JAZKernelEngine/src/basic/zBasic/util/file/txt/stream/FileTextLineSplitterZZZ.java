@@ -6,21 +6,21 @@ import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
 
-public class FileTextSplitterZZZ extends AbstractFileTextCombinedSaverZZZ {
+public class FileTextLineSplitterZZZ extends AbstractFileTextCombinedSaverZZZ {
 	private static final long serialVersionUID = 489990254115931232L;
 
-	public FileTextSplitterZZZ() throws ExceptionZZZ {
+	public FileTextLineSplitterZZZ() throws ExceptionZZZ {
 	}
 
-	public FileTextSplitterZZZ(String sFilePath) throws ExceptionZZZ {
+	public FileTextLineSplitterZZZ(String sFilePath) throws ExceptionZZZ {
 		super(sFilePath);
 	}
 
-	public FileTextSplitterZZZ(File objFile) throws ExceptionZZZ {
+	public FileTextLineSplitterZZZ(File objFile) throws ExceptionZZZ {
 		super(objFile);
 	}
 
-	public FileTextSplitterZZZ(List<String> listaLine) throws ExceptionZZZ {
+	public FileTextLineSplitterZZZ(List<String> listaLine) throws ExceptionZZZ {
 		super(listaLine);
 	}
 

@@ -8,21 +8,21 @@ import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextAppenderZZZ extends AbstractFileTextReaderSaverZZZ {
+public class FileTextLineAppenderZZZ extends AbstractFileTextReaderSaverZZZ {
 	private static final long serialVersionUID = 7754836813854270845L;
 
-	public FileTextAppenderZZZ() throws ExceptionZZZ {
+	public FileTextLineAppenderZZZ() throws ExceptionZZZ {
 	}
 
-	public FileTextAppenderZZZ(String sFileName) throws ExceptionZZZ {
+	public FileTextLineAppenderZZZ(String sFileName) throws ExceptionZZZ {
 		super(sFileName);
 	}
 
-	public FileTextAppenderZZZ(File objFile) throws ExceptionZZZ {
+	public FileTextLineAppenderZZZ(File objFile) throws ExceptionZZZ {
 		super(objFile);
 	}
 
-	public FileTextAppenderZZZ(List<String> listaLine) throws ExceptionZZZ {
+	public FileTextLineAppenderZZZ(List<String> listaLine) throws ExceptionZZZ {
 		super(listaLine);
 	}
 

@@ -1,24 +1,28 @@
 package basic.zBasic.util.file.txt.stream;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.abstractList.ListUtilZZZ;
 
-public class FileTextReplacerZZZ  extends  AbstractFileTextReaderSaverZZZ{
+public class FileTextLineReplacerZZZ  extends  AbstractFileTextReaderSaverZZZ{
 	private static final long serialVersionUID = -3451810324201026617L;
 
-	public FileTextReplacerZZZ() throws ExceptionZZZ {		
+	public FileTextLineReplacerZZZ() throws ExceptionZZZ {		
 	}
-	public FileTextReplacerZZZ(String sFileName) throws ExceptionZZZ{
+	public FileTextLineReplacerZZZ(String sFileName) throws ExceptionZZZ{
 		super(sFileName);
 	}
-	public FileTextReplacerZZZ(File objFile) throws ExceptionZZZ {
+	public FileTextLineReplacerZZZ(Path objPath) throws ExceptionZZZ {
+		super(objPath);
+	}
+	public FileTextLineReplacerZZZ(File objFile) throws ExceptionZZZ {
 		super(objFile);
 	}
 	
-	public FileTextReplacerZZZ(List<String> listaLine) throws ExceptionZZZ {
+	public FileTextLineReplacerZZZ(List<String> listaLine) throws ExceptionZZZ {
 		super(listaLine);
 	}
 	
@@ -37,7 +41,7 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextReaderSaverZZZ{
 			if(listaString==null) break main;
 			
 			
-			FileTextSplitterZZZ objFileTextSplitter = new FileTextSplitterZZZ(listaString);
+			FileTextLineSplitterZZZ objFileTextSplitter = new FileTextLineSplitterZZZ(listaString);
 			objFileTextSplitter.splitRemove(iLineNumber);
 			
 			List<String> listaStringPre = objFileTextSplitter.getLinesPre();
@@ -64,7 +68,7 @@ public class FileTextReplacerZZZ  extends  AbstractFileTextReaderSaverZZZ{
 			List<String> listaString = this.getLines();
 			if(listaString==null) break main;
 			
-			FileTextSplitterZZZ objFileTextSplitter = new FileTextSplitterZZZ(listaString);
+			FileTextLineSplitterZZZ objFileTextSplitter = new FileTextLineSplitterZZZ(listaString);
 			objFileTextSplitter.splitRemove(iLineNumberPre, iLineNumberPost);
 			
 			List<String> listaStringPre = objFileTextSplitter.getLinesPre();

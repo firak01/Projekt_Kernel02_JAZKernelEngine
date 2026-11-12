@@ -33,9 +33,23 @@ public class XmlUtilTagByTypeZZZ implements IConstantZZZ{
 			//Pattern regex = Pattern.compile("<DataElements>(.*?)</DataElements>", Pattern.DOTALL);
 			String sTagOpening = XmlUtilZZZ.computeTagPartOpening(sTagName); 
 			String sTagClosing = XmlUtilZZZ.computeTagPartClosing(sTagName);
-								
-			Pattern regex = Pattern.compile(sTagOpening + "(.*?)" + sTagClosing, Pattern.DOTALL);
+				
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//alt: Pattern regex = Pattern.compile(sTagOpening + "(.*?)" + sTagClosing, Pattern.DOTALL);
+			//neu: 
+			Pattern regex = Pattern.compile(Pattern.quote(sTagOpening + "(.*?)" + sTagClosing), Pattern.DOTALL);
 			Matcher matcher = regex.matcher(sXml);
+			
+			/*    RegEx:    	
+		    Zwei kleine Tipps für deine Methode
+		    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+		    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+		     */
+			//aber es bleibt beim alten:
 			Pattern regex2 = Pattern.compile("<([^<>]+)>([^<>]+)</\\1>");
 			if (matcher.find()) {
 			    String DataElements = matcher.group(1);

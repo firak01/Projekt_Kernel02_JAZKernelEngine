@@ -63,7 +63,14 @@ final public class StringUtil {
     /** Sucht nach Kommata, die nicht in einfache Anführungszeichen eingebettet sind. */
     private static final String quotedValueListPatternString = "\\s*('[^']*')\\s*|([^,]+)";
 
-    private static final Pattern quotedValueListPattern = Pattern.compile(quotedValueListPatternString);
+    /*    RegEx:    	
+    Zwei kleine Tipps für deine Methode
+    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+     */
+    //alt: private static final Pattern quotedValueListPattern = Pattern.compile(quotedValueListPatternString);
+    //neu: 
+    private static final Pattern quotedValueListPattern = Pattern.compile(Pattern.quote(quotedValueListPatternString));
 
 
     /**

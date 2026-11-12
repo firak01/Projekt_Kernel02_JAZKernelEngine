@@ -8,7 +8,7 @@ import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
-import basic.zBasic.util.file.txt.stream.FileTextAppenderZZZ;
+import basic.zBasic.util.file.txt.stream.FileTextLineAppenderZZZ;
 import basic.zBasic.util.stream.IStreamZZZ;
 import basic.zBasic.util.stream.StreamZZZ;
 import basic.zBasic.util.system.Syso;
@@ -21,7 +21,7 @@ public class FileTextAppenderZZZTest extends TestCase{
 	private final static String strFILE_NAME_DEFAULT = new String("JUnitKernelFileAppendTest.txt");
 
 	
-	private FileTextAppenderZZZ objAppender = null;
+	private FileTextLineAppenderZZZ objAppender = null;
 	
 	//+++ Test setup
 	private static boolean doCleanup = true;		//default = true      false -> kein Aufraeumen im tearDown().
@@ -63,7 +63,7 @@ public class FileTextAppenderZZZTest extends TestCase{
 			
 			
 			//The main object used for testing
-			objAppender = new FileTextAppenderZZZ(objFileSource);
+			objAppender = new FileTextLineAppenderZZZ(objFileSource);
 			
 			//Wichtig für das Aufräumen
 			listFilePathUsed = new ArrayList<String>(); 
@@ -107,7 +107,7 @@ public class FileTextAppenderZZZTest extends TestCase{
 	public void testConstructor(){
 		try{
 			//Init - Object
-			FileTextAppenderZZZ objAppenderInit = new FileTextAppenderZZZ(objFileSource);
+			FileTextLineAppenderZZZ objAppenderInit = new FileTextLineAppenderZZZ(objFileSource);
 						
 			//TestKonfiguration pr�fen
 			assertNotNull(objAppenderInit);

@@ -855,7 +855,15 @@ public static  boolean isPathAbsolute(String sFilePathNameIn)throws ExceptionZZZ
 		if(sFilePathNameIn.equals("")) break main; //Merke: Leerstring ist kein absoluter Pfad.
 		sFilePathName=sFilePathNameIn;
 		
-		Pattern p = Pattern.compile(IFileEasyConstantsZZZ.sFILE_ABSOLUT_REGEX); 
+		/*    RegEx:    	
+	    Zwei kleine Tipps für deine Methode
+	    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+	    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+	     */
+		//alt: Pattern p = Pattern.compile(IFileEasyConstantsZZZ.sFILE_ABSOLUT_REGEX);
+		//neu:
+		Pattern p = Pattern.compile(Pattern.quote(IFileEasyConstantsZZZ.sFILE_ABSOLUT_REGEX));
+		
 		Matcher m =p.matcher( sFilePathName ); 
 		bReturn =  m.find(); //Es geht nicht darum den ganzen Ausdruck, sondern nur einen teil zu finden: m.matches(); 	
 		if(bReturn) break main;
@@ -918,7 +926,14 @@ public static  boolean isPathValid(String sFilePathName)throws ExceptionZZZ{
 		}
 		if(sFilePathName.equals("")) break main; //Merke: Leerstring ist kein absoluter Pfad.
 		
-		Pattern p = Pattern.compile(IFileEasyConstantsZZZ.sDIRECTORY_VALID_WINDOWS_REGEX); 
+		/*    RegEx:    	
+	    Zwei kleine Tipps für deine Methode
+	    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
+	    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
+	     */
+		//alt: Pattern p = Pattern.compile(IFileEasyConstantsZZZ.sDIRECTORY_VALID_WINDOWS_REGEX); 
+		//neu: 
+		Pattern p = Pattern.compile(Pattern.quote(IFileEasyConstantsZZZ.sDIRECTORY_VALID_WINDOWS_REGEX));
 		 Matcher m =p.matcher( sFilePathName ); 
 		 boolean bMatched  =  m.find(); //Es geht nicht darum den ganzen Ausdruck, sondern nur einen teil zu finden: m.matches(); 	
 		 if(bMatched) {
