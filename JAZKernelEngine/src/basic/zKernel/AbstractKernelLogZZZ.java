@@ -236,9 +236,14 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	
 	
 	//#######################################################
-	//### Da diese Formate an mehreren Stellen verwendet werden .compute...Justified,  .compute...Jagged
-	//### werden hier die Arrays einmal definiert durch diese Methoden.
-	//#######################################################
+		//### Da diese Formate an mehreren Stellen verwendet werden .compute...Justified,  .compute...Jagged
+		//### werden hier die Arrays einmal definiert durch diese Methoden.
+		//#######################################################
+
+	
+	//###########################
+	//### Ohne Object
+	
 	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineDefault() throws ExceptionZZZ{
 		return getFormatForComputeLine();
 	}
@@ -255,6 +260,94 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		 return iaFormat;
 	}
 	
+	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineDate() throws ExceptionZZZ{
+		 //20240427;//Baue den LogString nun mit einer konfigurierbaren Klasse
+		 IEnumSetMappedStringFormatZZZ[]iaFormat= {
+				 IStringFormatZZZ.LOGSTRINGFORMAT.DATE_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR01_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
+		 };
+		 return iaFormat;
+	}
+	
+	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineWithPosition() throws ExceptionZZZ{
+		//Da die Position nicht an anderer Stelle ermittelt werden kann, sie hier in die Log-Strings aufnehmen.
+		//Bei der Abarbeitung wird geprüft, ob der verwendete Tag "positioncurrent" vorhanden ist.
+		//Wenn das der Fall ist, gib diesen an der durch die Formatanweisung festgelegten Position aus.
+		
+		 //20240427;//Baue den LogString nun mit einer konfigurierbaren Klasse
+		 //Merke: Da nun alles STRING_BY... ist, muss man keine XML-Tags mehr aus dem String entfernen, wie mit:
+		 //       sReturn = ReflectCodeZZZ.removePositionCurrentTagPartsFrom(sReturn);
+		IEnumSetMappedStringFormatZZZ[]iaFormat= {
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR01_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILENAME_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,	
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILEPOSITION_STRING_BY_XML,				 
+		 };
+		return iaFormat;
+	}
+	
+	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineDateWithPosition() throws ExceptionZZZ{
+		//Da die Position nicht an anderer Stelle ermittelt werden kann, sie hier in die Log-Strings aufnehmen.
+		//Bei der Abarbeitung wird geprüft, ob der verwendete Tag "positioncurrent" vorhanden ist.
+		//Wenn das der Fall ist, gib diesen an der durch die Formatanweisung festgelegten Position aus.
+		
+		 //20240427;//Baue den LogString nun mit einer konfigurierbaren Klasse
+		 //Merke: Da nun alles STRING_BY... ist, muss man keine XML-Tags mehr aus dem String entfernen, wie mit:
+		 //       sReturn = ReflectCodeZZZ.removePositionCurrentTagPartsFrom(sReturn);
+		IEnumSetMappedStringFormatZZZ[]iaFormat= {
+				 IStringFormatZZZ.LOGSTRINGFORMAT.DATE_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_STRING,
+				 //IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILENAME_STRING,
+				 
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR03_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSMETHOD_STRING_BY_XML,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR01_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,	
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORPOSITION_STRING,
+				 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILEPOSITION_STRING_BY_XML,				 
+		 };
+		return iaFormat;
+	}
+	
+	
+	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineDateWithPositionXml() throws ExceptionZZZ{
+		//Da die Position nicht an anderer Stelle ermittelt werden kann, sie hier in die Log-Strings aufnehmen.
+		//Bei der Abarbeitung wird geprüft, ob der verwendete Tag "positioncurrent" vorhanden ist.
+		//Wenn das der Fall ist, gib diesen an der durch die Formatanweisung festgelegten Position aus.
+	
+		IEnumSetMappedStringFormatZZZ[]iaFormat= {
+			IStringFormatZZZ.LOGSTRINGFORMAT.DATE_XML,			
+			IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_XML,
+			//IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILENAME_XML,
+			
+			//Merke: Die Methode aus ReflectCodeZZZ.getPositionCurrent stammt (nicht anders zu bekommen), ist die Quelle XML
+			IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR03_XML,
+			IStringFormatZZZ.LOGSTRINGFORMAT.CLASSMETHOD_XML_BY_XML,
+			IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_XML,
+			IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_XML_BY_STRING,
+			IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR01_XML,
+			IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_XML_BY_STRING,
+			//Merke: Die Zeilenummer aus ReflectCodeZZZ.getPositionCurrent stammt (nicht anders zu bekommen), ist die Quelle XML
+			IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORPOSITION_XML,
+			IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILEPOSITION_XML_BY_XML,
+		};
+		return iaFormat;
+	}
+	
+	
+	//###########################
+	//### Mit Object
+	
+	
 	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLine_withObject() throws ExceptionZZZ{
 		 //20240427;//Baue den LogString nun mit einer konfigurierbaren Klasse
 		 IEnumSetMappedStringFormatZZZ[]iaFormat = {				 
@@ -267,6 +360,10 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		 };
 		 return iaFormat;
 	}
+	
+	
+	
+	
 	
 	
 	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineWithPosition_withObject() throws ExceptionZZZ{
@@ -287,21 +384,6 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 				 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILEPOSITION_STRING_BY_XML,				 
 		 };
 		return iaFormat;
-	}
-	
-	
-	
-	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineDate() throws ExceptionZZZ{
-		 //20240427;//Baue den LogString nun mit einer konfigurierbaren Klasse
-		 IEnumSetMappedStringFormatZZZ[]iaFormat= {
-				 IStringFormatZZZ.LOGSTRINGFORMAT.DATE_STRING,
-				 IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_STRING,
-				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_STRING,
-				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
-				 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR01_STRING,
-				 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
-		 };
-		 return iaFormat;
 	}
 	
 	public static IEnumSetMappedStringFormatZZZ[] getFormatForComputeLineDate_withObject() throws ExceptionZZZ{
@@ -372,6 +454,98 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 	//### Da PositionCurrent - XML ist, kann das hier nicht vorkommen.
 	//#######################################################
 	
+	//#############################################################################################	
+	//############ OHNE OBJEKTANGABE
+	public synchronized static String computeln(IStringFormatManagerZZZ objFormatManagerIn, String sLog) throws ExceptionZZZ {
+				
+		IStringFormatManagerZZZ objFormatManager=null; 
+		if(objFormatManagerIn==null) {
+			objFormatManager = StringFormatManagerZZZ.getInstance();		
+		}else {
+			objFormatManager = objFormatManagerIn;
+		}
+		
+		
+		String[]saLog = new String[1];
+		saLog[0] = sLog;
+		
+		return computeLine__(objFormatManager, saLog);
+	}
+	
+	
+	
+	
+	private static String computeLine__(IStringFormatManagerZZZ objFormatManager, String[] saLog) throws ExceptionZZZ{
+		IEnumSetMappedStringFormatZZZ[]iaFormat = getFormatForComputeLine_withObject();		
+		return objFormatManager.compute(iaFormat, saLog);
+	}
+	
+	
+	
+	
+	//++++++++++++++++++++++
+	//++++ DATUM MIT POSITION UND EXPLIZITER ANGABE DES LOGLEVELS (Merke: Der String muss wg. String... als Parameter immer hinten der letzte Parameter sein.	
+	@Override
+	public boolean protocolLineDateWithPosition(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+		
+			//Wir wollen hier zwar mit Datum, aber ohne Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(1, iaFormat, saLog);
+			
+		}//end main:
+		return bReturn;
+	}
+	
+	@Override
+	public boolean protocolLineDateWithPosition(int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+		
+			//Wir wollen hier zwar mit Datum, aber ohne Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition_withObject();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn = protocolLineWithPosition__(1+iLevel, iaFormat, saLog);
+			
+		}//end main:
+		return bReturn;
+	}
+	
+	private boolean protocolLineWithPosition__(int iLevel, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogIn) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{			
+			String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel+1); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
+			String[] saLog = StringArrayZZZ.prepend(saLogIn, sPositionCalling);
+			
+			bReturn = protocolLine__(ienumaMappedLogString, saLog);
+		}
+		return bReturn;
+	}
+	
+	private boolean protocolLine__(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(ArrayUtilZZZ.isNull(saLog)) break main;		
+			
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(ienumaMappedLogString, saLog);
+			
+			//wird schon in .WriteLine(...) gemacht;//System.out.println(sLogUsed);			
+			bReturn = this.writeLine(sLogUsed);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	//#############################################################################################
+	//############ MIT OBJEKTANGABE
 	public synchronized static String computeln(Object objIn, IStringFormatManagerZZZ objFormatManagerIn, String sLog) throws ExceptionZZZ {
 		Object obj=null;
 		if(objIn==null) {

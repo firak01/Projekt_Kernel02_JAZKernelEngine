@@ -62,12 +62,13 @@ import custom.zKernel.file.ini.FileIniZZZ;
  * 
  */
 public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> implements IKernelConfigZZZ, IKernelConfigConstantZZZ, IKernelExpressionIniSolverZZZ, IKernelZFormulaIniZZZ, IKernelZFormulaIni_PathZZZ, IKernelJsonIniSolverZZZ, IKernelJsonArrayIniSolverZZZ,IKernelJsonMapIniSolverZZZ, IKernelCallIniSolverZZZ, IKernelJavaCallIniSolverZZZ, IKernelEncryptionIniSolverZZZ, ICryptUserZZZ{
+	static final long serialVersionUID = -8991085241039836506L;
+	
 	//FLAGZ, die dann zum "Rechnen in der Konfiguations Ini Datei" gesetzt sein müssen.
 //	public enum FLAGZ{
 //		USEFORMULA, USEFORMULA_MATH;
 //	}
 	
-	private static final long serialVersionUID = -8991085241039836506L;
 	private IKernelConfigSectionEntryZZZ objEntry = null;
 	
 	private ICryptZZZ objCrypt = null;
@@ -97,10 +98,13 @@ public abstract class AbstractKernelConfigZZZ<T> extends AbstractConfigZZZ<T> im
 	private boolean AbstractKernelConfigNew_(String[] saArgIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{				
-			String sLog = "Initializing KernelConfigObject";
+			String sLog = "Initializing KernelConfigObjectZZZ";
 			//Log.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.			
 			//Log.protocolWithPosition(this, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog); //Hier ncht das Singleton Objekt nehme, da es ggfs. noch nicht erstellt ist. Endlosschleife.
-			Log.writeDebug(this, sLog);
+			//Log.writeDebug(this, sLog);
+			
+			//Endlosschleifengefahr, darum nur
+			System.out.println(sLog);
 			
 			if(this.getFlag("INIT")==true){
 				bReturn = true;

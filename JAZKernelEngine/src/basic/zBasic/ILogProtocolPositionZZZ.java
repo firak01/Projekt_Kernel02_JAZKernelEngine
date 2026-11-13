@@ -34,6 +34,11 @@ public interface ILogProtocolPositionZZZ extends ILogProtocolZZZ{
 	//###   Merke: Wie bei logLineDate... hier auch die Version mit ...WithPosition
 	//##################################
 		
+	//### OHNE OBJECT
+	public boolean protocolLineDateWithPosition(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ;
+	public boolean protocolLineDateWithPosition(int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ;
+	
+	//### MIT OBJEKT
 	public boolean protocolLineWithPosition(Object obj, String sLog) throws ExceptionZZZ; //Intention dahinter: Anders als logLineDate wird ggfs. noch woanders als im System.out protokolliert. In einfachen Klassen normalerweise wie logLineDate.
 	public boolean protocolLineWithPosition(Object obj, int iLevel, String sLog) throws ExceptionZZZ; //Intention dahinter: Anders als logLineDate wird ggfs. noch woanders als im System.out protokolliert. In einfachen Klassen normalerweise wie logLineDate.
 	public boolean protocolLineWithPosition(Object obj, String... sLogs) throws ExceptionZZZ;

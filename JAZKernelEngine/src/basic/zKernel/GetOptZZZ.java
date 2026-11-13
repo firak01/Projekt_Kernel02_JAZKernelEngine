@@ -29,6 +29,7 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	
 		
 	public GetOptZZZ(){
+		super();
 	}
 	
 	/** Konstruktor, mit Pattern-String.	       
@@ -36,6 +37,7 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	 * @throws ExceptionZZZ
 	 */
 	public GetOptZZZ(String sPattern) throws ExceptionZZZ{
+		super();
 		this.setPattern(sPattern);		
 	}
 	
@@ -54,6 +56,7 @@ public class GetOptZZZ extends AbstractObjectWithFlagZZZ{
 	 * @throws ExceptionZZZ
 	 */
 	public GetOptZZZ(String sPattern, String[] saArg) throws ExceptionZZZ{
+		super();
 		this.setPattern(sPattern);
 		this.loadOptionAll(saArg);
 	}

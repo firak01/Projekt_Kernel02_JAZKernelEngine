@@ -23,6 +23,28 @@ public class Log implements IConstantZZZ{
 	}
 	
 	//######################################################################
+	//### ALLE METHODEN OHNE OBJECT
+	public static boolean writeInfo(String sLog) throws ExceptionZZZ {
+		return writeInfo_(1, sLog);
+	}
+	
+	private static boolean writeInfo_(int iLevel, String sLog) throws ExceptionZZZ {
+		
+		//Vor der Info - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+		if(LogSingletonZZZ.isInitialized()) {
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(iLevel+1, LOGLEVEL.DEBUG, sLog);
+			return Syso.println(PRINTLEVEL.INFO, sLog);			
+		}else {			
+			LogZZZ.printlnDateWithPosition(iLevel+1, LOGLEVEL.DEBUG, sLog); 
+			return Syso.println(PRINTLEVEL.INFO, sLog);
+		}
+	}
+	
+	
+	
+	
+	
+	//######################################################################
 	//#### ALLE METHODEN FÜR OBJECT. 
 	//MERKE: NICHT die CLASS - Methode mit obj.getClass() aufrufen,
 	//       da sonst wieder Methoden mit iLevel für die mögliche Position im Stacktrace genutzt werden müsssen.

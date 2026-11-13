@@ -39,7 +39,73 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 	//+++++++++++++++++++++++++++++++++++++++++++++++
 	//+++ Biete die Log-Methoden auch static an, siehe ILogZZZ, bzw. AbstractObjectZZZ fuer den Code
 	//+++++++++++++++++++++++++++++++++++++++++++++++
-		
+	
+	//#########################################
+	//##### OHNE OBJEKT
+	@Override
+	public boolean protocolLineDateWithPosition(LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn  = protocolWithPosition__(1, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+
+	private static boolean protocolWithPosition__(int iLevel, IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLogs) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{						
+			String sPositionCalling = ReflectCodeZZZ.getPositionXml(iLevel+1); //Xml deshalb, weil sich daraus die Details gezogen werden kann. Ohne XML werden das 2 Zeilen im Log.
+			String[] saLog = StringArrayZZZ.prepend(saLogs, sPositionCalling);
+			
+			bReturn = protocol__(ienumaMappedLogString, saLog);
+		}
+		return bReturn;
+	}
+	
+	@Override
+	public boolean protocolLineDateWithPosition(int iLevel, LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {		
+		boolean bReturn = false;
+		main:{
+			if(!canProtocol(enumLogLevel)) break main;
+			
+			//Wir wollen hier zwar ohne Datum, aber mit Positionsangabe
+			IEnumSetMappedStringFormatZZZ[]iaFormat = KernelLogZZZ.getFormatForComputeLineDateWithPosition();
+			
+			String[] saLog = new String[1];
+			saLog[0] = sLog;
+			bReturn  = protocolWithPosition__(1+iLevel, iaFormat, saLog);
+		}//end main:
+		return bReturn;
+	}
+	
+	private static boolean protocol__(IEnumSetMappedStringFormatZZZ[] ienumaMappedLogString, String[] saLog) throws ExceptionZZZ {
+		boolean bReturn = false;
+		main:{
+			if(ArrayUtilZZZ.isNull(saLog)) break main;		
+			
+			String sLogUsed = StringFormatManagerZZZ.getInstance().compute(ienumaMappedLogString, saLog);
+			
+			
+			//Hier wird kein FileTextWriter-Objekt zur Verfügung gestellt			
+			//bReturn = this.writeLine(sLogUsed);
+			
+			//Daher wird auch nix in eine Datei geschrieben. Also direkte Ausgabe			
+			bReturn = Syso.println(sLogUsed);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	//#########################################
+	//##### MIT OBJEKT
+	
 	//##### Gib den String aus.
 	public static boolean println(Object obj, String sLog) throws ExceptionZZZ{
 		boolean bReturn = false;
@@ -1385,4 +1451,6 @@ public class LogZZZ<T> extends AbstractLogZZZ<T> {
 		}//end main:
 		return bReturn;
 	}
+
+	
 }

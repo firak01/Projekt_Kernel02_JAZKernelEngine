@@ -58,10 +58,14 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	private boolean AbstractConfigNew_(String[] saArgIn) throws ExceptionZZZ{
 		boolean bReturn = false;
 		main:{				
-			String sLog = "Initializing ConfigObject";
+			String sLog = "Initializing ConfigObjectZZZ";
 			//Log.printlnDateWithPosition(this, sLog); //Hier nicht das Singleton Objekt nehmen, da es ggfs. noch nicht erstellt ist. Endlosschleife			
 			//Log.protocolDateWithPosition(this, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);
-			Log.writeDebug(this, sLog);
+			//Log.writeDebug(this, sLog);
+			
+			//Endlosschleifengefahr, darum nur
+			System.out.println(sLog);
+			
 			if(this.getFlag("INIT")==true){
 				bReturn = true;
 				break main; 
@@ -87,7 +91,11 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 			String sPattern = this.getPatternStringDefault();
 			
 			//Das Objekt, das für die Interpretation der Argumente sorgt.Falls Argument werte vorhanden sind "Werden sie automatisch sofort geladen".
-			this.objOpt = new GetOptZZZ(sPattern, saArg);
+			//ENDLOSSCHLEIFE GetOptZZZ this.objOptobjOptNew = new GetOptZZZ(sPattern, saArg);
+			GetOptZZZ objOptNew = new GetOptZZZ();
+			objOptNew.setPattern(sPattern);
+			objOptNew.loadOptionAll(saArg);
+			this.objOpt = objOptNew;
 			
 			//20210331: Nun die HashMap für die weiterzureichenden FlagZ Werte füllen
 			String sJson = this.objOpt.readValue("z");

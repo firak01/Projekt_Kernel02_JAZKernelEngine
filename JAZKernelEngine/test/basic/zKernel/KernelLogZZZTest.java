@@ -107,7 +107,25 @@ public class KernelLogZZZTest extends TestCase{
 			//                           Andere Separatoren können häufiger im Ergebnis sein.
 			//###############################################
 			
+//			//Das CUSTOM-Format	
+			
+//          2x String in einer Zeile
+//			IEnumSetMappedStringFormatZZZ[]iaFormat= {
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.DATE_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILENAME_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR03_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSMETHOD_STRING_BY_XML,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR04_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,	
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORPOSITION_STRING,
+//					 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSFILEPOSITION_STRING_BY_XML,				 
+//			 };
+			
 			//Das CUSTOM-Format			
+			//2x String in 2 Zeilen
 			IEnumSetMappedStringFormatZZZ[]iaFormat= {
 					 IStringFormatZZZ.LOGSTRINGFORMAT.DATE_STRING,
 					 IStringFormatZZZ.LOGSTRINGFORMAT.THREADID_STRING,
@@ -116,6 +134,7 @@ public class KernelLogZZZTest extends TestCase{
 					 IStringFormatZZZ.LOGSTRINGFORMAT.CLASSMETHOD_STRING_BY_XML,
 					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORMESSAGE_STRING,
 					 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,
+					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_LINENEXT_,
 					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATOR04_STRING,
 					 IStringFormatZZZ.LOGSTRINGFORMAT.STRINGTYPE01_STRING_BY_STRING,	
 					 IStringFormatZZZ.LOGSTRINGFORMAT.CONTROL_SEPARATORPOSITION_STRING,
@@ -164,7 +183,7 @@ public class KernelLogZZZTest extends TestCase{
 			//Aber, wg. unterschiedlicher Kommentare zweizeilige Ausgabe
 			itemp = StringZZZ.count(sValue, StringZZZ.crlf());
 			bValue = (itemp==1);
-			assertTrue("Kein Zeilenumbruch erwartet , ist aber " + itemp + " im Logstring '" + sValue + "'", bValue);
+			assertTrue("Ein Zeilenumbruch erwartet , ist aber " + itemp + " im Logstring '" + sValue + "'", bValue);
 				
 			//Nun 2x den Messageseparator(wg. 2 Zeilen)
 			int itempCount = 0;
@@ -266,7 +285,7 @@ public class KernelLogZZZTest extends TestCase{
 			sValue = objLogTest.computeLine(this, sLog1);
 			
 			//Da man die Anzahl der zum Buendigmachen verwendeten Leerzeichen nicht kennt: Anfang und Ende vergleichen.
-			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\LogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
+			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\KernelLogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
 			sValueExpectedMid = "# [A01]XXXTESTLAENGERXXX[/A01]" ;
 			sValueExpectedEnd = "[A00/]";
 			bStartsWith = StringZZZ.startsWith(sValue, sValueExpectedStart);
@@ -290,7 +309,7 @@ public class KernelLogZZZTest extends TestCase{
 			//sValue = objLogTest.computeLine(this, sLog1, sLog2);
 			
 			//Da man die Anzahl der zum Buendigmachen verwendeten Leerzeichen nicht kennt: Anfang und Ende vergleichen.
-			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\LogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
+			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\KernelLogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
 			sValueExpectedMid = IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "[A01]XXXTESTLAENGERXXX[/A01][A00/]" ;
 			sValueExpectedEnd = IStringFormatZZZ.sSEPARATOR_01_DEFAULT + "[A01]ZZZTESTZZZ[/A01]";
 						
@@ -356,7 +375,7 @@ public class KernelLogZZZTest extends TestCase{
 			sValue = objLogTest.computeLine(this, sLog1);
 			
 			//Da man die Anzahl der zum Buendigmachen verwendeten Leerzeichen nicht kennt: Anfang und Ende vergleichen.
-			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\LogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
+			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\KernelLogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
 			sValueExpectedMid = "# [A01]XXXTESTLAENGERXXX[/A01]" ;
 			sValueExpectedEnd = "[A00/]";
 			bStartsWith = StringZZZ.startsWith(sValue, sValueExpectedStart);
@@ -380,7 +399,7 @@ public class KernelLogZZZTest extends TestCase{
 			//sValue = objLogTest.computeLine(this, sLog1, sLog2);
 			
 			//Da man die Anzahl der zum Buendigmachen verwendeten Leerzeichen nicht kennt: Anfang und Ende vergleichen.
-			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\LogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
+			sValueExpectedStart = "[T][Thread: 1][/T][CF][File:basic\\zKernel\\KernelLogZZZTest.java][/CF][A00/]"; //ohne Datum, darum geht es mit dem Thread los
 			sValueExpectedMid = IStringFormatZZZ.sSEPARATOR_MESSAGE_DEFAULT + "[A01]XXXTESTLAENGERXXX[/A01][A00/]" ;
 			sValueExpectedEnd = IStringFormatZZZ.sSEPARATOR_01_DEFAULT + "[A01]ZZZTESTZZZ[/A01]";
 						
@@ -747,13 +766,13 @@ public class KernelLogZZZTest extends TestCase{
 			
 		
 			//20080106 Ein Log kann auch speziell auf Programmebene definiert werden
-			KernelContextZZZ objContext = new KernelContextZZZ(this.getClass());
+			KernelContextZZZ objContext = new KernelContextZZZ(this.getClass());			
 			KernelZZZ objKernelContext =new KernelZZZ("FGL", "01", "test", "ZKernelConfigKernel_test.ini", objContext, (String)null);
+			//LogZZZTest
 			
 			KernelLogZZZ objLogContext = objKernelContext.getLogObject();
 			assertEquals("c:\\fglKernel\\kernellog", objLogContext.getDirectory());
-			assertEquals("ZKernelLog_LogZZZtest.txt", objLogContext.getFilename());	
-			
+			assertEquals("ZKernelLog_LogZZZtest.txt", objLogContext.getFilename());				
 		} catch (ExceptionZZZ ez) {
 			ez.printStackTrace();
 			fail("Method throws an exception." + ez.getMessageLast());

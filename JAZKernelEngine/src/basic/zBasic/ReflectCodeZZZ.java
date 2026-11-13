@@ -878,16 +878,16 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 	
 	//wie getPositionCallingXmlPlus(iLevelPlus)
 	public static String  getPositionCallingXml(int iLevel) throws ExceptionZZZ {
-		return ReflectCodeZZZ.getPositionCurrentXml_(null, 1+iLevel);
+		return ReflectCodeZZZ.getPositionCurrentXml_(null, 2+iLevel);
 	}
 	
 	//wie getPositionCallingXml(iLevelPlus)
 	public static String  getPositionCallingXmlPlus(int iLevel) throws ExceptionZZZ {
-		return ReflectCodeZZZ.getPositionCurrentXml_(null, 1+iLevel);
+		return ReflectCodeZZZ.getPositionCurrentXml_(null, 2+iLevel);
 	}
 	
 	public static String getPositionXml(int iLevel) throws ExceptionZZZ {
-		return ReflectCodeZZZ.getPositionCurrentXml_(null, iLevel+1);
+		return ReflectCodeZZZ.getPositionCurrentXml_(null, iLevel+1); //+1 weil nicht calling, sonder current...
 	}
 	
 	/**Umgib die einzelen Elemente mit XML-Tags.
@@ -1454,9 +1454,9 @@ public class ReflectCodeZZZ  implements IReflectCodeZZZ, IConstantZZZ{
 					    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
 					    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
 					     */
-						//alt: pattern = Pattern.compile(sClassNameFilterRegEx);
-					  //neu: 				  
-					  pattern = Pattern.compile(Pattern.quote(sClassNameFilterRegEx));
+					  //es bleibt beim alten:
+					  pattern = Pattern.compile(sClassNameFilterRegEx);
+					  //neu: pattern = Pattern.compile(Pattern.quote(sClassNameFilterRegEx));
 				  }catch(Exception e){
 					  System.out.println("Error for RegEx: '" + sClassNameFilterRegEx + "'");
 					  e.printStackTrace();

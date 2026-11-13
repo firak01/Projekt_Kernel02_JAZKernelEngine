@@ -15,12 +15,13 @@ import basic.zKernel.AbstractKernelConfigZZZ;
  *
  */
 public class ConfigZZZ extends AbstractKernelConfigZZZ implements IConfigZZZ{
-	
+	static final long serialVersionUID = -6242226665482114747L;
+
 	public ConfigZZZ() throws ExceptionZZZ{
 		super();
 	}
-	public ConfigZZZ(String[] saArg) throws ExceptionZZZ {
-		super(saArg); 
+	public ConfigZZZ(String[] saArg) throws ExceptionZZZ {		
+		super(saArg);		
 	} 
 			
 	@Override

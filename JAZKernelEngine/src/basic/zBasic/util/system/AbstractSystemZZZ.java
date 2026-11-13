@@ -272,6 +272,26 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 		this.enumPrintLevelOverall = enumLogLevel;
 	}
 	
+	@Override 
+	public void setPrintLevelOverall(String sEnumLogLevelName) throws ExceptionZZZ {
+		/* Workaround, damit von Jython aus hier etwas gesetzt werden kann.		 * 
+		 */	
+		if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.VERBOSE.name())) {
+			this.enumPrintLevelOverall = PRINTLEVEL.VERBOSE;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.DEBUG.name())) {
+			this.enumPrintLevelOverall = PRINTLEVEL.DEBUG;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.INFO.name())) {
+			this.enumPrintLevelOverall = PRINTLEVEL.INFO;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.WARNING.name())) {
+			this.enumPrintLevelOverall = PRINTLEVEL.WARNING;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.NONE.name())) {
+			this.enumPrintLevelOverall = PRINTLEVEL.NONE;
+		}else {
+			ExceptionZZZ ez = new ExceptionZZZ("Printlevel wird noch nicht verwendet: '" + sEnumLogLevelName + "'");
+			throw ez;
+		}
+	}
+	
 	@Override
 	public int getPrintLevelOverall() throws ExceptionZZZ{
 		int iReturn = -1;
