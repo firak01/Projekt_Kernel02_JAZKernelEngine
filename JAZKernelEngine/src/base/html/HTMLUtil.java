@@ -85,9 +85,10 @@ public class HTMLUtil {
     • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
     • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
      */
-    //alt: private static final Pattern PATTERN_STYLE_RGB = Pattern.compile("(?i)^rgb[(]([^,]*), *([^,]*), *([^,)]*).*$");
+    //alt bleibte erhalten:
+    private static final Pattern PATTERN_STYLE_RGB = Pattern.compile("(?i)^rgb[(]([^,]*), *([^,]*), *([^,)]*).*$");
     //neu: 
-    private static final Pattern PATTERN_STYLE_RGB = Pattern.compile(Pattern.quote("(?i)^rgb[(]([^,]*), *([^,]*), *([^,)]*).*$"));
+    //private static final Pattern PATTERN_STYLE_RGB = Pattern.compile(Pattern.quote("(?i)^rgb[(]([^,]*), *([^,]*), *([^,)]*).*$"));
 
     
     

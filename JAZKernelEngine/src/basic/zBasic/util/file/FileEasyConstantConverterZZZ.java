@@ -49,9 +49,11 @@ public class FileEasyConstantConverterZZZ implements IFileEasyConstantsZZZ {
 		IFileEasyPathObjectZZZ objReturn = new FileEasyPathObjectZZZ(sFilePathIn);
 		String sLog=null;
 		
-		//ggfs. ueberfluessige Slashes, etc. entfernen
-		String sFilePath = StringZZZ.trimFileSeparators(sFilePathIn);		
+				
 		main:{			
+			//ggfs. ueberfluessige Slashes, etc. entfernen
+			String sFilePath = StringZZZ.trimFileSeparators(sFilePathIn);
+			
 			String sDirectorySeparator = StringZZZ.char2String(cDirectorySeparator);
 			
 			String sReturnFilePath="";

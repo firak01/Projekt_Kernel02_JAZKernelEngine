@@ -55,7 +55,7 @@ public class XmlTagMatcherZZZTryout {
 	    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
 	    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
 	     */
-		//es bleibt beim alt: 
+		//alt bleibt erhalten: 
 		Pattern regex = Pattern.compile("<DataElements>(.*?)</DataElements>", Pattern.DOTALL);
 		//Pattern regex = Pattern.compile("<abc>(.*?)</abc>", Pattern.DOTALL);
 		Matcher matcher = regex.matcher(sXml);
@@ -99,7 +99,7 @@ public static void parseByRegexV02(String sXml) throws ExceptionZZZ{
 	    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
 	    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
 	     */
-		//es bleibt beim alt: 
+		//alt bleibt erhalten: 
      Pattern pattern = Pattern.compile(regex);
      Matcher matcher = pattern.matcher(sXml);
 
@@ -130,7 +130,7 @@ public static void parseByRegexV03(String sXml) throws ExceptionZZZ{
     • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
     • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
      */
-	//es bleibt beim alt: 
+	//alt bleibt erhalten: 
 	Pattern pattern = Pattern.compile(regex);
 	Matcher matcher = pattern.matcher(sXml);
  
@@ -176,7 +176,7 @@ public static void parseByRegexV03(String sXml) throws ExceptionZZZ{
 			    • Sonderzeichen absichern: Da sToFind als beliebiger Text von außen übergeben wird, könnte darin zufällig ein Regex-Steuerzeichen wie ein Punkt (.) oder ein Fragezeichen (?) stecken. Mit Pattern.compile(Pattern.quote(sToFind)) stellst du sicher, dass die Methode immer nach dem exakten Text sucht und nicht abstürzt.
 			    • Dollarzeichen beim Ersetzen: Falls im Ersatztext (sReplacement) später einmal ein $-Zeichen vorkommen sollte, wirft replaceAll eine Fehlermeldung, weil es darin eine Regex-Gruppe vermutet. Mit Matcher.quoteReplacement(sReplacement) umgehst du dieses Problem zuverlässig.
 			     */
-				//es bleibt beim alt: 
+				//alt bleibt erhalten: 
 			 Pattern pattern = Pattern.compile(regex);
 			 Matcher matcher = pattern.matcher(sXml);	 	
 			 while (matcher.find()) {
