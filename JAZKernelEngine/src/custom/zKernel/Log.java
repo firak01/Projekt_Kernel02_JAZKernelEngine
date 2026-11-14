@@ -24,8 +24,12 @@ public class Log implements IConstantZZZ{
 	
 	//######################################################################
 	//### ALLE METHODEN OHNE OBJECT
+	//    Da Positionsangaben drin sein können, immer auch eine Variante mit iLevel für den Stacktrace anbieten
 	public static boolean writeInfo(String sLog) throws ExceptionZZZ {
 		return writeInfo_(1, sLog);
+	}
+	public static boolean writeInfo(int iLevel, String sLog) throws ExceptionZZZ {
+		return writeInfo_(iLevel+1, sLog);
 	}
 	
 	private static boolean writeInfo_(int iLevel, String sLog) throws ExceptionZZZ {
@@ -40,7 +44,206 @@ public class Log implements IConstantZZZ{
 		}
 	}
 	
+	//++++++++++++++++++++++++++
+	public static boolean writeDebug(String sLog) throws ExceptionZZZ {
+		return Log.protocolDateWithPosition(1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
+	}
 	
+	public static boolean writeDebug(int iLevel, String sLog) throws ExceptionZZZ {
+		return Log.protocolDateWithPosition(iLevel+1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
+	}
+	
+	//+++++++++++++++++++++++++++++
+	public static boolean writeWarning(String sLog) throws ExceptionZZZ {		
+		if(LogSingletonZZZ.isInitialized()) {			
+			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(1, LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);			
+		}else {
+			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+			LogZZZ.printlnDateWithPosition(LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);
+		}
+	}
+	public static boolean writeWarning(int iLevel, String sLog) throws ExceptionZZZ {		
+		if(LogSingletonZZZ.isInitialized()) {			
+			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(iLevel+1, LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);			
+		}else {
+			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+			LogZZZ.printlnDateWithPosition(iLevel+1,LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);
+		}
+	}
+	
+	public static boolean writeVerbose(String sLog) throws ExceptionZZZ {		
+		return Log.protocolDateWithPosition(1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);		
+	}
+	public static boolean writeVerbose(int iLevel, String sLog) throws ExceptionZZZ {		
+		return Log.protocolDateWithPosition(iLevel+1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);		
+	}
+	
+	
+	//++++++++++++++++++
+	//  protocol, auch ohne Object / Class
+	//+++++++++++++++++	
+	public static boolean protocol(String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLine(sLog);
+		}else {
+			return LogZZZ.protocol(sLog);
+		}
+	}
+	 
+	public static boolean protocol(String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLine(saInput);
+		}else {
+			return LogZZZ.protocol(saInput);
+		}
+	}
+	
+	public static boolean protocol(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLine(enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocol(enumLogLevel, sLog);
+		}
+	}
+	 
+	public static boolean protocol(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLine(enumLogLevel, saInput);
+		}else {
+			return LogZZZ.protocol(enumLogLevel, saInput);
+		}
+	}
+	
+	//+++++++++++++++++++++++++++++++++
+	//+++ Bei Positionsangaben immer Level für den Stacktrace anbieten
+	public static boolean protocolWithPosition(String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(1, sLog);
+		}else {
+			return LogZZZ.protocolWithPosition(1, sLog);
+		}
+	}
+	public static boolean protocolWithPosition(int iLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(iLevel+1, sLog);
+		}else {
+			return LogZZZ.protocolWithPosition(iLevel+1, sLog);
+		}
+	}
+	
+	public static boolean protocolWithPosition(String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(1, saInput);
+		}else {
+			return LogZZZ.protocolWithPosition(1, saInput);
+		}
+	}
+	public static boolean protocolWithPosition(int iLevel, String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(iLevel+1, saInput);
+		}else {
+			return LogZZZ.protocolWithPosition(iLevel+1, saInput);
+		}
+	}
+	
+	public static boolean protocolWithPosition(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(1, enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocolWithPosition(1, enumLogLevel, sLog);
+		}
+	}
+	public static boolean protocolWithPosition(int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(iLevel+1, enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocolWithPosition(iLevel+1, enumLogLevel, sLog);
+		}
+	}
+	
+	public static boolean protocolWithPosition(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(1, saInput);
+		}else {
+			return LogZZZ.protocolWithPosition(1, saInput);
+		}
+	}
+	public static boolean protocolWithPosition(int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saInput) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineWithPosition(iLevel+1, saInput);
+		}else {
+			return LogZZZ.protocolWithPosition(iLevel+1, saInput);
+		}
+	}
+	
+	public static boolean protocolDateWithPosition(String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(1, sLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(1, sLog);
+		}
+	}
+	public static boolean protocolDateWithPosition(int iLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(iLevel+1, sLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(iLevel+1, sLog);
+		}
+	}
+	
+	public static boolean protocolDateWithPosition(String[] saLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(1, saLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(1, saLog);
+		}
+	}
+	public static boolean protocolDateWithPosition(int iLevel, String[] saLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(iLevel+1, saLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(iLevel+1, saLog);
+		}
+	}
+
+	public static boolean protocolDateWithPosition(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(1, enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(1, enumLogLevel, sLog);
+		}
+	}
+	
+	public static boolean protocolDateWithPosition(int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String sLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(iLevel + 1, enumLogLevel, sLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(iLevel+1, enumLogLevel, sLog);
+		}
+	}
+	
+	public static boolean protocolDateWithPosition(ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(1, enumLogLevel, saLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(1, enumLogLevel, saLog);
+		}
+	}
+	
+	public static boolean protocolDateWithPosition(int iLevel, ILogLevelUserZZZ.LOGLEVEL enumLogLevel, String[] saLog) throws ExceptionZZZ {
+		if(LogSingletonZZZ.isInitialized()) {
+			return LogSingletonZZZ.getInstance().protocolLineDateWithPosition(iLevel + 1, enumLogLevel, saLog);
+		}else {
+			return LogZZZ.protocolDateWithPosition(iLevel+1, enumLogLevel, saLog);
+		}
+	}
+
 	
 	
 	
@@ -336,14 +539,23 @@ public class Log implements IConstantZZZ{
 	//###MERKE: Diese CLASS - Methode wird aus der OBJECT - Methode nicht mit obj.getClass() aufrufen,
 	//###       da sonst wieder Methoden mit iLevel für die mögliche Position im Stacktrace genutzt werden müsssen.
 	//#######################################################################
-	public static boolean writeInfo(Class objClass, String sLog) throws ExceptionZZZ {		
-		//return Log.protocol(objClass, ILogLevelUserZZZ.LOGLEVEL.INFO, sLog);
+
+	//### Da eine Position ermittel werden soll, die Methode jeweils mit iLevel anbieten für die Position im Stacktrace
+	public static boolean writeInfo(Class objClass, String sLog) throws ExceptionZZZ {				
 		if(LogSingletonZZZ.isInitialized()) {
-			//return LogSingletonZZZ.getInstance().protocolLine(objClass, sLog);
 			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(objClass, 1, LOGLEVEL.INFO, sLog);
 			return Syso.println(sLog);						
 		}else {			
 			LogZZZ.printlnDateWithPosition(objClass, 1, LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);
+		}
+	}
+	public static boolean writeInfo(int iLevel, Class objClass, String sLog) throws ExceptionZZZ {				
+		if(LogSingletonZZZ.isInitialized()) {
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(objClass, iLevel+1, LOGLEVEL.INFO, sLog);
+			return Syso.println(sLog);						
+		}else {			
+			LogZZZ.printlnDateWithPosition(objClass, iLevel+1, LOGLEVEL.DEBUG, sLog);
 			return Syso.println(sLog);
 		}
 	}
@@ -359,7 +571,18 @@ public class Log implements IConstantZZZ{
 			return Syso.println(sLog);			
 		}else {
 			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
-			LogZZZ.printlnDateWithPosition(objClass, LOGLEVEL.DEBUG, sLog);
+			LogZZZ.printlnDateWithPosition(objClass, 1, LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);
+		}
+	}
+	public static boolean writeWarning(int iLevel, Class objClass, String sLog) throws ExceptionZZZ {		
+		if(LogSingletonZZZ.isInitialized()) {
+			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+			LogSingletonZZZ.getInstance().protocolLineDateWithPosition(objClass, iLevel+1, LOGLEVEL.DEBUG, sLog);
+			return Syso.println(sLog);			
+		}else {
+			//Vor der Warning - Ausgabe noch einmal die gleiche Ausgabe machen, mit Position. Als DEBUG.
+			LogZZZ.printlnDateWithPosition(objClass, iLevel+1, LOGLEVEL.DEBUG, sLog);
 			return Syso.println(sLog);
 		}
 	}
@@ -367,11 +590,15 @@ public class Log implements IConstantZZZ{
 	public static boolean writeDebug(Class objClass, String sLog) throws ExceptionZZZ {
 		return Log.protocolDateWithPosition(objClass, 1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
 	}
+	public static boolean writeDebug(int iLevel, Class objClass, String sLog) throws ExceptionZZZ {
+		return Log.protocolDateWithPosition(objClass, iLevel+1, ILogLevelUserZZZ.LOGLEVEL.DEBUG, sLog);
+	}
 	
-	public static boolean writeVerbose(Class objClass, String sLog) throws ExceptionZZZ {
-		
-		return Log.protocolDateWithPosition(objClass, 1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);
-		
+	public static boolean writeVerbose(Class objClass, String sLog) throws ExceptionZZZ {		
+		return Log.protocolDateWithPosition(objClass, 1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);		
+	}
+	public static boolean writeVerbose(int iLevel, Class objClass, String sLog) throws ExceptionZZZ {		
+		return Log.protocolDateWithPosition(objClass, iLevel+1, ILogLevelUserZZZ.LOGLEVEL.VERBOSE, sLog);		
 	}
 	
 	//+++++++++++++++++
