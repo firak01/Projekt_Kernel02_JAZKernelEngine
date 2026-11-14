@@ -603,6 +603,18 @@ public class XmlUtilZZZ implements IConstantZZZ{
 		return sReturn;
 	}
 	
+	public static int findFirstOpeningTagPartIndex(String sXml) throws ExceptionZZZ{
+		int iReturn = -1;
+		main:{
+			String sTagPart = XmlUtilZZZ.findFirstOpeningTagPartNextTo(sXml, "");
+			if(sTagPart==null) break main;
+			
+			iReturn = StringZZZ.indexOfFirst(sXml, sTagPart);
+		}//end main:
+		return iReturn;
+	}
+	
+	
 	public static String findFirstOpeningTagName(String sXml) throws ExceptionZZZ{
 		String sReturn = null;
 		main:{
@@ -624,6 +636,17 @@ public class XmlUtilZZZ implements IConstantZZZ{
 			sReturn = sTagPart;
 		}//end main:
 		return sReturn;
+	}
+	
+	public static int findFirstClosingTagPartIndex(String sXml) throws ExceptionZZZ{
+		int iReturn = -1;
+		main:{
+			String sTagPart = XmlUtilZZZ.findFirstClosingTagPartNextTo(sXml, "");
+			if(sTagPart==null) break main;
+			
+			iReturn = StringZZZ.indexOfFirst(sXml, sTagPart);
+		}//end main:
+		return iReturn;
 	}
 	
 	
@@ -1087,6 +1110,20 @@ public class XmlUtilZZZ implements IConstantZZZ{
 			}//end main:
 			return sReturn;
 		}
+		
+		public static int findLastClosingTagPartIndexBehind(String sXmlIn) throws ExceptionZZZ{
+			int iReturn = -1;
+			main:{
+				if(StringZZZ.isEmpty(sXmlIn)) break main;
+				
+				//ermittle einen unbestimmten Tag DIREKT AM ENDE	
+				//Das ist der gesamte gültige(!) Tag, nicht nur ein TagPart - String. Ist damit sicherer als nur nach einem TagPart im String zu suchen...
+				String sTagLast = XmlUtilZZZ.findLastTag(sXmlIn); 
+				iReturn = StringZZZ.indexOfLastBehind(sXmlIn, sTagLast);
+				
+			}//end main:
+			return iReturn;
+		}
 	
 	
 	//#############################
@@ -1184,6 +1221,48 @@ public class XmlUtilZZZ implements IConstantZZZ{
 		}//end main:
 		return bReturn;
 	}
+	
+	/** Heuristischer Ansatz. Ermittle einen Tagname. DIREKT AM ANFANG !!!!!!!
+	 *  Dann ermittle, ob es zu dem Tagnamen einen schliessenden Tag gibt.
+	 *  Dann sollte es irgendwie etwas mit XML sein...
+	 *   
+	 * @param sXml
+	 * @return
+	 * @throws ExceptionZZZ
+	 * @author Fritz Lindhauer, 06.11.2025, 08:42:35
+	 */
+	public static boolean isXmlStarting(String sXml) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			//ermittle einen unbestimmten Tag DIREKT AM ANFANG						
+			int iIndex = XmlUtilZZZ.findFirstOpeningTagPartIndex(sXml);
+			bReturn = (iIndex==0);
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	/** Heuristischer Ansatz. Ermittle einen Tagname. DIREKT AM ENDE !!!!!!!
+	 *  Dann ermittle, ob es zu dem Tagnamen einen schliessenden Tag gibt.
+	 *  Dann sollte es irgendwie etwas mit XML sein...
+	 *   
+	 * @param sXml
+	 * @return
+	 * @throws ExceptionZZZ
+	 * @author Fritz Lindhauer, 06.11.2025, 08:42:35
+	 */ 
+	public static boolean isXmlEnding(String sXml) throws ExceptionZZZ{
+		boolean bReturn = false;
+		main:{
+			int iIndex = findLastClosingTagPartIndexBehind(sXml);
+			int iLength= sXml.length();
+			bReturn = (iIndex == iLength); //Länge reicht, also kein -1, wg. "Behind"
+		}//end main:
+		return bReturn;
+	}
+	
+	
+	
 	
 	public static boolean isExpression(String sExpression) throws ExceptionZZZ{
 		boolean bReturn = true;

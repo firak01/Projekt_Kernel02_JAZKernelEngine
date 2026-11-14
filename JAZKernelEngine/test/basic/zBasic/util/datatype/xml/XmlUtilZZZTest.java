@@ -886,6 +886,32 @@ public class XmlUtilZZZTest extends TestCase{
 	 }
 	 
 	 
+	 
+	 public void testFindLastClosingTagPartIndexBehind() {
+		//Hier ohne FactoryKlassen im Ergebnis arbeiten!!!
+			//GRUND: Der gesuchte TagType muss sonst in der TagByTypeFactory vorhanden sein.
+			String sExpression; String sExpressionSolved; String sValue; String sTagName;
+			                       int iExpressionSolved; int iValue;
+			
+			try {
+				//################################################################
+				//### KEINE Cascaded Verschachtelung
+				//################################################################
+				
+				//############ OHNE KONKRETEN NAMEN #################
+				//++++++++++++++++++++++++++++
+				sExpression = "PRE<eins>firstvalue</eins><zwei>secondvalue</zwei>POST";
+				iExpressionSolved= StringZZZ.indexOfLastBehind(sExpression, "</zwei>");
+				iValue = XmlUtilZZZ.findLastClosingTagPartIndexBehind(sExpression);
+				assertEquals(iExpressionSolved, iValue);
+									
+			}catch(ExceptionZZZ ez){
+				ez.printStackTrace();
+				fail("Method throws an exception." + ez.getMessageLast());
+			}		 		 		 
+	 }
+	 
+	 
 	
 	 
 	 //###########
@@ -974,4 +1000,158 @@ public class XmlUtilZZZTest extends TestCase{
 			fail("Method throws an exception." + ez.getMessageLast());
 		}		
 	 }
+	 
+	 //#######################################################################################
+	 //### TESTS FÜR is....
+	 public void testIsXmlContained() {
+			//Hier ohne FactoryKlassen im Ergebnis arbeiten!!!
+			//GRUND: Der gesuchte TagType muss sonst in der TagByTypeFactory vorhanden sein.
+		 	String sExpression = null; String sExpressionSolved = null; String sValue = null; 
+		 	                           boolean bExpressionSolved = false; boolean bValue = false;
+		 	
+			try {
+				//Besonderer Test... ueberhaupt kein XML im String vorhanden
+				sExpression = "Bin ein Text ohne XML";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlContained(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				
+				//Negativtest... nix dahinter vorhanden				
+				sExpression = "<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlContained(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				sExpression = "Bin ein Text vor dem XML<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>Bin ein Text hinter dem XML";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlContained(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+																
+
+				//++++++++++++++++++++++++++++
+				//+++ Bei mehreren Tags auf gleicher Ebene
+				//++++++++++++++++++++++++++++
+				sExpression = "PRE<eins>firstvalue</eins><zwei>secondvalue</zwei>POST";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlContained(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+								
+			}catch(ExceptionZZZ ez){
+				ez.printStackTrace();
+				fail("Method throws an exception." + ez.getMessageLast());
+			}
+	 }
+	 
+	 public void testIsXmlStarting() {
+			//Hier ohne FactoryKlassen im Ergebnis arbeiten!!!
+			//GRUND: Der gesuchte TagType muss sonst in der TagByTypeFactory vorhanden sein.
+		 	String sExpression = null; String sExpressionSolved = null; String sValue = null; 
+		 	                           boolean bExpressionSolved = false; boolean bValue = false;
+		 	
+			try {
+				//Besonderer Test... ueberhaupt kein XML im String vorhanden
+				sExpression = "Bin ein Text ohne XML";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlStarting(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				
+				//Negativtest... nix dahinter vorhanden				
+				sExpression = "<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlStarting(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				sExpression = "Bin ein Text vor dem XML<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>Bin ein Text hinter dem XML";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlStarting(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+																
+
+				//++++++++++++++++++++++++++++
+				//+++ Bei mehreren Tags auf gleicher Ebene
+				//++++++++++++++++++++++++++++
+				sExpression = "PRE<eins>firstvalue</eins><zwei>secondvalue</zwei>POST";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlStarting(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+								
+			}catch(ExceptionZZZ ez){
+				ez.printStackTrace();
+				fail("Method throws an exception." + ez.getMessageLast());
+			}
+	 }
+	 
+	 public void testIsXmlEnding() {
+			//Hier ohne FactoryKlassen im Ergebnis arbeiten!!!
+			//GRUND: Der gesuchte TagType muss sonst in der TagByTypeFactory vorhanden sein.
+		 	String sExpression = null; String sExpressionSolved = null; String sValue = null; 
+		 	                           boolean bExpressionSolved = false; boolean bValue = false;
+		 	
+			try {
+				//Besonderer Test... ueberhaupt kein XML im String vorhanden
+				sExpression = "Bin ein Text ohne XML";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+								
+				//Negativtest...
+				sExpression = "<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>Bin ein Text hinter dem XML";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				
+				sExpression = "Bin ein Text vor dem XML<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>Bin ein Text hinter dem XML";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlStarting(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+																
+				//Positivtest...
+				sExpression = "Bin ein Text vor dem XML<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlStarting(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				sExpression = "<Z:Call><Z:Java><Z:Class>{[ArgumentSection for testCallComputed]JavaClass}</Z:Class><Z:Method>{[ArgumentSection for testCallComputed]JavaMethod}</Z:Method></Z:Java></Z:Call>";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+			
+				//++++++++++++++++++++++++++++
+				//+++ Bei mehreren Tags auf gleicher Ebene
+				//++++++++++++++++++++++++++++
+				
+				//Negativtest...
+				sExpression = "PRE<eins>firstvalue</eins><zwei>secondvalue</zwei>POST";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				sExpression = "<eins>firstvalue</eins><zwei>secondvalue</zwei>POST";
+				bExpressionSolved= false;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+					
+				//Positivtest... 	
+				sExpression = "PRE<eins>firstvalue</eins><zwei>secondvalue</zwei>";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				sExpression = "<eins>firstvalue</eins><zwei>secondvalue</zwei>";
+				bExpressionSolved= true;
+				bValue = XmlUtilZZZ.isXmlEnding(sExpression);
+				assertEquals(bExpressionSolved, bValue);
+				
+				
+			}catch(ExceptionZZZ ez){
+				ez.printStackTrace();
+				fail("Method throws an exception." + ez.getMessageLast());
+			}
+	 }
+	 
 }//End class

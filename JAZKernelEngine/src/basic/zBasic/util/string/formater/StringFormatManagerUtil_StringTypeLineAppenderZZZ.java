@@ -8,6 +8,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.enums.EnumSetMappedLogStringFormatUtilZZZ;
 import basic.zBasic.util.datatype.integer.IntegerArrayZZZ;
+import basic.zBasic.util.datatype.xml.XmlUtilZZZ;
 import basic.zBasic.util.math.MathZZZ;
 
 /**Von ChatGPT Redundanz verringert am 20260221;
@@ -74,6 +75,23 @@ public class StringFormatManagerUtil_StringTypeLineAppenderZZZ implements IConst
         if(logs==null) return formats;
         if (ArrayUtilZZZ.isEmpty(formats)) return formats;
 
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++
+        //Wichtig: Falls in logs Steueranweisungen/Informationen, wie die Codeposition enthalten sind, 
+        //darf diese Zeile nicht herangezogen werden um die Differenz der benötigten StringType Einträge zu berechnen.
+        //Solch eine Zeile wird ja selbst nicht ausgegeben.
+        int iLogsLength = logs.length;
+        int iControlsLength = 0;
+        
+        for(String sLog : logs) {
+        	if(XmlUtilZZZ.isXmlStarting(sLog)) {
+        		iControlsLength++;
+        	}
+        }
+        
+        iLogsLength = iLogsLength - iControlsLength;
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++
+        
+        
         int maxCount = 0;
         StringTypeConfig maxType = null;
         int totalFormats = 0;
@@ -88,7 +106,7 @@ public class StringFormatManagerUtil_StringTypeLineAppenderZZZ implements IConst
             }
         }
 
-        int difference = logs.length - totalFormats;
+        int difference = iLogsLength - totalFormats;
         if (difference <= 0) return formats;
 
         if (maxType == null) {

@@ -472,6 +472,18 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		return computeLine__(objFormatManager, saLog);
 	}
 	
+	public synchronized static String computelnDateWithPosition(String sLog) throws ExceptionZZZ {			
+		String[] saLog = new String[1];
+		saLog[0]=sLog;
+		return computeLineDateWithPosition__(1, saLog);
+	}
+	
+	public synchronized static String computelnDateWithPosition(int iLevel, String sLog) throws ExceptionZZZ {			
+		String[] saLog = new String[1];
+		saLog[0]=sLog;
+		return computeLineDateWithPosition__(iLevel+1, saLog);
+	}
+	
 	
 	
 	
@@ -480,6 +492,18 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 		return objFormatManager.compute(iaFormat, saLog);
 	}
 	
+	private static String computeLineDateWithPosition__(int iLevel, String[] saLogIn) throws ExceptionZZZ {	
+		IEnumSetMappedStringFormatZZZ[]iaFormat = getFormatForComputeLineDateWithPosition();
+		
+		//Fuer die Positionsermittlung die XML Variante nehmen. Nur sie kann dann hinsichtlich der einzelnen Bestandteilen, wg. der Tags aufgeloest werden.		
+		String sPositionCalling = ReflectCodeZZZ.getPositionCallingXml(iLevel+1);
+		 
+		//Packe diesen String mit in die Log-Strings, zur Abarbeitung durch den FormatManager
+		//String[] satemp = StringArrayZZZ.append(satemp, sPositionCalling);
+		String[] saLog = StringArrayZZZ.prepend(saLogIn, sPositionCalling);
+		 
+		return StringFormatManagerZZZ.getInstance().compute(iaFormat, saLog);
+	}
 	
 	
 	
@@ -674,7 +698,7 @@ public abstract class AbstractKernelLogZZZ extends AbstractObjectWithFlagZZZ imp
 			
 			//Nun könnte auch etwas mit Positionsangabe gefordert sein, also auf Verdacht:
 			//Fuer die Positionsermittlung die XML Variante nehmen. Nur sie kann dann hinsichtlich der einzelnen Bestandteilen, wg. der Tags aufgeloest werden.
-			String sPositionCalling = ReflectCodeZZZ.getPositionCallingXml(iStackTraceLevelIn);
+			String sPositionCalling = ReflectCodeZZZ.getPositionCallingXml(iStackTraceLevelIn+1);
 			 
 			//Packe diesen String mit in die Log-Strings, zur Abarbeitung durch den FormatManager
 			//String[] satemp = StringArrayZZZ.append(satemp, sPositionCalling);

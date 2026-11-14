@@ -15,7 +15,7 @@ public class LogTest extends TestCase{
 		try {
 				boolean bValue=false;
 				
-			TODOGOON20261113;//Hier wird ohne Objekt/Klasse falsch "gerechnet"!!!
+			//TODOGOON20261113;//Hier wird ohne Objekt/Klasse falsch "gerechnet"!!!
 				
 				//##################################################################################
 				//### Bei speziellen Anweisungen kein Formatierung-Style-Array uebergeben. 			
