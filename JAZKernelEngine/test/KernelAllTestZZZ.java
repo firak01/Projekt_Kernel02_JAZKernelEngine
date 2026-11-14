@@ -68,6 +68,7 @@ import basic.zKernel.GetOptZZZTest;
 import basic.zKernel.KernelPropertyZZZTest;
 import basic.zKernel.KernelUseObjectZZZTest;
 import basic.zKernel.KernelZZZTest;
+import basic.zKernel.LogTest;
 import basic.zKernel.KernelLogZZZTest;
 import basic.zKernel.config.EnumSetKernelConfigDefaultEntryUtilZZZTest;
 import basic.zKernel.file.ini.ExpressionIniUtilZZZTest;
@@ -226,6 +227,9 @@ public class KernelAllTestZZZ {
 		objReturn.addTestSuite(JarInfoFeaturesTest.class);
 		objReturn.addTestSuite(JarInfoTest.class);
 		objReturn.addTestSuite(JarResourcesReadingTest.class);
+		
+		//Log Tests
+		objReturn.addTestSuite(LogTest.class);
 		
 		//Echte KernelObjekte testen
 		objReturn.addTestSuite(KernelPropertyZZZTest.class);
