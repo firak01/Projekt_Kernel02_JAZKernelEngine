@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 
 /** Hole den Timestamp als einen String, der die Millisekunden seit dem 1. Januar 1970 repräsentiert.
  *   In einigen Methoden wird intern java.sql.Timestamp verwendet. Daher ist der Timestamp nicht zwingend Unique.

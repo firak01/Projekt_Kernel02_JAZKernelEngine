@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.jar.JarFile;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.file.jar.JarEasyInCurrentJarZZZ;
 import basic.zBasic.util.file.jar.JarEasyTestCommonsZZZ;
 import basic.zBasic.util.file.jar.JarEasyUtilZZZ;

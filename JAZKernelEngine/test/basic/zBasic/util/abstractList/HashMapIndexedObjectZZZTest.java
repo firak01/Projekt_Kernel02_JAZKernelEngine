@@ -8,7 +8,7 @@ import java.util.Set;
 import junit.framework.TestCase;
 import basic.zBasic.DummyTestObjecWithDefaultValuesZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
 public class HashMapIndexedObjectZZZTest extends TestCase{

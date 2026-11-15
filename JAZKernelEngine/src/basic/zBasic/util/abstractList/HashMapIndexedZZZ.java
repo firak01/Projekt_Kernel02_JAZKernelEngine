@@ -17,7 +17,7 @@ import java.util.Vector;
 import basic.javareflection.mopex.Mopex;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 /**  Diese HashMap verwendet als Keys Werte von Integer. 

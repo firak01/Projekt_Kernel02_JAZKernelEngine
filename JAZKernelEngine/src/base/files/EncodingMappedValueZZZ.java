@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.EnumSet;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedMaintypeUserZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetZZZ;
 

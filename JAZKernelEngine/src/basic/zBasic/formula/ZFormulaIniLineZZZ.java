@@ -6,7 +6,7 @@ import org.jdom.Element;
 import base.xml.XMLUtil;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.crypt.code.CryptAlgorithmUtilZZZ;
 import basic.zBasic.util.crypt.code.ICharacterPoolEnabledConstantZZZ;
 import basic.zBasic.util.crypt.code.ICryptZZZ;

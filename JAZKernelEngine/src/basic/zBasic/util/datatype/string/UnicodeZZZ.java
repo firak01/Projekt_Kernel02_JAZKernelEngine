@@ -21,7 +21,7 @@ import java.util.EnumSet;
 import base.io.IoUtil;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.ArrayListZZZ;
 import basic.zBasic.util.crypt.code.Vigenere256ZZZ;
 import basic.zBasic.util.crypt.code.Vigenere26ZZZ;

@@ -3,10 +3,8 @@ package basic.zBasic.util.counter;
 import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeKernelZZZ;
-//import basic.zBasic.KernelSingletonVIA;
-//import basic.zKernel.IKernelZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeKernelZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 
 public class CounterHandlerSingleton_AlphanumericSignificantZZZ {
 	//Merke: Singleton Pattern kann nur in der gleichn Klasse gemacht werden, weil static Methoden nicht abstract sein können.

@@ -4,8 +4,8 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.IObjectReflectableImplementerZZZ;
 import basic.zBasic.AbstractObjectReflectableZZZ;
-import basic.zBasic.ReflectCodeKernelZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeKernelZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public abstract class AbstractCounterStrategyZZZ extends AbstractObjectReflectableZZZ implements IObjectReflectableImplementerZZZ, ICounterStrategyZZZ{

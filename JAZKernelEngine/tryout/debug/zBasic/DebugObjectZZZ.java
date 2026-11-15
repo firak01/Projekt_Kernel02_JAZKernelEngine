@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.file.txt.bytes.TxtReaderZZZ;
 import basic.zKernel.flag.IFlagZEnabledZZZ;
 

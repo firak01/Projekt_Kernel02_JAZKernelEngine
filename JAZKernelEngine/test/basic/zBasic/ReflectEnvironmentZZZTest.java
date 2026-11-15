@@ -11,8 +11,8 @@ import junit.framework.TestCase;
 import basic.javagently.Stream;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
-import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.ReflectEnvironmentZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectEnvironmentZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zBasic.util.file.txt.parser.FileTextParserZZZ;
 

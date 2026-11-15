@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 
 /** Merke: Es gibt auch den TxtReaderZZZ, für RandomAccess - Zugriff
  * @author Fritz Lindhauer

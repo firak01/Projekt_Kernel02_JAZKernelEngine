@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class KeyPressUtilZZZ_BACKUP_WG_KI_CODE implements IKeyPressConstantZZZ, IConstantZZZ{

@@ -1,7 +1,7 @@
 package basic.zKernel.config;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zKernel.IKernelConfigConstantZZZ;
 
 public class KernelConfigDefaultEntryZZZ<IEnumSetConfigKernelConfigDefaultEntryZZZ> implements IKernelConfigConstantZZZ{

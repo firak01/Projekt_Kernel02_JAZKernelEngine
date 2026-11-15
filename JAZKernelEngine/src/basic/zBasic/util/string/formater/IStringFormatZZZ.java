@@ -1,14 +1,14 @@
 package basic.zBasic.util.string.formater;
 
-import static basic.zBasic.IReflectCodeZZZ.sPOSITION_METHOD_SEPARATOR;
+import static basic.zBasic.reflection.IReflectCodeZZZ.sPOSITION_FILE_SEPARATOR;
+import static basic.zBasic.reflection.IReflectCodeZZZ.sPOSITION_MESSAGE_SEPARATOR;
+import static basic.zBasic.reflection.IReflectCodeZZZ.sPOSITION_METHOD_SEPARATOR;
 import static basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ.sENUMNAME;
-import static basic.zBasic.IReflectCodeZZZ.sPOSITION_FILE_SEPARATOR;
-import static basic.zBasic.IReflectCodeZZZ.sPOSITION_MESSAGE_SEPARATOR;
 
 import java.util.EnumSet;
 
 import basic.zBasic.util.datatype.xml.XmlUtilUnensuredZZZ;
-import basic.zBasic.IReflectCodeZZZ;
+import basic.zBasic.reflection.IReflectCodeZZZ;
 import basic.zBasic.reflection.position.ITagTypeClassNameZZZ;
 import basic.zBasic.reflection.position.ITagTypeDateZZZ;
 import basic.zBasic.reflection.position.ITagTypeThreadIdZZZ;

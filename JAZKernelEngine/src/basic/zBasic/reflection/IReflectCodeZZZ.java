@@ -1,4 +1,4 @@
-package basic.zBasic;
+package basic.zBasic.reflection;
 
 public interface IReflectCodeZZZ{
 	public static  final int iPOSITION_STACKTRACE_CURRENT = 1;//+1 in der Ermittlung der StacktracePosition (ausgehend von der ...getPositionCurrent... - Methode

@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.StringTokenizer;
 
+import basic.zBasic.reflection.ReflectCodeZZZ;
+
 /** This class handles every exception in the Z-Kernel-Framework.
  * TODO Mapping-Methode, in der aus einem ErrorCode der zugeh�rige Fehelrtext geholt wird. Dieser Fehlertext wird dann vor der �bergebenen Meldung gesetzt.
  * @author 0823

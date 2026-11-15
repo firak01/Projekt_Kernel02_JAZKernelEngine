@@ -1,4 +1,4 @@
-package basic.zBasic;
+package basic.zBasic.reflection;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import debug.zBasic.MyPrivilegedAction;
 import basic.javareflection.mopex.Mopex;
 import basic.javareflection.mopex.UQueue;
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 /**Ergänzt ReflectClassZZZ um das Durchsuchen der Interfaces.

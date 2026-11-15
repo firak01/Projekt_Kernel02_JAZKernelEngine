@@ -1,7 +1,7 @@
 package basic.zBasic.util.string.justifier;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IReflectCodeZZZ;
+import basic.zBasic.reflection.IReflectCodeZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;
 import basic.zBasic.util.string.formater.IStringFormaterZZZ;
 import custom.zKernel.ILogZZZ;

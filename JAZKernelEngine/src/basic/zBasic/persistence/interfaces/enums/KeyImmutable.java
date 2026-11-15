@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.persistence.interfaces.enums.AbstractImmutable;
 import basic.zBasic.persistence.interfaces.enums.IThiskeyImmutableZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 
 
 //Ich will kein eigenes Entity für Key haben

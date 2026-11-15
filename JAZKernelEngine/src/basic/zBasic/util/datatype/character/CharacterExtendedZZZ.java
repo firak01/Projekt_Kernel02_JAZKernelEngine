@@ -1,9 +1,9 @@
 package basic.zBasic.util.datatype.character;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.ArrayListZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;

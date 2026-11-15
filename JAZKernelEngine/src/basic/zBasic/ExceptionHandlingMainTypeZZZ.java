@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.EnumSet;
 
 import base.files.EncodingMaintypeZZZ.TypeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedZZZ;
 import basic.zBasic.util.stream.StreamZZZ.CharsetUsedZZZ;
 

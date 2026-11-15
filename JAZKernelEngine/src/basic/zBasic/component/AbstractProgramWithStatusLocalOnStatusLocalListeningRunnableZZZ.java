@@ -1,7 +1,7 @@
 package basic.zBasic.component;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;
 import custom.zKernel.Log;

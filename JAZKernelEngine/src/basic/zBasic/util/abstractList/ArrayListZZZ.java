@@ -21,7 +21,7 @@ import basic.javareflection.mopex.Mopex;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.IObjectZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.rule.GenericMatcherArrayListZZZ;
 import basic.zBasic.rule.IMatchRuleZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;

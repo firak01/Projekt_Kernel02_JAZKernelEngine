@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.ArrayListUniqueZZZ;
 import basic.zKernel.flag.event.IEventObjectFlagZsetZZZ;
 import custom.zKernel.Log;

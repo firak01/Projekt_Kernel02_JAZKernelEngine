@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
 
 /**This class is used for reading/writing from/to 1 one or more .property-file(s).
  * !!! This class is build as a Singleton., with a private constructor !!! Therefore use the static KernelPropertyZZZ.getInstance(...) to receive an object.

@@ -1,4 +1,4 @@
-package basic.zBasic;
+package basic.zBasic.reflection;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.datatype.longs.LongZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;

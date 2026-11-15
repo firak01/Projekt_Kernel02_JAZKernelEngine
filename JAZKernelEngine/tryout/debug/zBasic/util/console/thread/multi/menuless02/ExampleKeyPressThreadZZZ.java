@@ -2,7 +2,7 @@ package debug.zBasic.util.console.thread.multi.menuless02;
 
 import java.util.Scanner;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapUtilZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractKeyPressThreadMenulessZZZ;

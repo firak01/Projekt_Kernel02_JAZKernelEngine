@@ -3,10 +3,8 @@ package basic.zBasic.util.counter;
 import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeKernelZZZ;
-//import basic.zBasic.KernelSingletonVIA;
-//import basic.zKernel.IKernelZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeKernelZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.string.justifier.SeparatorMessageStringJustifierZZZ;
 
 public class CounterHandlerSingleton_AlphabetSignificantZZZ {

@@ -2,8 +2,8 @@ package basic.zBasic.util.string.justifier;
 
 import basic.zBasic.DummyTestObjectZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IReflectCodeZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.IReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.ArrayListZZZ;
 import basic.zBasic.util.datatype.integer.IntegerArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;

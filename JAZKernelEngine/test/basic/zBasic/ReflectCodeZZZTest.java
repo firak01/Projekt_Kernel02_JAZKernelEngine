@@ -1,5 +1,7 @@
 package basic.zBasic;
 
+import basic.zBasic.reflection.IReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import junit.framework.TestCase;
 

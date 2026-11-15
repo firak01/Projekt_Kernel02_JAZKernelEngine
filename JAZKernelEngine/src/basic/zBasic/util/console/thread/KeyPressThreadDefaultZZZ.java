@@ -1,7 +1,7 @@
 package basic.zBasic.util.console.thread;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 
 

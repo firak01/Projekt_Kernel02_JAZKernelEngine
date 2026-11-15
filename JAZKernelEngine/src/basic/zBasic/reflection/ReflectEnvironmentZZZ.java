@@ -1,4 +1,4 @@
-package basic.zBasic;
+package basic.zBasic.reflection;
 
 public class ReflectEnvironmentZZZ {
 	public static final String sJAVA4 = "1.4";

@@ -2,7 +2,7 @@ package basic.zBasic.util.file;
 
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import junit.framework.TestCase;
 

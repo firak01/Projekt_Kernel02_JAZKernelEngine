@@ -6,9 +6,9 @@ import static java.lang.System.out;
 import java.util.EnumSet;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.persistence.jdbc.JdbcDatabaseMappedValueZZZ;
 import basic.zBasic.util.persistence.jdbc.JdbcDriverMappedValueZZZ;

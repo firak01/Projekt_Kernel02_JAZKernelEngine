@@ -2,7 +2,7 @@ package basic.zBasic.util.string.formater.testV02;
 
 import basic.zBasic.DummyTestObjectZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IReflectCodeZZZ;
+import basic.zBasic.reflection.IReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.string.formater.IEnumSetMappedStringFormatZZZ;
 import basic.zBasic.util.string.formater.IStringFormatZZZ;

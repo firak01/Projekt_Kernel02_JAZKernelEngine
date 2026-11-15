@@ -3,7 +3,7 @@ package debug.zBasic.util.console.thread.multi.menu01;
 import java.util.Scanner;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapZZZ;
 import basic.zBasic.util.console.thread.AbstractConsoleServiceZZZ;
 import basic.zBasic.util.console.thread.IConsoleControllerZZZ;

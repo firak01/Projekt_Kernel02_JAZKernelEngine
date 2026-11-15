@@ -7,7 +7,7 @@ import basic.zBasic.IVectorLimitedZZZ;
 import basic.zBasic.LogZZZ;
 import basic.zBasic.NullObjectZZZ;
 import basic.zBasic.ObjectUtilZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import custom.zKernel.Log;
 
 /** Zu beachten, problematisch:

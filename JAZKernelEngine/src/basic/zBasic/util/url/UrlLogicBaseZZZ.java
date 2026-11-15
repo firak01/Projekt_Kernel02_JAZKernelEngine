@@ -2,7 +2,7 @@ package basic.zBasic.util.url;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IUrlLogicZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.web.cgi.UrlLogicZZZ;
 

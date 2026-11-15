@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import basic.zBasic.AbstractObjectWithStatusLocalMonitoringZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedStatusLocalZZZ;
 import basic.zBasic.util.abstractEnum.IEnumSetMappedZZZ;
 import basic.zKernel.status.IEventObjectStatusLocalZZZ;

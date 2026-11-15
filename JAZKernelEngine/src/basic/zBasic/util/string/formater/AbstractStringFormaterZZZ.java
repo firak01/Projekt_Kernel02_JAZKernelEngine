@@ -14,8 +14,8 @@ import java.util.Map.Entry;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IReflectCodeZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.IReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.reflection.position.TagTypeFileNameZZZ;
 import basic.zBasic.reflection.position.TagTypeFilePositionZZZ;
 import basic.zBasic.reflection.position.TagTypeLineNumberZZZ;

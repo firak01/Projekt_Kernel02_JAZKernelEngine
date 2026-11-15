@@ -1,5 +1,7 @@
 package basic.zBasic;
 
+import basic.zBasic.reflection.ReflectCodeKernelZZZ;
+
 public class ReflectTHECodeKernelObject4TestingExternalSubZZZ extends AbstractObjectWithFlagZZZ {
 	//Konstruktor
 	public ReflectTHECodeKernelObject4TestingExternalSubZZZ() throws ExceptionZZZ{

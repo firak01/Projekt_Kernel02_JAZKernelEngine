@@ -25,8 +25,8 @@ import org.apache.commons.io.FileUtils;
 
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.ReflectWorkspaceZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectWorkspaceZZZ;
 import basic.zBasic.util.datatype.calling.ReferenceZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;

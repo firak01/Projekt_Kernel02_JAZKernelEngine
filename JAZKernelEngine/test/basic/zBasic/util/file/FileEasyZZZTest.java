@@ -8,7 +8,7 @@ import java.util.jar.JarFile;
 import junit.framework.TestCase;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.dateTime.DateTimeZZZ;
 import basic.zBasic.util.file.jar.JarEasyZZZ;
 import basic.zBasic.util.file.jar.JarEasyZZZTest;

@@ -2,6 +2,8 @@ package basic.zBasic;
 
 import java.util.HashMap;
 
+import basic.zBasic.reflection.ReflectCodeKernelZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public abstract class AbstractObjectReflectableZZZ <T> extends AbstractObjectWithExceptionZZZ implements IObjectReflectableZZZ{

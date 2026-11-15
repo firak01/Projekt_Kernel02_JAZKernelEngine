@@ -1,9 +1,11 @@
-package basic.zBasic;
+package basic.zBasic.reflection;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import base.reflection.ReflectionUtil;
+import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 /**Sammlung von bewährten Methoden. 

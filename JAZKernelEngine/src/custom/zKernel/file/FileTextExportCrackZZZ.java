@@ -9,7 +9,7 @@ package custom.zKernel.file;
 import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.file.KernelFileTextExportCrackZZZ;
 import custom.zKernel.KernelLogZZZ;

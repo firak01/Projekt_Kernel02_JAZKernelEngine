@@ -37,7 +37,7 @@ import basic.zBasic.IOutputDebugNormedZZZ;
 import basic.zBasic.NullObjectZZZ;
 import basic.zBasic.ObjectUtilZZZ;
 import basic.zBasic.ObjectZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class HashMapMultiIndexedZZZ<K,V> extends HashMapMultiZZZ<K,V> implements IHashMapMultiIndexedZZZ{

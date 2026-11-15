@@ -1,7 +1,7 @@
 package basic.zBasic.util.counter;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 
 public class CounterStrategyAlphabetMultipleZZZ extends AbstractCounterStrategyAlphabetZZZ{

@@ -3,7 +3,7 @@ package basic.zBasic.util.counter;
 import java.util.ArrayList;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.datatype.character.CharZZZ;
 import basic.zBasic.util.datatype.doublevalue.DoubleZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;

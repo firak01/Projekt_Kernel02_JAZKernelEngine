@@ -2,7 +2,7 @@ package basic.zBasic.util.system;
 
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
@@ -38,6 +38,25 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	//als private deklariert, damit man es nicht so instanzieren kann, sondern die Methode .getInstance() verwenden muss		
 	protected AbstractSystemZZZ() throws ExceptionZZZ{
 		super();
+	}
+	
+	
+	//### static Methoden 
+	public static IPrintLevelUserZZZ.PRINTLEVEL getPrintLevelEnum (String sEnumLogLevelName) throws ExceptionZZZ{
+		if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.VERBOSE.name())) {
+			return PRINTLEVEL.VERBOSE;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.DEBUG.name())) {
+			return PRINTLEVEL.DEBUG;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.INFO.name())) {
+			return PRINTLEVEL.INFO;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.WARNING.name())) {
+			return PRINTLEVEL.WARNING;
+		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.NONE.name())) {
+			return PRINTLEVEL.NONE;
+		}else {
+			ExceptionZZZ ez = new ExceptionZZZ("Printlevel wird noch nicht verwendet: '" + sEnumLogLevelName + "'");
+			throw ez;
+		}
 	}
 	
 	
@@ -276,20 +295,8 @@ public abstract class AbstractSystemZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	public void setPrintLevelOverall(String sEnumLogLevelName) throws ExceptionZZZ {
 		/* Workaround, damit von Jython aus hier etwas gesetzt werden kann.		 * 
 		 */	
-		if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.VERBOSE.name())) {
-			this.enumPrintLevelOverall = PRINTLEVEL.VERBOSE;
-		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.DEBUG.name())) {
-			this.enumPrintLevelOverall = PRINTLEVEL.DEBUG;
-		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.INFO.name())) {
-			this.enumPrintLevelOverall = PRINTLEVEL.INFO;
-		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.WARNING.name())) {
-			this.enumPrintLevelOverall = PRINTLEVEL.WARNING;
-		}else if(StringZZZ.equalsIgnoreCase(sEnumLogLevelName, PRINTLEVEL.NONE.name())) {
-			this.enumPrintLevelOverall = PRINTLEVEL.NONE;
-		}else {
-			ExceptionZZZ ez = new ExceptionZZZ("Printlevel wird noch nicht verwendet: '" + sEnumLogLevelName + "'");
-			throw ez;
-		}
+		PRINTLEVEL enumLogLevel = getPrintLevelEnum(sEnumLogLevelName);
+		this.setPrintLevelOverall(enumLogLevel);		
 	}
 	
 	@Override

@@ -8,8 +8,8 @@ import java.util.Vector;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
-import basic.zBasic.ReflectCodeKernelZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeKernelZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 
 public class HashMapIterableKeyZZZ<T,X>  extends AbstractObjectWithExceptionZZZ implements ICollectionConstantZZZ, Iterable<T>{
 	private HashMap<T,X> hmOriginal=null;

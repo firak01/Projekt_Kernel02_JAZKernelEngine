@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
-import basic.zBasic.ReflectClassZZZ;
-import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.ReflectInterfaceZZZ;
+import basic.zBasic.reflection.ReflectClassZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectInterfaceZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
 import basic.zBasic.util.abstractList.ArrayListUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;

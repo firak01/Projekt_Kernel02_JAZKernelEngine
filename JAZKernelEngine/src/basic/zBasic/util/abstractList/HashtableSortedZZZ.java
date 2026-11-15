@@ -9,7 +9,7 @@ import java.util.Vector;
 import basic.zBasic.AbstractObjectWithExceptionZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IObjectZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 
 /**Klasse dient dazu eine bestehende Hashtable zu verwenden, aber das Ergebnis ggf. sortiert zurückzubekommen.
  * Die Klasse erweitert nicht Hashtable, weil sonst alle MEthoden auf einen Schlag überschrieben werden müssten.

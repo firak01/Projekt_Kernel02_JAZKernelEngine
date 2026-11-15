@@ -1,4 +1,4 @@
-package basic.zBasic;
+package basic.zBasic.reflection;
 
 /** aus http://www.java2s.com/example/java-utility-method/package-convert-to/packagetosrcfilepath-string-packagename-a898b.html
  * @author Fritz Lindhauer, 22.06.2023, 19:32:24

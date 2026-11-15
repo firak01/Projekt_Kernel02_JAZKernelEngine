@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
-import basic.zBasic.IReflectCodeZZZ;
-import basic.zBasic.ReflectCodeZZZ;
+import basic.zBasic.reflection.IReflectCodeZZZ;
+import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.rule.GenericMatcherArray;
 import basic.zBasic.rule.IMatchRuleZZZ;
 import basic.zBasic.rule.ExampleMatchRuleZZZ;

@@ -7,12 +7,14 @@ import java.util.List;
 import basic.zBasic.AbstractObjectWithFlagZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.LogZZZ;
-import basic.zBasic.ReflectLaunchArgumentZZZ;
+import basic.zBasic.reflection.ReflectLaunchArgumentZZZ;
 import basic.zBasic.util.datatype.enums.EnumUtilZZZ;
 import basic.zBasic.util.datatype.string.StringArrayZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zBasic.util.system.AbstractSystemZZZ;
 import basic.zBasic.util.system.IPrintLevelUserZZZ;
 import basic.zBasic.util.system.SystemSingletonZZZ;
+import basic.zBasic.util.system.IPrintLevelUserZZZ.PRINTLEVEL;
 import basic.zKernel.AbstractKernelConfigZZZ;
 import basic.zKernel.GetOptZZZ;
 import basic.zKernel.IKernelConfigZZZ;
@@ -453,6 +455,15 @@ public abstract class AbstractConfigZZZ<T> extends AbstractObjectWithFlagZZZ<T> 
 	public void setPrintLevelOverall(PRINTLEVEL enumLogLevel) throws ExceptionZZZ{
 		this.enumPrintLevelOverall = enumLogLevel;
 	}
+	
+	@Override 
+	public void setPrintLevelOverall(String sEnumLogLevelName) throws ExceptionZZZ {
+		/* Workaround, damit von Jython aus hier etwas gesetzt werden kann.		 * 
+		 */	
+		PRINTLEVEL enumLogLevel = AbstractSystemZZZ.getPrintLevelEnum(sEnumLogLevelName);
+		this.setPrintLevelOverall(enumLogLevel);
+	}
+	
 	
 	@Override
 	public int getPrintLevelOverall() throws ExceptionZZZ{		
