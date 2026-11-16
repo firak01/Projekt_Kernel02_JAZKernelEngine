@@ -81,7 +81,7 @@
 	            </goals>
 	            <configuration>
 	                <outputFile>
-	                    ${project.build.directory}/classpathZZZ/classpathByMavenZZZ.txt
+	                    ${project.build.directory}/classpathZZZ/classpathOfLibrariesByMavenZZZ.txt
 	                </outputFile>
 	                <outputAbsoluteArtifactFilename>
 	                    true

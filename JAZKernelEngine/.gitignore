@@ -1,11 +1,23 @@
 /bin/
-/target/*
+/target/
+/target/classpathZZZ/*
 
-!/target/classpathZZZ/
+# Nur folgende Dateien sind darin erlaubt
 !/target/classpathZZZ/1readmeFGL.txt
+
+# Es soll diese Datei nicht ins Git, da die .jar Bibliotheken auf jedem Rechner woanders liegen können.
+# classpathOfLibrariesByMaven <-- siehe pom.xml dort sollte etwas sein, das diese Datei erstellt
+# Dann erstellt man die Datei pro Rechner so:
+#             Im Package Explorer: Rechtsclick auf das Projekt in Eclipse.
+#             "Run as..."   
+#             Maven Build.  In dem Dialog eingeben als goal: generate-resources 
+!/target/classpathZZZ/classpathOfLibrariesByMavenZZZ_example.txt
+
+# In einem Eclipse Workspace sollten die Projekte den gleichen Namen haben und an gleicher Stelle liegen, auch auf mehreren Rechnern.
 !/target/classpathZZZ/classpathOfLibrariesWorkspaceZZZ.txt
 !/target/classpathZZZ/classpathOfLibrariesWorkspaceZZZ_example.txt
-!/target/classpathZZZ/classpathOfLibrariesByMavenZZZ_example.txt
+
+# Es soll diese Datei nicht ins Git, da die .jar Bibliotheken auf jedem Rechner woanders liegen können.
 !/target/classpathZZZ/classpathOfLibrariesExternalZZZ_example.txt
 
 /ZKernelLog_default.txt
