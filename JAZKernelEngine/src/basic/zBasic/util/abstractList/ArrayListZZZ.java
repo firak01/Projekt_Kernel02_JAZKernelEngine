@@ -6,26 +6,13 @@
  */
 package basic.zBasic.util.abstractList;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
 
-import basic.javareflection.mopex.Mopex;
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.IConstantZZZ;
-import basic.zBasic.IObjectZZZ;
 import basic.zBasic.reflection.ReflectCodeZZZ;
 import basic.zBasic.rule.GenericMatcherArrayListZZZ;
 import basic.zBasic.rule.IMatchRuleZZZ;
 import basic.zBasic.util.abstractArray.ArrayUtilZZZ;
-import basic.zBasic.util.datatype.string.StringZZZ;
 
 
 /**

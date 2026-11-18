@@ -337,7 +337,7 @@ public abstract class AbstractArrayListZZZ<T> extends ArrayList<T> implements IC
 	public String computeDebugString() throws ExceptionZZZ {
 		String sReturn = new String("");
 		main:{		
-			String sEntryDelimiter = AbstractArrayListZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;			
+			String sEntryDelimiter = IArrayListExtendedZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;			
 			sReturn = AbstractArrayListZZZ.computeDebugString(this, sEntryDelimiter);
 		}//end main
 		return sReturn;
@@ -348,7 +348,7 @@ public abstract class AbstractArrayListZZZ<T> extends ArrayList<T> implements IC
 		main:{	
 			String sEntryDelimiter = null;
 			if(StringZZZ.isEmpty(sDebugEntryDelimiterIn)) {
-				sEntryDelimiter = AbstractArrayListZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;
+				sEntryDelimiter = IArrayListExtendedZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;
 			}else {
 				sEntryDelimiter = sDebugEntryDelimiterIn;
 			}					
@@ -369,7 +369,7 @@ public abstract class AbstractArrayListZZZ<T> extends ArrayList<T> implements IC
 			
 			String sEntryDelimiter;			
 			if(sEntryDelimiterIn==null){
-				sEntryDelimiter = AbstractArrayListZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;
+				sEntryDelimiter = IArrayListExtendedZZZ.sDEBUG_ENTRY_DELIMITER_DEFAULT;
 			}else {
 				sEntryDelimiter = sEntryDelimiterIn;
 			}
